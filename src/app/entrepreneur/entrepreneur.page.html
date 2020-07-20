@@ -1,0 +1,28 @@
+  <ion-header [translucent]="true">
+  	<ion-toolbar>
+  		<ion-title><img src="assets/images/logo.svg" class="logo ion-margin-end" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+  		<app-user-avatar slot="end"></app-user-avatar>
+  	</ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+  	<ion-grid class="projectList">
+  		<ion-row>
+  			<ion-col>
+  				<ion-card class="cardProject">
+  					<ion-card-content class="ion-text-center  cardProjectContent" (click)="startNewProject()">
+  						<ion-icon name="add-outline" color="primary" class="iconNewProject"></ion-icon>
+  						<h2>Ajouter un projet</h2>
+
+  					</ion-card-content>
+  					<ion-row class="cardfooter ion-padding-start">
+  						<ion-col>
+  							<ion-icon name="bulb-outline" color="primary" class="ion-margin-end"></ion-icon><span>Decouvrez un projet demo	 </span>
+  						</ion-col>
+  					</ion-row>
+  				</ion-card>
+  			</ion-col>
+  		</ion-row>
+  	</ion-grid>
+
+  </ion-content>

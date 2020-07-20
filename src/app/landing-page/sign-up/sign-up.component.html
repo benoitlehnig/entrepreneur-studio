@@ -1,0 +1,24 @@
+<ion-content class="ion-padding">
+	<h1>{{'SIGNUP.Title' | translate}}</h1>
+	<ion-list>
+		<ion-radio-group [value]="role">
+			<ion-list-header>
+				<ion-label>{{'SIGNUP.Role' | translate}}</ion-label>
+			</ion-list-header>
+
+			<ion-item>
+				<ion-label>{{'SIGNUP.Entrepreneur' | translate}}</ion-label>
+				<ion-radio slot="start" value="entrepreneur"></ion-radio>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>{{'SIGNUP.Incubator' | translate}}</ion-label>
+				<ion-radio slot="start" value="incubator"></ion-radio>
+			</ion-item>
+		</ion-radio-group>
+	</ion-list>
+	<ion-button color="primary" (click)="loginWithGoogle()">
+		<ion-icon slot="start"  name="logo-google"></ion-icon>
+		{{'SIGNUP.GoogleLogin' | translate}}
+	</ion-button>
+</ion-content>

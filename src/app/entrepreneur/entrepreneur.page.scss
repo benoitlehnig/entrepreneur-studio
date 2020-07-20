@@ -1,0 +1,42 @@
+.logo{
+	width:100px;
+	display: inline-block;
+	vertical-align:middle;
+}
+
+span:after {
+	clear:both;
+	content:"";
+	display:block;
+}
+
+.cardProject{
+	max-width: 300px;
+	height:200px;
+}
+.iconNewProject{
+	font-size: 3em;
+	margin-top:40px;
+}
+.projectList{
+	@media only screen and (min-width: 1240px){
+		width: 960px;
+	}
+	@media only screen and (max-width: 920px) and (min-width: 664px)
+	{
+		width: 640px;
+	}
+	margin-left:auto;
+	margin-right:auto;
+}
+.cardProjectContent{
+	height: 160px;
+}
+ .cardProjectContent:hover{
+   background: var(--ion-color-light);
+   cursor: pointer;
+  }   
+
+  .cardfooter{
+  	border-top:1px solid var(--ion-color-light);
+  }

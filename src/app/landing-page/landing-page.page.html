@@ -1,0 +1,56 @@
+<ion-header>
+	<ion-toolbar>
+
+		<ion-title><img src="assets/images/logo.svg" class="logo ion-margin-end" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+		<ion-buttons slot="secondary" class="secondary"  class="ion-hide-md-down">
+			<ion-button (click)="scrollTo('content1')">
+				{{'LANDINGPAGE.Title1' | translate}}
+			</ion-button>
+			<ion-button (click)="scrollTo('content3')" >
+				{{'LANDINGPAGE.Title3' | translate}}
+			</ion-button>
+		</ion-buttons>
+		<ion-buttons slot="primary">
+			<ion-button color="secondary" fill="solid" class="ion-hide-sm-down" (click)="presentSignUpPopover()">
+				{{'LANDINGPAGE.Register' | translate}}
+			</ion-button>
+			<ion-button color="primary" fill="solid"  (click)="presentLoginPopover()">
+				{{'LANDINGPAGE.Connection' | translate}}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="mainContent">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-text ><h1>{{'LANDINGPAGE.MainContent' | translate}}</h1></ion-text>
+					<ion-button size="large" expand="block" color="primary" class="startNowButton" >{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
+					<ion-text><p class="freeAccess">{{'LANDINGPAGE.FreeStart' | translate}}</p></ion-text>
+				</ion-col>
+				<ion-col class="screenCapture">
+					<img src="assets/images/screenCatpure.png">
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<div class="subContent" >
+		<h1 id="content1" class="subContentTitle">{{'LANDINGPAGE.Content1Text' | translate}}</h1>
+		
+		<ion-grid class="pictureAndText">
+			<ion-row>
+				<ion-col size="3">
+					<h2>{{'LANDINGPAGE.pictureAndText1Title' | translate}}</h2>
+					<ion-button color="primary" fill="solid"  [routerLink]="['/login']">
+						{{'LANDINGPAGE.KnowMoreButton' | translate}}
+					</ion-button>
+				</ion-col>
+				<ion-col size="9">
+					<img src="assets/images/journey.png">
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div> 			
+
+</ion-content>

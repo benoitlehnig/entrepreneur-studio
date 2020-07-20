@@ -9,18 +9,53 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import {TranslateModule,TranslateLoader,TranslatePipe} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { LOCALE_ID } from '@angular/core';
+
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService  } from '@angular/fire/analytics';
+
+registerLocaleData(localeFr);
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule
+  BrowserModule,
+  IonicModule.forRoot(),
+  HttpClientModule,
+  AppRoutingModule,
+  AngularFireModule.initializeApp(environment.firebaseConfig),
+  AngularFireMessagingModule,
+  AngularFireAnalyticsModule,
+  TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: HttpLoaderFactory,
+      deps: [HttpClient]
+    }
+  }),
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  StatusBar,
+  SplashScreen,
+  TranslatePipe,
+  { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  { provide: LOCALE_ID, useValue: "fr-FR" }
   ],
   bootstrap: [AppComponent]
 })

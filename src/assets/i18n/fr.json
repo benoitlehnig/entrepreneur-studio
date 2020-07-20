@@ -1,0 +1,31 @@
+{
+	"LANDINGPAGE":{
+		"Title": "Entrepreneur Studio",
+		"Title1": "Avantages",
+		"Title2": "Particulier",
+		"Title3": "Tarifs",
+		"Register": "Inscription",
+		"Connection": "Connection",
+		"MainContent": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
+		"StartNow": "Commencez maintenant",
+		"FreeStart": "Accès gratuit et sans engagement",
+		"Content1Title": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
+		"Content1Text": "Entrepreneur Studio permet de créer et booster votre activité. Validation d’idée, business plan, marketing, communication, développement, investissement… Tous les outils et ressources pour lancer votre projet étape par étape.",
+		"pictureAndText1Title": "Créer, valider et faire grandir votre projet étape par étape",
+		"KnowMoreButton": "En savoir plus"
+	},
+	"SIGNUP":{
+		"Title": "Creer un compte",
+		"GoogleLogin": "se connecter avec google",
+		"Role": "Je veux rejoindre Entrepreneur-Studio en tant que : ",
+		"Entrepreneur": "Entrepreneur",
+		"Incubator": "Incubateur"
+	},
+	"LOGIN":{
+		"Title": "Se connecter",
+		"GoogleLogin": "se connecter avec google"	
+	},
+	"COMMON":{
+		"Logout": "Logout" 
+	}
+}
