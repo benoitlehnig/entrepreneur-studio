@@ -230,3 +230,16 @@
 .registerPopover{
   --min-width:400px;
 }
+.headerTitle{
+  .logo{
+    width:100px;
+    display: inline-block;
+    vertical-align:middle;
+  }
+
+  span:after {
+    clear:both;
+    content:"";
+    display:block;
+  }
+}

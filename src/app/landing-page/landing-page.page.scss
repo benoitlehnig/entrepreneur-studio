@@ -77,3 +77,16 @@ span:after {
 	margin-left:auto;
 	margin-right:auto;
 }
+
+.iconsRow{
+	width: 57%;
+	@media(max-width: 768px) {
+		width: 100%;
+	}
+	text-align: center;
+	ion-icon{
+		font-size:3em;
+		color: var(--ion-color-primary);
+		margin-bottom:0.5em;
+	}
+}

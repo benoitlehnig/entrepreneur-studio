@@ -1,14 +1,3 @@
-.logo{
-	width:100px;
-	display: inline-block;
-	vertical-align:middle;
-}
-
-span:after {
-	clear:both;
-	content:"";
-	display:block;
-}
 
 .cardProject{
 	max-width: 300px;
@@ -32,11 +21,11 @@ span:after {
 .cardProjectContent{
 	height: 160px;
 }
- .cardProjectContent:hover{
-   background: var(--ion-color-light);
-   cursor: pointer;
-  }   
+.cardProjectContent:hover{
+	background: var(--ion-color-light);
+	cursor: pointer;
+}   
 
-  .cardfooter{
-  	border-top:1px solid var(--ion-color-light);
-  }
+.cardfooter{
+	border-top:1px solid var(--ion-color-light);
+}

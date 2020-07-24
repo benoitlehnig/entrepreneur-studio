@@ -1,0 +1,33 @@
+  <ion-header [translucent]="true">
+  	<ion-toolbar>
+  		<ion-title  class="headerTitle">
+  			<img src="assets/images/logo.svg" class="logo ion-margin-end"  [routerLink]="['/entrepreneur']">
+  			<span  [routerLink]="['/entrepreneur']">{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+  			<app-user-avatar slot="end"></app-user-avatar>
+  		</ion-toolbar>
+  	</ion-header>
+  	<ion-content>
+
+
+  		<ion-content>
+
+  			<ion-split-pane contentId="project-content">
+  				<ion-menu contentId="project-content" type="push" >
+  					<ion-content>
+  						<div><h2>{{project.name}}</h2></div>
+
+  						<ion-list >
+
+  							<ion-menu-toggle auto-hide="false"  *ngFor="let p of pages; let i = index" >
+  								<ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+  									<ion-icon color="primary" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+  									<ion-label> {{p.title}}</ion-label>
+  								</ion-item>
+
+  							</ion-menu-toggle>
+  						</ion-list>
+  					</ion-content>
+  				</ion-menu>
+  				<ion-router-outlet id="project-content"></ion-router-outlet>
+  			</ion-split-pane>
+  		</ion-content>

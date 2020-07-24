@@ -12,7 +12,17 @@
 		"Content1Title": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
 		"Content1Text": "Entrepreneur Studio permet de créer et booster votre activité. Validation d’idée, business plan, marketing, communication, développement, investissement… Tous les outils et ressources pour lancer votre projet étape par étape.",
 		"pictureAndText1Title": "Créer, valider et faire grandir votre projet étape par étape",
-		"KnowMoreButton": "En savoir plus"
+		"KnowMoreButton": "En savoir plus",
+		"Icon1Title": "Protégé",
+		"Icon1Text": "Controle et sécurité d'accès à votre projet",
+		"Icon2Title": "Accessible",
+		"Icon2Text": "Stockage dans le cloud et mode hors-ligne",
+		"Icon3Title": "Collaboratif",
+		"Icon3Text": "Partage possible avec vos associés et partenaires",
+		"Icon4Title": "Connecté ",
+		"Icon4Text": "Sur ordinateur ou télephone",
+		"Icon5Title": "Pratique ",
+		"Icon5Text": "Des resources et outils integrés"
 	},
 	"SIGNUP":{
 		"Title": "Creer un compte",

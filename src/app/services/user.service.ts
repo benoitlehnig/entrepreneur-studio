@@ -9,7 +9,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 export class UserService {
 
 	constructor(
-		private afs: AngularFirestore) 
+		private afs: AngularFirestore
+		) 
 	{ }
 
 

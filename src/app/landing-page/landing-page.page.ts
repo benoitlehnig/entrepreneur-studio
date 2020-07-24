@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 
+
 @Component({
 	selector: 'app-landing-page',
 	templateUrl: './landing-page.page.html',
@@ -11,9 +12,12 @@ import { LoginComponent } from './login/login.component';
 export class LandingPagePage implements OnInit {
 
 	constructor(
-		public popoverController:PopoverController) { }
+		public popoverController:PopoverController,
+		
+		) { }
 
 	ngOnInit() {
+	
 	}
 
 	getContent() {

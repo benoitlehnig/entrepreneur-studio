@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'incubator',
     loadChildren: () => import('./incubator/incubator.module').then( m => m.IncubatorPageModule)
+  },
+  {
+    path: 'project/:id',
+    loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule)
   }
 ];
 
