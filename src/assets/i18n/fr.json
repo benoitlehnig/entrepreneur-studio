@@ -32,10 +32,50 @@
 		"Incubator": "Incubateur"
 	},
 	"LOGIN":{
-		"Title": "Se connecter",
+		"Title": "Vous avez déjà un compte ?",
 		"GoogleLogin": "se connecter avec google"	
 	},
 	"COMMON":{
 		"Logout": "Logout" 
+	},
+	"PROJECT_SUMMARY": {
+		"ProjectTitle": "Votre project",
+		"ProjectName": "Nom",
+		"ProjectLogoUrl": "Logo",
+		"ProjectElevatorPitch": "Elevator Pitch",
+		"ProjectWebsiteUrl": "Site web",
+		"ProjectUpdate": "Modifier ",
+		"ProjectSave": "Sauvegarder",
+		"BusinessCanvasTitle": "Business Canvas",
+		"BusinessCanvasProblem": "Probleme",
+		"BusinessCanvasProblemPlaceholder": "Quel est le problème que votre entreprise résout ? ",
+		"BusinessCanvasProblemTitle": "Le problème",
+		"BusinessCanvasProblemSubTitle": "Votre point de départ",
+		"BusinessCanvasProblemGuidance": "Il s'agit là du point d'entrée de votre analyse. Vous devez identifier clairement 'quel est le problème du client que vous ciblez', Qu'est ce que cela lui coûte en termes d'argent, temps, effort, etc. ?' 'Quels sont ses caractéristiques, ses comportements, ses habitudes ?' Bref, il s’agit d'une véritable étude à mener .",
+		"BusinessCanvasExistingAlternatives": "Alternatives existantes",
+		"BusinessCanvasExistingAlternativesTitle": "Alternatives existantes",
+		"BusinessCanvasExistingAlternativesSubTitle": "Alternatives existantes",
+		"BusinessCanvasExistingAlternativesGuidance": "Alternatives existantes",
+		"ExistingAlternativesPlaceholder": "Existe-t-il des solutions sur le marché ?",
+		"BusinessCanvasSolution": "Solution",
+		"SolutionPlaceholder": "Quelle est la solution que vous allez mettre en oeuvre ? ",
+		"BusinessCanvasKeyMetrics": "Metriques ",
+		"BusinessCanvasKeyMetricsPlaceholder": "Quelles sont les metriques que vous allez surveiller ? ",
+		"BusinessCanvasUniqueValueProposition": "Proposition de valeur unique ",
+		"BusinessCanvasUniqueValuePropositionPlaceholder": "blablablabla ",
+		"BusinessCanvasUnfairAdvantage": "Avantage sur la compétition",
+		"BusinessCanvasUnfairAdvantagePlaceholder": "Avantage sur la compétition placeholder",
+		"BusinessCanvasChannels": "Channels",
+		"BusinessCanvasChannelsPlaceholder": "Channels placeholder",
+		"BusinessCanvasCustomerSegmentation": "Segmentation cliente",
+		"BusinessCanvasCustomerSegmentationPlaceholder": "Segmentation cliente placeholder",
+		"BusinessCanvasEarlyAdopters": "Adopteurs précoces",
+		"BusinessCanvasEarlyAdoptersPlaceholder": "Adopteurs précoces placeholder",
+		"BusinessCanvasCostStructure": "Structure des couts",
+		"BusinessCanvasCostStructurePlaceholder": "Structure des couts placeholder",
+		"BusinessCanvasRevenueStreams": "Source de revenus",
+		"BusinessCanvasRevenueStreamsPlaceholder": "Source de revenus placeholder",
+		"FillIt": "A remplir !"
+
 	}
 }

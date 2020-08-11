@@ -1,4 +1,45 @@
+<ion-header [translucent]="true" class="ion-hide-md-up">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button auto-hide="false" >
+			</ion-menu-button>
+		</ion-buttons>
+		<ion-title  class="headerTitle">Executive</ion-title>
+	</ion-toolbar>
+</ion-header>  		
 
 <ion-content>
-blablab
+	<ion-tabs>
+		<ion-tab-bar slot="top">
+			<ion-tab-button tab="summary" selected>
+				<ion-icon name="home-outline"></ion-icon>
+				<ion-label>Summary</ion-label>
+			</ion-tab-button>
+
+			<ion-tab-button tab="achievemennts">
+				<ion-icon name="medal-outline"></ion-icon>
+				<ion-label>Achievemennts</ion-label>
+				<ion-badge>6</ion-badge>
+
+			</ion-tab-button>
+
+			<ion-tab-button tab="metrics">
+				<ion-icon name="pulse-outline"></ion-icon>	
+				<ion-label>Metrics</ion-label>
+			</ion-tab-button>
+
+			<ion-tab-button tab="todo">
+				<ion-icon name="list-outline"></ion-icon>	
+				<ion-label>Todo</ion-label>
+			</ion-tab-button>
+			<ion-tab-button tab="evolution">
+				<ion-icon name="analytics-outline"></ion-icon>
+				<ion-label>Evolution</ion-label>
+			</ion-tab-button>
+			<ion-tab-button tab="team">
+				<ion-icon name="people-circle-outline"></ion-icon>
+				<ion-label>Team</ion-label>
+			</ion-tab-button>
+		</ion-tab-bar>
+	</ion-tabs>
 </ion-content>

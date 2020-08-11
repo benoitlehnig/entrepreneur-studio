@@ -1,0 +1,155 @@
+<ion-content>
+
+	<ion-item lines="none">
+		<h2>{{project.summary.name}}</h2>
+	</ion-item>
+	
+	<ion-card>
+		<ion-card-content>
+			<ion-list>
+				<ion-item lines="none">
+					<ion-text class="colLabel ion-margin-end">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}</ion-text>
+					<ion-text class="ion-text-justify">{{project.summary.elevatorPitch}}</ion-text>
+				</ion-item>
+				<ion-item lines="none">
+					<ion-text class="colLabel ion-margin-end ">{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}</ion-text>
+					<ion-text>{{project.summary.websiteUrl}}</ion-text>
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+
+	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }}</h2>
+	<ion-card>
+		<ion-card-content>
+			<ion-grid>
+				<ion-row>
+					<ion-col>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('problem')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.problem!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasProblem' | translate }}</h1> 
+							<p class="ion-text-justify" *ngIf="project.businessCanvas.problem!==''">{{project.businessCanvas.problem}}</p>
+							<div  *ngIf="project.businessCanvas.problem ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasProblemPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('existingAlternatives')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.existingAlternatives!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternatives' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.existingAlternatives!==''">{{project.businessCanvas.existingAlternatives}}</p>
+							<div *ngIf="project.businessCanvas.existingAlternatives ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.ExistingAlternativesPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+					</ion-col>
+					<ion-col class="nomargin" >
+						<ion-row>
+							<ion-col>
+								<div class="cell cellClickable ion-padding smallerCell ion-margin-bottom" (click)="openPopover('solution')" >
+									<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.solution!==''" class="stepDone ion-float-right"></ion-icon>
+									<h1>{{'PROJECT_SUMMARY.BusinessCanvasSolution' | translate }}</h1>
+									<p  class="ion-text-justify" *ngIf="project.businessCanvas.solution!==''">{{project.businessCanvas.solution}}</p>
+									<div *ngIf="project.businessCanvas.solution ===''" class="fullWidth">
+										<p>{{'PROJECT_SUMMARY.SolutionPlaceholder' | translate }}</p>
+										<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+									</div>
+								</div>
+								<div class="cell cellClickable ion-padding smallerCell" (click)="openPopover('keyMetrics')" >
+									<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.keyMetrics!==''" class="stepDone ion-float-right"></ion-icon>
+									<h1>{{'PROJECT_SUMMARY.BusinessCanvasKeyMetrics' | translate }}</h1>
+									<p  class="ion-text-justify" *ngIf="project.businessCanvas.keyMetrics!==''">{{project.businessCanvas.keyMetrics}}</p>
+									<div *ngIf="project.businessCanvas.keyMetrics ===''" class="fullWidth">
+										<p>{{'PROJECT_SUMMARY.BusinessCanvasKeyMetricsPlaceholder' | translate }}</p>
+										<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+									</div>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-col>
+					<ion-col>
+						<div class="cell cellClickable ion-padding highCell" (click)="openPopover('usp')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.usp!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasUniqueValueProposition' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.usp!==''">{{project.businessCanvas.usp}}</p>
+							<div *ngIf="project.businessCanvas.usp ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasUniqueValuePropositionPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+					</ion-col>
+					<ion-col class="nomargin">
+						<ion-row>
+							<ion-col>
+								<div class="cell cellClickable ion-padding smallerCell ion-margin-bottom" (click)="openPopover('unfairAdvantage')" >
+									<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.unfairAdvantage!==''" class="stepDone ion-float-right"></ion-icon>
+									<h1>{{'PROJECT_SUMMARY.BusinessCanvasUnfairAdvantage' | translate }}</h1>
+									<p  class="ion-text-justify" *ngIf="project.businessCanvas.unfairAdvantage!==''">{{project.businessCanvas.keyMetrics}}</p>
+									<div *ngIf="project.businessCanvas.unfairAdvantage ===''" class="fullWidth">
+										<p>{{'PROJECT_SUMMARY.BusinessCanvasUnfairAdvantagePlaceholder' | translate }}</p>
+										<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+									</div>
+								</div>
+
+								<div class="cell cellClickable ion-padding smallerCell" (click)="openPopover('channels')" >
+									<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.channels!==''" class="stepDone ion-float-right"></ion-icon>
+									<h1>{{'PROJECT_SUMMARY.BusinessCanvasChannels' | translate }}</h1>
+									<p  class="ion-text-justify" *ngIf="project.businessCanvas.channels!==''">{{project.businessCanvas.channels}}</p>
+									<div *ngIf="project.businessCanvas.channels ===''" class="fullWidth">
+										<p>{{'PROJECT_SUMMARY.BusinessCanvasChannelsPlaceholder' | translate }}</p>
+										<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+									</div>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-col>
+					<ion-col>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('customerSegmentation')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.customerSegmentation!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasCustomerSegmentation' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.customerSegmentation!==''">{{project.businessCanvas.customerSegmentation}}</p>
+							<div *ngIf="project.businessCanvas.customerSegmentation ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasCustomerSegmentationPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('earlyAdopters')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.earlyAdopters!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasEarlyAdopters' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.earlyAdopters!==''">{{project.businessCanvas.earlyAdopters}}</p>
+							<div *ngIf="project.businessCanvas.earlyAdopters ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasEarlyAdoptersPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('costStructure')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.costStructure!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasCostStructure' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.costStructure!==''">{{project.businessCanvas.costStructure}}</p>
+							<div *ngIf="project.businessCanvas.costStructure ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasCostStructurePlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+					</ion-col>
+					<ion-col>
+						<div class="cell cellClickable ion-padding" (click)="openPopover('revenueStreams')" >
+							<ion-icon name="checkmark-outline"  *ngIf="project.businessCanvas.revenueStreams!==''" class="stepDone ion-float-right"></ion-icon>
+							<h1>{{'PROJECT_SUMMARY.BusinessCanvasRevenueStreams' | translate }}</h1>
+							<p  class="ion-text-justify" *ngIf="project.businessCanvas.revenueStreams!==''">{{project.businessCanvas.revenueStreams}}</p>
+							<div *ngIf="project.businessCanvas.revenueStreams ===''" class="fullWidth">
+								<p>{{'PROJECT_SUMMARY.BusinessCanvasRevenueStreamsPlaceholder' | translate }}</p>
+								<ion-button fill="outline" class="ion-margin fillItButton">{{'PROJECT_SUMMARY.FillIt' | translate }}</ion-button>
+							</div>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

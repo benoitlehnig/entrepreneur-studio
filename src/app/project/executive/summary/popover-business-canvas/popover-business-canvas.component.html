@@ -1,0 +1,73 @@
+	<div class="topPart" *ngIf="type ==='problem' " >
+		<img  src="https://cdn.pixabay.com/photo/2014/11/02/09/15/despair-513529_960_720.jpg" />
+		<div class="overlay ion-padding">
+			<h1><ion-text>{{'PROJECT_SUMMARY.BusinessCanvasProblemTitle' | translate }}</ion-text></h1>
+			<h2><ion-text  >{{'PROJECT_SUMMARY.BusinessCanvasProblemSubTitle' | translate }}</ion-text></h2>
+			<div  class="explanations" >
+				<p  >{{'PROJECT_SUMMARY.BusinessCanvasProblemGuidance' | translate }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="topPart" *ngIf="type ==='existingAlternatives' " >
+		<img  src="https://cdn.pixabay.com/photo/2017/08/29/09/26/choice-2692575_960_720.jpg" />
+		<div class="overlay ion-padding">
+			<h1><ion-text>{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesTitle' | translate }}</ion-text></h1>
+			<h2><ion-text  >{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesSubTitle' | translate }}</ion-text></h2>
+			<div  class="explanations" >
+				<p >{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesGuidance' | translate }}</p>
+			</div>
+		</div>
+	</div>
+
+	<ion-content class="ion-padding">
+		<ion-item *ngIf="type ==='problem' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasProblem' | translate }}</ion-label>
+			<ion-textarea name="problem" [(ngModel)]="project.businessCanvas.problem" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='existingAlternatives' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternatives' | translate }}</ion-label>
+			<ion-textarea name="existingAlternatives"[(ngModel)]="project.businessCanvas.existingAlternatives" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='solution' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasSolution' | translate }}</ion-label>
+			<ion-textarea name="existingAlternatives"[(ngModel)]="project.businessCanvas.solution" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='keyMetrics' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasKeyMetrics' | translate }}</ion-label>
+			<ion-textarea name="keyMetrics" [(ngModel)]="project.businessCanvas.keyMetrics" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='usp' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasUniqueValueProposition' | translate }}</ion-label>
+			<ion-textarea name="usp" [(ngModel)]="project.businessCanvas.usp" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='unfairAdvantage' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasUnfairAdvantage' | translate }}</ion-label>
+			<ion-textarea name="unfairAdvantage" [(ngModel)]="project.businessCanvas.unfairAdvantage" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='channels' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasChannels' | translate }}</ion-label>
+			<ion-textarea name="channels" [(ngModel)]="project.businessCanvas.channels" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='customerSegmentation' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasCustomerSegmentation' | translate }}</ion-label>
+			<ion-textarea name="customerSegmentation" [(ngModel)]="project.businessCanvas.customerSegmentation" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='earlyAdopters' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasEarlyAdopters' | translate }}</ion-label>
+			<ion-textarea name="earlyAdopters" [(ngModel)]="project.businessCanvas.earlyAdopters" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='costStructure' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasCostStructure' | translate }}</ion-label>
+			<ion-textarea name="costStructure" [(ngModel)]="project.businessCanvas.costStructure" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item *ngIf="type ==='costStructure' " >
+			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasRevenueStreams' | translate }}</ion-label>
+			<ion-textarea name="revenueStreams" [(ngModel)]="project.businessCanvas.revenueStreams" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+
+		<ion-button color="primary" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
+
+
+
+
+	</ion-content>

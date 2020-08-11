@@ -1,24 +1,40 @@
-<ion-content class="ion-padding">
-	<h1>{{'SIGNUP.Title' | translate}}</h1>
-	<ion-list>
-		<ion-radio-group [value]="role">
-			<ion-list-header>
-				<ion-label>{{'SIGNUP.Role' | translate}}</ion-label>
-			</ion-list-header>
-
-			<ion-item>
-				<ion-label>{{'SIGNUP.Entrepreneur' | translate}}</ion-label>
-				<ion-radio slot="start" value="entrepreneur"></ion-radio>
-			</ion-item>
-
-			<ion-item>
-				<ion-label>{{'SIGNUP.Incubator' | translate}}</ion-label>
-				<ion-radio slot="start" value="incubator"></ion-radio>
-			</ion-item>
-		</ion-radio-group>
-	</ion-list>
-	<ion-button color="primary" (click)="loginWithGoogle()">
-		<ion-icon slot="start"  name="logo-google"></ion-icon>
-		{{'SIGNUP.GoogleLogin' | translate}}
-	</ion-button>
+<ion-content>
+	
+	<ion-grid>
+		<ion-row>
+			<ion-col class="leftColumn ion-padding ion-text-center">
+				<h1>{{'LOGIN.Title' | translate}}</h1>
+				<h2>Connectez-vous</h2>
+				<div class="ion-text-center">
+					<ion-text>Vous etes</ion-text>
+					<ion-grid>
+						<ion-row>
+							<ion-col>
+								<ion-text color="primary"  [ngClass]="{'bold': incubator === false}" (click)="incubator=false">entrepreneur</ion-text>
+							</ion-col>
+							<ion-col>
+								<ion-toggle [(ngModel)]="incubator"  [ngClass]="{'incubatorToggle': incubator === true, 'entrepreneurToggle': incubator === false}"></ion-toggle>
+							</ion-col>
+							<ion-col>
+								<ion-text color="secondary"  [ngClass]="{'bold': incubator === true}" (click)="incubator=true">incubateur</ion-text>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+					
+				</div>
+				<ion-button color="primary" (click)="loginWithGoogle()">
+					<ion-icon slot="start"  name="logo-google"></ion-icon>
+					{{'LOGIN.GoogleLogin' | translate}}
+				</ion-button>
+			</ion-col>
+			<ion-col class="rightColumn ion-text-center ion-padding" [ngClass]="{'incubator': incubator === true, 'entrepreneur': incubator === false}" >
+				<h1>{{'SIGNUP.Title' | translate}}</h1>
+				<ion-button color="primary" (click)="loginWithGoogle()">
+					<ion-icon slot="start"  name="logo-google"></ion-icon>
+					{{'SIGNUP.GoogleLogin' | translate}}
+				</ion-button>
+			</ion-col>		
+		</ion-row>
+	</ion-grid>
+	
 </ion-content>

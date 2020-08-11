@@ -28,7 +28,9 @@
 
           <ion-card class="cardProject" >
             <ion-card-content class="ion-text-center  cardProjectContent" [routerLink]="['/project/'+project.id]">
-              <h2>{{project.name}}</h2>
+              <img [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class="ion-margin-end" />
+              <ion-icon name="cube-outline" *ngIf="project.summary.logoUrl ===''"  class="ion-margin-end defaultLogo" ></ion-icon>
+              <h2>{{project.summary.name}}</h2>
 
             </ion-card-content>
             <ion-row class="cardfooter ion-padding-start">

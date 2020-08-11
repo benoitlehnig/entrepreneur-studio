@@ -12,6 +12,7 @@ import {User} from '../../models/user';
 export class SignUpComponent implements OnInit {
 
 	public role:string="entrepreneur";
+	public incubator:boolean=false;
 
 	constructor(
 		public authService: AuthService,
@@ -29,14 +30,15 @@ export class SignUpComponent implements OnInit {
 			console.log("loginWithGoogle",data);
 			if(data.user){
 				const callable = this.functions.httpsCallable('createUser');
+				if(this.incubator ===true){
+						this.role ="incubator";
+				}
+				else{
+					this.role ="entrepreneur";
+				}
 				const obs = callable({uid:data.user.uid, role:this.role});
 				obs.subscribe(res => {
-					if(this.role ==='entrepreneur'){
-						this.router.navigate(['/folder/Inbox']); 
-					}
-					if(this.role==='incubator'){
-						this.router.navigate(['/folder/Inbox']); 
-					}
+					this.router.navigate(['/folder/Inbox']); 
 				});
 			}
 		});

@@ -1,0 +1,22 @@
+<ion-content class="ion-padding">
+	<h2>{{'PROJECT_SUMMARY.ProjectUpdate' | translate }} {{project.summary.name}}</h2>
+	<ion-list>
+		<ion-item position="floating">
+			<ion-label class="colLabel">{{'PROJECT_SUMMARY.ProjectName' | translate }}</ion-label>
+			<ion-input name="name" type="text" [(ngModel)]="project.summary.name"  required></ion-input>
+		</ion-item>
+		<ion-item position="floating">
+			<ion-label class="colLabel">{{'PROJECT_SUMMARY.ProjectLogoUrl' | translate }}</ion-label>
+			<ion-input name="logoUrl" type="text" [(ngModel)]="project.summary.logoUrl"></ion-input>
+		</ion-item>
+		<ion-item position="floating">
+			<ion-label class="colLabel">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}</ion-label>
+			<ion-textarea  name="elevatorPitch" [(ngModel)]="project.summary.elevatorPitch" placeholder="Enter more information here..."></ion-textarea>
+		</ion-item>
+		<ion-item position="floating">
+			<ion-label class="colLabel">{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}</ion-label>
+			<ion-input  name="websiteUrl" type="text" [(ngModel)]="project.summary.websiteUrl" ></ion-input>
+		</ion-item>
+	</ion-list>
+	<ion-button color="primary" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
+</ion-content>

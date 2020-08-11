@@ -1,0 +1,24 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
+
+import { IonicModule } from '@ionic/angular';
+
+import { SummaryPageRoutingModule } from './summary-routing.module';
+import { PopoverProjectSummaryComponent } from './popover-project-summary/popover-project-summary.component';
+import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popover-business-canvas.component';
+
+import { SummaryPage } from './summary.page';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    TranslateModule,
+    SummaryPageRoutingModule
+  ],
+  declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent]
+})
+export class SummaryPageModule {}

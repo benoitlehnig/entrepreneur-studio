@@ -4,10 +4,29 @@ import { Routes, RouterModule } from '@angular/router';
 import { ExecutivePage } from './executive.page';
 
 const routes: Routes = [
+{
+  path: 'executive',
+  component: ExecutivePage,
+  children: [
   {
-    path: '',
-    component: ExecutivePage
-  }
+    path: 'summary',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./summary/summary.module').then( m => m.SummaryPageModule)
+    }
+    ]
+  },
+  ]
+},
+{
+  path: '',
+  redirectTo: 'executive/summary',
+  pathMatch: 'full',
+},{
+  path: 'summary',
+  loadChildren: () => import('./summary/summary.module').then( m => m.SummaryPageModule)
+}
 ];
 
 @NgModule({

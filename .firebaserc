@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "entrepeneur-studio"
+  },
+  "targets": {
+    "entrepeneur-studio": {
+      "hosting": {
+        "entrepreneur-studio": [
+          "entrepreneur-studio"
+        ]
+      }
+    }
   }
 }

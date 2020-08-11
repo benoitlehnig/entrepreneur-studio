@@ -29,4 +29,8 @@ export class ProjectService {
 		return this.afs.doc<Project>('projects/' +id).valueChanges()
 		
 	}
+
+	saveProject(id:string,project:Project){
+		return this.projectRef.doc(id).set(JSON.parse( JSON.stringify(project)));
+	}
 }
