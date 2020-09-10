@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {AuthService} from './services/auth.service';
 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -25,9 +26,11 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     public translate: TranslateService,
     private afAuth: AngularFireAuth,
-    private authService: AuthService
+    private authService: AuthService,
+    private _router: Router
 
     ) {
+     this._router.events.subscribe(evt=>{console.log(evt)})
     this.initializeApp();
   }
 

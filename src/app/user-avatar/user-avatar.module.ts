@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
   imports: [
     CommonModule,
     TranslateModule,
-    IonicModule
+    IonicModule,
+    RouterModule
 
   ],
   exports:[UserAvatarComponent,PopoverComponent,TranslatePipe]

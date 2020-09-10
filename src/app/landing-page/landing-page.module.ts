@@ -11,6 +11,7 @@ import { LandingPagePage } from './landing-page.page';
 
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { PartnersComponent } from './partners/partners.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { LoginComponent } from './login/login.component';
     TranslateModule,
     LandingPagePageRoutingModule
   ],
-  declarations: [LandingPagePage,SignUpComponent,LoginComponent],
+  declarations: [LandingPagePage,SignUpComponent,LoginComponent,PartnersComponent],
   exports:[TranslatePipe]
 })
 export class LandingPagePageModule {}

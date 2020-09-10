@@ -31,6 +31,14 @@ export class ProjectService {
 	}
 
 	saveProject(id:string,project:Project){
+		console.log("saveProject", id, project)
 		return this.projectRef.doc(id).set(JSON.parse( JSON.stringify(project)));
 	}
+	addElement(id:string,elementType:string,elementData){
+		console.log("addElement", id, elementType,elementData)
+		return this.afs.collection('projects').doc(id+'/businessCanvas').collection('problem').add({ name: 'item', price: 10 }).then(
+			value=> {return value.id})
+
+	}
+
 }

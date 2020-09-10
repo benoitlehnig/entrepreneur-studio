@@ -3,23 +3,19 @@
 	min-width: 110px;
 }
 .cell{
-	height:200px;
+	min-height:248px;
 	background-color: var(--ion-color-light)
 }
 .cellClickable{
 	cursor:pointer;
 }
-.cellClickable:hover{
-	cursor:pointer;
-	background-color: var(--ion-color-light-shade);
-	color: var(--ion-color-light-contrast);
-}
+
 .highCell{
-	height:400px;
-	background:#efefef;
+	height:497px;
+	background-color: var(--ion-color-light)
 }
 .smallerCell{
-	height:192px;
+	min-height:240px;
 }
 .logo{
 	max-height: 30px;
@@ -40,4 +36,34 @@
 .nomargin{
 	margin-top:0px!important;
 	padding-top: 0px;
+}
+.inlineField:hover{
+	cursor:pointer;
+	background-color: var(--ion-color-light-shade);
+	color: var(--ion-color-light-contrast);
+	width:100%
+}
+
+.input{
+	--background: var(--ion-color-light);
+	--border-radius	: 5px;
+	width: 100%;
+	--inner-border-width:0px!important;
+	--border-width:0px!important;
+
+}
+.toFill{
+	border:1px solid var(--ion-color-primary);
+	color: var(--ion-color-primary);
+	background: none;
+}
+.item{
+	width: 100%;
+	text-align: left;
+	font-weight: normal;
+	.editIcon{
+		position: absolute;
+		right: 0px;
+		margin-right: 4px;
+	}
 }

@@ -1,1 +1,2 @@
-<img [src]="photoURL" class="avatar ion-margin-end" (click)="presentPopover($event)">
+<img *ngIf="photoURL !==null" [src]="photoURL" class="avatar ion-margin-end" (click)="presentPopover($event)">
+<ion-icon name="person-circle-outline" *ngIf="photoURL === null " class="ion-margin-end defaultAvatar" (click)="presentPopover($event)"></ion-icon> 

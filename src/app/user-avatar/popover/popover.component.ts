@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { NavParams} from '@ionic/angular';
 
 @Component({
 	selector: 'app-popover',
@@ -10,13 +12,29 @@ export class PopoverComponent implements OnInit {
 
 
 	constructor(
-		public authService:AuthService
+		public authService:AuthService,
+		public router:Router,
+		public navParams:NavParams,
+
 		) { }
 
+	@Input("homeref") value;
+	
+	
 	ngOnInit() {}
 
 	logout(){
 		this.authService.logout()
+	}
+	showProjects(){
+		this.router.navigate(['/entrepreneur']);
+		this.navParams.get('homeref').dismissPopover();
+
+		
+	}
+	navigateToProfile(){
+		this.router.navigate(['/profile']);
+		this.navParams.get('homeref').dismissPopover();
 	}
 
 }

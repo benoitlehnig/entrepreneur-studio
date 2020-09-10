@@ -1,7 +1,13 @@
-.leftColumn{
-	min-width:300px;
+.leftSide{
+	min-width:15px;
+	background:var(--ion-color-primary);
+	color : var(--ion-color-primary-contrast);
 }
-
+.logo{
+	max-width: 	250px;
+	margin-top:30px;
+	margin-bottom:30px;
+}
 .rightColumn{
 	min-width:300px;
 }
@@ -21,4 +27,26 @@
 }
 .bold{
 	font-weight:	bold;
+}
+.noPaddingGrid{
+	padding:0px;
+}
+.separator{
+	border-top:2px solid var(--ion-color-medium);
+	margin-top:30px;
+}
+.socialLoginButtons{
+	max-width:250px;
+}
+.socialLoginButton{
+	margin-left: auto;
+	margin-right: auto;
+	--box-shadow: none;
+}
+.socialMediaText p{
+	width: fit-content;
+	position: relative;
+	top: -10px;
+	background: var(--ion-color-primary-contrast);
+	margin: auto;
 }

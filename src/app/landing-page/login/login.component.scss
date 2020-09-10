@@ -1,0 +1,34 @@
+.noPaddingGrid{
+	padding:0px;
+}
+.separator{
+	border-top:2px solid var(--ion-color-medium);
+	margin-top:30px;
+}
+.socialLoginButtons{
+	max-width:250px;
+}
+.socialLoginButton{
+	margin-left: auto;
+	margin-right: auto;
+	--box-shadow: none;
+}
+.topPart{
+	background: var(--ion-color-primary);
+	color:var(--ion-color-primary-contrast);
+}
+.socialMediaText p{
+	width: fit-content;
+	position: relative;
+	top: -10px;
+	background: var(--ion-color-primary-contrast);
+	margin: auto;
+}
+.form{
+
+}
+.forgotPassword{
+	position: relative;
+	top: -10px;
+	font-size: 0.7em;
+}

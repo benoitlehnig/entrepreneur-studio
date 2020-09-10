@@ -10,7 +10,7 @@ import { PopoverComponent } from './popover/popover.component';
 })
 export class UserAvatarComponent implements OnInit {
 
-	public photoURL="";
+	public photoURL:string=null
 	constructor(
 		public authService: AuthService,
 		public popoverController: PopoverController,
@@ -21,7 +21,7 @@ export class UserAvatarComponent implements OnInit {
 		this.authService.getUserDetails().subscribe(
 			data =>{
 				if(data){
-					console.log(this.photoURL);
+					console.log("this.photoURL", this.photoURL);
 					this.photoURL = data.photoURL;
 				}
 				

@@ -14,16 +14,19 @@ export class Summary {
 }
 
 export class BusinessCanvas {
-	public problem:string="";
-	public existingAlternatives:string="";
-	public solution:string="";
-	public keyMetrics:string="";
-	public usp:string="";
-	public unfairAdvantage:string="";
-	public channels:string="";
-	public customerSegmentation:string="";
-	public earlyAdopters:string="";
-	public costStructure:string="";
-	public revenueStreams:string="";
+	public problem:Array<Item> =[];
+	public existingAlternatives:Array<Item>=[];
+	public solution:Array<Item>=[];
+	public keyMetrics:Array<Item>=[];
+	public usp:Array<Item>=[];
+	public unfairAdvantage:Array<Item>=[];
+	public channels:Array<Item>=[];
+	public customerSegmentation:Array<Item>=[];
+	public earlyAdopters:Array<Item>=[];
+	public costStructure:Array<Item>=[];
+	public revenueStreams:Array<Item>=[];
 }
 
+export class Item {
+	public text:string="nouveau projet";
+}

@@ -18,4 +18,14 @@ export class UserService {
 		return this.afs.doc<User>('users/'+id).valueChanges()
 	}
 
+	setOnboardingDone(id){
+		console.log(id);
+		return this.afs.doc('users/'+id).update({'onBoardingDone':true});
+	}
+
+	setProfile(id,profile){
+		console.log(profile,id);
+		return this.afs.doc('users/'+id).update({'profile': profile});
+	}
+
 }

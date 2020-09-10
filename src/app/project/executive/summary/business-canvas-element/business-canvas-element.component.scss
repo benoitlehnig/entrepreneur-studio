@@ -1,0 +1,32 @@
+.item{
+	width: 100%;
+	text-align: left;
+	font-weight: normal;
+	.editIcon{
+		position: absolute;
+		right: 0px;
+		margin-right: 4px;
+	}
+}
+.cell{
+	min-height:248px;
+	background-color: var(--ion-color-light)
+}
+.cellClickable{
+	cursor:pointer;
+}
+.cellClickable:hover{
+	cursor:pointer;
+	background-color: var(--ion-color-light-shade);
+	color: var(--ion-color-light-contrast);
+}
+.highCell{
+	height:497px;
+	background-color: var(--ion-color-light)
+}
+.smallerCell{
+	min-height:240px;
+}
+.stepDone{
+	color: var(--ion-color-primary);
+}

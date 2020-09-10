@@ -1,10 +1,17 @@
-<ion-header [translucent]="true" class="ion-hide-md-up">
+<ion-header [translucent]="true" >
 	<ion-toolbar>
 		<ion-buttons slot="start">
-			<ion-menu-button auto-hide="false" >
+			<ion-menu-button auto-hide="true" >
 			</ion-menu-button>
 		</ion-buttons>
-		<ion-title  class="headerTitle">Executive</ion-title>
+
+		<img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo" />
+		
+		<ion-icon slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''"></ion-icon>
+		<ion-title  class="headerTitle"> <ion-text *ngIf="project.summary.logoUrl ===''">{{project.summary.name}} - Executive</ion-text>
+		</ion-title>
+		<ion-icon slot="end" class="ion-margin-end" name="settings-outline"  (click)="openPopover('projectSummary')"></ion-icon>
+
 	</ion-toolbar>
 </ion-header>  		
 
@@ -16,27 +23,27 @@
 				<ion-label>Summary</ion-label>
 			</ion-tab-button>
 
-			<ion-tab-button tab="achievemennts">
+			<ion-tab-button tab="achievemennts" disabled>
 				<ion-icon name="medal-outline"></ion-icon>
 				<ion-label>Achievemennts</ion-label>
 				<ion-badge>6</ion-badge>
 
 			</ion-tab-button>
 
-			<ion-tab-button tab="metrics">
+			<ion-tab-button tab="metrics" disabled>
 				<ion-icon name="pulse-outline"></ion-icon>	
 				<ion-label>Metrics</ion-label>
 			</ion-tab-button>
 
-			<ion-tab-button tab="todo">
+			<ion-tab-button tab="todo" disabled>
 				<ion-icon name="list-outline"></ion-icon>	
 				<ion-label>Todo</ion-label>
 			</ion-tab-button>
-			<ion-tab-button tab="evolution">
+			<ion-tab-button tab="evolution" disabled>
 				<ion-icon name="analytics-outline"></ion-icon>
 				<ion-label>Evolution</ion-label>
 			</ion-tab-button>
-			<ion-tab-button tab="team">
+			<ion-tab-button tab="team" disabled>
 				<ion-icon name="people-circle-outline"></ion-icon>
 				<ion-label>Team</ion-label>
 			</ion-tab-button>

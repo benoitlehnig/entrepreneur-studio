@@ -1,4 +1,10 @@
 .avatar{
-	 border-radius: 50%;
-	 width:30px;
+	border-radius: 50%;
+	width:30px;
+	cursor: pointer;
+}
+.defaultAvatar{
+	font-size:2em;
+	color:var(--ion-color-primary);
+	cursor: pointer;
 }

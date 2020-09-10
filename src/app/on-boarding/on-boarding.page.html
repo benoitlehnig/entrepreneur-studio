@@ -1,0 +1,34 @@
+
+<ion-content class="ion-padding" *ngIf="step===0">
+	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_joyride_hnno.svg" class="welcomePicture"></div>
+	<ion-text class="ion-text-center ion-padding title"><h1>{{'ONBOARDINGPAGE.Title' | translate}}</h1></ion-text>
+	<h2>{{'ONBOARDINGPAGE.SubTitle' | translate}}</h2>
+	<ion-item>
+		<ion-label>{{'ONBOARDINGPAGE.CurrentSituation' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="user.profile.currentSituation"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label>{{'ONBOARDINGPAGE.Experience' | translate}}</ion-label>
+		<ion-input type="text" [(ngModel)] ="user.profile.experience"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label>{{'ONBOARDINGPAGE.Motivation' | translate}}</ion-label>
+		<ion-textarea type="text" [(ngModel)] ="user.profile.personalMotivation" rows="3" cols="130"></ion-textarea>
+	</ion-item>
+	<div class="ion-margin-top ion-margin-bottom ion-text-center">
+		<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.CreateProjectButton' | translate}}</ion-button>
+	</div>
+</ion-content>
+<ion-content class="ion-padding"  *ngIf="step===1">
+	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_runner_start_x0uu.svg" class="welcomePicture"></div>
+	<ion-text class="ion-text-center ion-padding title"><h1>{{'ONBOARDINGPAGE.TitleStep1' | translate}}</h1></ion-text>
+	<h2>{{'ONBOARDINGPAGE.SubTitleStep1' | translate}}</h2>
+	<ion-item>
+		<ion-label>{{'ONBOARDINGPAGE.ProjectName' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="project.summary.name" ></ion-input>
+	</ion-item>
+	
+	<div class="ion-margin-top ion-margin-bottom ion-text-center">
+		<ion-button color="primary" (click)="startNewProject()">{{'ONBOARDINGPAGE.StartNewProjectButton' | translate}}</ion-button>
+	</div>
+</ion-content>

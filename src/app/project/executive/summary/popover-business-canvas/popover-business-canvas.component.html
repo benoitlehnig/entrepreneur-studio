@@ -1,24 +1,20 @@
-	<div class="topPart" *ngIf="type ==='problem' " >
-		<img  src="https://cdn.pixabay.com/photo/2014/11/02/09/15/despair-513529_960_720.jpg" />
+	<div class="topPart"  >
+		<img  [src]="topPart.img" />
 		<div class="overlay ion-padding">
-			<h1><ion-text>{{'PROJECT_SUMMARY.BusinessCanvasProblemTitle' | translate }}</ion-text></h1>
-			<h2><ion-text  >{{'PROJECT_SUMMARY.BusinessCanvasProblemSubTitle' | translate }}</ion-text></h2>
+			<h1><ion-text>{{topPart.title }}</ion-text></h1>
+			<h2><ion-text  >{{topPart.subTitle }}</ion-text></h2>
 			<div  class="explanations" >
-				<p  >{{'PROJECT_SUMMARY.BusinessCanvasProblemGuidance' | translate }}</p>
+				<p  >{{topPart.guidance }}</p>
+			</div>
+			<ion-text (click)="switchExampleDisplay()">
+				<ion-icon name="caret-forward-outline" *ngIf="showExample ===false"></ion-icon>
+				<ion-icon name="caret-down-outline" *ngIf="showExample ===true"></ion-icon>{{'PROJECT_SUMMARY.ShowExample' | translate }}
+			</ion-text>
+			<div class="example" *ngIf="showExample ===true">
+				<p>{{topPart.example}}</p>
 			</div>
 		</div>
 	</div>
-	<div class="topPart" *ngIf="type ==='existingAlternatives' " >
-		<img  src="https://cdn.pixabay.com/photo/2017/08/29/09/26/choice-2692575_960_720.jpg" />
-		<div class="overlay ion-padding">
-			<h1><ion-text>{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesTitle' | translate }}</ion-text></h1>
-			<h2><ion-text  >{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesSubTitle' | translate }}</ion-text></h2>
-			<div  class="explanations" >
-				<p >{{'PROJECT_SUMMARY.BusinessCanvasExistingAlternativesGuidance' | translate }}</p>
-			</div>
-		</div>
-	</div>
-
 	<ion-content class="ion-padding">
 		<ion-item *ngIf="type ==='problem' " >
 			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasProblem' | translate }}</ion-label>
@@ -60,14 +56,12 @@
 			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasCostStructure' | translate }}</ion-label>
 			<ion-textarea name="costStructure" [(ngModel)]="project.businessCanvas.costStructure" placeholder="Enter more information here..."></ion-textarea>
 		</ion-item>
-		<ion-item *ngIf="type ==='costStructure' " >
+		<ion-item *ngIf="type ==='revenueStreams' " >
 			<ion-label>{{'PROJECT_SUMMARY.BusinessCanvasRevenueStreams' | translate }}</ion-label>
 			<ion-textarea name="revenueStreams" [(ngModel)]="project.businessCanvas.revenueStreams" placeholder="Enter more information here..."></ion-textarea>
 		</ion-item>
 
-		<ion-button color="primary" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
-
-
-
-
+		<div class="positionBottom">
+			<ion-button expand="full" color="primary" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
+		</div>
 	</ion-content>

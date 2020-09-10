@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
 
 	public role:string="entrepreneur";
 	public incubator:boolean=false;
+	public user={email:"",password:""};
 
 	constructor(
 		public authService: AuthService,
@@ -24,24 +25,48 @@ export class SignUpComponent implements OnInit {
 
 	ngOnInit() {}
 
-	loginWithGoogle(){
+	signUpGoogle(){
 		this.authService.loginWithGoogle().then((data)=>
 		{
 			console.log("loginWithGoogle",data);
-			if(data.user){
-				const callable = this.functions.httpsCallable('createUser');
+			this.createUser(data);
+		});
+	}
+
+	signUpEmail(){
+		this.authService.signUpEmail(this.user.email,this.user.password).then(data=>{
+			let newUserData:any = data;
+			newUserData.additionalUserInfo.profile= { email : this.user.email}
+			console.log("signUpEmail",newUserData);
+
+			this.createUser(newUserData);
+		})
+
+	}
+
+	createUser(data){
+		if(data.user){
+			const callable = this.functions.httpsCallable('createUser');
+			if(this.incubator ===true){
+				this.role ="incubator";
+			}
+			else{
+				this.role ="entrepreneur";
+			}
+			console.log("data.additionalUserInfo.profile",data.additionalUserInfo.profile)
+			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,role:this.role});
+
+			obs.subscribe(res => {
 				if(this.incubator ===true){
-						this.role ="incubator";
+					this.role ="incubator";
 				}
 				else{
-					this.role ="entrepreneur";
+					this.router.navigate(['/entrepreneur']);
 				}
-				const obs = callable({uid:data.user.uid, role:this.role});
-				obs.subscribe(res => {
-					this.router.navigate(['/folder/Inbox']); 
-				});
-			}
-		});
+
+			});
+		}
+
 	}
 
 }

@@ -1,12 +1,15 @@
 <ion-content>
-	
-	<ion-grid>
+	<ion-grid class="noPaddingGrid">
 		<ion-row>
-			<ion-col class="leftColumn ion-padding ion-text-center">
-				<h1>{{'LOGIN.Title' | translate}}</h1>
-				<h2>Connectez-vous</h2>
-				<div class="ion-text-center">
-					<ion-text>Vous etes</ion-text>
+			<ion-col class="leftSide ion-padding ion-text-center ion-hide-sm-down">
+				<img class="logo" src="./assets/images/logo_contrast.svg" />
+				<ion-text class="ion-text-center"><h1>{{'COMMON.AppTitle' | translate}}</h1></ion-text>
+				<ion-text class="ion-text-center"><p>{{'SIGNUP.ShortText' | translate}}</p></ion-text>
+			</ion-col>
+			<ion-col>
+				<ion-text class="ion-text-center"><h1>{{'SIGNUP.Title' | translate}}</h1></ion-text>
+				<div class="ion-text-center  ion-margin-top">
+					<ion-text>{{'SIGNUP.YouAre' | translate}}</ion-text>
 					<ion-grid>
 						<ion-row>
 							<ion-col>
@@ -20,21 +23,50 @@
 							</ion-col>
 						</ion-row>
 					</ion-grid>
-					
+
 				</div>
-				<ion-button color="primary" (click)="loginWithGoogle()">
-					<ion-icon slot="start"  name="logo-google"></ion-icon>
-					{{'LOGIN.GoogleLogin' | translate}}
-				</ion-button>
+				<div class="">
+					<ion-item>
+						<ion-label>{{'SIGNUP.Email' | translate}}</ion-label>
+						<ion-input type="email"  [(ngModel)] ="user.email"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label>{{'SIGNUP.Password' | translate}}</ion-label>
+						<ion-input type="password" [(ngModel)] ="user.password"></ion-input>
+					</ion-item>
+					<div class="ion-text-center ion-margin-top">
+						<ion-button color="primary" (click)="signUpEmail()">
+							{{'SIGNUP.EmailLogin' | translate}}
+						</ion-button>
+					</div>
+				</div>
+				<div class="ion-text-center ion-margin-top ion-margin-bottom ">
+					<div class="separator -ion-padding"></div>
+					<ion-text color="medium" class="socialMediaText"><p>{{'SIGNUP.LoginWithSocial' | translate}}</p></ion-text>
+
+					<ion-grid class="socialLoginButtons">
+						<ion-row>
+							<ion-col class="ion-text-center">
+								<ion-fab-button color="medium" class="socialLoginButton" (click)="signUpGoogle()">
+									<ion-icon name="logo-google" ></ion-icon>
+								</ion-fab-button>
+
+							</ion-col>
+				
+							<ion-col class="ion-text-center">
+								<ion-fab-button class="socialLoginButton"  color="medium">
+									<ion-icon name="logo-facebook"></ion-icon>
+								</ion-fab-button>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+				</div>
+
 			</ion-col>
-			<ion-col class="rightColumn ion-text-center ion-padding" [ngClass]="{'incubator': incubator === true, 'entrepreneur': incubator === false}" >
-				<h1>{{'SIGNUP.Title' | translate}}</h1>
-				<ion-button color="primary" (click)="loginWithGoogle()">
-					<ion-icon slot="start"  name="logo-google"></ion-icon>
-					{{'SIGNUP.GoogleLogin' | translate}}
-				</ion-button>
-			</ion-col>		
 		</ion-row>
 	</ion-grid>
-	
+
+
+
 </ion-content>

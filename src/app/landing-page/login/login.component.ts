@@ -14,6 +14,9 @@ export class LoginComponent implements OnInit {
 		public router:Router,
 		) { }
 
+	public user={email:"",password:""};
+	public mode:string="login";
+
 	ngOnInit() {}
 
 	loginWithGoogle(){
@@ -25,6 +28,24 @@ export class LoginComponent implements OnInit {
 				
 			}
 		});
+	}
+	loginWithEmail(){
+		this.authService.loginWithEmail(this.user.email, this.user.password).then((data)=>
+		{
+			console.log(data);
+			
+		});
+	}
+	requestResetPasswordPage(){
+		this.mode ="resetPassword";
+	}
+	resetPasswordCancel(){
+		this.mode ="login";
+	}
+	resetPassword(){
+		this.authService.resetPassword(this.user.email);
+	//	this.presentToast();
+		this.mode ="login";
 	}
 
 }

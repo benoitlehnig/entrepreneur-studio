@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
-
+import { PartnersComponent } from './partners/partners.component';
 
 @Component({
 	selector: 'app-landing-page',
@@ -26,14 +26,15 @@ export class LandingPagePage implements OnInit {
 
 	scrollTo(elementId: string) {
 		let y = document.getElementById(elementId).offsetTop;
-		this.getContent().scrollToPoint(0, y,400);
+		console.log(y)
+		this.getContent().scrollToPoint(0, y,300);
 	}
 
 	async presentSignUpPopover() {
 		const popover = await this.popoverController.create({
 			component: SignUpComponent,
 			componentProps:{homeref:this},
-			cssClass: 'registerPopover',
+			cssClass: 'loginPopover',
 			backdropDismiss: true,
 			translucent: true
 		});
@@ -42,6 +43,7 @@ export class LandingPagePage implements OnInit {
 	dismissSignUpPopover(){
 		this.popoverController.dismiss();
 	}
+	
 	async presentLoginPopover() {
 		const popover = await this.popoverController.create({
 			component: LoginComponent,
@@ -55,5 +57,21 @@ export class LandingPagePage implements OnInit {
 	dismissLoginPopover(){
 		this.popoverController.dismiss();
 	}
+
+	async presentPartnersPopover() {
+		const popover = await this.popoverController.create({
+			component: PartnersComponent,
+			componentProps:{homeref:this},
+			cssClass: 'registerPopover',
+			backdropDismiss: true,
+			translucent: true
+		});
+		return await popover.present();
+	}
+	dismissParnersPopover(){
+		this.popoverController.dismiss();
+	}
+
+
 
 }
