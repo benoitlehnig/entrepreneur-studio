@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output,EventEmitter,NgZone } from '@angular/c
 import {TranslateService} from '@ngx-translate/core';
 import { PopoverBusinessCanvasElementComponent } from '../popover-business-canvas-element/popover-business-canvas-element.component';
 import { ModalController } from '@ionic/angular';
+import { PopoverBusinessCanvasComponent } from '../popover-business-canvas/popover-business-canvas.component';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class BusinessCanvasElementComponent implements OnInit {
 
 
 	ngOnInit() {
-		console.log("ngOnInit BusinessCanvasElementComponent", this.elementType)
+		console.log("ngOnInit BusinessCanvasElementComponent", this.elementType, this.		elementData, this.elementData.length)
 		this.translateService.get(['PROJECT_SUMMARY.BusinessCanvas'+this.elementType, 'PROJECT_SUMMARY.BusinessCanvas'+this.elementType+'Placeholder']).subscribe(
 			value => {
 				this.title = value['PROJECT_SUMMARY.BusinessCanvas'+this.elementType]
@@ -57,10 +58,10 @@ export class BusinessCanvasElementComponent implements OnInit {
 		console.log("this.elementData", this.elementData);
 		if(this.newItem.display ===true && this.newItem.text !==''){
 			if(this.elementData){
-				this.elementData.push({id:this.elementData.length,'text':this.newItem.text });
+				this.elementData.push({id:this.randomId(),'text':this.newItem.text });
 			}
 			else{
-				this.elementData= [{id:0,'text':this.newItem.text }];
+				this.elementData= [{id: this.randomId(),'text':this.newItem.text }];
 			}
 			this.newItem.display= false;
 			
@@ -74,6 +75,10 @@ export class BusinessCanvasElementComponent implements OnInit {
 
 		}
 
+	}
+	randomId(): string {
+		const uint32 = window.crypto.getRandomValues(new Uint32Array(1))[0];
+		return uint32.toString(16);
 	}
 
 	async openPopover(item){
@@ -93,6 +98,32 @@ export class BusinessCanvasElementComponent implements OnInit {
 		this.changed.emit(JSON.stringify({data:this.elementData, type:elementType}) );
 		this.editedItemId= null;
 	}
+	updateItem(item){
+		console.log(item);
+		this.elementData[item.id] = item;
+		this.saveItem();
+		this.modalController.dismiss();
+	}
+	deleteItem(item){
+		console.log("deleteItem >>", item);
+		const index =  this.elementData.findIndex(x => x.id=== item.id);
+		console.log(index);
+		if (index > -1) {
+			this.elementData.splice(index, 1);
+		}
+		this.saveItem();
+		this.modalController.dismiss();
+	}
 
+
+	async openDescriptivePopover(){
+		let modal = await this.modalController.create({
+			component: PopoverBusinessCanvasComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:this.elementType},
+		});
+		return await modal.present();
+
+	}
 
 }

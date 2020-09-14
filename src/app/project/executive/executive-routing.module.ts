@@ -17,6 +17,25 @@ const routes: Routes = [
     }
     ]
   },
+  {
+    path: 'team',
+    children: [
+    {
+      path: '',
+       loadChildren: () => import('./team/team.module').then( m => m.TeamPageModule)
+    }
+    ]
+  },
+  {
+    path: 'summary',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./achievements/achievements.module').then( m => m.AchievementsPageModule)
+    }
+    ]
+  },
+  
   ]
 },
 {
@@ -26,6 +45,14 @@ const routes: Routes = [
 },{
   path: 'summary',
   loadChildren: () => import('./summary/summary.module').then( m => m.SummaryPageModule)
+},
+{
+  path: 'team',
+  loadChildren: () => import('./team/team.module').then( m => m.TeamPageModule)
+},
+{
+  path: 'achievements',
+  loadChildren: () => import('./achievements/achievements.module').then( m => m.AchievementsPageModule)
 }
 ];
 

@@ -1,0 +1,10 @@
+<ion-content>
+	<ng-select [items]="items"
+           bindLabel="name"
+           bindValue="id"
+           [(ngModel)]="selected">
+</ng-select>
+	<app-tool *ngFor="let tool of tools" [tool]="tool" mode="admin"></app-tool>
+	<ion-button fill="outline" class="ion-margin" (click)="requestAddTool()"><ion-icon name="add-outline" ></ion-icon>Ajouter un outil</ion-button>
+
+</ion-content>

@@ -15,7 +15,6 @@ export class SummaryPage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
-	public problemNewItem = {display:false,text:""};
 
 
 	constructor(

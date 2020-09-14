@@ -8,6 +8,8 @@ import { LoadingController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import {OnBoardingPage} from '../on-boarding/on-boarding.page'
 
+import { first } from 'rxjs/operators';
+
 @Component({
 	selector: 'app-entrepreneur',
 	templateUrl: './entrepreneur.page.html',
@@ -32,13 +34,12 @@ export class EntrepreneurPage implements OnInit {
 
 	ngOnInit() {
 		console.log("ngOnInit")
-		this.dataSharingServiceService.getUidChanges().subscribe(
+		this.dataSharingServiceService.getUidChanges().pipe(first()).subscribe(
 			uid=>{
 				if(uid){
 					console.log("get ui", uid);
 					this.projectService.getProjectbyOwnerUid(uid).subscribe(
 						(data)=>{
-							console.log(data);
 							this.projects = data
 						});
 				}

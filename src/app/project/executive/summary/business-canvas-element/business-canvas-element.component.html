@@ -1,14 +1,15 @@
-<div class="cell cellClickable ion-padding"  >
+<div class="cell cellClickable ion-padding" *ngIf="elementData" >
 	<ion-icon name="checkmark-outline"  *ngIf="elementData.length !==0" class="stepDone ion-float-right"></ion-icon>
-	<h1>{{title }}</h1> 
+	<h1>{{title }} <ion-icon  name="information-circle-outline" (click)="openDescriptivePopover()" ></ion-icon></h1> 
 	<div >
 		<div *ngFor="let item of elementData"  > 
-			<ion-badge color="primary" *ngIf="item.id  !== editedItemId" class="item ion-text-wrap" (click)="edit(item.id)">{{item.text}}
-				<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item)"> </ion-icon>
+			<ion-badge color="primary" tooltip="Tooltip" *ngIf="item.id  !== editedItemId" class="item ion-text-wrap" (click)="edit(item.id)">{{item.text}}
+				
 			</ion-badge>
+			<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item)"> </ion-icon>
 			<ion-item class="input" *ngIf="item.id  === editedItemId" >
-				<ion-input type="text" name="newItem" class="ion-text-justify" [(ngModel)]="item.text" placeholder="Enter more information here..." (ionBlur)="saveItem()" (keyup.enter)="saveItem()" >
-				</ion-input>
+				<ion-textarea maxlength="140" type="text" name="newItem" class="ion-text-justify" [(ngModel)]="item.text" placeholder="{{'PROJECT_SUMMARY.AddNewItemPlaceHolder' | translate }}" (ionBlur)="saveItem()" (keyup.enter)="saveItem()" >
+				</ion-textarea>
 			</ion-item>
 		</div>
 	</div>
@@ -16,9 +17,9 @@
 		<p>{{placeholder}}</p>
 	</div>
 	<ion-item class="input" [ngClass]="{'ion-hide' : newItem.display === false}" >
-		<ion-input type="text" name="newItem" class="ion-text-justify  " [(ngModel)]="newItem.text" placeholder="Enter more information here..." (ionBlur)="addItem()" (keyup.enter)="addItem()" >
-		</ion-input>
+		<ion-textarea  maxlength="140" type="text" name="newItem" class="ion-text-justify  " [(ngModel)]="newItem.text" placeholder="{{'PROJECT_SUMMARY.AddNewItemPlaceHolder' | translate }}" (ionBlur)="addItem()" (keyup.enter)="addItem()" >
+		</ion-textarea>
 	</ion-item>
-	<ion-button fill="outline" class="ion-margin fillItButton" (click)="requestAddItem()"><ion-icon name="add-outline" ></ion-icon>Add new item</ion-button>
+	<ion-button fill="outline" class="ion-margin fillItButton" (click)="requestAddItem()"><ion-icon name="add-outline" ></ion-icon>{{'PROJECT_SUMMARY.AddNewItem' | translate }}</ion-button>
 </div>
 

@@ -22,7 +22,10 @@ import { environment } from '../environments/environment';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService  } from '@angular/fire/analytics';
-
+import { TooltipModule } from 'ng2-tooltip-directive';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+  
 registerLocaleData(localeFr);
 
 // AoT requires an exported function for factories
@@ -36,12 +39,15 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [],
   imports: [
   BrowserModule,
+  TooltipModule,
   IonicModule.forRoot(),
   HttpClientModule,
   AppRoutingModule,
   AngularFireModule.initializeApp(environment.firebaseConfig),
   AngularFireMessagingModule,
   AngularFireAnalyticsModule,
+  NgSelectModule, 
+  FormsModule,
   TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

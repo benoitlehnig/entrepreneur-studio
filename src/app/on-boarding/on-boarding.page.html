@@ -2,18 +2,24 @@
 <ion-content class="ion-padding" *ngIf="step===0">
 	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_joyride_hnno.svg" class="welcomePicture"></div>
 	<ion-text class="ion-text-center ion-padding title"><h1>{{'ONBOARDINGPAGE.Title' | translate}}</h1></ion-text>
-	<h2>{{'ONBOARDINGPAGE.SubTitle' | translate}}</h2>
+	<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitle' | translate}}</h2>
 	<ion-item>
-		<ion-label>{{'ONBOARDINGPAGE.CurrentSituation' | translate}}</ion-label>
-		<ion-input type="text"  [(ngModel)] ="user.profile.currentSituation"></ion-input>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.CurrentSituation' | translate}}</ion-label>
+		<ion-select interface="popover" [(ngModel)] ="user.profile.currentSituation" >
+			<ion-select-option *ngFor="let item of currentSituationItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
 	</ion-item>
 	<ion-item>
-		<ion-label>{{'ONBOARDINGPAGE.Experience' | translate}}</ion-label>
-		<ion-input type="text" [(ngModel)] ="user.profile.experience"></ion-input>
+		<ion-label  color="primary" position="floating">{{'ONBOARDINGPAGE.Experience' | translate}}</ion-label>
+		<ion-select  interface="popover" [(ngModel)] ="user.profile.experience" >
+			<ion-select-option *ngFor="let item of experienceItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
 	</ion-item>
 	<ion-item>
-		<ion-label>{{'ONBOARDINGPAGE.Motivation' | translate}}</ion-label>
-		<ion-textarea type="text" [(ngModel)] ="user.profile.personalMotivation" rows="3" cols="130"></ion-textarea>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.Motivation' | translate}}</ion-label>
+		<ion-select interface="popover" [(ngModel)] ="user.profile.personalMotivation" >
+			<ion-select-option *ngFor="let item of personalMotivationItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
 	</ion-item>
 	<div class="ion-margin-top ion-margin-bottom ion-text-center">
 		<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.CreateProjectButton' | translate}}</ion-button>
@@ -21,14 +27,52 @@
 </ion-content>
 <ion-content class="ion-padding"  *ngIf="step===1">
 	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_runner_start_x0uu.svg" class="welcomePicture"></div>
-	<ion-text class="ion-text-center ion-padding title"><h1>{{'ONBOARDINGPAGE.TitleStep1' | translate}}</h1></ion-text>
-	<h2>{{'ONBOARDINGPAGE.SubTitleStep1' | translate}}</h2>
+	<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitleStep1' | translate}}</h2>
 	<ion-item>
-		<ion-label>{{'ONBOARDINGPAGE.ProjectName' | translate}}</ion-label>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectName' | translate}}</ion-label>
 		<ion-input type="text"  [(ngModel)] ="project.summary.name" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectDomains' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="project.domains" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectMaturity' | translate}}</ion-label>
+		<ion-select   [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)] ="project.maturity" >
+			<ion-select-option *ngFor="let item of projectMaturityItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
 	</ion-item>
 	
 	<div class="ion-margin-top ion-margin-bottom ion-text-center">
-		<ion-button color="primary" (click)="startNewProject()">{{'ONBOARDINGPAGE.StartNewProjectButton' | translate}}</ion-button>
+		<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.StartNewProjectButton1' | translate}}</ion-button>
+	</div>
+</ion-content>
+<ion-content class="ion-padding"  *ngIf="step===2">
+	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_good_team_m7uu.svg" class="welcomePicture"></div>
+	<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitleStep2' | translate}}</h2>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectTeam' | translate}}</ion-label>
+		<ion-select interface="popover" [(ngModel)] ="project.team.type" >
+			<ion-select-option *ngFor="let item of projectTeamItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectTeamProfile' | translate}}</ion-label>
+		<ion-select  interface="popover" [(ngModel)] ="project.team.profile" >
+			<ion-select-option *ngFor="let item of projectTeamProfileItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.AssociateNumber' | translate}}</ion-label>
+		<ion-input type="number"  [(ngModel)] ="project.team.initialAssociatesNumber" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.FinancialResources' | translate}}</ion-label>
+		<ion-select  interface="popover" [(ngModel)] ="project.financialResources.initialFinancialResources" >
+			<ion-select-option *ngFor="let item of financialResourcesItems" [value]="item.id">{{item.text}}</ion-select-option>
+		</ion-select>
+	</ion-item>	
+	<div class="ion-margin-top ion-margin-bottom ion-text-center">
+		<ion-button color="primary" (click)="startNewProject()">{{'ONBOARDINGPAGE.StartNewProjectButton2' | translate}}</ion-button>
 	</div>
 </ion-content>

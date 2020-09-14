@@ -22,10 +22,6 @@ const routes: Routes = [
   path: '',
   redirectTo: 'project/executive',
   pathMatch: 'full'
-},
-{
-  path: 'executive',
-  loadChildren: () => import('./executive/executive.module').then( m => m.ExecutivePageModule)
 }
 ];
 

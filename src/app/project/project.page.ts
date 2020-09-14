@@ -71,6 +71,8 @@ export class ProjectPage implements OnInit {
 	}
 
 	initProject(){
+				console.log("ProjectPage initProject" )
+
 		this.projectService.getProject(this.projectId).subscribe(
 			(data)=>{
 				if(data){
@@ -96,7 +98,6 @@ export class ProjectPage implements OnInit {
 
 	hideMenu(){
 		console.log("hideMenu")
-		
 		this.menu.toggle();
 
 	}

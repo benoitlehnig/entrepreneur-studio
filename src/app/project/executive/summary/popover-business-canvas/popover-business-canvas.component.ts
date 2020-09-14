@@ -14,7 +14,6 @@ import {AppConstants} from '../../../../app-constants'
 export class PopoverBusinessCanvasComponent implements OnInit {
 
 	public project:Project = new Project();
-	public showExample:boolean=false;
 
 	public static= this.appConstants.businessCanvasStatic;
 	public topPart = {img:"",title:"",subTitle:"", guidance:"",example:""}
@@ -62,14 +61,6 @@ export class PopoverBusinessCanvasComponent implements OnInit {
 		this.navParams.get('homeref').saveProject(this.project);
 	}
 
-	switchExampleDisplay(){
-		if(this.showExample ===false){
-			this.showExample = true;
-		}
-		else{
-			this.showExample =false;	
-		}
-	}
-
+	
 
 }

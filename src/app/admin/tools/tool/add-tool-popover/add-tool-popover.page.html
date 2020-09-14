@@ -1,0 +1,26 @@
+<ion-content class="ion-padding">
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Name' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.name" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.BrandName' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.brandName" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Description' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.description" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.ImgUrl' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.imgUrl" ></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Labels' | translate}}</ion-label>
+		<ion-tags-input [(ngModel)]="labels" (onChange)="onChange($event)"></ion-tags-input>
+	</ion-item>
+
+		<ion-button class="ion-margin" (click)="addTool()"><ion-icon name="add-outline" ></ion-icon>Ajouter</ion-button>
+
+</ion-content>

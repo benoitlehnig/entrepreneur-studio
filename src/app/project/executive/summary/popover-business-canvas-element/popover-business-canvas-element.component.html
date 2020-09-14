@@ -1,1 +1,26 @@
-{{item.text}}
+<ion-content class="ion-padding">
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<ion-text><ion-textarea name="text" class="input biggerFont" [(ngModel)]="item.text"></ion-textarea></ion-text>
+				<ion-text><h2><ion-icon name="reorder-four-outline" class="ion-margin-end"></ion-icon>More details</h2></ion-text>
+				<ion-item class="ion-margin-top">
+					<ion-textarea class="input" [(ngModel)]="item.description"> </ion-textarea>
+				</ion-item>
+				<ion-text>
+					<h2>
+						<ion-icon name="chatbubble-ellipses-outline" class="ion-margin-end">
+						
+					</ion-icon>Comments</h2></ion-text>
+
+			</ion-col>
+			<ion-col class="ion-margin-start ion-padding" size="3">
+				<h3>Actions</h3>
+				<ion-button  size="small"  (click)="saveItem()" fill="outline">{{'PROJECT_SUMMARY.SaveItem' | translate }}</ion-button>
+				<ion-button  size="small" (click)="deleteItem()" fill="outline">{{'PROJECT_SUMMARY.DeleteItem' | translate }}</ion-button>
+			</ion-col>
+
+		</ion-row>
+	</ion-grid>
+	
+</ion-content>

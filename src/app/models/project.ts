@@ -2,8 +2,11 @@ export class Project {
 	public ownerUid:string="";
 	public summary:Summary = new Summary();
 	public tags:Array<string>=[];
-	public businessCanvas:BusinessCanvas= new BusinessCanvas()
-
+	public businessCanvas:BusinessCanvas= new BusinessCanvas();
+	public domains : string ="";
+	public maturity : string="";
+	public team : Team = new Team();
+	public financialResources : FinancialResources = new FinancialResources();
 }
 
 export class Summary {
@@ -19,6 +22,8 @@ export class BusinessCanvas {
 	public solution:Array<Item>=[];
 	public keyMetrics:Array<Item>=[];
 	public usp:Array<Item>=[];
+	public keyPartners:Array<Item>=[];
+	public keyActivities:Array<Item>=[];
 	public unfairAdvantage:Array<Item>=[];
 	public channels:Array<Item>=[];
 	public customerSegmentation:Array<Item>=[];
@@ -28,5 +33,16 @@ export class BusinessCanvas {
 }
 
 export class Item {
-	public text:string="nouveau projet";
+	public text:string="";
+	public details:string="";
+}
+
+export class Team{
+	public type:string="";
+	public profile:string="";
+	public initialAssociatesNumber:string="";
+}
+export class FinancialResources{
+	public initialFinancialResources:string="";
+
 }

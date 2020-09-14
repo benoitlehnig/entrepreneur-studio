@@ -30,11 +30,14 @@ export class AuthService {
 						console.log("result",result);
 						this.claims = result.claims;
 						if(this.claims['entrepreneur'] ===true){
-							if(this.router.url.indexOf("entrepreneur") === -1){
+							if(this.router.url.indexOf("admin") !== -1){
+								console.log("navigate admin");
+								this.router.navigate(['/admin']);
+							}	
+							else if(this.router.url.indexOf("entrepreneur") === -1){
 								console.log("navigate");
-
 								this.router.navigate(['/entrepreneur']);
-							}					
+							}				
 						}
 						else if(this.claims['incubator'] ===true){
 							//this.router.navigate(['/incubator']);

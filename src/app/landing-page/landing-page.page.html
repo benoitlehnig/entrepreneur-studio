@@ -34,7 +34,7 @@
 			<ion-row>
 				<ion-col>
 					<ion-text ><h1>{{'LANDINGPAGE.MainContent' | translate}}</h1></ion-text>
-					<ion-button size="large" expand="block" color="primary" class="startNowButton" >{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
+					<ion-button size="large" expand="block" color="primary" class="startNowButton"  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
 					<ion-text><p class="freeAccess">{{'LANDINGPAGE.FreeStart' | translate}}</p></ion-text>
 				</ion-col>
 				<ion-col class="screenCapture">
@@ -50,27 +50,28 @@
 					<h1 class="subContentTitle ion-padding ion-text-center" >{{'LANDINGPAGE.subContentTitle1' | translate}}</h1>
 					<ion-grid class="subContentGrid">
 						<ion-row>
-							<ion-col class="ion-padding">`
-								<img src="https://image.freepik.com/free-photo/garage-doors_23-2148098575.jpg"/>
+							<ion-col>
+								<div class="subContentImg sub1" ></div>
+								<h2 class="ion-text-center">{{'LANDINGPAGE.Icon1SubTitle' | translate}}</h2>
 							</ion-col>
-							<ion-col class="ion-padding">
-								<img src="https://image.freepik.com/free-photo/top-view-different-types-tools_23-2148428327.jpg"/>
+							<ion-col>
+								<div class="subContentImg sub2" >
+									<h2 class="ion-text-center">{{'LANDINGPAGE.Icon2SubTitle' | translate}}</h2>
+								</div>
 							</ion-col>
-							<ion-col class="ion-padding">
-								<img src="https://image.freepik.com/free-photo/colleagues-giving-fist-bump_53876-64857.jpg"/>
+							<ion-col >
+								<div class="subContentImg sub3" ></div>
+								<h2 class="ion-text-center">{{'LANDINGPAGE.Icon3SubTitle' | translate}}</h2>
 							</ion-col>
 						</ion-row>
 						<ion-row>
 							<ion-col class="ion-padding">
-								<h2>{{'LANDINGPAGE.Icon1SubTitle' | translate}}</h2>
 								<p>{{'LANDINGPAGE.Icon1SubText' | translate}}</p>
 							</ion-col>
 							<ion-col class="ion-padding">
-								<h2>{{'LANDINGPAGE.Icon2SubTitle' | translate}}</h2>
 								<p>{{'LANDINGPAGE.Icon2SubText' | translate}}</p>
 							</ion-col>
 							<ion-col class="ion-padding">
-								<h2>{{'LANDINGPAGE.Icon3SubTitle' | translate}}</h2>
 								<p>{{'LANDINGPAGE.Icon3SubText' | translate}}</p>
 							</ion-col>
 						</ion-row>
@@ -106,7 +107,7 @@
 					</ion-row>
 				</ion-grid>
 				<div class="ion-text-center bigMargin">
-					<ion-button size="large" color="primary" class="" >{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
+					<ion-button size="large" color="primary" class=""  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
 				</div>
 				<div class="subContent" >
 					<h1 class="ion-padding ion-text-center subContentTitle " >{{'LANDINGPAGE.Content2Title' | translate}}</h1>

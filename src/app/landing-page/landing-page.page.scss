@@ -129,16 +129,37 @@ span:after {
 	text-align:center;
 	margin-top:30px;
 	margin-bottom:60px;
-
-	img{
-		max-width:60%;
-	}
+	position: relative;
 	h2{
 		font-size:2em;
+		position: absolute;
+		bottom: 16px;
+		width:100%;
+		color:var(--ion-color-primary-contrast);
+	}
+	.subContentImg{
+		min-height: 250px;
+		width: auto;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(https://image.freepik.com/free-photo/colleagues-giving-fist-bump_53876-64857.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
 
 	}
+	.sub2{
+		background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(https://image.freepik.com/free-photo/garage-doors_23-2148098575.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.sub3{	
+		background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(https://image.freepik.com/free-photo/top-view-different-types-tools_23-2148428327.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
 }
-
 .bigMargin{
 	margin-bottom:100px;
 }

@@ -9,6 +9,7 @@ import { NavController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { NavParams} from '@ionic/angular';
 
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-on-boarding',
@@ -23,6 +24,16 @@ export class OnBoardingPage implements OnInit {
 	public project:Project = new Project();
 	public uid:string;
 	public step:number=0;
+	public currentSituationItems =[];
+	public personalMotivationItems =[];
+	public experienceItems =[];
+	public projectMaturityItems =[];
+	public projectTeamItems =[];
+	public projectTeamProfileItems =[];
+	public financialResourcesItems =[];
+	public customPopoverOptions: any = {
+		cssClass:'largerOptionPopover'
+	};
 
 	public loading;
 
@@ -34,6 +45,7 @@ export class OnBoardingPage implements OnInit {
 		public loadingController: LoadingController,
 		public navCtrl: NavController,
 		public navParams: NavParams,
+		public translateService : TranslateService,
 
 
 		) { }
@@ -63,10 +75,53 @@ export class OnBoardingPage implements OnInit {
 			})
 		getUserChanges.unsubscribe();
 
+		for (let i =1; i<6; i++){
+			this.translateService.get('ONBOARDINGPAGE.CurrentSituationItem'+i).subscribe(
+				value => {
+					this.currentSituationItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<4; i++){
+			this.translateService.get('ONBOARDINGPAGE.ExperienceItem'+i).subscribe(
+				value => {
+					this.experienceItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<6; i++){
+			this.translateService.get('ONBOARDINGPAGE.MotivationItem'+i).subscribe(
+				value => {
+					this.personalMotivationItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<4; i++){
+			this.translateService.get('ONBOARDINGPAGE.ProjectMaturityItem'+i).subscribe(
+				value => {
+					this.projectMaturityItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<5; i++){
+			this.translateService.get('ONBOARDINGPAGE.ProjectTeamItem'+i).subscribe(
+				value => {
+					this.projectTeamItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<5; i++){
+			this.translateService.get('ONBOARDINGPAGE.ProjectTeamProfileItem'+i).subscribe(
+				value => {
+					this.projectTeamProfileItems.push({index:i,text:value});
+				})
+		}
+		for (let i =1; i<5; i++){
+			this.translateService.get('ONBOARDINGPAGE.FinancialResourcesItem'+i).subscribe(
+				value => {
+					this.financialResourcesItems.push({index:i,text:value});
+				})
+		}
+
 	}
 
 	nextStep(){
-		this.step=1;
+		this.step++;
 	}
 
 	async startNewProject(){

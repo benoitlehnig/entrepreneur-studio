@@ -43,6 +43,7 @@
 					</ion-col>
 					<ion-col>
 						<app-business-canvas-element (changed)="elementUpdated($event)" class="highCell" elementType="UniqueValueProposition" [elementData]="project.businessCanvas.usp"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="highCell" elementType="KeyPartners" [elementData]="project.businessCanvas.keyPartners"></app-business-canvas-element>
 					</ion-col>
 					<ion-col class="nomargin">
 						<ion-row>
@@ -64,6 +65,11 @@
 					</ion-col>
 					<ion-col>
 						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="RevenueStreams" [elementData]="project.businessCanvas.revenueStreams"></app-business-canvas-element>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyActivities" [elementData]="project.businessCanvas.keyActivities"></app-business-canvas-element>
 					</ion-col>
 				</ion-row>
 			</ion-grid>
