@@ -1,67 +1,69 @@
 <ion-content>
 	<ion-grid class="noPaddingGrid">
 		<ion-row>
-			<ion-col class="leftSide ion-padding ion-text-center ion-hide-sm-down">
+			<ion-col class="leftSide ion-padding ion-text-center ion-hide-sm-down"  size="4">
 				<img class="logo" src="./assets/images/logo_contrast.svg" />
 				<ion-text class="ion-text-center"><h1>{{'COMMON.AppTitle' | translate}}</h1></ion-text>
 				<ion-text class="ion-text-center"><p>{{'SIGNUP.ShortText' | translate}}</p></ion-text>
 			</ion-col>
-			<ion-col>
+			<ion-col class="ion-padding">
 				<ion-text class="ion-text-center"><h1>{{'SIGNUP.Title' | translate}}</h1></ion-text>
 				<div class="ion-text-center  ion-margin-top">
 					<ion-text>{{'SIGNUP.YouAre' | translate}}</ion-text>
 					<ion-grid>
 						<ion-row>
 							<ion-col>
-								<ion-text color="primary"  [ngClass]="{'bold': incubator === false}" (click)="incubator=false">entrepreneur</ion-text>
+								<ion-text color="primary"  [ngClass]="{'bold': incubator === false}" (click)="incubator=false">{{'SIGNUP.Entrepreneur' | translate}}</ion-text>
 							</ion-col>
 							<ion-col>
 								<ion-toggle [(ngModel)]="incubator"  [ngClass]="{'incubatorToggle': incubator === true, 'entrepreneurToggle': incubator === false}"></ion-toggle>
 							</ion-col>
 							<ion-col>
-								<ion-text color="secondary"  [ngClass]="{'bold': incubator === true}" (click)="incubator=true">incubateur</ion-text>
+								<ion-text color="secondary"  [ngClass]="{'bold': incubator === true}" (click)="incubator=true">{{'SIGNUP.Incubator' | translate}}</ion-text>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+				</div>
+				<div class="ion-text-center ion-margin-top ion-margin-bottom ">
+					
+
+					<ion-grid class="socialLoginButtons">
+						<ion-row>
+							<ion-col class="ion-text-center">
+								<ion-fab-button color="primary" class="socialLoginButton" (click)="signUpGoogle()"  size="large">
+									<ion-icon name="logo-google" size="large" ></ion-icon>
+								</ion-fab-button>
+
+							</ion-col>
+				
+							<ion-col class="ion-text-center">
+								<ion-fab-button class="socialLoginButton"  color="primary"  size="large" (click)="signUpFacebook()">
+									<ion-icon name="logo-facebook" size="large"></ion-icon>
+								</ion-fab-button>
 							</ion-col>
 						</ion-row>
 					</ion-grid>
 
 				</div>
 				<div class="">
+					<div class="separator -ion-padding"></div>
+					<ion-text color="medium" class="socialMediaText"><p>{{'SIGNUP.LoginWithEmail' | translate}}</p></ion-text>
 					<ion-item>
-						<ion-label>{{'SIGNUP.Email' | translate}}</ion-label>
+						<ion-label position="floating">{{'SIGNUP.Email' | translate}}</ion-label>
 						<ion-input type="email"  [(ngModel)] ="user.email"></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label>{{'SIGNUP.Password' | translate}}</ion-label>
+						<ion-label position="floating">{{'SIGNUP.Password' | translate}}</ion-label>
 						<ion-input type="password" [(ngModel)] ="user.password"></ion-input>
 					</ion-item>
 					<div class="ion-text-center ion-margin-top">
-						<ion-button color="primary" (click)="signUpEmail()">
+						<ion-button color="primary" (click)="signUpEmail()" expand="full">
 							{{'SIGNUP.EmailLogin' | translate}}
 						</ion-button>
 					</div>
 				</div>
-				<div class="ion-text-center ion-margin-top ion-margin-bottom ">
-					<div class="separator -ion-padding"></div>
-					<ion-text color="medium" class="socialMediaText"><p>{{'SIGNUP.LoginWithSocial' | translate}}</p></ion-text>
-
-					<ion-grid class="socialLoginButtons">
-						<ion-row>
-							<ion-col class="ion-text-center">
-								<ion-fab-button color="medium" class="socialLoginButton" (click)="signUpGoogle()">
-									<ion-icon name="logo-google" ></ion-icon>
-								</ion-fab-button>
-
-							</ion-col>
 				
-							<ion-col class="ion-text-center">
-								<ion-fab-button class="socialLoginButton"  color="medium">
-									<ion-icon name="logo-facebook"></ion-icon>
-								</ion-fab-button>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-
-				</div>
 
 			</ion-col>
 		</ion-row>

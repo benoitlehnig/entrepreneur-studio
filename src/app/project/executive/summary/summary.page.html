@@ -17,6 +17,19 @@
 						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="Enter more information here..." (ionChange)="updateProject()"></ion-input>
 					</ion-item>
 				</ion-item>
+				<ion-item lines="none" class="ion-margin-top">
+					<ion-text class="colLabel ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}</ion-text>
+					<ion-item  lines="none"  >
+							<ion-button><ion-icon name="add-outline"></ion-icon>Add social network</ion-button>
+						<ion-button><ion-icon name="logo-facebook"></ion-icon>Add Facebook</ion-button>
+						<ion-button><ion-icon name="logo-linkedin"></ion-icon></ion-button>
+						<ion-button><ion-icon name="logo-youtube"></ion-icon></ion-button>
+						<ion-button><ion-icon name="logo-twitter"></ion-icon></ion-button>
+						<ion-button><ion-icon name="logo-medium"></ion-icon></ion-button>
+						<ion-button><ion-icon name="logo-github"></ion-icon></ion-button>
+					</ion-item>
+				 </ion-item>
+
 			</ion-list>
 		</ion-card-content>
 	</ion-card>
@@ -27,49 +40,44 @@
 	<ion-card *ngIf="project.summary">
 		<ion-card-content>
 			<ion-grid>
-				<ion-row>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" elementType="Problem" [elementData]="project.businessCanvas.problem"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" elementType="ExistingAlternatives" [elementData]="project.businessCanvas.existingAlternatives"></app-business-canvas-element>
-
+				<ion-row >
+					<ion-col >
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Problem" [elementData]="project.businessCanvas.problem" elementStyle="smallerCell"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="ExistingAlternatives" [elementData]="project.businessCanvas.existingAlternatives" elementStyle="smallerCell"></app-business-canvas-element>
 					</ion-col>
-					<ion-col class="nomargin" >
-						<ion-row>
-							<ion-col>
-								<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Solution" [elementData]="project.businessCanvas.solution"></app-business-canvas-element>
-								<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyMetrics" [elementData]="project.businessCanvas.keyMetrics"></app-business-canvas-element>
-							</ion-col>
-						</ion-row>
+					<ion-col >
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Solution" [elementData]="project.businessCanvas.solution" elementStyle="smallerCell"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyMetrics" [elementData]="project.businessCanvas.keyMetrics" elementStyle="smallerCell"></app-business-canvas-element>
 					</ion-col>
 					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="highCell" elementType="UniqueValueProposition" [elementData]="project.businessCanvas.usp"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="highCell" elementType="KeyPartners" [elementData]="project.businessCanvas.keyPartners"></app-business-canvas-element>
-					</ion-col>
-					<ion-col class="nomargin">
-						<ion-row>
-							<ion-col>
-								<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UnfairAdvantage" [elementData]="project.businessCanvas.unfairAdvantage"></app-business-canvas-element>
-								<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Channels" [elementData]="project.businessCanvas.channels"></app-business-canvas-element>
-							</ion-col>
-						</ion-row>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UniqueValueProposition" [elementData]="project.businessCanvas.usp" elementStyle="highCell"></app-business-canvas-element>
 					</ion-col>
 					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CustomerSegmentation" [elementData]="project.businessCanvas.customerSegmentation"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="EarlyAdopters" [elementData]="project.businessCanvas.earlyAdopters"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UnfairAdvantage" [elementData]="project.businessCanvas.unfairAdvantage"  elementStyle="smallerCell" ></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Channels" [elementData]="project.businessCanvas.channels"  elementStyle="smallerCell"></app-business-canvas-element>
+					</ion-col>
+					<ion-col  >
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CustomerSegmentation" [elementData]="project.businessCanvas.customerSegmentation" elementStyle="smallerCell"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="EarlyAdopters" [elementData]="project.businessCanvas.earlyAdopters" elementStyle="smallerCell"></app-business-canvas-element>
 					</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CostStructure" [elementData]="project.businessCanvas.costStructure"></app-business-canvas-element>
-						
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CostStructure" elementStyle="smallerCell" [elementData]="project.businessCanvas.costStructure"></app-business-canvas-element>	
 					</ion-col>
 					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="RevenueStreams" [elementData]="project.businessCanvas.revenueStreams"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="RevenueStreams" elementStyle="smallerCell" [elementData]="project.businessCanvas.revenueStreams"></app-business-canvas-element>
 					</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyActivities" [elementData]="project.businessCanvas.keyActivities"></app-business-canvas-element>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyActivities" elementStyle="smallerCell" [elementData]="project.businessCanvas.keyActivities"></app-business-canvas-element>
+					</ion-col>
+					<ion-col>
+						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyResources" elementStyle="smallerCell" [elementData]="project.businessCanvas.keyResources"></app-business-canvas-element>
+					</ion-col>
+					<ion-col>
+						<app-business-canvas-element (changed)="elementUpdated($event)" elementType="KeyPartners" elementStyle="smallerCell" [elementData]="project.businessCanvas.keyPartners"></app-business-canvas-element>
 					</ion-col>
 				</ion-row>
 			</ion-grid>

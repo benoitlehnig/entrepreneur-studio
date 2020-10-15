@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HeaderModule } from '../header/header.module';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -10,7 +11,6 @@ import { EntrepreneurPage } from './entrepreneur.page';
 
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
-import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 
 @NgModule({
   imports: [
@@ -19,8 +19,9 @@ import {UserAvatarModule} from '../user-avatar/user-avatar.module';
     IonicModule,
     EntrepreneurPageRoutingModule,
     TranslateModule,
-    UserAvatarModule
+    HeaderModule
+
   ],
-  declarations: [EntrepreneurPage]
+  declarations: [EntrepreneurPage ]
 })
 export class EntrepreneurPageModule {}

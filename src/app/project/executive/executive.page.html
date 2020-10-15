@@ -5,12 +5,16 @@
 			</ion-menu-button>
 		</ion-buttons>
 
-		<img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo" />
 		
-		<ion-icon slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''"></ion-icon>
-		<ion-title  class="headerTitle"> <ion-text *ngIf="project.summary.logoUrl ===''">{{project.summary.name}} - Executive</ion-text>
+		
+		
+		<ion-title  class="headerTitle"> 
+			<img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end" />
+			<ion-icon slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''"></ion-icon>
+			<ion-text>{{project.summary.name}}</ion-text>
+			<ion-icon class="ion-margin-start" name="pencil-outline"  (click)="openPopover('projectSummary')"></ion-icon>
 		</ion-title>
-		<ion-icon slot="end" class="ion-margin-end" name="settings-outline"  (click)="openPopover('projectSummary')"></ion-icon>
+		
 
 	</ion-toolbar>
 </ion-header>  		

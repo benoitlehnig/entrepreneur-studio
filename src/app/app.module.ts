@@ -25,7 +25,11 @@ import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService  }
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-  
+import { AutoCompleteModule } from 'ionic4-auto-complete';
+
+import { FileUploadModule } from 'ng2-file-upload';
+
+
 registerLocaleData(localeFr);
 
 // AoT requires an exported function for factories
@@ -47,7 +51,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   AngularFireMessagingModule,
   AngularFireAnalyticsModule,
   NgSelectModule, 
+  AutoCompleteModule,
   FormsModule,
+  FileUploadModule,
   TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

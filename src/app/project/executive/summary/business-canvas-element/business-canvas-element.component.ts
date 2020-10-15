@@ -14,6 +14,7 @@ export class BusinessCanvasElementComponent implements OnInit {
 
 	@Input() elementData=[];
 	@Input() elementType=""; 
+	@Input() elementStyle=""; 
 
 
 	public title:string="";

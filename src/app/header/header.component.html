@@ -1,0 +1,37 @@
+<ion-header *ngIf="isLogged === false">
+	<ion-toolbar>
+
+		<ion-title>
+			<img src="assets/images/logo.svg" class="logo ion-margin-end" >
+			<span >{{'LANDINGPAGE.Title' | translate}}
+				<ion-badge class="beta">Beta</ion-badge>
+			</span>
+		</ion-title>
+		<ion-buttons slot="secondary" class="secondary  ">
+			<ion-button (click)="scrollTo('content1')" class="ion-hide-sm-down ion-hide-md-down">
+				{{'LANDINGPAGE.Title1' | translate}}
+			</ion-button>
+			<ion-button (click)="scrollTo('content2')" class=" ion-hide-md-down  ion-hide-lg-down" >
+				{{'LANDINGPAGE.Title2' | translate}}
+			</ion-button>
+			<ion-button  (click)="presentPartnersPopover()"  class="ion-hide-lg-down">
+				{{'LANDINGPAGE.Title3' | translate}}
+			</ion-button>
+		</ion-buttons>
+		<ion-buttons slot="primary">
+			<ion-button color="secondary" fill="solid" class="ion-hide-sm-down" (click)="presentSignUpPopover()">
+				{{'LANDINGPAGE.Register' | translate}}
+			</ion-button>
+			<ion-button color="primary" fill="solid"  (click)="presentLoginPopover()">
+				{{'LANDINGPAGE.Connection' | translate}}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-header [translucent]="true"  *ngIf="isLogged === true">
+	<ion-toolbar>
+		<ion-title class="headerTitle"><img src="assets/images/logo.svg" class="logo ion-margin-end" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+		<app-user-avatar slot="end"></app-user-avatar>
+	</ion-toolbar>
+</ion-header>

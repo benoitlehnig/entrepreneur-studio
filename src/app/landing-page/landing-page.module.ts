@@ -12,6 +12,7 @@ import { LandingPagePage } from './landing-page.page';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
+import { HeaderModule } from '../header/header.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { PartnersComponent } from './partners/partners.component';
     FormsModule,
     IonicModule,
     TranslateModule,
-    LandingPagePageRoutingModule
+    LandingPagePageRoutingModule,
+    HeaderModule
   ],
   declarations: [LandingPagePage,SignUpComponent,LoginComponent,PartnersComponent],
   exports:[TranslatePipe]

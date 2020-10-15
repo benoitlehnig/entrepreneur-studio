@@ -10,6 +10,7 @@ import { PopoverProjectSummaryComponent } from './popover-project-summary/popove
 import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popover-business-canvas.component';
 import { BusinessCanvasElementComponent } from './business-canvas-element/business-canvas-element.component';
 import { PopoverBusinessCanvasElementComponent } from './popover-business-canvas-element/popover-business-canvas-element.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { SummaryPage } from './summary.page';
 
@@ -19,6 +20,7 @@ import { SummaryPage } from './summary.page';
     FormsModule,
     IonicModule,
     TranslateModule,
+    FileUploadModule,
     SummaryPageRoutingModule
   ],
   declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent]

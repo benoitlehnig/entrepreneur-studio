@@ -1,5 +1,6 @@
 
 <ion-content class="ion-padding" *ngIf="step===0">
+	
 	<div class="ion-text-center ion-padding"><img src="./assets/images/undraw_joyride_hnno.svg" class="welcomePicture"></div>
 	<ion-text class="ion-text-center ion-padding title"><h1>{{'ONBOARDINGPAGE.Title' | translate}}</h1></ion-text>
 	<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitle' | translate}}</h2>
@@ -32,9 +33,19 @@
 		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectName' | translate}}</ion-label>
 		<ion-input type="text"  [(ngModel)] ="project.summary.name" ></ion-input>
 	</ion-item>
+	<ion-item lines="none">
+		<ion-label color="primary" position="stacked">{{'ONBOARDINGPAGE.ProjectDomains' | translate}}</ion-label>
+	</ion-item>
 	<ion-item>
-		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectDomains' | translate}}</ion-label>
-		<ion-input type="text"  [(ngModel)] ="project.domains" ></ion-input>
+		<ion-auto-complete [(model)]="project.domains"
+		[multi]="true"
+		[dataProvider]="providerDomains"
+		[exclude]="otherDomain"
+		[options]="domainOptions"
+		[removeButtonIcon]="'assets/icons/clear.svg'"
+		[removeButtonColor]="'dark'"
+		[useIonInput]="true"
+		></ion-auto-complete>
 	</ion-item>
 	<ion-item>
 		<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectMaturity' | translate}}</ion-label>
@@ -42,6 +53,7 @@
 			<ion-select-option *ngFor="let item of projectMaturityItems" [value]="item.id">{{item.text}}</ion-select-option>
 		</ion-select>
 	</ion-item>
+
 	
 	<div class="ion-margin-top ion-margin-bottom ion-text-center">
 		<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.StartNewProjectButton1' | translate}}</ion-button>

@@ -4,7 +4,28 @@
 			<ion-text class="ion-text-center"><h1>{{'LOGIN.Title' | translate}}</h1></ion-text>
 			<ion-text class="ion-text-center"><h3>{{'LOGIN.SubTitle' | translate}}</h3></ion-text>
 		</div>
+		<div class="ion-text-center ion-margin-top ion-margin-bottom">
+			
+
+			<ion-grid class="socialLoginButtons">
+				<ion-row>
+					<ion-col class="ion-text-center">
+						<ion-fab-button color="primary" class="socialLoginButton" (click)="loginWithGoogle()">
+							<ion-icon name="logo-google" size="large"></ion-icon>
+						</ion-fab-button>
+					</ion-col>
+					<ion-col class="ion-text-center">
+						<ion-fab-button class="socialLoginButton"  color="primary" (click)="loginWithFacebook()">
+							<ion-icon name="logo-facebook"  size="large"></ion-icon>
+						</ion-fab-button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+
+		</div>
 		<div class="ion-padding form">
+			<div class="separator -ion-padding"></div>
+			<ion-text color="medium" class="socialMediaText"><p>{{'LOGIN.LoginWithEmail' | translate}}</p></ion-text>
 			<ion-item>
 				<ion-label>{{'LOGIN.Email' | translate}}</ion-label>
 				<ion-input type="email"  [(ngModel)] ="user.email"></ion-input>
@@ -21,26 +42,7 @@
 				</ion-button>
 			</div>
 		</div>
-		<div class="ion-text-center ion-margin-top ion-margin-bottom">
-			<div class="separator -ion-padding"></div>
-			<ion-text color="medium" class="socialMediaText"><p>{{'LOGIN.LoginWithSocial' | translate}}</p></ion-text>
-
-			<ion-grid class="socialLoginButtons">
-				<ion-row>
-					<ion-col class="ion-text-center">
-						<ion-fab-button color="medium" class="socialLoginButton" (click)="loginWithGoogle()">
-							<ion-icon name="logo-google" ></ion-icon>
-						</ion-fab-button>
-					</ion-col>
-					<ion-col class="ion-text-center">
-						<ion-fab-button class="socialLoginButton"  color="medium">
-							<ion-icon name="logo-facebook"></ion-icon>
-						</ion-fab-button>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-
-		</div>
+		
 	</div>
 	<div *ngIf="mode ==='resetPassword'">
 		<div class="topPart ion-padding">

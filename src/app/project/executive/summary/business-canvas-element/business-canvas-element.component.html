@@ -1,4 +1,4 @@
-<div class="cell cellClickable ion-padding" *ngIf="elementData" >
+<div class="cell cellClickable ion-padding ion-margin-bottom" [ngClass]="{'highCell': elementStyle==='highCell', 'smallerCell': elementStyle==='smallerCell'}" *ngIf="elementData" >
 	<ion-icon name="checkmark-outline"  *ngIf="elementData.length !==0" class="stepDone ion-float-right"></ion-icon>
 	<h1>{{title }} <ion-icon  name="information-circle-outline" (click)="openDescriptivePopover()" ></ion-icon></h1> 
 	<div >

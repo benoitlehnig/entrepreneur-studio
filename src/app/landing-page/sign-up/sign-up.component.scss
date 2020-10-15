@@ -4,7 +4,7 @@
 	color : var(--ion-color-primary-contrast);
 }
 .logo{
-	max-width: 	250px;
+	max-width: 	200px;
 	margin-top:30px;
 	margin-bottom:30px;
 }
@@ -36,7 +36,7 @@
 	margin-top:30px;
 }
 .socialLoginButtons{
-	max-width:250px;
+	max-width:180px;
 }
 .socialLoginButton{
 	margin-left: auto;
@@ -49,4 +49,6 @@
 	top: -10px;
 	background: var(--ion-color-primary-contrast);
 	margin: auto;
+	padding-left:12px;
+	padding-right:12px;
 }

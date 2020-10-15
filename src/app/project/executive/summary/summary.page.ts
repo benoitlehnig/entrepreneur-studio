@@ -23,10 +23,12 @@ export class SummaryPage implements OnInit {
 		public modalController: ModalController,
 
 		) { 
+		
 	}
 
 	ionViewWillEnter(){
 		console.log("SummaryPage ionViewWillEnter")
+
 		this.initProject();
 
 	}

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TooltipModule } from 'ng2-tooltip-directive';
 
 import { SummaryPage } from './summary.page';
+  import { AutoCompleteModule } from 'ionic4-auto-complete';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes),
-  TooltipModule],
-  exports: [RouterModule],
+  TooltipModule,
+  AutoCompleteModule],
+  exports: [RouterModule,AutoCompleteModule ],
 })
 export class SummaryPageRoutingModule {}

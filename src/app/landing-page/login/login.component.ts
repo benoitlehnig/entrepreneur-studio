@@ -29,6 +29,16 @@ export class LoginComponent implements OnInit {
 			}
 		});
 	}
+	loginWithFacebook(){
+		this.authService.loginWithFacebook().then((data)=>
+		{
+			console.log(data);
+			if(data.user){
+				console.log(" user logged");
+				
+			}
+		});
+	}
 	loginWithEmail(){
 		this.authService.loginWithEmail(this.user.email, this.user.password).then((data)=>
 		{

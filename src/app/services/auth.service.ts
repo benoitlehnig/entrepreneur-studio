@@ -23,6 +23,7 @@ export class AuthService {
 		) {
 		this.user = this.afAuth.authState;
 		this.afAuth.onAuthStateChanged((user) => {
+			console.log("router : ", this.router.url);
 			if (user) {
 				this.dataSharingServiceService.currentUid(user.uid);
 				user.getIdTokenResult().then(
@@ -34,13 +35,20 @@ export class AuthService {
 								console.log("navigate admin");
 								this.router.navigate(['/admin']);
 							}	
-							else if(this.router.url.indexOf("entrepreneur") === -1){
+							else if(this.router.url.indexOf("entrepreneur") !== -1){
 								console.log("navigate");
 								this.router.navigate(['/entrepreneur']);
+							}
+							else if(this.router.url.indexOf("tools") !== -1){
+								console.log("navigate");
+								this.router.navigate(['/tools']);
 							}				
 						}
 						else if(this.claims['incubator'] ===true){
 							//this.router.navigate(['/incubator']);
+						}
+						else{
+								this.router.navigate(['/entrepreneur']);
 						}
 						this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
@@ -53,7 +61,16 @@ export class AuthService {
 					})
 			} else {
 				console.log("user not logged in auth");
-				this.router.navigate(['/landing-page']); 
+				console.log("router : ", this.router.url);
+				this.dataSharingServiceService.currentUid(null);
+				console.log(this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
+				if( this.router.url.indexOf("entrepreneur") === -1 && this.router.url.indexOf("project") ===-1){
+
+					//this.router.navigate(['/landing-page']); 
+				}
+				else{
+				//	this.router.navigate(['/landing-page']);
+				}
 			}
 		}); 
 

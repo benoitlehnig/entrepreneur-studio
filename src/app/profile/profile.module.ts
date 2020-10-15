@@ -10,6 +10,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
+import { HeaderModule} from '../header/header.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
     IonicModule,
     ProfilePageRoutingModule,
     TranslateModule,
-    UserAvatarModule
+    UserAvatarModule,
+    HeaderModule
   ],
   declarations: [ProfilePage]
 })

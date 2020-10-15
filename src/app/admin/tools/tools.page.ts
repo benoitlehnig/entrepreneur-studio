@@ -15,6 +15,7 @@ export class ToolsPage implements OnInit {
 
 	tools:Array<Tool>=[];
 	@Input("homeref") value;
+
 	items = [
     {id: 1, name: 'Python'},
     {id: 2, name: 'Node Js'},

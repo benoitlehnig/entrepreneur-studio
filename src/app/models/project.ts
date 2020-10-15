@@ -3,7 +3,7 @@ export class Project {
 	public summary:Summary = new Summary();
 	public tags:Array<string>=[];
 	public businessCanvas:BusinessCanvas= new BusinessCanvas();
-	public domains : string ="";
+	public domains :Array<any> =[];
 	public maturity : string="";
 	public team : Team = new Team();
 	public financialResources : FinancialResources = new FinancialResources();
@@ -24,6 +24,7 @@ export class BusinessCanvas {
 	public usp:Array<Item>=[];
 	public keyPartners:Array<Item>=[];
 	public keyActivities:Array<Item>=[];
+	public keyResources:Array<Item>=[];
 	public unfairAdvantage:Array<Item>=[];
 	public channels:Array<Item>=[];
 	public customerSegmentation:Array<Item>=[];

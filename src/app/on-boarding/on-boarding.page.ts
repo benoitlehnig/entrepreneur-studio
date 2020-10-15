@@ -1,6 +1,8 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {UserService} from '../services/user.service';
+import {AutocompleteService} from '../services/autocomplete.service';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
+import {AutoCompleteOptions} from 'ionic4-auto-complete';
 
 import {User} from '../models/user';
 import {Project} from '../models/project';
@@ -36,8 +38,13 @@ export class OnBoardingPage implements OnInit {
 	};
 
 	public loading;
+	public domainOptions:AutoCompleteOptions;
 
+	public otherDomain= [];
+	public selected = [];
+	public providerDomains=null;
 
+	
 	constructor(
 		public userService:UserService,
 		public dataSharingServiceService:DataSharingServiceService,
@@ -48,7 +55,16 @@ export class OnBoardingPage implements OnInit {
 		public translateService : TranslateService,
 
 
-		) { }
+		) { 
+		this.providerDomains = new AutocompleteService('domains');
+
+		this.domainOptions = new AutoCompleteOptions();
+		this.domainOptions.autocomplete = 'on';
+		this.domainOptions.debounce = 750;
+		this.domainOptions.searchIcon = 'assets/icons/add-user.svg';
+		this.domainOptions.type = '';
+
+	}
 
 	ngOnInit() {
 
@@ -75,7 +91,7 @@ export class OnBoardingPage implements OnInit {
 			})
 		getUserChanges.unsubscribe();
 
-		for (let i =1; i<6; i++){
+		for (let i =1; i<7; i++){
 			this.translateService.get('ONBOARDINGPAGE.CurrentSituationItem'+i).subscribe(
 				value => {
 					this.currentSituationItems.push({index:i,text:value});
@@ -93,7 +109,7 @@ export class OnBoardingPage implements OnInit {
 					this.personalMotivationItems.push({index:i,text:value});
 				})
 		}
-		for (let i =1; i<4; i++){
+		for (let i =1; i<5; i++){
 			this.translateService.get('ONBOARDINGPAGE.ProjectMaturityItem'+i).subscribe(
 				value => {
 					this.projectMaturityItems.push({index:i,text:value});
@@ -121,10 +137,12 @@ export class OnBoardingPage implements OnInit {
 	}
 
 	nextStep(){
+			console.log(this.project);
 		this.step++;
 	}
 
 	async startNewProject(){
+
 		this.userService.setOnboardingDone(this.uid);
 		this.navParams.get('homeref').startNewProjectOnBoarding(this.project);
 

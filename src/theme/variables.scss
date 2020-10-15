@@ -259,3 +259,10 @@
 .largerOptionPopover{
   --width:min-content;
 }
+
+ion-auto-complete ul{
+  position:initial !important;
+}
+.select-popover{
+  --width:auto !important;
+}

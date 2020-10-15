@@ -32,6 +32,13 @@ export class SignUpComponent implements OnInit {
 			this.createUser(data);
 		});
 	}
+	signUpFacebook(){
+		this.authService.loginWithFacebook().then((data)=>
+		{
+			console.log("signUpFacebook",data);
+			this.createUser(data);
+		});
+	}
 
 	signUpEmail(){
 		this.authService.signUpEmail(this.user.email,this.user.password).then(data=>{
