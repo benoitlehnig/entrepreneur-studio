@@ -14,6 +14,8 @@ export class SignUpComponent implements OnInit {
 	public role:string="entrepreneur";
 	public incubator:boolean=false;
 	public user={email:"",password:""};
+	public cguChecked:boolean=false;
+
 
 	constructor(
 		public authService: AuthService,
@@ -28,7 +30,7 @@ export class SignUpComponent implements OnInit {
 	signUpGoogle(){
 		this.authService.loginWithGoogle().then((data)=>
 		{
-			console.log("loginWithGoogle",data);
+			console.log("signUpGoogle",data);
 			this.createUser(data);
 		});
 	}
@@ -60,7 +62,9 @@ export class SignUpComponent implements OnInit {
 			else{
 				this.role ="entrepreneur";
 			}
+
 			console.log("data.additionalUserInfo.profile",data.additionalUserInfo.profile)
+			console.log("data.additionalUserInfo.",data.additionalUserInfo)
 			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,role:this.role});
 
 			obs.subscribe(res => {

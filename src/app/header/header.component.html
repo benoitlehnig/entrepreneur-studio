@@ -2,7 +2,7 @@
 	<ion-toolbar>
 
 		<ion-title>
-			<img src="assets/images/logo.svg" class="logo ion-margin-end" >
+			<img src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/landing-page" >
 			<span >{{'LANDINGPAGE.Title' | translate}}
 				<ion-badge class="beta">Beta</ion-badge>
 			</span>
@@ -31,7 +31,12 @@
 
 <ion-header [translucent]="true"  *ngIf="isLogged === true">
 	<ion-toolbar>
-		<ion-title class="headerTitle"><img src="assets/images/logo.svg" class="logo ion-margin-end" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+		<ion-buttons slot="start">
+			<ion-menu-button autoHide="true" menu="mainMenu">
+			</ion-menu-button>
+		</ion-buttons>
+		<ion-title class="headerTitle">
+			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
 		<app-user-avatar slot="end"></app-user-avatar>
 	</ion-toolbar>
 </ion-header>

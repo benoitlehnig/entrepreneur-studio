@@ -27,18 +27,21 @@
 				</div>
 				<div class="ion-text-center ion-margin-top ion-margin-bottom ">
 					
-
+					<ion-item>
+						<ion-checkbox slot="start" [(ngModel)]="cguChecked"></ion-checkbox>
+						<ion-label class="ion-text-wrap">{{'SIGNUP.cguText' | translate}} <a href="/cgu" target="_blank">{{'SIGNUP.cguTextLink' | translate}} </a></ion-label>
+					</ion-item>
 					<ion-grid class="socialLoginButtons">
 						<ion-row>
 							<ion-col class="ion-text-center">
-								<ion-fab-button color="primary" class="socialLoginButton" (click)="signUpGoogle()"  size="large">
+								<ion-fab-button color="primary" class="socialLoginButton" (click)="signUpGoogle()"  size="large" [disabled]="cguChecked === false">
 									<ion-icon name="logo-google" size="large" ></ion-icon>
 								</ion-fab-button>
 
 							</ion-col>
-				
+
 							<ion-col class="ion-text-center">
-								<ion-fab-button class="socialLoginButton"  color="primary"  size="large" (click)="signUpFacebook()">
+								<ion-fab-button class="socialLoginButton"  color="primary"  size="large" (click)="signUpFacebook()" [disabled]="cguChecked === false">
 									<ion-icon name="logo-facebook" size="large"></ion-icon>
 								</ion-fab-button>
 							</ion-col>
@@ -58,7 +61,7 @@
 						<ion-input type="password" [(ngModel)] ="user.password"></ion-input>
 					</ion-item>
 					<div class="ion-text-center ion-margin-top">
-						<ion-button color="primary" (click)="signUpEmail()" expand="full">
+						<ion-button color="primary" (click)="signUpEmail()" expand="full" [disabled]="cguChecked === false">
 							{{'SIGNUP.EmailLogin' | translate}}
 						</ion-button>
 					</div>

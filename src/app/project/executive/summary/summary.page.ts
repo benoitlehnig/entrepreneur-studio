@@ -4,7 +4,9 @@ import {Project} from '../../../models/project';
 import {ProjectService} from '../../../services/project.service';
 import { ModalController } from '@ionic/angular';
 import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popover-business-canvas.component';
-import { PopoverProjectSummaryComponent } from './popover-project-summary/popover-project-summary.component';
+import { PopoverSocialNetworkComponent } from './popover-social-network/popover-social-network.component';
+import * as moment from 'moment';
+
 
 @Component({
 	selector: 'app-summary',
@@ -16,7 +18,12 @@ export class SummaryPage implements OnInit {
 	public project:Project = new Project();
 	public projectId:string="";
 
+	public socialNetworks=[
+	{type: "facebook"},{type: "linkedIn"},{type: "instagram"},{type: "twitter"},{type: "youtube"}]
 
+	public updateOnGoing:boolean= false;
+
+	public lastUpdateTime =moment();
 	constructor(
 		public dataSharingServiceService: DataSharingServiceService,
 		public projectService:ProjectService,
@@ -36,32 +43,16 @@ export class SummaryPage implements OnInit {
 		console.log("SummaryPage ngOnInit")
 	}
 
-	async openPopover(type:string){
-		let modal = await this.modalController.create({
-			component: PopoverProjectSummaryComponent,
-			cssClass: 'my-custom-class',
-			componentProps: {homeref:this, type:type},
-		});
-		if(type!=="projectSummary"){
-			modal = await this.modalController.create({
-				component: PopoverBusinessCanvasComponent,
-				cssClass: 'my-custom-class',
-				componentProps: {homeref:this, type:type},
-			});
-		}
-		
-		modal.onWillDismiss().then(
-			data=> this.initProject()
-			)
-		return await modal.present();
-
-	}
+	
 
 	initProject(){
 		this.dataSharingServiceService.getProjectChanges().subscribe(
 			(data)=>{
 				if(data !==null){
 					console.log("initProject dataSharingServiceService", data);
+					if(this.project.summary.elevatorPitch !=="" && this.project.summary.elevatorPitch !== data.data.summary.elevatorPitch){
+						data.data.summary.elevatorPitch = this.project.summary.elevatorPitch;
+					}
 					this.project= data.data;
 					this.projectId	= data.id;
 				}
@@ -72,20 +63,17 @@ export class SummaryPage implements OnInit {
 	}
 
 	saveProject(project){
-		this.projectService.saveProject(this.projectId,project)
+		this.projectService.saveProject(this.projectId,project).then(
+			data=>{
+				this.updateOnGoing =false;
+			})
 		this.modalController.dismiss();
 	}
 
-	addElement(element){
-		console.log(" element" ,element);
-		let data =JSON.parse(element);
-		this.projectService.addElement(this.projectId,data.type,data.data).then(
-			data=> console.log(data));		
 
-	}
 	async updateProject(){
-		await this.delay(1000);
-		this.projectService.saveProject(this.projectId,this.project)
+		this.projectService.saveProject(this.projectId,this.project);
+		this.lastUpdateTime = moment();
 	}
 
 	delay(ms: number) {
@@ -98,12 +86,28 @@ export class SummaryPage implements OnInit {
 
 		this.project.businessCanvas[data.type] = data.data;
 		console.log("this.project.businessCanvas.problem",this.project.businessCanvas[data.type])
-		this.updateProject();
+		this.saveProject(this.project);
 	}
 	
 
+	addSocialNetwork(type:string){
 
+	}
+	async requestAddPage(type:string,mode:string){
+		let modal = await this.modalController.create({
+			component: PopoverSocialNetworkComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:type, project:this.project, mode:mode},
+		});		
+		modal.onWillDismiss().then(
+			data=> this.initProject()
+			)
+		return await modal.present();
+	}
 
+	dismiss(){
+		this.modalController.dismiss();
+	}
 
 
 }

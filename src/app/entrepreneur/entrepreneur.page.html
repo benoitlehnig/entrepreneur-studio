@@ -8,29 +8,27 @@
           <ion-card class="cardProject">
             <ion-card-content class="ion-text-center  cardProjectContent" (click)="startNewProject()">
               <ion-icon name="add-outline" color="primary" class="iconNewProject"></ion-icon>
-              <h2>Ajouter un projet</h2>
+              <h2>{{'ENTREPENEUR.StartProject' | translate }}</h2>
 
             </ion-card-content>
             <ion-row class="cardfooter ion-padding-start">
               <ion-col>
-                <ion-icon name="bulb-outline" color="primary" class="ion-margin-end"></ion-icon><span>Decouvrez un projet demo   </span>
               </ion-col>
             </ion-row>
           </ion-card>
         </ion-col>
 
         <ion-col  sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let project of projects">
-
-
           <ion-card class="cardProject" >
-            <ion-card-content class="ion-text-center  cardProjectContent" [routerLink]="['/project/'+project.id]">
-              <img [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class="ion-margin-end" />
-              <ion-icon name="cube-outline" *ngIf="project.summary.logoUrl ===''"  class="ion-margin-end defaultLogo" ></ion-icon>
-              <h2>{{project.summary.name}}</h2>
+            <ion-card-content class="ion-text-center  cardProjectContent" [routerLink]="['/project/'+project.projectId]">
+              <img [src]="project.data.summary.logoUrl" *ngIf="project.data.summary.logoUrl !==''" class="ion-margin-end ion-padding projectLogo" />
+              <ion-icon name="cube-outline" *ngIf="project.data.summary.logoUrl ===''"  class="ion-margin-end defaultLogo" ></ion-icon>
+              <h2>{{project.data.summary.name}}</h2>
 
             </ion-card-content>
             <ion-row class="cardfooter ion-padding-start">
               <ion-col>
+                <ion-icon name="trash-outline" color="primary" (click)="requestRemoveProject(project.projectId)"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-card>

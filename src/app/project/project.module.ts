@@ -9,6 +9,7 @@ import { ProjectPageRoutingModule } from './project-routing.module';
 
 import { ProjectPage } from './project.page';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
+import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
     TranslateModule,
     HeaderModule,
     ProjectPageRoutingModule,
+    UserAvatarModule
 
   ],
   declarations: [ProjectPage]

@@ -266,3 +266,8 @@ ion-auto-complete ul{
 .select-popover{
   --width:auto !important;
 }
+
+.selectAlertClass{
+  --min-width:343px;
+  --max-width:none;
+}

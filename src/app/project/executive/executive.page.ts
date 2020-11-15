@@ -15,6 +15,7 @@ export class ExecutivePage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
+	public teamMembers=[];
 
 	constructor(
 		private dataSharingServiceService : DataSharingServiceService,
@@ -34,9 +35,15 @@ export class ExecutivePage implements OnInit {
 				if(data !==null){
 					this.project= data.data;
 					this.projectId	= data.id;
+					this.projectService.getProjectTeamMembers(this.projectId).subscribe(
+						teamMembers =>{
+							console.log("teamMembers ::", teamMembers)
+							this.teamMembers = teamMembers;
+						})
 				}
 
-			})		
+			})
+
 	}
 	async openPopover(type:string){
 		let modal = await this.modalController.create({

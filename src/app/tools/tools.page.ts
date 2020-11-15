@@ -14,8 +14,10 @@ export class ToolsPage implements OnInit {
 
 	items = [];
 	filter={
-		categories : []
+		categories : [],
+		stages:[]
 	}
+	stages = []
 
 
 	constructor(
@@ -35,14 +37,23 @@ export class ToolsPage implements OnInit {
 			})
 		this.translateService.get('TOOLS.CATEGORIES').subscribe(
 			data=>{
-				console.log("categories" , data);
 				let arr=[];
 				Object.keys(data).map(function(key){  
 						arr.push({id: key, name:data[key]})  
 						return arr;  
 					}); 
 				this.items = arr;
-				console.log(this.items)
+			})
+		this.translateService.get('TOOLS.STAGES').subscribe(
+			data=>{
+				console.log("STAGES" , data);
+				let arr=[];
+				Object.keys(data).map(function(key){  
+						arr.push({id: key, name:data[key]})  
+						return arr;  
+					}); 
+				this.stages = arr;
+				console.log(this.stages)
 			})
 	}
 	updateList(){

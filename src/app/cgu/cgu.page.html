@@ -1,0 +1,12 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+	<h1>{{'CGU.Title' | translate}}</h1>
+	<p><ion-text>{{'CGU.LastUpdateDate' | translate}} {{lastUpdateDate  | date:'longDate' }}</ion-text></p>
+	<div class="cgu">
+		<div *ngFor="let article of cgu">
+			<h2>{{article.title}}</h2>
+			<div [innerHTML]="article.text"></div>
+		</div>
+	</div>
+</ion-content>

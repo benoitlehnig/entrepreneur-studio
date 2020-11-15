@@ -48,19 +48,22 @@ export class PopoverBusinessCanvasComponent implements OnInit {
 				this.topPart.example = value['PROJECT_SUMMARY.'+topPartTranslate.example];
 				
 			});	
-		this.dataSharingServiceService.getProjectChanges().subscribe(
-			(data)=> {
-				if(data){
-					this.project = data.data;
-				}
-			});
+			this.dataSharingServiceService.getProjectChanges().subscribe(
+				(data)=> {
+					if(data){
+						this.project = data.data;
+					}
+				});
+
+		}
+
+		save(){
+			this.navParams.get('homeref').saveProject(this.project);
+		}
+
+		dismiss(){
+			this.navParams.get('homeref').dismiss();
+
+		}
 
 	}
-
-	save(){
-		this.navParams.get('homeref').saveProject(this.project);
-	}
-
-	
-
-}

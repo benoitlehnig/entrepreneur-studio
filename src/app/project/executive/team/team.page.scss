@@ -1,0 +1,40 @@
+.teamMembers{
+	max-width:1000px;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+.teamMember{
+	max-width:300px;
+	min-width:300px;
+	min-height:360px;
+	text-align: center;
+	.avatar{
+		text-align: center;
+		margin-left:auto;
+		margin-right: auto;
+		width:100px;		
+		height:100px;		
+	}
+}
+.addButton{
+	font-size:100px;
+}
+.iconUnknown{
+	font-size:100px;
+}
+.title{
+	height: 70px;	
+}
+.fullWidth{
+	max-width: 100%;
+	font-size:0.8em;
+}
+.selectStyle{
+	margin:0px;
+	padding:0px;
+}
+.my-custom-class{
+	--min-width:343px;
+	--max-width:none;
+}

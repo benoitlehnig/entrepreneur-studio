@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
 	ngOnInit() {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
-				console.log(" HeaderComponentuid:" ,uid , this.isLogged);
 				if(uid ===null){
 					this.isLogged = false
 				}

@@ -1,6 +1,10 @@
-.colLabel{
-	max-width:200px;
-	min-width: 110px;
+.projectCard{
+	@media(max-width: 800px) {
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 20px;
+		padding-bottom: 0px;
+	}
 }
 .cell{
 	min-height:248px;
@@ -66,4 +70,60 @@
 		right: 0px;
 		margin-right: 4px;
 	}
+}
+
+.socialNetwork{
+	background-color: var(--ion-color-light);
+	border:3px dashed   var(--ion-color-shade);
+	border-radius: 3px;
+	min-width:50px;
+	min-height:94px;
+	color: var(--ion-color-medium);
+	ion-icon{
+		cursor:pointer;
+		font-size:55px;
+	}
+	@media(max-width: 800px) {
+		min-width:40px;
+		min-height:34px;
+		padding: 10px;
+		ion-icon{
+			cursor:pointer;
+			font-size:25px;
+		}
+
+	}
+	@media(max-width: 800px) {
+		min-width:40px;
+		min-height:34px;
+		padding: 5px;
+	}
+	.notFilled:hover{
+		color: var(--ion-color-primary-shade);
+	}
+	.link{
+		position:absolute;
+		right: 10px;
+		top: 4px;
+		font-size:20px;
+
+		ion-icon{
+			cursor:pointer;
+			font-size:20px;
+			@media(max-width: 800px) {
+				position: relative;
+				top: -3px;
+				right: -7px;
+			}
+		}
+
+	}
+	.filled{
+		color: var(--ion-color-primary);
+	}
+
+}
+
+.labelTop{
+	min-width:130px;
 }

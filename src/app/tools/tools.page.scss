@@ -1,14 +1,70 @@
 .ngselect{
 	max-width: 	450px;
 }
-.logoAvatar{
-	--border-radius	: 2px;
-	width:60px;
-	height: 60px;
+.logoWrapper{
+	width: 	100%;
+	height:200px;
+	background-size: cover;
+	overflow: hidden;
+	background-position: center;
+    background-repeat: no-repeat;
+}
+@media(max-width: 400px) {
+	.logoWrapper{
+		height:50px;
+	}
+}
+@media(max-width: 800px) {
+	.logoWrapper{
+		height:100px;
+	}
 }
 .priceIcon{
 	font-size: 24px;
 	position: relative;
 	top: 5px;
 	margin-right: 10px;
+}
+.description{
+	height: 150px;
+	text-overflow: ellipsis;
+}
+.labels{
+	display: flex;
+	flex-wrap: wrap;
+}
+.label{
+	max-width:130px;
+	border-radius: 	2px;
+	margin:0px 6px 6px 0px ;
+	padding:0px 6px 0px 6px ;
+	text-overflow: ellipsis;
+	font-size: 	10px;
+	text-align: center;	
+	color: var(--ion-color-primary-contrast);
+	background-color:   var(--ion-color-primary);
+
+
+}
+.bold{
+	font-weight:bold;
+}
+.gridTools{
+	max-width:1500px;
+	@media(max-width: 400px) {
+		.toolCol{
+			min-width:100%;
+		}
+	}
+	@media(max-width: 800px) {
+		.toolCol{
+			min-width:40%;
+		}
+	}
+	@media(max-width:1200px) {
+		.toolCol{
+			min-width:350px;
+		}
+	}
+	
 }

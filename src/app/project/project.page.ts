@@ -6,7 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-
+import { AlertController } from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+import { ModalController } from '@ionic/angular';
+import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
 @Component({
 	selector: 'app-project',
 	templateUrl: './project.page.html',
@@ -17,61 +20,46 @@ export class ProjectPage implements OnInit {
 	public project:Project= new Project();
 	public projectId:string="";
 
-
 	constructor(
 		public projectService:ProjectService,
 		private activatedRoute: ActivatedRoute,
 		public dataSharingServiceService:DataSharingServiceService,
 		public authService:AuthService,
 		public router:Router,
-		private menu: MenuController
+		private menu: MenuController,
+		public alertController: AlertController,
+		public translateService: TranslateService,
+		public modalController:ModalController
 		) {
-		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');
-		this.authService.getUserDetails().subscribe(
-			data=>{
-				if(data){
-					console.log("getUserDetails", data);
-					this.projectService.getProjectbyOwnerUid(data.uid).subscribe(
-						(data)=>{
-							console.log(data);
-							this.projects = data
-						});
-				}
-			});
+
+
+		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');		
 		this.initProject();
 	}
-
-	public selectedIndex = 0;
-	public projects=[];
-
-	public pages = [
-
-	{
-		title: 'Executive',
-		url: 'executive',
-		icon: 'person'
-	},
-	{
-		title: 'Ideation',
-		url: 'ideation',
-		icon: 'shield-checkmark'
-	},
-	{
-		title: 'Creation',
-		url: 'creation',
-		icon: 'people-circle'
-	}
-	];
-
 
 	ngOnInit() {
-		console.log("ProjectPage ngOnInit" )
+		console.log("ProjectPage ngOnInit" );
+		this.dataSharingServiceService.getUidChanges().subscribe(
+			(uid) =>{
+				console.log("ProjectPage uid", uid );
+				if(uid){
+					this.projectService.getProjectsIdsbyUid(uid.uid,this.projectId).subscribe(
+					response => {
+						console.log("response", response);
+						if(response === undefined){
+							this.router.navigate(['/landing-page']);
+						}
+					})
+				}
+			})
 		this.initProject();
-		
+
 	}
 
+
+
 	initProject(){
-				console.log("ProjectPage initProject" )
+		console.log("ProjectPage initProject" )
 
 		this.projectService.getProject(this.projectId).subscribe(
 			(data)=>{
@@ -80,16 +68,10 @@ export class ProjectPage implements OnInit {
 					this.project= data;
 					this.dataSharingServiceService.currentProject({id:this.projectId, data: data});
 				}
-				
+
 			})
 	}
 
-	selectTabNavigation(){
-		const path = window.location.pathname;
-		if (path !== undefined) {
-			this.selectedIndex = this.pages.findIndex(page => page.url.toLowerCase() === path.toLowerCase().split("/")[1]);
-		}
-	}
 
 	changeProject(event){
 		console.log(event.target.value);
@@ -101,6 +83,26 @@ export class ProjectPage implements OnInit {
 		this.menu.toggle();
 
 	}
+	async openPopover(type:string){
+		let modal = await this.modalController.create({
+			component: PopoverProjectSummaryComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:type},
+		});
 
+		modal.onWillDismiss().then(
+			data=> this.initProject()
+			)
+		return await modal.present();
+
+	}
+	saveProject(project){
+		this.projectService.saveProject(this.projectId,project)
+		this.modalController.dismiss();
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
+	}
 
 }

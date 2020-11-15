@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {UserService} from './user.service';
 import {DataSharingServiceService} from './data-sharing-service.service';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
 
 	constructor(
 		private afAuth: AngularFireAuth,
+		public functions : AngularFireFunctions,
 		public router:Router,
 		public userService:UserService,
 		public dataSharingServiceService:DataSharingServiceService
@@ -25,7 +27,9 @@ export class AuthService {
 		this.afAuth.onAuthStateChanged((user) => {
 			console.log("router : ", this.router.url);
 			if (user) {
-				this.dataSharingServiceService.currentUid(user.uid);
+				console.log(" this.afAuth.authState, ", user)
+				this.dataSharingServiceService.currentUid({uid: user.uid, email: user.email});
+				
 				user.getIdTokenResult().then(
 					result=> {
 						console.log("result",result);
@@ -39,23 +43,33 @@ export class AuthService {
 								console.log("navigate");
 								this.router.navigate(['/entrepreneur']);
 							}
+							else if(this.router.url.indexOf("landing-page") !== -1){
+								console.log("navigate");
+								this.router.navigate(['/entrepreneur']);
+							}
 							else if(this.router.url.indexOf("tools") !== -1){
 								console.log("navigate");
 								this.router.navigate(['/tools']);
+							}
+							else if(this.router.url.indexOf("cgu") !== -1){
+								console.log("navigate");
+								this.router.navigate(['/cgu']);
 							}				
 						}
 						else if(this.claims['incubator'] ===true){
 							//this.router.navigate(['/incubator']);
 						}
 						else{
-								this.router.navigate(['/entrepreneur']);
+							this.router.navigate(['/entrepreneur']);
 						}
 						this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
-
 								if(data){
 									this.dataSharingServiceService.currentUser(data);
 									console.log(">user", data);
+									if(data.photoUrl !== user.photoURL){
+										this.updatePhotoUrl(user);
+									}
 								}
 							})
 					})
@@ -64,12 +78,17 @@ export class AuthService {
 				console.log("router : ", this.router.url);
 				this.dataSharingServiceService.currentUid(null);
 				console.log(this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
-				if( this.router.url.indexOf("entrepreneur") === -1 && this.router.url.indexOf("project") ===-1){
-
-					//this.router.navigate(['/landing-page']); 
+				if(this.router.url.indexOf("cgu") !== -1){
+					console.log("navigate cgu");
+					this.router.navigate(['/cgu']);
 				}
+				else if( this.router.url.indexOf("entrepreneur") === -1 && this.router.url.indexOf("project") ===-1){
+
+					this.router.navigate(['/landing-page']); 
+				}
+
 				else{
-				//	this.router.navigate(['/landing-page']);
+					this.router.navigate(['/landing-page']);
 				}
 			}
 		}); 
@@ -128,5 +147,15 @@ export class AuthService {
 		return this.afAuth.sendPasswordResetEmail(email)
 		.then(() => console.log("email sent"))
 		.catch((error) => console.log(error))
+	}
+
+	updatePhotoUrl(user){
+		console.log("updatePhotoUrl", user.uid,user.photoURL);
+		const callable = this.functions.httpsCallable('updateUserPhotoUrl');
+		const obs = callable({uid:user.uid, photoUrl:user.photoURL});
+
+		obs.subscribe(res => {
+			console.log("photoURL", "done");
+		});
 	}
 }

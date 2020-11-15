@@ -19,132 +19,163 @@
 			<ion-card-content>
 				<div >
 					<h1 class="subContentTitle ion-padding ion-text-center" >{{'LANDINGPAGE.subContentTitle1' | translate}}</h1>
-					<ion-grid class="subContentGrid">
+
+					<ion-grid class="subContentGrid ">
 						<ion-row>
 							<ion-col>
-								<div class="subContentImg sub1" ></div>
-								<h2 class="ion-text-center">{{'LANDINGPAGE.Icon1SubTitle' | translate}}</h2>
+								<div class="subContentImg sub1" >
+									<h2 class="ion-text-center">{{'LANDINGPAGE.Icon1SubTitle' | translate}}</h2>
+									<div class="overlay" *ngIf="isLogged ===false" (click)="presentSignUpPopover()">
+										<div class="text">
+											<ion-button class="button" fill="outline">{{'LANDINGPAGE.SignUp' | translate}}
+											</ion-button>
+										</div>
+									</div>
+									<div class="overlay" *ngIf="isLogged ===true" [routerLink]="['/entrepreneur']">
+										<div class="text">
+											<ion-button  class="button" fill="outline">{{'LANDINGPAGE.GarageAccess' | translate}}
+											</ion-button>
+										</div>
+									</div>
+								</div>
+								<div>
+									<p>{{'LANDINGPAGE.Icon1SubText' | translate}}</p>
+									<ion-button fill="outline" (click)="presentSignUpPopover()" *ngIf="isLogged ===false">{{'LANDINGPAGE.SignUp' | translate}}</ion-button>
+									<ion-button fill="outline"  [routerLink]="['/entrepreneur']" *ngIf="isLogged ===true">{{'LANDINGPAGE.GarageAccess' | translate}}</ion-button>
+								</div>
 							</ion-col>
 							<ion-col>
 								<div class="subContentImg sub2" >
 									<h2 class="ion-text-center">{{'LANDINGPAGE.Icon2SubTitle' | translate}}</h2>
-								</div>
-							</ion-col>
-							<ion-col >
-								<div class="subContentImg sub3" ></div>
-								<h2 class="ion-text-center">{{'LANDINGPAGE.Icon3SubTitle' | translate}}</h2>
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col class="ion-padding">
-								<p>{{'LANDINGPAGE.Icon1SubText' | translate}}</p>
-							</ion-col>
-							<ion-col class="ion-padding">
-								<p>{{'LANDINGPAGE.Icon2SubText' | translate}}</p>
-							</ion-col>
-							<ion-col class="ion-padding">
-								<p>{{'LANDINGPAGE.Icon3SubText' | translate}}</p>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-				</div>
-				<ion-grid class="iconsRow" id="content1">
-					<ion-row>
-						<ion-col>
-							<ion-icon name="lock-closed-outline"></ion-icon>
-							<h2>{{'LANDINGPAGE.Icon1Title' | translate}}</h2>
-							<p>{{'LANDINGPAGE.Icon1Text' | translate}}</p>
-						</ion-col>
-						<ion-col>
-							<ion-icon name="cloud-outline"></ion-icon>
-							<h2>{{'LANDINGPAGE.Icon2Title' | translate}}</h2>
-							<p>{{'LANDINGPAGE.Icon2Text' | translate}}</p>
-						</ion-col>
-						<ion-col>
-							<ion-icon name="people-outline"></ion-icon>
-							<h2>{{'LANDINGPAGE.Icon3Title' | translate}}</h2>
-							<p>{{'LANDINGPAGE.Icon3Text' | translate}}</p>
-						</ion-col>
-						<ion-col>
-							<ion-icon name="phone-portrait-outline"></ion-icon>
-							<h2>{{'LANDINGPAGE.Icon4Title' | translate}}</h2>
-							<p>{{'LANDINGPAGE.Icon4Text' | translate}}</p>
-						</ion-col>
-						<ion-col>
-							<ion-icon name="construct-outline"></ion-icon>
-							<h2>{{'LANDINGPAGE.Icon5Title' | translate}}</h2>
-							<p>{{'LANDINGPAGE.Icon5Text' | translate}}</p>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-				<div class="ion-text-center bigMargin">
-					<ion-button size="large" color="primary" class=""  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
-				</div>
-				<div class="subContent" >
-					<h1 class="ion-padding ion-text-center subContentTitle " >{{'LANDINGPAGE.Content2Title' | translate}}</h1>
-					<ion-grid class="pictureAndText"  >
+									<div class="overlay" [routerLink]="['/tools']">
+										<div class="text">
+											<ion-button  class="button" fill="outline">{{'LANDINGPAGE.ToolBoxAccess' | translate}}
+											</ion-button></div>
+										</div>
+									</div>
+									<div>
+										<p>{{'LANDINGPAGE.Icon2SubText' | translate}}</p>
+										<ion-button fill="outline"  [routerLink]="['/tools']">{{'LANDINGPAGE.ToolBoxAccess' | translate}}</ion-button>
+									</div>
+								</ion-col>
+								<ion-col >
+									<div class="subContentImg sub3" >
+										<h2 class="ion-text-center">{{'LANDINGPAGE.Icon3SubTitle' | translate}}</h2>
+										<a href="https://www.facebook.com/entrepreneurstudiocom" target="blank">
+											<div class="overlay" >
+												<div class="text">
+													<ion-button  class="button" fill="outline">{{'LANDINGPAGE.SystemDAccess' | translate}}
+													</ion-button>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div>
+										<p>{{'LANDINGPAGE.Icon3SubText' | translate}}</p>
+										<ion-button fill="outline" href="https://www.facebook.com/groups/entrepreneurstudio" target="blank" >{{'LANDINGPAGE.SystemDAccess' | translate}}</ion-button>
+									</div>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</div>
+					<ion-grid class="iconsRow" id="content1">
 						<ion-row>
 							<ion-col>
-								<img src="assets/images/undraw_profile_6l1l.svg">
-							</ion-col>
-							<ion-col  class="ion-padding">
-								<h2>{{'LANDINGPAGE.pictureAndText1Title' | translate}}</h2>
-								<p>{{'LANDINGPAGE.pictureAndText1Text' | translate}}</p>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-					<ion-grid class="pictureAndText" id="content2">
-						<ion-row>
-							<ion-col class="ion-padding">
-								<h2>{{'LANDINGPAGE.pictureAndText2Title' | translate}}</h2>
-								<p>{{'LANDINGPAGE.pictureAndText2Text' | translate}}</p>
+								<ion-icon name="lock-closed-outline"></ion-icon>
+								<h2>{{'LANDINGPAGE.Icon1Title' | translate}}</h2>
+								<p>{{'LANDINGPAGE.Icon1Text' | translate}}</p>
 							</ion-col>
 							<ion-col>
-								<img src="assets/images/undraw_our_solution_htvp.svg">
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-					<ion-grid class="pictureAndText">
-						<ion-row>
-							<ion-col>
-								<img src="assets/images/undraw_real_time_collaboration_c62i.svg">
-							</ion-col>
-							<ion-col  class="ion-padding">
-								<h2>{{'LANDINGPAGE.pictureAndText3Title' | translate}}</h2>
-								<p>{{'LANDINGPAGE.pictureAndText3Text' | translate}}</p>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-					<ion-grid class="pictureAndText" >
-						<ion-row>
-							<ion-col  class="ion-padding">
-								<h2>{{'LANDINGPAGE.pictureAndText4Title' | translate}}</h2>
-								<p>{{'LANDINGPAGE.pictureAndText4Text' | translate}}</p>
+								<ion-icon name="cloud-outline"></ion-icon>
+								<h2>{{'LANDINGPAGE.Icon2Title' | translate}}</h2>
+								<p>{{'LANDINGPAGE.Icon2Text' | translate}}</p>
 							</ion-col>
 							<ion-col>
-								<img src="assets/images/undraw_upgrade_06a0.svg">
+								<ion-icon name="people-outline"></ion-icon>
+								<h2>{{'LANDINGPAGE.Icon3Title' | translate}}</h2>
+								<p>{{'LANDINGPAGE.Icon3Text' | translate}}</p>
+							</ion-col>
+							<ion-col>
+								<ion-icon name="phone-portrait-outline"></ion-icon>
+								<h2>{{'LANDINGPAGE.Icon4Title' | translate}}</h2>
+								<p>{{'LANDINGPAGE.Icon4Text' | translate}}</p>
+							</ion-col>
+							<ion-col>
+								<ion-icon name="construct-outline"></ion-icon>
+								<h2>{{'LANDINGPAGE.Icon5Title' | translate}}</h2>
+								<p>{{'LANDINGPAGE.Icon5Text' | translate}}</p>
 							</ion-col>
 						</ion-row>
 					</ion-grid>
+					<div class="ion-text-center bigMargin">
+						<ion-button size="large" color="primary" class=""  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
+					</div>
+					<div class="subContent" >
+						<h1 class="ion-padding ion-text-center subContentTitle " >{{'LANDINGPAGE.Content2Title' | translate}}</h1>
+						<ion-grid class="pictureAndText"  >
+							<ion-row>
+								<ion-col>
+									<img src="assets/images/undraw_profile_6l1l.svg">
+								</ion-col>
+								<ion-col  class="ion-padding">
+									<h2>{{'LANDINGPAGE.pictureAndText1Title' | translate}}</h2>
+									<p>{{'LANDINGPAGE.pictureAndText1Text' | translate}}</p>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<ion-grid class="pictureAndText" id="content2">
+							<ion-row>
+								<ion-col class="ion-padding">
+									<h2>{{'LANDINGPAGE.pictureAndText2Title' | translate}}</h2>
+									<p>{{'LANDINGPAGE.pictureAndText2Text' | translate}}</p>
+								</ion-col>
+								<ion-col>
+									<img src="assets/images/undraw_our_solution_htvp.svg">
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<ion-grid class="pictureAndText">
+							<ion-row>
+								<ion-col>
+									<img src="assets/images/undraw_real_time_collaboration_c62i.svg">
+								</ion-col>
+								<ion-col  class="ion-padding">
+									<h2>{{'LANDINGPAGE.pictureAndText3Title' | translate}}</h2>
+									<p>{{'LANDINGPAGE.pictureAndText3Text' | translate}}</p>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<ion-grid class="pictureAndText" >
+							<ion-row>
+								<ion-col  class="ion-padding">
+									<h2>{{'LANDINGPAGE.pictureAndText4Title' | translate}}</h2>
+									<p>{{'LANDINGPAGE.pictureAndText4Text' | translate}}</p>
+								</ion-col>
+								<ion-col>
+									<img src="assets/images/undraw_upgrade_06a0.svg">
+								</ion-col>
+							</ion-row>
+						</ion-grid>
 
-				</div>
-				<div class="bottomSection ion-text-center ion-padding" >
-					<a target="blank" href=" https://www.instagram.com/entrepreneur.studio" class="socialNetworkIcon ion-margin">
-						<ion-icon name="logo-instagram"></ion-icon>
-					</a>
-					<a target="blank" href="https://www.linkedin.com/company/entrepreneur-studio" class="socialNetworkIcon ion-margin">
-						<ion-icon name="logo-linkedin"></ion-icon>
-					</a>
-					<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
-						<ion-icon name="logo-facebook"></ion-icon>
-					</a>
+					</div>
+					<div class="bottomSection ion-text-center ion-padding" >
+						<a target="blank" href=" https://www.instagram.com/entrepreneur.studio" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-instagram"></ion-icon>
+						</a>
+						<a target="blank" href="https://www.linkedin.com/company/entrepreneur-studio" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-linkedin"></ion-icon>
+						</a>
+						<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-facebook"></ion-icon>
+						</a>
 
-					<a href="mailto:contact@entrepreneur-studio.com"><h2>{{'LANDINGPAGE.contactUs' | translate}}</h2></a>
-					
-				</div> 		
-			</ion-card-content>
-		</ion-card>
-	</div>
+						<a href="mailto:contact@entrepreneur-studio.com"><h2>{{'LANDINGPAGE.contactUs' | translate}}</h2></a>
+						<a [routerLink]="['/cgu']"><h2>{{'LANDINGPAGE.CGU' | translate}}</h2></a>
+
+					</div> 		
+				</ion-card-content>
+			</ion-card>
+		</div>
 
 
-</ion-content>
+	</ion-content>

@@ -1,0 +1,16 @@
+<ion-content class="ion-padding">
+	<ion-item lines="none">
+		<ion-text>
+			<h2 *ngIf="mode ==='add'">{{'PROJECT_SOCIALNETWORK.Title' | translate }} {{'PROJECT_SOCIALNETWORK.'+type | translate }} </h2>
+			<h2 *ngIf="mode ==='update'">{{'PROJECT_SOCIALNETWORK.TitleUpdate' | translate }} {{'PROJECT_SOCIALNETWORK.'+type | translate }} </h2>
+		</ion-text>
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>	
+	<ion-list>
+		<ion-item >
+			<ion-label position="floating" class="colLabel">{{'PROJECT_SOCIALNETWORK.PageUrl' | translate }}</ion-label>
+			<ion-input name="name" type="text" [(ngModel)]="link" ></ion-input>
+		</ion-item>
+	</ion-list>
+	<ion-button color="primary" expand="full" (click)="save()" class="ion-margin-top">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
+</ion-content>

@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
+import {DataSharingServiceService} from '../services/data-sharing-service.service';
 
 @Component({
 	selector: 'app-landing-page',
@@ -11,13 +12,25 @@ import { PartnersComponent } from './partners/partners.component';
 })
 export class LandingPagePage implements OnInit {
 
+	public isLogged:boolean = false;
+
+	
 	constructor(
 		public popoverController:PopoverController,
-		
+		public dataSharingServiceService:DataSharingServiceService,
+
 		) { }
 
 	ngOnInit() {
-	
+		this.dataSharingServiceService.getUidChanges().subscribe(
+			uid=>{
+				if(uid ===null){
+					this.isLogged = false
+				}
+				else{
+					this.isLogged = true;
+				}
+			})
 	}
 
 	getContent() {

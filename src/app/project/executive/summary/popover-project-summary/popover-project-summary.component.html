@@ -1,9 +1,15 @@
 <ion-content class="ion-padding">
-	<h2>{{'PROJECT_SUMMARY.ProjectUpdate' | translate }} {{project.summary.name}}</h2>
+	<ion-item lines="none">
+		<ion-text>
+			<h2>{{'PROJECT_SUMMARY.ProjectUpdate' | translate }} {{project.summary.name}}</h2>
+		</ion-text>
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
 	<ion-list>
 		<ion-item >
 			<ion-label position="floating" class="colLabel">{{'PROJECT_SUMMARY.ProjectName' | translate }}</ion-label>
 			<ion-input name="name" type="text" [(ngModel)]="project.summary.name"  required></ion-input>
+
 		</ion-item>
 		<ion-item >
 
@@ -40,5 +46,5 @@
 			></ion-auto-complete>
 		</ion-item>
 	</ion-list>
-	<ion-button color="primary" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
+	<ion-button color="primary" expand="full" (click)="save()">{{'PROJECT_SUMMARY.ProjectSave' | translate }}</ion-button>
 </ion-content>

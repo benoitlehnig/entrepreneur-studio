@@ -9,6 +9,7 @@ import { SummaryPageRoutingModule } from './summary-routing.module';
 import { PopoverProjectSummaryComponent } from './popover-project-summary/popover-project-summary.component';
 import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popover-business-canvas.component';
 import { BusinessCanvasElementComponent } from './business-canvas-element/business-canvas-element.component';
+import { PopoverSocialNetworkComponent } from './popover-social-network/popover-social-network.component';
 import { PopoverBusinessCanvasElementComponent } from './popover-business-canvas-element/popover-business-canvas-element.component';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -23,6 +24,6 @@ import { SummaryPage } from './summary.page';
     FileUploadModule,
     SummaryPageRoutingModule
   ],
-  declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent]
+  declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent,PopoverSocialNetworkComponent]
 })
 export class SummaryPageModule {}

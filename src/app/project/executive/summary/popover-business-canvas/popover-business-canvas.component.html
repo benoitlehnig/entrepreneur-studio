@@ -1,12 +1,18 @@
 <div class="topPart"  >
-	<img  [src]="topPart.img" />
-	<div class="overlay ion-padding">
-		<h1><ion-text>{{topPart.title }}</ion-text></h1>
-		<h2><ion-text  >{{topPart.subTitle }}</ion-text></h2>
-		<div  class="explanations" >
-			<p  >{{topPart.guidance }}</p>
-		</div>			
-	</div>
+	
+		<img  [src]="topPart.img" />
+		<div class="overlay ion-padding">
+			<ion-item lines="none">
+				<ion-text><h1>{{topPart.title }}</h1></ion-text>
+				<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+			</ion-item>
+			<h2><ion-text  >{{topPart.subTitle }}</ion-text></h2>
+			<div  class="explanations" >
+				<p  >{{topPart.guidance }}</p>
+			</div>			
+		</div>
+		
+
 </div>
 <ion-content class="ion-padding">
 	<ion-text><h1>{{'PROJECT_SUMMARY.ShowExample' | translate }}</h1></ion-text>

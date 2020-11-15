@@ -40,11 +40,14 @@
               {
                 "input": "src/theme/variables.scss"
               },
+              "node_modules/cookieconsent/build/cookieconsent.min.css",
               {
                 "input": "src/global.scss"
               }
             ],
-            "scripts": []
+            "scripts": [
+            "node_modules/cookieconsent/build/cookieconsent.min.js"
+          ]
           },
           "configurations": {
             "production": {
@@ -103,8 +106,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": [],
-            "scripts": [],
+            "styles": ["node_modules/cookieconsent/build/cookieconsent.min.css"],
+            "scripts": ["node_modules/cookieconsent/build/cookieconsent.min.js"],
             "assets": [
               {
                 "glob": "favicon.ico",

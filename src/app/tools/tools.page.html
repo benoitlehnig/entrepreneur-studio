@@ -1,35 +1,59 @@
 <app-header></app-header>
 
 <ion-content>
-		<ng-select multiple="true" 
-		class="ion-margin ngselect"
-		[items]="items"
-           bindLabel="name"
-           bindValue="id"
-            placeholder="Categories" 
+	<ng-select multiple="true" 
+	class="ion-margin ngselect"
+	[items]="items"
+	bindLabel="name"
+	bindValue="id"
+	placeholder="Categories" 
 
-           [(ngModel)]="filter.categories"
-           (change)="updateList()">
+	[(ngModel)]="filter.categories"
+	(change)="updateList()">
 </ng-select>
 
-	<ion-card class="tool"  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} ">
-		<ion-card-content>
-			<ion-item slot="start" lines="none" >
-				<ion-avatar class="logoAvatar ion-margin-end">
-					<img class="logo" [src]="tool.imgUrl" />
-				</ion-avatar>
-				<ion-label>
-					<h1>{{tool.name}}</h1>
-					<p class="ion-text-wrap ion-text-justify">{{tool.description}}</p>
-					<h2><ion-icon name="cash-outline" class="priceIcon"></ion-icon>{{tool.price}}</h2>
-					<p>
-						<ion-chip color="primary" *ngFor="let label of tool.labels ">
-							<ion-label>{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-label>
-						</ion-chip>
-					</p>
-				</ion-label>
-			</ion-item>
+<ng-select multiple="true" 
+	class="ion-margin ngselect"
+	[items]="stages"
+	bindLabel="name"
+	bindValue="id"
+	placeholder="Phase" 
 
-		</ion-card-content>
-	</ion-card>
+	[(ngModel)]="filter.stages"
+	(change)="updateList()">
+</ng-select>
+
+<ion-grid class="gridTools">
+	<ion-row>
+		<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
+			<ion-card class="tool" >
+				<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+				</div>
+
+				<ion-card-content>
+					
+					<ion-item slot="start"  lines="none">
+						
+						<ion-label>
+							<h1>{{tool.name}}</h1>
+							<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
+							<ion-text class="bold">{{tool.price}}</ion-text>
+						</ion-label>
+					</ion-item>
+					<ion-item>
+						<div class="ion-justify-content-start labels">
+							<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
+								<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+							</div>
+						</div>
+					</ion-item>
+					<ion-item lines="none">
+						<a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> 
+					</ion-item>
+				</ion-card-content>
+			</ion-card>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+
 </ion-content>

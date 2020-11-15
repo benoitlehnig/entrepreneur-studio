@@ -26,9 +26,29 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'ionic4-auto-complete';
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: environment.cookieDomain
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  "content": {
+    "href": "https://entrepreneur-studio.web.app/cgu",
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
 registerLocaleData(localeFr);
 
@@ -54,6 +74,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   AutoCompleteModule,
   FormsModule,
   FileUploadModule,
+  NgcCookieConsentModule.forRoot(cookieConfig),
   TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -65,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
   StatusBar,
   SplashScreen,
+  ScreenTrackingService,
   TranslatePipe,
   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   { provide: LOCALE_ID, useValue: "fr-FR" }

@@ -71,7 +71,7 @@ export class OnBoardingPage implements OnInit {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>
 			{if(uid){
-				this.uid=uid;
+				this.uid=uid.uid;
 			}}
 			);
 		let getUserChanges= this.dataSharingServiceService.getUserChanges().subscribe(

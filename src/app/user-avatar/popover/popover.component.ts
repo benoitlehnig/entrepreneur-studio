@@ -26,15 +26,11 @@ export class PopoverComponent implements OnInit {
 	logout(){
 		this.authService.logout()
 	}
-	showProjects(){
-		this.router.navigate(['/entrepreneur']);
-		this.navParams.get('homeref').dismissPopover();
 
-		
-	}
 	navigateToProfile(){
 		this.router.navigate(['/profile']);
 		this.navParams.get('homeref').dismissPopover();
 	}
+
 
 }

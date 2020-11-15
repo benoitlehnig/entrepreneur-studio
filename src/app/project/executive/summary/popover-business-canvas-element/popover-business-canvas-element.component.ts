@@ -47,4 +47,9 @@ export class PopoverBusinessCanvasElementComponent implements OnInit {
 		this.navParams.get('homeref').deleteItem(this.item);
 	}
 
+	dismiss(){
+		this.navParams.get('homeref').dismiss();
+
+	}
+
 }

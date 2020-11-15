@@ -2,33 +2,52 @@
 
 
 	<ion-card>
-		<ion-card-content>
+		<ion-card-content class="projectCard">
 			<ion-list>
 				<ion-item lines="none">
-					<ion-text class="colLabel ion-margin-end">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}</ion-text>
+					<ion-text position="floating" class="ion-hide-sm-down labelTop">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}</ion-text>
 					<ion-item class="input">
-						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="Enter more information here..." (ionChange)="updateProject()"></ion-textarea>
+
+						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()"></ion-textarea>
 					</ion-item>
 					
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
-					<ion-text class="colLabel ion-margin-end " >{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}</ion-text>
+					<ion-text position="floating" class="ion-hide-sm-down labelTop">{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}</ion-text>
 					<ion-item class="input">
-						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="Enter more information here..." (ionChange)="updateProject()"></ion-input>
+						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="{{'PROJECT_SUMMARY.ProjectWebsiteUrlPlaceholder' | translate }}" (ionChange)="updateProject()"></ion-input>
 					</ion-item>
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
-					<ion-text class="colLabel ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}</ion-text>
-					<ion-item  lines="none"  >
-							<ion-button><ion-icon name="add-outline"></ion-icon>Add social network</ion-button>
-						<ion-button><ion-icon name="logo-facebook"></ion-icon>Add Facebook</ion-button>
-						<ion-button><ion-icon name="logo-linkedin"></ion-icon></ion-button>
-						<ion-button><ion-icon name="logo-youtube"></ion-icon></ion-button>
-						<ion-button><ion-icon name="logo-twitter"></ion-icon></ion-button>
-						<ion-button><ion-icon name="logo-medium"></ion-icon></ion-button>
-						<ion-button><ion-icon name="logo-github"></ion-icon></ion-button>
-					</ion-item>
-				 </ion-item>
+					<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}</ion-text>
+				</ion-item>
+				<ion-item lines="none">
+					<ion-grid>
+						<ion-row>
+							<ion-col *ngFor="let socialNetwork of socialNetworks">
+								<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks !== undefined && project.summary.socialNetworks[socialNetwork.type] !== undefined && project.summary.socialNetworks[socialNetwork.type].link !== null ">
+
+									<a href="{{project.summary.socialNetworks[socialNetwork.type].link}}" target="_blank" class="link"><ion-icon name="link-outline"></ion-icon></a>
+
+									<div class="icon ion-text-center " (click)="requestAddPage(socialNetwork.type,'update')">
+										<ion-icon name="logo-{{socialNetwork.type}}" class="filled" ></ion-icon>			
+									</div>
+
+									<div class="actions">
+
+									</div>
+								</div>
+								<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks === undefined  ||project.summary.socialNetworks[socialNetwork.type] === undefined  || project.summary.socialNetworks[socialNetwork.type].link === null" (click)="requestAddPage(socialNetwork.type,'add')" >
+									<div class="icon ion-text-center">
+										<ion-icon name="logo-{{socialNetwork.type}}" class="notFilled"></ion-icon>
+									</div>
+
+								</div>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+				</ion-item>
 
 			</ion-list>
 		</ion-card-content>
@@ -38,7 +57,7 @@
 
 	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }}</h2>
 	<ion-card *ngIf="project.summary">
-		<ion-card-content>
+		<ion-card-content class="projectCard">
 			<ion-grid>
 				<ion-row >
 					<ion-col >

@@ -111,4 +111,8 @@ export class PopoverProjectSummaryComponent implements OnInit {
 		}
 	}
 
+	dismiss(){
+		this.navParams.get('homeref').dismiss();
+	}
+
 }

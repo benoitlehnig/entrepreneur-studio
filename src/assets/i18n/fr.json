@@ -38,8 +38,23 @@
 		"Icon2SubText": "Les meilleurs outils et applications du moment disponibles en un seul endroit, classés par catégories",
 		"Icon3SubTitle": "Le système D",
 		"Icon3SubText": "Le forum d’entraide et de bons plans des entrepreneurs",
-		"contactUs": "Contactez-nous"
+		"contactUs": "Contactez-nous",
+		"SystemDAccess": "Accèdez au Systeme D",
+		"ToolBoxAccess": "Accèdez à la boite à outils",
+		"GarageAccess": "Accèdez à mon garage",
+		"SignUp": "Inscrivez-vous",
+		"CGU": "Conditions générales d'utilisation"
+
 	},
+    "cookie": {
+        "header": "Des cookies sont utilisés sur ce site",
+        "message": "Entrepreneur Studio utilise des cookies pour améliorer l'experience du site.",
+        "dismiss": "OK !",
+        "allow": "Accepter les cookies",
+        "deny": "Refuser",
+        "link": "En savoir plus",
+        "policy": "Politique des cookies"
+    },
 	"SIGNUP":{
 		"Title": "Créer votre compte",
 		"GoogleLogin": "se connecter avec google",
@@ -52,7 +67,9 @@
 		"Password": "Mot de passe",
 		"LoginWithSocial": "ou",
 		"LoginWithEmail": "ou",
-		"EmailLogin": "Creer son compte"
+		"EmailLogin": "Creer son compte",
+		"cguText": "J'accepte les ",
+		"cguTextLink": " conditions générales d'utilisation de Entrepreneur Studio"
 	},
 	"LOGIN":{
 		"Title": "De retour au travail :) ",
@@ -72,14 +89,32 @@
 		"Logout": "Logout" ,
 		"Profile": "Profile",
 		"MyProjects": "Mes projets",
+		"ToolBox": "La boite à outils",
 		"AppTitle": "Entrepreneur Studio"
+	},
+	"PROJECT":{
+		"Remove":"Supprimer le projet",
+		"DeletePopupTitle":"Suppression du projet",
+		"DeletePopupSubTitle" :"Etes-vous sur de vouloir supprimer le projet ?",
+		"DeletePopupCancelButton" :"Annuler",
+		"DeletePopupOKButton":"Supprimer"
+	},
+	"EXECUTIVE":{
+		"Dashboard": "Tableau de bord",
+		"Team": "Equipe"
+	},
+	"CGU":{
+		"Title": "Conditions générales du service Entrepreneur Studio",
+		"LastUpdateDate": "Date de la dernière modification : "
 	},
 	"PROJECT_SUMMARY": {
 		"ProjectTitle": "Votre project",
 		"ProjectName": "Nom",
 		"ProjectLogoUrl": "Logo",
 		"ProjectElevatorPitch": "Elevator Pitch",
+		"ProjectElevatorPitchPlaceholder": "Entrer votre Elevator Pitch ! ",
 		"ProjectWebsiteUrl": "Site web",
+		"ProjectWebsiteUrlPlaceholder": "Entrer votre site web",
 		"ProjectSocialNetworks": "Réseaux sociaux",
 		"ProjectUpdate": "Modifier ",
 		"ProjectSave": "Sauvegarder",
@@ -157,7 +192,7 @@
 		"BusinessCanvasKeyActivitiesSubTitle": "Activités clés",
 		"BusinessCanvasKeyActivitiesGuidance": "Activités clés",
 		"BusinessCanvasKeyActivitiesExample": "Partenaires clés",
-		"BusinessCanvasKeyActivitiesPlaceholder": "Quels sont vos partenaires ou fournisseurs clés pour éxecuter votre solution? Quelles sont les ressources et activités apportées par vos partenaires?",
+		"BusinessCanvasKeyActivitiesPlaceholder": "Quelles activités sont nécessaires pour réaliser l’ensemble des actions?",
 		"BusinessCanvasKeyResources": "Ressources clés",
 		"BusinessCanvasKeyResourcesTitle": "Ressources clés",
 		"BusinessCanvasKeyResourcesSubTitle": "Ressources clés",
@@ -170,7 +205,18 @@
 		"SaveItem": "Sauvegarder",
 		"DeleteItem": "Supprimer",
 		"ShowExample": "Exemple",
+		"AddSocialNetwork": "Ajouter la page",
 		"ChooseLogo": "Selectionnez une image (resolution max : 300px*300px)"
+	},
+	"PROJECT_SOCIALNETWORK":{
+		"Title":"Ajouter ",
+		"TitleUpdate":"Modifier ",
+		"facebook":"facebook ",
+		"linkedIn":"LinkedIn ",
+		"instagram":"Instagram ",
+		"youtube":"Youtube ",
+		"twitter":"Twitter ",
+		"PageUrl":"Lien de la page :"
 	},
 	"ONBOARDINGPAGE":{
 		"Title":"Bienvenue !!",
@@ -221,6 +267,9 @@
 		"FinancialResourcesItem4" : "Levée de fond"
 
 	},
+	"ENTREPENEUR" :{
+		"StartProject": "Ajouter un projet" 
+	},
 	"PARTNERS":{
 		"Title":"Devenir partenaire",
 		"SubTitle2":"Vous aidez ou voulez aider les entrepreneurs? Partagez vos idées ou souhaits de partenariat. ",
@@ -239,6 +288,7 @@
 		"Labels":"Labels"
 	},
 	"TOOLS":{
+		"LearnMore":"Plus d'information",
 		"CATEGORIES":{
 			"1" :"Collaboratif",
 			"2" :"Tache",
@@ -261,7 +311,7 @@
 			"19" :"Graphique",
 			"20" :"Image",
 			"21" :"Formulaire",
-			"22" :"Enquete",
+			"22" :"Enquête",
 			"23" :"Sondage",
 			"24" :"Marque",
 			"25" :"Nom",
@@ -269,9 +319,47 @@
 			"27" :"Application",
 			"28" :"Goodies",
 			"29" :"Merchandising",
-			"30" :"Quizz",
-			"31" :"Enquête",
-			"32" :"Relation client"
+			"30" :"Quiz",
+			"31" :"Reseaux sociaux",
+			"32" :"Relation client",
+			"33" :"Marketing",
+			"34" :"Prototype",
+			"35" :"Paiement",
+			"36" :"Administatif",
+			"37" :"Automatisation",
+			"38" :"E-commerce",
+			"39" :"Site web",
+			"40" :"Benchmark",
+			"41" :"Donnée marché",
+			"42" :"Dessin",
+			"43" :"SEO",
+			"44" :"Chatbot",
+			"45" :"Vidéo",
+			"46" :"Traduction",
+			"47" :"Juridique",
+			"48" :"Contrat",
+			"49" :"Finance"
+		},
+		"STAGES":{
+			"ideation" :"Ideation",
+			"creation" :"Creation",
+			"development" :"Développement"
 		}
+	},
+	"TEAM":{
+		"TeamMember":{
+			"Mission":"Mission",
+			"Profile":"Profile",
+			"Role":"Role"
+		},
+		"ErrorMemberAlreadyExists": "Le membre fait déjà parti de votre équipe",
+		"SendInviteText": "Envoyer une invitation a rejoindre le projet pour les autres associes ou conseils",
+		"SendInviteRequestTextButton": "Ajouter un membre",
+		"Email": "Email",
+		"Remove": "Enlever",
+		"AddMemberTitle": "Ajouter un nouveau membre ! ",
+		"AddMemberSubTitle": "Veuillez entrer son email et une invitation a rejoindre le projet lui sera envoyee",
+		"SendRequestButton": "Envoyez l'invitation "
+
 	}
 }

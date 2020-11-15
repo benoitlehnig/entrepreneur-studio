@@ -1,6 +1,61 @@
 <ion-content>
-	<div >
+	<ion-grid class="teamMembers">
+		<ion-row>
+			<ion-col *ngFor="let teamMember of teamMembers">
+				<ion-card class="teamMember">
+					<ion-card-content class="ion-text-center">
+						<ion-avatar *ngIf="teamMember.profile !== undefined && teamMember.profile.photoUrl !== undefined" class="avatar ion-margin-bottom">
+							<img [src]="teamMember.profile.photoUrl" >
+						</ion-avatar>
+						<ion-avatar *ngIf="teamMember.profile === undefined || teamMember.profile.photoUrl === undefined" class="avatar ion-margin-bottom">
+							<ion-icon color="primary" class="iconUnknown" name="person-circle-outline"></ion-icon>
+						</ion-avatar>
+						<div class="title">
+							<h1 *ngIf="teamMember.uid && teamMember.profile" class="ion-margin-top"> 
+								<ion-text>{{teamMember.profile.firstName }} {{teamMember.profile.lastName}} </ion-text>
+							</h1>
+							<h1 *ngIf="!teamMember.uid" class="ion-margin-top"> <ion-text  color="primary">{{teamMember.email}} </ion-text></h1>
+						</div>
+						<ion-item>
+							<ion-select [interfaceOptions]="customAlertOptions"  placeholder="{{'TEAM.TeamMember.Role' | translate }}" [(ngModel)] ="teamMember.role"  (ionChange)="updateProfile(teamMember)" class="fullWidth selectStyle">
+								<ion-select-option value="CEO">CEO - PDG</ion-select-option>
+								<ion-select-option value="COO">COO - Directeur Opérationnel</ion-select-option>
+								<ion-select-option value="CCO">CCO - Directeur Clientèle</ion-select-option>
+								<ion-select-option value="CTO">CTO - Directeur Technique</ion-select-option>
+								<ion-select-option value="CPO">CPO - Directeur Produit</ion-select-option>
+								<ion-select-option value="CFO">CFO - Directeur Financier</ion-select-option>
+							</ion-select>
+						</ion-item>
+						<ion-item>
+							<ion-select [interfaceOptions]="customAlertOptions" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMember.projectProfile" (ionChange)="updateProfile(teamMember)"  multiple="true"  class="fullWidth selectStyle">
+								<ion-select-option value="technic">Technique</ion-select-option>
+								<ion-select-option value="strategy">Strategie</ion-select-option>
+								<ion-select-option value="commercial">Commercial</ion-select-option>
+								<ion-select-option value="expert">Expert</ion-select-option>
+								<ion-select-option value="administrative">Administratif</ion-select-option>
+								<ion-select-option value="finacial">Financier</ion-select-option>
+							</ion-select>
+						</ion-item>
+						<ion-item >
+							<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
+							<ion-textarea [(ngModel)] ="teamMember.mission" class="fullWidth" (ionChange)="updateProfile(teamMember)"></ion-textarea>
+						</ion-item>
+						<ion-item lines="none">		
+							<ion-button (click)="removeTeamMember(teamMember) "  *ngIf="uid !== teamMember.uid">{{'TEAM.Remove' | translate }}</ion-button>
+						</ion-item>
+					</ion-card-content>
+				</ion-card>
+			</ion-col>
 
-		asdfasdfsad
-	</div>
+			<ion-col >
+				<ion-card  class="teamMember">
+					<ion-card-content>
+						<ion-icon name="add-circle-outline" class="addButton"></ion-icon>
+						<p>{{'TEAM.SendInviteText' | translate }}</p>
+						<ion-button color="primary" fill="outline" (click)="requestNewMember()"><ion-icon name="add-outline" ></ion-icon>{{'TEAM.SendInviteRequestTextButton' | translate }}</ion-button>
+					</ion-card-content>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 </ion-content>

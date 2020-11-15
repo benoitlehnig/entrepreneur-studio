@@ -8,6 +8,7 @@ import { ExecutivePageRoutingModule } from './executive-routing.module';
 
 import { ExecutivePage } from './executive.page';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
+import {UserAvatarModule} from '../../user-avatar/user-avatar.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     TranslateModule,
-    ExecutivePageRoutingModule
+    ExecutivePageRoutingModule,
+    UserAvatarModule
   ],
   declarations: [ExecutivePage]
 })

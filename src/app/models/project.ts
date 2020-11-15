@@ -6,7 +6,9 @@ export class Project {
 	public domains :Array<any> =[];
 	public maturity : string="";
 	public team : Team = new Team();
+	public teamMembers:Array<TeamMember>=[];
 	public financialResources : FinancialResources = new FinancialResources();
+	public status : string="active"; 
 }
 
 export class Summary {
@@ -14,6 +16,7 @@ export class Summary {
 	public websiteUrl:string="";
 	public logoUrl:string="";
 	public elevatorPitch:string="";
+	public socialNetworks:SocialNetworks = new SocialNetworks();
 }
 
 export class BusinessCanvas {
@@ -42,8 +45,28 @@ export class Team{
 	public type:string="";
 	public profile:string="";
 	public initialAssociatesNumber:string="";
+	
 }
 export class FinancialResources{
 	public initialFinancialResources:string="";
 
+}
+export class SocialNetworks{
+	public facebook:SocialNeworkData = new SocialNeworkData() ;
+	public youtube:SocialNeworkData = new SocialNeworkData() ;
+	public twitter:SocialNeworkData = new SocialNeworkData() ;
+	public instagram:SocialNeworkData = new SocialNeworkData() ;
+	public linkedIn:SocialNeworkData = new SocialNeworkData() ;
+}
+export class SocialNeworkData{
+	public link:string=null
+}
+
+export class TeamMember{
+	public uid:string;
+	public role:string="";
+	public projectProfile:string="";
+	public status:string="";
+	public mission:string="";
+	public email:string;
 }
