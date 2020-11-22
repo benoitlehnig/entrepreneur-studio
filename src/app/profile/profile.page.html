@@ -1,11 +1,40 @@
-  <ion-header [translucent]="true">
-  	<ion-toolbar>
-  		<ion-title class="headerTitle"><img src="assets/images/logo.svg" class="logo ion-margin-end" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
-  		<app-user-avatar slot="end"></app-user-avatar>
-  	</ion-toolbar>
-  </ion-header>
-  <ion-content>
+<app-header></app-header>
 
 <ion-content>
+	<ion-card class="profile">
+		<ion-card-content>
+			<div class="ion-text-center">
+				<img slot="start" *ngIf="user.photoUrl !==null" [src]="user.photoUrl" class="avatar ion-margin-end" >
+				<ion-text *ngIf="user.projects !==undefined"><h2>{{user.projects.length}} {{'PROFILE.Projects' | translate}}</h2></ion-text>
+			</div>
+			<ion-item  >
+				<ion-label position="floating">{{'PROFILE.FirstName' | translate}}</ion-label>
+				<ion-input type="text" [(ngModel)] ="user.firstName" ></ion-input>
+			</ion-item>
+			<ion-item >
+				<ion-label position="floating">{{'PROFILE.LastName' | translate}}</ion-label>
+				<ion-input type="text" [(ngModel)] ="user.lastName" ></ion-input>
+			</ion-item>
+			<ion-item >
+				<ion-label position="floating">{{'PROFILE.LinkedInPage' | translate}}</ion-label>
+				<ion-input type="text" [(ngModel)] ="user.linkedInUrl" placeholder="{{'PROFILE.LinkedInPagePlaceholder' | translate}}"></ion-input>
+			</ion-item>
+			<ion-item >
+				<ion-label position="floating">{{'PROFILE.Email' | translate}}</ion-label>
+				<ion-input type="text" [(ngModel)] ="user.email" [pattern]="emailPattern"></ion-input>
+			</ion-item>
+			<ion-item >
+				<ion-label position="floating">{{'PROFILE.Role' | translate}}</ion-label>
+				<ion-select  interface="action-sheet"  placeholder="Role" [(ngModel)] ="user.role" >
+					<ion-select-option value="incubator">{{'PROFILE.Incubator' | translate}}</ion-select-option>
+					<ion-select-option value="entrepreneur">{{'PROFILE.Entrepreneur' | translate}}</ion-select-option>
+				</ion-select>
+			</ion-item>
+			<div class="ion-text-center ion-margin-top">
+				<ion-button  color="primary"  expand="full" (click)="save()">{{'PROFILE.Save' | translate}}</ion-button>
+			</div>
+
+		</ion-card-content>
+	</ion-card>
 
 </ion-content>

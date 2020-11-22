@@ -6,7 +6,7 @@ import {ProjectService} from '../services/project.service';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
 import { NavController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
-import { PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import {OnBoardingPage} from '../on-boarding/on-boarding.page'
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,7 +36,7 @@ export class EntrepreneurPage implements OnInit {
 		public dataSharingServiceService:DataSharingServiceService,
 		public navCtrl: NavController,
 		public loadingController: LoadingController,
-		public popoverController: PopoverController,
+		public modalController: ModalController,
 		public alertController: AlertController,
 		public translateService:TranslateService
 		) { }
@@ -71,8 +71,8 @@ export class EntrepreneurPage implements OnInit {
 					if(this.onboardingPopoverDisplayed === false){
 						console.log("display pop pup")
 						this.onboardingPopoverDisplayed = true;
-						if(this.destroyed ===false){
-							this.presentOnboardingPopover()
+						if(this.destroyed ===false && user.onBoardingDone ===false){
+							this.presentOnboardingPopover(0);
 						}
 
 					}
@@ -85,15 +85,15 @@ export class EntrepreneurPage implements OnInit {
 	async startNewProject(){
 		let project = new Project();
 		console.log("startNewProject", project)
-		this.createProject(project);
+		this.presentOnboardingPopover(1);
 
 	}
-	async startNewProjectOnBoarding(project:any){
-		this.popoverController.dismiss();
-		this.createProject(project);
+	async startNewProjectOnBoarding(project:any, teamMembers:any){
+		this.modalController.dismiss();
+		this.createProject(project,teamMembers);
 	}
 
-	async createProject(project:any){
+	async createProject(project:any,teamMembers:any){
 		
 		console.log()
 		
@@ -108,18 +108,18 @@ export class EntrepreneurPage implements OnInit {
 		obs.subscribe(res => {
 			console.log("done", res);
 			this.loading.dismiss();
-			let teamMember = new TeamMember();
-			teamMember.uid = this.userIds.uid; 
-			teamMember.email = this.userIds.email; 
-
-			this.projectService.inviteTeamMember( teamMember, res.id).then(function(docRef) {
-				console.log("Document written with ID: ", docRef.id);
-			})
-			.catch(function(error) {
-				console.error("Error adding document: ", error);
+			
+			teamMembers.forEach((teamMember)=>{
+				if(teamMember.email !=="" && teamMember.email !== undefined){
+					this.projectService.inviteTeamMember( teamMember, res.id).then(function(docRef) {
+						console.log("Document written with ID: ", docRef.id);
+					}).catch(function(error) {
+						console.error("Error adding document: ", error);
+					});
+				}
+				
 			});
 			
-
 			this.navCtrl.navigateRoot(['project/'+res.id]);
 		});
 
@@ -138,13 +138,12 @@ export class EntrepreneurPage implements OnInit {
 			});
 	}
 
-	async presentOnboardingPopover() {
-		
-		const popover = await this.popoverController.create({
+	async presentOnboardingPopover(step) {
+
+		const popover = await this.modalController.create({
 			component: OnBoardingPage,
 			cssClass: 'onboardingPopup',
-			translucent: true,
-			componentProps: {homeref:this},
+			componentProps: {homeref:this, step:step},
 
 		});
 		return await popover.present();
@@ -183,6 +182,10 @@ export class EntrepreneurPage implements OnInit {
 		this.projectService.removeProject(projectId ).then(
 			data=>{
 			})
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
 	}
 
 }

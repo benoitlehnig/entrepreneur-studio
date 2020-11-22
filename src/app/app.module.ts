@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService  } from '@angular/fire/analytics';
+
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +33,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 
 const cookieConfig:NgcCookieConsentConfig = {
+  autoOpen:false,
   cookie: {
     domain: environment.cookieDomain
   },
@@ -87,9 +89,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   StatusBar,
   SplashScreen,
   ScreenTrackingService,
-  TranslatePipe,
+  UserTrackingService,
   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  { provide: LOCALE_ID, useValue: "fr-FR" }
+  { provide: LOCALE_ID, useValue: "fr-FR" },
+  TranslatePipe,
+
   ],
   bootstrap: [AppComponent]
 })

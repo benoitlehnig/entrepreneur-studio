@@ -5,7 +5,7 @@ import { ProjectPage } from './project.page';
 
 const routes: Routes = [
 {
-  path: 'project',
+  path: 'details',
   component: ProjectPage,
   children:
   [ {
@@ -20,7 +20,7 @@ const routes: Routes = [
 },
 {
   path: '',
-  redirectTo: 'project/executive',
+  redirectTo: 'details/executive',
   pathMatch: 'full'
 }
 ];

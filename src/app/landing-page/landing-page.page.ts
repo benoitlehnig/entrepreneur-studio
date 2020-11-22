@@ -4,6 +4,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
+import { AngularFireAnalytics  } from '@angular/fire/analytics';
 
 @Component({
 	selector: 'app-landing-page',
@@ -18,6 +19,8 @@ export class LandingPagePage implements OnInit {
 	constructor(
 		public popoverController:PopoverController,
 		public dataSharingServiceService:DataSharingServiceService,
+		public angularFireAnalytics: AngularFireAnalytics,
+
 
 		) { }
 
@@ -31,6 +34,7 @@ export class LandingPagePage implements OnInit {
 					this.isLogged = true;
 				}
 			})
+		this.angularFireAnalytics.logEvent("toto");
 	}
 
 	getContent() {

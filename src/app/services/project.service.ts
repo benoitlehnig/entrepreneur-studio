@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import {Project} from '../models/project';
 import { map, switchMap,first,filter } from 'rxjs/operators'
-import { firestore } from 'firebase/app';
 import { Observable, combineLatest, of } from 'rxjs'
 import { uniq, flatten } from 'lodash'
 
@@ -18,32 +17,7 @@ export class ProjectService {
 		private afs: AngularFirestore) 
 	{ }
 
-	getProjectbyOwnerUid(uid:string){
-		return this.afs.collection<Project>('projects', ref => ref.where('ownerUid', '==', uid)).snapshotChanges().pipe(map(actions => {
-			return actions.map(a => {
-				const data = a.payload.doc.data() as Project;
-				const id = a.payload.doc.id;
-				return { id, ...data };
-			});
-		})
-		);
-	}
-	getProjects(projectIds:Array<string>){
-		console.log("projectIds",projectIds);
-		return this.afs.collection<Project>(
-			'projects', ref => ref.
-			where("status", '==', "active").
-			where(firestore.FieldPath.documentId(), 'in', projectIds)
-			)
-		.snapshotChanges().pipe(map(actions => {
-			return actions.map(a => {
-				const data = a.payload.doc.data() as Project;
-				const id = a.payload.doc.id;
-				return { id, ...data };
-			});
-		})
-		);
-	}
+
 	getProjectsIdsbyUid(uid:string,projectId){
 		console.log("getProjectsIdsbyUid", uid, projectId)
 		return this.afs.collection<any>('users/'+uid+'/projects', ref => ref.where('projectId', '==', projectId)).valueChanges();

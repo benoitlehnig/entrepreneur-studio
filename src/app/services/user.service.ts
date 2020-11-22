@@ -24,8 +24,9 @@ export class UserService {
 	}
 
 	setProfile(id,profile){
-		console.log(profile,id);
-		return this.afs.doc('users/'+id).update({'profile': profile});
+		console.log("setProfile: ", profile,id);
+		return this.afs.doc('users/'+id).update(profile).then(
+			data=>{console.log("setProfile: ",data)});
 	}
 
 }

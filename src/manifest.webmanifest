@@ -1,0 +1,10 @@
+{
+  "name": "Entrepreneur Studio",
+  "short_name": "Entrepreneur Studio",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./index.html",
+  "gcm_sender_id": "103953800507"
+}

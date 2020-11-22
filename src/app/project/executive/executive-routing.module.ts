@@ -5,7 +5,7 @@ import { ExecutivePage } from './executive.page';
 
 const routes: Routes = [
 {
-  path: 'executive',
+  path: 'tabs',
   component: ExecutivePage,
   children: [
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
 },
 {
   path: '',
-  redirectTo: 'executive/summary',
+  redirectTo: 'tabs/summary',
   pathMatch: 'full',
 },{
   path: 'summary',

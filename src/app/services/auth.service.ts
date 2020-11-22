@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {UserService} from './user.service';
 import {DataSharingServiceService} from './data-sharing-service.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import firebase from 'firebase/app';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 
-	public user: Observable<firebase.User>;
+	public user: Observable<any>;
 	public claims={};
 
 	constructor(
@@ -96,19 +96,19 @@ export class AuthService {
 	}
 
 	loginWithGoogle() {
-		return this.afAuth.signInWithPopup(new auth.GoogleAuthProvider()).then((result) => {
+		return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
 			return result;
 		});
 	}
 
 	loginWithFacebook() {
-		return this.afAuth.signInWithPopup(new auth.FacebookAuthProvider).then((result) => {
+		return this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider).then((result) => {
 			return result;
 		});
 	}
 
 	loginWithGitHub() {
-		return this.afAuth.signInWithPopup(new auth.GithubAuthProvider).then((result) => {
+		return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider).then((result) => {
 			return result;
 		});
 	}

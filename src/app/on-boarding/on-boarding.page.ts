@@ -1,8 +1,11 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import {UserService} from '../services/user.service';
 import {AutocompleteService} from '../services/autocomplete.service';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
+import {TeamMember} from '../models/project';
+
 import {AutoCompleteOptions} from 'ionic4-auto-complete';
+import { IonSlides } from '@ionic/angular';
 
 import {User} from '../models/user';
 import {Project} from '../models/project';
@@ -10,6 +13,7 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { NavController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { NavParams} from '@ionic/angular';
+import { first } from 'rxjs/operators';
 
 import {TranslateService} from '@ngx-translate/core';
 
@@ -21,10 +25,12 @@ import {TranslateService} from '@ngx-translate/core';
 export class OnBoardingPage implements OnInit {
 
 	@Input("homeref") value;
+	@Input("step") stepPage;
+	@ViewChild('slides') slides: IonSlides;
 
 	public user:User = new User();
 	public project:Project = new Project();
-	public uid:string;
+	public userIds;
 	public step:number=0;
 	public currentSituationItems =[];
 	public personalMotivationItems =[];
@@ -33,8 +39,19 @@ export class OnBoardingPage implements OnInit {
 	public projectTeamItems =[];
 	public projectTeamProfileItems =[];
 	public financialResourcesItems =[];
+	public projectProfilesItems =[];
+	public roleItems =[];
 	public customPopoverOptions: any = {
 		cssClass:'largerOptionPopover'
+	};
+
+	public slideOpts = {
+		initialSlide: 0,
+		allowTouchMove:false,
+		speed: 400,
+		pagination: { el: '.swiper-pagination', type: 'bullets', clickable: true},
+		clicks:{slideToClickedSlide: false},
+		
 	};
 
 	public loading;
@@ -43,6 +60,8 @@ export class OnBoardingPage implements OnInit {
 	public otherDomain= [];
 	public selected = [];
 	public providerDomains=null;
+
+	public teamMembers:Array<TeamMember>= []
 
 	
 	constructor(
@@ -68,16 +87,23 @@ export class OnBoardingPage implements OnInit {
 
 	ngOnInit() {
 
-		this.dataSharingServiceService.getUidChanges().subscribe(
+		this.dataSharingServiceService.getUidChanges().pipe(first()).subscribe(
 			uid=>
-			{if(uid){
-				this.uid=uid.uid;
-			}}
-			);
-		let getUserChanges= this.dataSharingServiceService.getUserChanges().subscribe(
+			{
+				if(uid){
+					this.userIds=uid;
+					let teamMember = new TeamMember();
+					teamMember.uid = this.userIds.uid; 
+					teamMember.email = this.userIds.email; 
+					this.teamMembers.push(teamMember,new TeamMember());
+					
+				}}
+		);
+		let getUserChanges= this.dataSharingServiceService.getUserChanges().pipe(first()).subscribe(
 			user=>{
 				if(user){
 					this.user=user;
+					console.log("getUserChanges",this.user)
 				}
 				if(user.profile === undefined){
 					user.profile= {
@@ -89,62 +115,92 @@ export class OnBoardingPage implements OnInit {
 				}
 				
 			})
-		getUserChanges.unsubscribe();
 
-		for (let i =1; i<7; i++){
-			this.translateService.get('ONBOARDINGPAGE.CurrentSituationItem'+i).subscribe(
-				value => {
-					this.currentSituationItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<4; i++){
-			this.translateService.get('ONBOARDINGPAGE.ExperienceItem'+i).subscribe(
-				value => {
-					this.experienceItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<6; i++){
-			this.translateService.get('ONBOARDINGPAGE.MotivationItem'+i).subscribe(
-				value => {
-					this.personalMotivationItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<5; i++){
-			this.translateService.get('ONBOARDINGPAGE.ProjectMaturityItem'+i).subscribe(
-				value => {
-					this.projectMaturityItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<5; i++){
-			this.translateService.get('ONBOARDINGPAGE.ProjectTeamItem'+i).subscribe(
-				value => {
-					this.projectTeamItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<5; i++){
-			this.translateService.get('ONBOARDINGPAGE.ProjectTeamProfileItem'+i).subscribe(
-				value => {
-					this.projectTeamProfileItems.push({index:i,text:value});
-				})
-		}
-		for (let i =1; i<5; i++){
-			this.translateService.get('ONBOARDINGPAGE.FinancialResourcesItem'+i).subscribe(
-				value => {
-					this.financialResourcesItems.push({index:i,text:value});
-				})
-		}
+		
+
+		
+		this.translateService.get('ONBOARDINGPAGE.CurrentSituationItems').subscribe(
+			value => {
+				if(value){
+					this.currentSituationItems = this.returnArrary(value);
+				}
+			})
+		this.translateService.get('ONBOARDINGPAGE.ExperienceItems').subscribe(
+			value => {
+				this.experienceItems = this.returnArrary(value);
+			})
+
+		this.translateService.get('ONBOARDINGPAGE.MotivationItems').subscribe(
+			value => {
+				this.personalMotivationItems= this.returnArrary(value);
+			})
+		
+		
+		this.translateService.get('ONBOARDINGPAGE.ProjectMaturityItems').subscribe(
+			value => {
+				this.projectMaturityItems = this.returnArrary(value);
+			})
+		
+		
+		this.translateService.get('ONBOARDINGPAGE.ProjectTeamItems').subscribe(
+			value => {
+				this.projectTeamItems = this.returnArrary(value);
+			})
+		
+		this.translateService.get('ONBOARDINGPAGE.ProjectTeamProfileItems').subscribe(
+			value => {
+				this.projectTeamProfileItems= this.returnArrary(value);
+			})
+		this.translateService.get('TEAM.ProjectProfiles').subscribe(
+			value => {
+				this.projectProfilesItems= this.returnArrary(value);
+			})
+		
+		this.translateService.get('ONBOARDINGPAGE.FinancialResourcesItems').subscribe(
+			value => {
+				this.financialResourcesItems= this.returnArrary(value);
+			})
+		this.translateService.get('TEAM.Roles').subscribe(
+			value => {
+				if(value){
+					this.roleItems = this.returnArrary(value);
+				}
+			})
+		
 
 	}
 
+	returnArrary(input){
+		let arr=[];
+		Object.keys(input).map(function(key){  
+			arr.push({index: key, text:input[key]})  
+			return arr;  
+		});
+		console.log("array", arr, input)
+		return arr 
+	}
+
 	nextStep(){
-			console.log(this.project);
+		console.log(this.project);
+		this.slides.slideNext()
 		this.step++;
 	}
 
 	async startNewProject(){
 
-		this.userService.setOnboardingDone(this.uid);
-		this.navParams.get('homeref').startNewProjectOnBoarding(this.project);
+		this.userService.setOnboardingDone(this.userIds.uid);
+		this.navParams.get('homeref').startNewProjectOnBoarding(this.project, this.teamMembers);
 
 	}
+	requestAddTeamMember(){
+		this.teamMembers.push(new TeamMember());
+	}
+	removeTeamMember(index){
+		this.teamMembers.splice(index,1);
+	}
+
+	dismiss(){
+		this.navParams.get('homeref').dismiss()
+	}
+
 }

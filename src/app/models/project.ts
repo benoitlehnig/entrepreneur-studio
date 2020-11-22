@@ -43,9 +43,7 @@ export class Item {
 
 export class Team{
 	public type:string="";
-	public profile:string="";
-	public initialAssociatesNumber:string="";
-	
+	public profile:string="";	
 }
 export class FinancialResources{
 	public initialFinancialResources:string="";

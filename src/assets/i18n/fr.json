@@ -46,15 +46,15 @@
 		"CGU": "Conditions générales d'utilisation"
 
 	},
-    "cookie": {
-        "header": "Des cookies sont utilisés sur ce site",
-        "message": "Entrepreneur Studio utilise des cookies pour améliorer l'experience du site.",
-        "dismiss": "OK !",
-        "allow": "Accepter les cookies",
-        "deny": "Refuser",
-        "link": "En savoir plus",
-        "policy": "Politique des cookies"
-    },
+	"cookie": {
+		"header": "Des cookies sont utilisés sur ce site",
+		"message": "Entrepreneur Studio utilise des cookies pour améliorer l'experience du site.",
+		"dismiss": "OK !",
+		"allow": "Accepter les cookies",
+		"deny": "Refuser",
+		"link": "En savoir plus",
+		"policy": "Politique des cookies"
+	},
 	"SIGNUP":{
 		"Title": "Créer votre compte",
 		"GoogleLogin": "se connecter avec google",
@@ -222,34 +222,42 @@
 		"Title":"Bienvenue !!",
 		"SubTitle":"APPRENONS À SE CONNAÎTRE",
 		"CurrentSituation":"Quelle est votre situation actuelle",
-		"CurrentSituationItem1":"Etudiant", 
-		"CurrentSituationItem2":"Salarié",
-		"CurrentSituationItem3":"Congé sabbatique ou création entreprise",
-		"CurrentSituationItem4":"Chômage",
-		"CurrentSituationItem5":"Indépendant",
-		"CurrentSituationItem6":"Retraité",
+		"CurrentSituationItems": {
+			"1":"Etudiant", 
+			"2":"Salarié",
+			"3":"Congé",
+			"4": "Chômage",
+			"5":"Indépendant",
+			"6":"Retraité"
+		},
 		"Experience":"Quelle expérience avez-vous en lien avec votre projet ",
-		"ExperienceItem1":"Novice",
-		"ExperienceItem2":"Expérimenté ",
-		"ExperienceItem3":"Expert",
+		"ExperienceItems": {
+			"1":"Novice",
+			"2":"Expérimenté ",
+			"3":"Expert"
+		},
 		"Motivation":"Quel est votre objectif",
-		"MotivationItem1":"On verra bien",
-		"MotivationItem2":"Création d’entreprise dans plus d’1 an",
-		"MotivationItem3":"Création d’entreprise dans moins d’1 an",
-		"MotivationItem4":"En cours de création",
-		"MotivationItem5":"Entreprise créée à développer",
+		"MotivationItems": {
+			"1":"On verra bien",
+			"2":"Création d’entreprise",
+			"3":"En cours de création",
+			"4":"Entreprise déjà créée"
+		},
+		"AddTeamMember":"Ajouter un associé",
 		"CreateProjectButton":"Démarrez votre premier projet maintenant !",
-		"SubTitleStep1":"Votre Projet",
+		"SubTitleStep1":"Créez votre projet en 2 étapes",
 		"ProjectName":"Nom officiel ou nom de code",
 		"ProjectDomains":"Dans quel secteur d’activité (liste des secteurs)",
 		"ProjectMaturity":"Maturité du projet", 
-		"ProjectMaturityItem1":"Découvrir l'entrepreneuriat et trouver mon idée", 
-		"ProjectMaturityItem2":"Validation de mon idée",
-		"ProjectMaturityItem3":"Lancer mon produit/service",
-		"ProjectMaturityItem4":"Croissance ou Accélération de mon entreprise existante",
-		"StartNewProjectButton1":"Specifiez vos ressources !",
-		"StartNewProjectButton2":"Créez votre projet !",
-		"SubTitleStep2":"Vos Ressources",
+		"ProjectMaturityItems": {
+			"1":"Découvrir l'entrepreneuriat et trouver mon idée", 
+			"2":"Valider de mon idée",
+			"3":"Lancer mon produit/service",
+			"4":"Déveloper ou accélerer mon activité"
+		},
+		"StartNewProjectButton1":"Allez à l'etape 2",
+		"StartNewProjectButton2":"Terminé ! Allez dans mon projet",
+		"SubTitleStep2":"Etape 2/2 : Vos Ressources",
 		"ProjectTeam":"Votre équipe ",
 		"ProjectTeamItem1":"Seul",  
 		"ProjectTeamItem2":"Seul et en recherche d’associés",  
@@ -261,11 +269,12 @@
 		"ProjectTeamProfileItem4":"Expert",  
 		"AssociateNumber":"Nombre d'associé(s)" , 
 		"FinancialResources" : "Ressource financière (fait ou en prévision)" ,
-		"FinancialResourcesItem1" : "A définir" ,
-		"FinancialResourcesItem2" : "Fond personnel" ,
-		"FinancialResourcesItem3" : "Prêt bancaire" ,
-		"FinancialResourcesItem4" : "Levée de fond"
-
+		"FinancialResourcesItems": {
+			"1" : "A définir" ,
+			"2" : "Fond personnel" ,
+			"3" : "Prêt bancaire" ,
+			"4" : "Levée de fond"
+		}
 	},
 	"ENTREPENEUR" :{
 		"StartProject": "Ajouter un projet" 
@@ -346,11 +355,42 @@
 			"development" :"Développement"
 		}
 	},
+	"PROFILE":{
+		"Projects": "project(s)",
+		"Entrepreneur": "Entrepreneur",
+		"Incubator": "Conseil",
+		"FirstName": "Prénom",
+		"LastName": "Nom de famille",
+		"LinkedInPage": "Page LinkedIn", 
+		"LinkedInPagePlaceholder": "https://www.linkedin.com/in/myprofile/", 
+		"Email":"Email",
+		"Role": "Role",
+		"Incubator": "Conseil",
+		"Entrepreneur": "Entrepreneur",
+		"Save": "Mettre à jour",
+		"UpdateSuccessful": "Profil mis à jour !"
+	},
 	"TEAM":{
 		"TeamMember":{
 			"Mission":"Mission",
 			"Profile":"Profile",
 			"Role":"Role"
+		},
+		"Roles": {
+			"CEO":"CEO - PDG",
+			"COO":"COO - Directeur Opérationnel",
+			"CCO":"CCO - Directeur Clientèle",
+			"CTO":"CTO - Directeur Technique",
+			"CPO":"CPO - Directeur Produit",
+			"CFO":"CFO - Directeur Financier"
+		},
+		"ProjectProfiles":{
+			"technic": "Technique",
+			"strategy": "Strategie",
+			"commercial": "Commercial",
+			"expert": "Expert",
+			"administrative": "Administratif",
+			"financial": "Financier"
 		},
 		"ErrorMemberAlreadyExists": "Le membre fait déjà parti de votre équipe",
 		"SendInviteText": "Envoyer une invitation a rejoindre le projet pour les autres associes ou conseils",

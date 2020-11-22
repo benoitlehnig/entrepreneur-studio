@@ -237,7 +237,8 @@
  --max-width: 700px;
 }
 .onboardingPopup{
-  --min-width :500px;
+  --width: 100%;
+  --height: 100%;
 }
 
 .headerTitle{
@@ -257,6 +258,11 @@
 
 
 .largerOptionPopover{
+  --min-width: 500px;
+  @media(max-width: 800px) {
+    --min-width: 100%;
+
+  }
   --width:min-content;
 }
 

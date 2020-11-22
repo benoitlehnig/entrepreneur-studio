@@ -1,6 +1,33 @@
 .welcomePicture{
-	width:50%
+	width: 50%;
+    max-height: 250px;
 }
 .title{
 	 color: var(--ion-color-primary-shade);
+}
+
+.fullWidth{
+	width: 100%;
+}
+.pointer{
+	cursor: pointer;
+}
+.input{
+	--background: var(--ion-color-light);
+	--border-radius	: 5px;
+	width: 100%;
+	--inner-border-width:0px!important;
+	--border-width:0px!important;
+}
+.avatar{
+	border-radius: 50%;
+	width:30px;
+	cursor: pointer;
+}
+.teamMemberCol{
+	max-width: 400px;
+}
+.teamMember{
+	min-width:300px;
+	max-width:400px;
 }
