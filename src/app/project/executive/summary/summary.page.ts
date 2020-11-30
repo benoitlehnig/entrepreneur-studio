@@ -49,12 +49,12 @@ export class SummaryPage implements OnInit {
 		this.dataSharingServiceService.getProjectChanges().subscribe(
 			(data)=>{
 				if(data !==null){
-					console.log("initProject dataSharingServiceService", data);
-					if(this.project.summary.elevatorPitch !=="" && this.project.summary.elevatorPitch !== data.data.summary.elevatorPitch){
-						data.data.summary.elevatorPitch = this.project.summary.elevatorPitch;
+					this.projectId	= data.id
+					if(data.data !==null){
+						console.log("initProject dataSharingServiceService", data);
+						this.project= data.data;
+						;
 					}
-					this.project= data.data;
-					this.projectId	= data.id;
 				}
 				else{
 					this.project= new Project();
@@ -93,6 +93,7 @@ export class SummaryPage implements OnInit {
 	addSocialNetwork(type:string){
 
 	}
+	
 	async requestAddPage(type:string,mode:string){
 		let modal = await this.modalController.create({
 			component: PopoverSocialNetworkComponent,

@@ -2,9 +2,27 @@
 	width:100px;
 	display: inline-block;
 	vertical-align:middle;
+	@media(max-width: 800px) {
+		width:50px;
+		left:0px;
+	}
 }
 span:after {
 	clear:both;
 	content:"";
 	display:block;
+}
+
+.title{
+	padding-inline:0px!important;
+	.logo{
+
+	}
+	span{
+		@media(max-width: 800px) {
+			
+			
+		}
+		
+	}
 }

@@ -12,7 +12,9 @@
 						</ion-avatar>
 						<div class="linkedInWrapper">
 							<div *ngIf="teamMember.profile !== undefined">
-								<a [href]="teamMember.profile.linkedInUrl" target="_blank" *ngIf="teamMember.profile.linkedInUrl !== '' "   >LinkedIn Profile</a>
+								<div *ngIf="teamMember.profile.linkedInUrl !== undefined">
+									<a [href]="teamMember.profile.linkedInUrl" target="_blank" *ngIf="teamMember.profile.linkedInUrl !== '' "   >LinkedIn Profile</a>
+								</div>
 							</div>
 							
 						</div>
@@ -45,11 +47,10 @@
 			</ion-col>
 
 			<ion-col >
-				<ion-card  class="teamMember">
+				<ion-card class="teamMember teamMemberAdd" (click)="requestNewMember()">
 					<ion-card-content>
-						<ion-icon name="add-circle-outline" class="addButton"></ion-icon>
-						<p>{{'TEAM.SendInviteText' | translate }}</p>
-						<ion-button color="primary" fill="outline" (click)="requestNewMember()"><ion-icon name="add-outline" ></ion-icon>{{'TEAM.SendInviteRequestTextButton' | translate }}</ion-button>
+						<ion-icon name="add-outline" color="primary"  class="addButton"></ion-icon>
+						<h2>{{'TEAM.SendInviteText' | translate }}</h2>
 					</ion-card-content>
 				</ion-card>
 			</ion-col>

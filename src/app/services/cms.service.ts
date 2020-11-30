@@ -58,10 +58,19 @@ export class CMSService {
 						}
 					}
 				}
-				data.filtered = !(matchedCategories && matchedStages);
+				let matchedProductName = true;
+				if(filter.productName !==""){
+					console.log(" matchedProductName",data.name, filter.productName)
+					matchedProductName = false;
+					if(data.name.toLowerCase().startsWith(filter.productName.toLowerCase())){
+						matchedProductName = true;
+					}
+
+				}
+				data.filtered = !(matchedCategories && matchedStages && matchedProductName);
 				
 				
-			return { id, ...data };
+				return { id, ...data };
 				
 			});
 		})

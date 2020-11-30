@@ -3,6 +3,8 @@ import {Project} from '../../models/project';
 import {DataSharingServiceService} from '../../services/data-sharing-service.service';
 import { ModalController } from '@ionic/angular';
 import { PopoverProjectSummaryComponent } from './summary/popover-project-summary/popover-project-summary.component';
+import { PopoverFeedbackComponent } from './summary/popover-feedback/popover-feedback.component';
+
 import {ProjectService} from '../../services/project.service';
 
 
@@ -16,6 +18,7 @@ export class ExecutivePage implements OnInit {
 	public project:Project = new Project();
 	public projectId:string="";
 	public teamMembers=[];
+	public resources=[];
 
 	constructor(
 		private dataSharingServiceService : DataSharingServiceService,
@@ -35,10 +38,16 @@ export class ExecutivePage implements OnInit {
 				if(data !==null){
 					this.project= data.data;
 					this.projectId	= data.id;
+					console.log("ngOnInit ExecutivePage", this.projectId)
+
 					this.projectService.getProjectTeamMembers(this.projectId).subscribe(
 						teamMembers =>{
 							console.log("teamMembers ::", teamMembers)
 							this.teamMembers = teamMembers;
+						})
+					this.projectService.getResources(this.projectId).subscribe(
+						resources=>{
+							this.resources = resources;
 						})
 				}
 
@@ -58,9 +67,27 @@ export class ExecutivePage implements OnInit {
 		return await modal.present();
 
 	}
+
 	saveProject(project){
 		this.projectService.saveProject(this.projectId,project)
 		this.modalController.dismiss();
+	}
+
+	async openFeedbackPopover(type:string){
+		let modal = await this.modalController.create({
+			component: PopoverFeedbackComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:type },
+		});
+
+		return await modal.present();
+
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
+
+
 	}
 
 }

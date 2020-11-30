@@ -277,3 +277,10 @@ ion-auto-complete ul{
   --min-width:343px;
   --max-width:none;
 }
+
+.swiper-pagination-bullet-active{
+    width: 14px;
+    height: 14px;
+    position:relative;
+    top:3px;
+  }

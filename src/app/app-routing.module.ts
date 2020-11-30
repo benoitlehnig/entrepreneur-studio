@@ -17,7 +17,7 @@ const routes: Routes = [
 {
   path: 'entrepreneur',
   loadChildren: () => import('./entrepreneur/entrepreneur.module').then( m => m.EntrepreneurPageModule),
-  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+ // canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
 
 },
 {
@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'cgu',
     loadChildren: () => import('./cgu/cgu.module').then( m => m.CguPageModule)
+  },
+  {
+    path: 'question',
+    loadChildren: () => import('./question/question.module').then( m => m.QuestionPageModule)
   }
 ];
 

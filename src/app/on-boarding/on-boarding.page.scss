@@ -1,9 +1,12 @@
 .welcomePicture{
 	width: 50%;
-    max-height: 250px;
+	max-height: 250px;
+	@media(max-width: 800px) {
+		max-height: 100px;
+	}
 }
 .title{
-	 color: var(--ion-color-primary-shade);
+	color: var(--ion-color-primary-shade);
 }
 
 .fullWidth{
@@ -30,4 +33,24 @@
 .teamMember{
 	min-width:300px;
 	max-width:400px;
+}
+.onboardingSlides{
+	--bullet-background: var(--ion-color-dark)!important;
+
+}
+.listDomain{
+	max-height: 300px;
+	@media(max-width: 800px) {
+			max-height: 150px;
+
+	}
+	overflow: overlay;
+	padding-right: 20px;
+
+}
+
+.divider{
+	--background: var(--ion-color-primary-contrast);
+	font-weight: normal;
+    font-size: small;
 }

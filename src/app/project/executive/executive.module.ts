@@ -9,6 +9,7 @@ import { ExecutivePageRoutingModule } from './executive-routing.module';
 import { ExecutivePage } from './executive.page';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import {UserAvatarModule} from '../../user-avatar/user-avatar.module';
+import { PopoverFeedbackComponent } from './summary/popover-feedback/popover-feedback.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import {UserAvatarModule} from '../../user-avatar/user-avatar.module';
     ExecutivePageRoutingModule,
     UserAvatarModule
   ],
-  declarations: [ExecutivePage]
+  declarations: [ExecutivePage,PopoverFeedbackComponent]
 })
 export class ExecutivePageModule {}

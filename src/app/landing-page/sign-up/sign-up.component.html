@@ -7,6 +7,9 @@
 				<ion-text class="ion-text-center"><p>{{'SIGNUP.ShortText' | translate}}</p></ion-text>
 			</ion-col>
 			<ion-col class="ion-padding">
+				<ion-item lines="none" >
+					<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+				</ion-item>
 				<ion-text class="ion-text-center"><h1>{{'SIGNUP.Title' | translate}}</h1></ion-text>
 				<div class="ion-text-center  ion-margin-top">
 					<ion-text>{{'SIGNUP.YouAre' | translate}}</ion-text>

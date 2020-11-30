@@ -1,0 +1,16 @@
+<ion-content>
+	<ion-list>	
+		<ion-item button lines="none" *ngIf="isLogged ===false" (click)="presentSignUp()">
+			<ion-label>{{'LANDINGPAGE.Icon1SubTitle' | translate}}</ion-label>
+		</ion-item>
+		<ion-item button lines="none"  *ngIf="isLogged ===true" [routerLink]="['/entrepreneur']" >
+			<ion-label>{{'LANDINGPAGE.GarageAccess' | translate}}</ion-label>
+		</ion-item>
+		<ion-item button  lines="none"  [routerLink]="['/tools']">
+			<ion-label>{{'LANDINGPAGE.Icon2SubTitle' | translate}}</ion-label>
+		</ion-item>
+		<ion-item button  lines="none"  href="https://www.facebook.com/entrepreneurstudiocom" target="_blank">
+			<ion-label>{{'LANDINGPAGE.Icon3SubTitle' | translate}}</ion-label>
+		</ion-item>
+	</ion-list>
+</ion-content>

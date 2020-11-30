@@ -68,3 +68,11 @@ export class TeamMember{
 	public mission:string="";
 	public email:string;
 }
+
+export class Resource{
+	url:string="";
+	name:string="";
+	title:string="";
+	source:string="";
+	pictureUrl:string="";
+}

@@ -4,7 +4,7 @@
 	</ion-item>
 	<ion-grid>
 		<ion-row>
-			<ion-col>
+			<ion-col size="8">
 				<ion-text><ion-textarea name="text" class="input biggerFont" [(ngModel)]="item.text"></ion-textarea></ion-text>
 				<ion-text><h2><ion-icon name="reorder-four-outline" class="ion-margin-end"></ion-icon>More details</h2></ion-text>
 				<ion-item class="ion-margin-top">
@@ -18,7 +18,7 @@
 				</ion-text>
 
 			</ion-col>
-			<ion-col class="ion-margin-start ion-padding" size="3">
+			<ion-col class="ion-margin-start ion-padding actionColumn" size="2">
 				<h3>Actions</h3>
 				<ion-button  size="small"  (click)="saveItem()" fill="outline">{{'PROJECT_SUMMARY.SaveItem' | translate }}</ion-button>
 				<ion-button  size="small" (click)="deleteItem()" fill="outline">{{'PROJECT_SUMMARY.DeleteItem' | translate }}</ion-button>

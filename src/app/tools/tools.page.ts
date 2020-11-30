@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CMSService} from '../services/cms.service';
 import {TranslateService} from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-tools',
@@ -15,7 +16,8 @@ export class ToolsPage implements OnInit {
 	items = [];
 	filter={
 		categories : [],
-		stages:[]
+		stages:[],
+		productName:""
 	}
 	stages = []
 
@@ -30,7 +32,7 @@ export class ToolsPage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.CMSService.retrieveToolsContent(this.filter).subscribe(
+		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
 			data=>{
 				console.log("CMSService", data)
 				this.tools = data;

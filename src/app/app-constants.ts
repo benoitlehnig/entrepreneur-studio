@@ -79,6 +79,11 @@ export class AppConstants {
 		}
 	};
 	public emailPattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+
+	public applicationFavicons=
+	{
+		'trello.com': 'https://trello.com/favicon.ico',
+		'app.slack.com': 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+		'app.mural.co': 'https://app.mural.co/static/favicon-32x32.png'
+	}
 }
-
-

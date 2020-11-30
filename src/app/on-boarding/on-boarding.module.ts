@@ -10,7 +10,7 @@ import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 import { OnBoardingPageRoutingModule } from './on-boarding-routing.module';
 
 import { OnBoardingPage } from './on-boarding.page';
-  import { AutoCompleteModule } from 'ionic4-auto-complete';
+import { AutoCompleteModule } from 'ionic4-auto-complete';
 
 @NgModule({
   imports: [

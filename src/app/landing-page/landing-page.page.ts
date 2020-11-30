@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
@@ -18,6 +19,7 @@ export class LandingPagePage implements OnInit {
 	
 	constructor(
 		public popoverController:PopoverController,
+		public modalController:ModalController,
 		public dataSharingServiceService:DataSharingServiceService,
 		public angularFireAnalytics: AngularFireAnalytics,
 
@@ -48,31 +50,27 @@ export class LandingPagePage implements OnInit {
 	}
 
 	async presentSignUpPopover() {
-		const popover = await this.popoverController.create({
+		const popover = await this.modalController.create({
 			component: SignUpComponent,
 			componentProps:{homeref:this},
-			cssClass: 'loginPopover',
 			backdropDismiss: true,
-			translucent: true
 		});
 		return await popover.present();
 	}
 	dismissSignUpPopover(){
-		this.popoverController.dismiss();
+		this.modalController.dismiss();
 	}
 	
 	async presentLoginPopover() {
-		const popover = await this.popoverController.create({
+		const popover = await this.modalController.create({
 			component: LoginComponent,
 			componentProps:{homeref:this},
-			cssClass: 'registerPopover',
 			backdropDismiss: true,
-			translucent: true
 		});
 		return await popover.present();
 	}
 	dismissLoginPopover(){
-		this.popoverController.dismiss();
+		this.modalController.dismiss();
 	}
 
 	async presentPartnersPopover() {

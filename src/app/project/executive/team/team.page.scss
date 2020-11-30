@@ -7,7 +7,7 @@
 .teamMember{
 	max-width:300px;
 	min-width:300px;
-	min-height:360px;
+	min-height:466px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
@@ -20,7 +20,8 @@
 	}
 }
 .addButton{
-	font-size:100px;
+	font-size: 3em;
+	margin-top:40px;
 }
 .iconUnknown{
 	font-size:100px;
@@ -36,7 +37,17 @@
 	margin:0px;
 	padding:0px;
 }
+.teamMemberAdd{
+	cursor: pointer;
+	padding-top: 50px;
+}
+.teamMemberAdd:hover{
+	background-color: var(--ion-color-light-tint);
+}
 .my-custom-class{
 	--min-width:343px;
 	--max-width:none;
+}
+.linkedInWrapper{
+	height:30px
 }

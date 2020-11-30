@@ -5,12 +5,13 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import {HeaderComponent} from './header.component';
+import {SolutionMenuComponent} from './solution-menu/solution-menu.component';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
 import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent,SolutionMenuComponent],
   imports: [
     CommonModule,
     TranslateModule,
@@ -18,6 +19,6 @@ import {UserAvatarModule} from '../user-avatar/user-avatar.module';
     RouterModule,
     UserAvatarModule
   ],
-  exports:[HeaderComponent,TranslatePipe]
+  exports:[HeaderComponent,TranslatePipe,]
 })
 export class HeaderModule { }

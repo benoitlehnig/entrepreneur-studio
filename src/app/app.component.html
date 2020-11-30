@@ -9,7 +9,7 @@
 					</ion-item>		
 					<ion-item href="https://www.facebook.com/groups/entrepreneurstudio" target="_blank" lines="none" detail="false">
 						<ion-icon color="primary" slot="start" ios="chatbubbles-outline" md="people-circle-sharp"></ion-icon>
-						<ion-label>Systeme D</ion-label>
+						<ion-label>{{'PROJECT.SystemD' | translate}}</ion-label>
 					</ion-item>	
 				</ion-list> 
 
@@ -20,8 +20,24 @@
 		</ion-menu>
 		<ion-router-outlet id="main-content"></ion-router-outlet>
 	</ion-split-pane>
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="displayQuestionModal()"  class="ion-hide-sm-down">
+			<ion-icon name="chatbox-ellipses-outline"></ion-icon>	
+		</ion-fab-button>
+		<ion-fab-button (click)="displayQuestionModal()"  size="small" class="ion-hide-sm-up">
+			<ion-icon name="chatbox-ellipses-outline" size="small"></ion-icon>	
+		</ion-fab-button>
+	</ion-fab>
 </ion-app>
 
 <ion-app *ngIf="isUserLogged ===false" >
 	<ion-router-outlet id="main-content"></ion-router-outlet>
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+		<ion-fab-button (click)="displayQuestionModal()"  class="ion-hide-sm-down">
+			<ion-icon name="chatbox-ellipses-outline"></ion-icon>	
+		</ion-fab-button>
+		<ion-fab-button (click)="displayQuestionModal()"  size="small" class="ion-hide-sm-up">
+			<ion-icon name="chatbox-ellipses-outline" size="small"></ion-icon>	
+		</ion-fab-button>
+	</ion-fab>
 </ion-app>

@@ -5,7 +5,6 @@
 		<ion-card-content>
 			<div class="ion-text-center">
 				<img slot="start" *ngIf="user.photoUrl !==null" [src]="user.photoUrl" class="avatar ion-margin-end" >
-				<ion-text *ngIf="user.projects !==undefined"><h2>{{user.projects.length}} {{'PROFILE.Projects' | translate}}</h2></ion-text>
 			</div>
 			<ion-item  >
 				<ion-label position="floating">{{'PROFILE.FirstName' | translate}}</ion-label>
@@ -25,7 +24,7 @@
 			</ion-item>
 			<ion-item >
 				<ion-label position="floating">{{'PROFILE.Role' | translate}}</ion-label>
-				<ion-select  interface="action-sheet"  placeholder="Role" [(ngModel)] ="user.role" >
+				<ion-select  interface="action-sheet"  placeholder="Profile" [(ngModel)] ="user.role" >
 					<ion-select-option value="incubator">{{'PROFILE.Incubator' | translate}}</ion-select-option>
 					<ion-select-option value="entrepreneur">{{'PROFILE.Entrepreneur' | translate}}</ion-select-option>
 				</ion-select>
@@ -36,5 +35,11 @@
 
 		</ion-card-content>
 	</ion-card>
+
+	<div class="ion-margin-top ion-text-center">
+		<a href="mailto:contact@entrepreneur-studio.com">{{'LANDINGPAGE.contactUs' | translate}}</a> | 
+		<a [routerLink]="['/cgu']">{{'LANDINGPAGE.CGU' | translate}}</a> |
+		<a (click)="removeMyAccount()">{{'PROFILE.RemoveMyAccount' | translate}}</a>
+	</div>
 
 </ion-content>

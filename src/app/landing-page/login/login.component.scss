@@ -1,5 +1,6 @@
 .noPaddingGrid{
 	padding:0px;
+
 }
 .separator{
 	border-top:2px solid var(--ion-color-medium);
@@ -33,4 +34,9 @@
 	position: relative;
 	top: -10px;
 	font-size: 0.7em;
+}
+
+.closeItem{
+	--background: var(--ion-color-primary);
+	color:var(--ion-color-primary-contrast);
 }

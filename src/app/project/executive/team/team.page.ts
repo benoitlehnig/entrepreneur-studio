@@ -83,6 +83,7 @@ export class TeamPage implements OnInit {
 										this.userService.getUserDetails(this.teamMembers[i].uid).pipe(first()).subscribe(
 											data=>{
 												if(data){
+													console.log("this.userService.getUserDetails" ,data)
 													this.teamMembers[i].profile = data;
 												}
 											})

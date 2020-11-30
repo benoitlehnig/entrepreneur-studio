@@ -30,6 +30,11 @@
 }
 .noPaddingGrid{
 	padding:0px;
+	height:100%;
+	ion-row{
+		height:100%;
+
+	}
 }
 .separator{
 	border-top:2px solid var(--ion-color-medium);

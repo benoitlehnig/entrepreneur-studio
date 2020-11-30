@@ -25,7 +25,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class OnBoardingPage implements OnInit {
 
 	@Input("homeref") value;
-	@Input("step") stepPage;
+	@Input("stepPage") stepPage;
 	@ViewChild('slides') slides: IonSlides;
 
 	public user:User = new User();
@@ -33,6 +33,8 @@ export class OnBoardingPage implements OnInit {
 	public userIds;
 	public step:number=0;
 	public currentSituationItems =[];
+	public domainItems =[];
+	public domainSelectedItems =[];
 	public personalMotivationItems =[];
 	public experienceItems =[];
 	public projectMaturityItems =[];
@@ -41,6 +43,7 @@ export class OnBoardingPage implements OnInit {
 	public financialResourcesItems =[];
 	public projectProfilesItems =[];
 	public roleItems =[];
+	public selectedIndex;
 	public customPopoverOptions: any = {
 		cssClass:'largerOptionPopover'
 	};
@@ -98,7 +101,7 @@ export class OnBoardingPage implements OnInit {
 					this.teamMembers.push(teamMember,new TeamMember());
 					
 				}}
-		);
+				);
 		let getUserChanges= this.dataSharingServiceService.getUserChanges().pipe(first()).subscribe(
 			user=>{
 				if(user){
@@ -123,6 +126,12 @@ export class OnBoardingPage implements OnInit {
 			value => {
 				if(value){
 					this.currentSituationItems = this.returnArrary(value);
+				}
+			});
+		this.translateService.get('ONBOARDINGPAGE.DomainItems').subscribe(
+			value => {
+				if(value){
+					this.domainItems = this.returnArrary(value);
 				}
 			})
 		this.translateService.get('ONBOARDINGPAGE.ExperienceItems').subscribe(
@@ -182,7 +191,8 @@ export class OnBoardingPage implements OnInit {
 
 	nextStep(){
 		console.log(this.project);
-		this.slides.slideNext()
+		this.slides.slideNext();
+		console.log("this.step", this.step);
 		this.step++;
 	}
 
@@ -201,6 +211,22 @@ export class OnBoardingPage implements OnInit {
 
 	dismiss(){
 		this.navParams.get('homeref').dismiss()
+	}
+
+	domainChecked(event, domainItem){
+		console.log(event,domainItem);
+		if(event.detail.checked ===true){
+			this.domainSelectedItems.push({code: domainItem.index,
+				full_name: domainItem.text});
+		}
+		else{
+			const index = this.domainSelectedItems.indexOf(domainItem, 0);
+			if (index > -1) {
+				this.domainSelectedItems.splice(index, 1);
+			}
+		}
+		console.log(this.domainSelectedItems);
+		this.project.domains= this.domainSelectedItems;
 	}
 
 }

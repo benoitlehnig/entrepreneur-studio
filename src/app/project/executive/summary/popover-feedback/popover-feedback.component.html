@@ -1,0 +1,23 @@
+
+<ion-content>
+	<ion-item lines="none" >
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
+	<div class="ion-margin-top ion-margin-bottom fullWidth">
+		<div class="ion-text-center ">
+			<img src="./assets/images/undraw_Wishlist_re_m7tv.svg" class="welcomePicture">
+		</div>
+		<div class="header ion-padding ">
+			<ion-text class="ion-text-center  title" ><h1>{{'FEEDBACK.TitleExpectations' | translate}}</h1></ion-text>
+		</div>
+		
+		<ion-item>
+			<ion-textarea  type="text" [(ngModel)] ="feedback.text" placeholder="{{'FEEDBACK.TextExpectationsPlaceholder' | translate}}">
+			</ion-textarea>
+		</ion-item>
+		<div class="ion-margin-top ion-margin-bottom ion-text-center">
+			<ion-button color="primary" (click)="sendFeedback()">
+				<ion-icon name="paper-plane-outline" class="ion-margin-end"></ion-icon>{{'FEEDBACK.Send' | translate}}</ion-button>
+		</div>
+	</div>
+</ion-content>

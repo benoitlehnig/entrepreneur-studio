@@ -1,0 +1,18 @@
+<ion-content>
+
+	<div  >
+		<ion-list>
+			<ion-reorder-group disabled="false">
+				<app-resource [resource]="resource" (changed)="resourceUpdated($event)" (deleted)="resourceDeleted($event)" *ngFor="let resource of resources" ></app-resource>
+			</ion-reorder-group>
+		</ion-list>
+	</div>
+	<div *ngIf="resources.length ===0" class="ion-text-center ion-margin-top" >
+		<img src="./assets/images/undraw_Mind_map_re_nlb6.svg" class="welcomePicture">
+		<h2><ion-text>{{'RESOURCES.AddResourceGuidanteText' | translate }}</ion-text></h2>
+	</div>
+
+	<div class="ion-text-center ion-margin-top">
+		<ion-button color="primary" fill="outline" class="ion-text-left"(click)="requestAddNewResource()">{{'RESOURCES.AddResource' | translate }}</ion-button>
+	</div>
+</ion-content>

@@ -16,6 +16,8 @@ import { first } from 'rxjs/operators';
 import { Router,NavigationEnd   } from '@angular/router';
 import { NgcCookieConsentService } from 'ngx-cookieconsent';
 import { Subscription }   from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import {QuestionPage} from './question/question.page'
 
 @Component({
   selector: 'app-root',
@@ -30,12 +32,12 @@ export class AppComponent implements OnInit {
   public pages = [
 
   {
-    title: 'Garage',
+    title: 'Le Garage',
     url: '/entrepreneur',
     icon: 'layers'
   },
   {
-    title: 'La boite a outils',
+    title: 'La Boite à Outils',
     url: '/tools',
     icon: 'construct'
   },
@@ -67,8 +69,8 @@ export class AppComponent implements OnInit {
     public dataSharingServiceService:DataSharingServiceService,
     public activatedRoute:ActivatedRoute,
     private menuController: MenuController,
+    private modalController: ModalController,
     private ccService: NgcCookieConsentService
-
     ) {
     this.initializeApp();
   }
@@ -202,6 +204,20 @@ export class AppComponent implements OnInit {
       () => {
         // you can use this.ccService.getConfig() to do stuff...
       });
+  }
+
+  async displayQuestionModal(){
+    const popover = await this.modalController.create({
+      component: QuestionPage,
+      cssClass: 'onboardingPopup',
+      componentProps: {homeref:this},
+
+    });
+    return await popover.present();
+  }
+
+  dismiss(){
+    this.modalController.dismiss();
   }
 
 }

@@ -1,0 +1,24 @@
+<ion-item  *ngIf="resource.data" (mouseover)="isMouseOvered=true" (mouseout)="isMouseOvered=false" >
+	<ion-avatar slot="start" *ngIf="inEdition ===false">
+		<img *ngIf="resource.data.pictureUrl" [src]="resource.data.pictureUrl" class="logo"/>
+		<ion-icon color="primary" class="noPicture" name="square-outline" *ngIf="!resource.data.pictureUrl || resource.data.pictureUrl ===''"></ion-icon>
+	</ion-avatar>
+	<ion-label  >
+		<div *ngIf="inEdition ===false && resource.id!==null" >
+			<a   [href]="resource.data.url" target="blank" *ngIf="resource.data.title !=='' || resource.data.source ===''">
+				{{resource.data.source}}
+				<ion-icon *ngIf="isMouseOvered===true" name="log-out-outline" class="linkIcon"></ion-icon>
+			</a>
+			<a   [href]="resource.data.url" target="blank" *ngIf="resource.data.title ==='' && resource.data.source ===''">
+				{{resource.data.url}}
+				<ion-icon *ngIf="isMouseOvered===true" name="log-out-outline" class="linkIcon" ></ion-icon>
+			</a>
+		</div>
+	</ion-label>
+	<ion-input *ngIf="inEdition ===true || resource.id===null" [(ngModel)]="resource.data.url" (ionBlur)="updateResource()" placeholder="Entrer votre lien, par exemple https://entrepreneur-studio.com"></ion-input>
+	<ion-note color="primary"  slot="end">
+		<ion-icon class="clickableIcon" *ngIf="inEdition !==true" name="pencil-outline" (click)="requestEdition()"></ion-icon>
+		<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()"></ion-icon>
+	</ion-note>
+
+</ion-item>

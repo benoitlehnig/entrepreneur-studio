@@ -2,6 +2,8 @@ import { Component, OnInit,Input } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NavParams} from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import {QuestionPage} from '../../question/question.page';
 
 @Component({
 	selector: 'app-popover',
@@ -15,7 +17,7 @@ export class PopoverComponent implements OnInit {
 		public authService:AuthService,
 		public router:Router,
 		public navParams:NavParams,
-
+		private modalController: ModalController,
 		) { }
 
 	@Input("homeref") value;
@@ -33,4 +35,18 @@ export class PopoverComponent implements OnInit {
 	}
 
 
+	async displayQuestionModal(){
+		const popover = await this.modalController.create({
+			component: QuestionPage,
+			cssClass: 'onboardingPopup',
+			componentProps: {homeref:this},
+
+		});
+		this.navParams.get('homeref').dismissPopover();
+		return await popover.present();
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
+	}
 }

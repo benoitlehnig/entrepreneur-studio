@@ -71,7 +71,7 @@ export class EntrepreneurPage implements OnInit {
 					if(this.onboardingPopoverDisplayed === false){
 						console.log("display pop pup")
 						this.onboardingPopoverDisplayed = true;
-						if(this.destroyed ===false && user.onBoardingDone ===false){
+						if(this.destroyed ===false && (user.onBoardingDone ===false || user.onBoardingDone === undefined)) {
 							this.presentOnboardingPopover(0);
 						}
 
@@ -143,7 +143,7 @@ export class EntrepreneurPage implements OnInit {
 		const popover = await this.modalController.create({
 			component: OnBoardingPage,
 			cssClass: 'onboardingPopup',
-			componentProps: {homeref:this, step:step},
+			componentProps: {homeref:this, stepPage:step},
 
 		});
 		return await popover.present();

@@ -1,11 +1,11 @@
 {
 	"LANDINGPAGE":{
 		"Title": "Entrepreneur Studio",
-		"Title1": "Avantages",
+		"Title1": "Entrepreneur",
 		"Title2": "Comment ca marche ?",
 		"Title3": "Partenaire",
 		"Register": "Inscription",
-		"Connection": "Connection",
+		"Connection": "Connexion",
 		"MainContent": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
 		"StartNow": "Commencez maintenant",
 		"FreeStart": "Accès gratuit et sans engagement",
@@ -41,7 +41,7 @@
 		"contactUs": "Contactez-nous",
 		"SystemDAccess": "Accèdez au Systeme D",
 		"ToolBoxAccess": "Accèdez à la boite à outils",
-		"GarageAccess": "Accèdez à mon garage",
+		"GarageAccess": "Le garage",
 		"SignUp": "Inscrivez-vous",
 		"CGU": "Conditions générales d'utilisation"
 
@@ -86,18 +86,22 @@
 		"LoginWithEmail": "ou bien utilisez votre email"
 	},
 	"COMMON":{
-		"Logout": "Logout" ,
-		"Profile": "Profile",
+		"Logout": "Se déconnecter" ,
+		"Profile": "Profil",
 		"MyProjects": "Mes projets",
 		"ToolBox": "La boite à outils",
-		"AppTitle": "Entrepreneur Studio"
+		"AppTitle": "Entrepreneur Studio",
+		"Feedback": "Donnez-nous votre avis",
+		"ContactUs": "Contactez-nous",
+		"CGU": "Mentions légales"
 	},
 	"PROJECT":{
 		"Remove":"Supprimer le projet",
 		"DeletePopupTitle":"Suppression du projet",
 		"DeletePopupSubTitle" :"Etes-vous sur de vouloir supprimer le projet ?",
 		"DeletePopupCancelButton" :"Annuler",
-		"DeletePopupOKButton":"Supprimer"
+		"DeletePopupOKButton":"Supprimer",
+		"SystemD":"Le Système D"
 	},
 	"EXECUTIVE":{
 		"Dashboard": "Tableau de bord",
@@ -245,9 +249,9 @@
 		},
 		"AddTeamMember":"Ajouter un associé",
 		"CreateProjectButton":"Démarrez votre premier projet maintenant !",
-		"SubTitleStep1":"Créez votre projet en 2 étapes",
+		"SubTitleStep1":"Etape 1/2 : Votre projet",
 		"ProjectName":"Nom officiel ou nom de code",
-		"ProjectDomains":"Dans quel secteur d’activité (liste des secteurs)",
+		"ProjectDomains":"Dans quel secteur d’activité",
 		"ProjectMaturity":"Maturité du projet", 
 		"ProjectMaturityItems": {
 			"1":"Découvrir l'entrepreneuriat et trouver mon idée", 
@@ -255,9 +259,9 @@
 			"3":"Lancer mon produit/service",
 			"4":"Déveloper ou accélerer mon activité"
 		},
-		"StartNewProjectButton1":"Allez à l'etape 2",
-		"StartNewProjectButton2":"Terminé ! Allez dans mon projet",
-		"SubTitleStep2":"Etape 2/2 : Vos Ressources",
+		"StartNewProjectButton1":"Aller à l'etape 2",
+		"StartNewProjectButton2":"Terminer !",
+		"SubTitleStep2":"Etape 2/2 : Votre équipe",
 		"ProjectTeam":"Votre équipe ",
 		"ProjectTeamItem1":"Seul",  
 		"ProjectTeamItem2":"Seul et en recherche d’associés",  
@@ -274,10 +278,40 @@
 			"2" : "Fond personnel" ,
 			"3" : "Prêt bancaire" ,
 			"4" : "Levée de fond"
+		},
+		"DomainItems":{
+			"0":"Administration, fonction publique",
+			"1":"Agroalimentaire",
+			"2":"Artisanat d'art",
+			"3":"Associations",
+			"4":"Banques, assurances, services financiers",
+			"5":"Chimie, plastique, conditionnement",
+			"6":"Commerce de détail, grande distribution",
+			"7":"Communication, marketing, information",
+			"8":"Construction, bâtiment, travaux publics",
+			"9":"Culture, sports, loisirs",
+			"10":"Energie",
+			"11":"Enseignement, formation",
+			"12":"Environnement, récupération, tri, recyclage, traitement des déchets, matériaux, de l'eau",
+			"13":"Equipement, matériel pour activités professionnelles",
+			"14":"Fabrication, commerce de gros d'articles destinés à la vente",
+			"15":"Gestion, administration des entreprises",
+			"16":"Hôtellerie, restauration, tourisme",
+			"17":"Immobilier",
+			"18":"Industrie textile",
+			"19":"Informatique",
+			"20":"Ingénieurs d'études et de recherche, chercheurs",
+			"21":"Logistique, transports",
+			"22":"Matériel électrique, électronique, optique",
+			"23":"Mécanique, métallurgie",
+			"24":"Minerais, minéraux, sidérurgie",
+			"25":"Professions juridiques",
+			"26":"Santé, action sociale",
+			"27":"Services aux particuliers, collectivités, entreprises"
 		}
 	},
 	"ENTREPENEUR" :{
-		"StartProject": "Ajouter un projet" 
+		"StartProject": "Créer un projet" 
 	},
 	"PARTNERS":{
 		"Title":"Devenir partenaire",
@@ -298,6 +332,7 @@
 	},
 	"TOOLS":{
 		"LearnMore":"Plus d'information",
+		"ProductNamePlaceholder":"Rechercher par nom",
 		"CATEGORIES":{
 			"1" :"Collaboratif",
 			"2" :"Tache",
@@ -347,13 +382,34 @@
 			"46" :"Traduction",
 			"47" :"Juridique",
 			"48" :"Contrat",
-			"49" :"Finance"
+			"49" :"Finance",
+			"50" :"RH",
+			"51" :"Freelance"
 		},
 		"STAGES":{
 			"ideation" :"Ideation",
 			"creation" :"Creation",
 			"development" :"Développement"
 		}
+	},
+	"FEEDBACK":{
+		"Title": "Version BETA",
+		"SubTitle":"Entrepreneur Studio est en version BETA et peut donc contenir certains bugs ou défauts. N'hésitez pas à faire vos retours et à suggérer des améliorations ! ",
+		"TitleExpectations":"Cette fonctionnalité n'est pas encore disponible. Quelles sont vos attentes ?",
+		"SubTitle2":"Ensemble on est plus fort :)",
+		"Types":{
+			"1":"Bug",
+			"2":"Amélioration(s)"
+		},
+		"TypeTitle":"Type de retour",
+		"TextBugTitle":"Description du bug",
+		"TextTitleBugPlaceholder":"Description du bug",
+		"TextExpectationsPlaceholder":"Vos attentes",
+		"TextTitleImprovementPlaceholder":"Description de l'amélioration",
+		"TextImprovementTitle":"Votre idée d'amélioration",
+		"TextPlaceholder":"Votre idée d'amélioration",
+		"Send":"Envoyer",
+		"SuccessfullySent":"Feedback envoyés ! Merci encore :)"
 	},
 	"PROFILE":{
 		"Projects": "project(s)",
@@ -364,16 +420,18 @@
 		"LinkedInPage": "Page LinkedIn", 
 		"LinkedInPagePlaceholder": "https://www.linkedin.com/in/myprofile/", 
 		"Email":"Email",
-		"Role": "Role",
+		"Role": "Profil",
 		"Incubator": "Conseil",
 		"Entrepreneur": "Entrepreneur",
 		"Save": "Mettre à jour",
-		"UpdateSuccessful": "Profil mis à jour !"
+		"UpdateSuccessful": "Profil mis à jour !",
+		"ProfileRemovalRequestText": "Demande de suppression de compte enregistrée. Votre compte sera désactivé dans les prochains jours, ainsi que toutes vos données personnelles.",
+		"RemoveMyAccount": "Supprimer mon compte"
 	},
 	"TEAM":{
 		"TeamMember":{
 			"Mission":"Mission",
-			"Profile":"Profile",
+			"Profile":"Profil",
 			"Role":"Role"
 		},
 		"Roles": {
@@ -401,5 +459,9 @@
 		"AddMemberSubTitle": "Veuillez entrer son email et une invitation a rejoindre le projet lui sera envoyee",
 		"SendRequestButton": "Envoyez l'invitation "
 
+	},
+	"RESOURCES":{
+		"AddResource": "Ajouter un nouveau lien vers une application",
+		"AddResourceGuidanteText": "Centralisez ici les liens vers les applications ou les sites utiles à votre projet "
 	}
 }

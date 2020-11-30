@@ -121,4 +121,32 @@ export class ProjectService {
 			{role: teamMember.role, projectProfile: teamMember.projectProfile, mission : teamMember.mission});
 	}
 
+	getResources(id){
+		return this.afs.collection('projects').doc(id).collection('resources').snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data();
+				const id = a.payload.doc.id;
+				return {id:id, data:data };
+			});
+		})
+		);
+	}
+	saveResource(id,resources){
+		console.log("saveResource", id, resources);
+		return this.afs.collection('projects').doc(id).collection('resources').add(resources);
+
+	}
+	addResource(id,resource){
+		console.log("addResource", id, resource);
+		return this.afs.collection('projects').doc(id).collection('resources').add( JSON.parse(JSON.stringify(resource.data)));
+	}
+	updateResource(id,resource){
+		console.log("addResource", id, resource);
+		//return this.afs.collection('projects').doc(id).collection('resources').doc(resource.id).set( res);
+	}
+	deleteResource(id,resourceId){
+		console.log("deleteResource", id, resourceId);
+		return this.afs.collection('projects').doc(id).collection('resources').doc(resourceId).delete();
+	}
+
 }

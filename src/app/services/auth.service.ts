@@ -32,28 +32,30 @@ export class AuthService {
 				
 				user.getIdTokenResult().then(
 					result=> {
-						console.log("result",result);
+						console.log("result router",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
 						this.claims = result.claims;
 						if(this.claims['entrepreneur'] ===true){
-							if(this.router.url.indexOf("admin") !== -1){
+							
+							console.log("result router2",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
+
+							if(this.router.url.indexOf("landing") !== -1){
+								console.log("navigate entrepreneur");
+								this.router.navigate(['/entrepreneur']);
+							}
+							else if(this.router.url.indexOf("admin") !== -1){
 								console.log("navigate admin");
-								this.router.navigate(['/admin']);
+							//	this.router.navigate(['/admin']);
 							}	
-							else if(this.router.url.indexOf("entrepreneur") !== -1){
-								console.log("navigate");
-								this.router.navigate(['/entrepreneur']);
-							}
-							else if(this.router.url.indexOf("landing-page") !== -1){
-								console.log("navigate");
-								this.router.navigate(['/entrepreneur']);
-							}
 							else if(this.router.url.indexOf("tools") !== -1){
 								console.log("navigate");
-								this.router.navigate(['/tools']);
+								//this.router.navigate(['/tools']);
 							}
-							else if(this.router.url.indexOf("cgu") !== -1){
+							if(this.router.url.indexOf("cgu") !== -1){
 								console.log("navigate");
-								this.router.navigate(['/cgu']);
+							//	this.router.navigate(['/cgu']);
+							}
+							if(this.router.url.indexOf("project") !== -1){
+								//this.router.navigate(['/entrepreneur']);
 							}				
 						}
 						else if(this.claims['incubator'] ===true){

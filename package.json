@@ -41,6 +41,7 @@
     "ng2-tooltip-directive": "^2.9.22",
     "ngx-chips": "^2.1.0",
     "ngx-cookieconsent": "^2.2.3",
+    "ngx-link-preview": "^1.1.6",
     "ngx-tags-input": "^2.0.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",

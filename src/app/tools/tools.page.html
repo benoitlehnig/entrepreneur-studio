@@ -1,27 +1,43 @@
 <app-header></app-header>
 
 <ion-content>
-	<ng-select multiple="true" 
-	class="ion-margin ngselect"
-	[items]="items"
-	bindLabel="name"
-	bindValue="id"
-	placeholder="Categories" 
+	<ion-grid class="filter">
+		<ion-row>
+			<ion-col >
+				<ng-select multiple="true" 
+				class="ion-margin ngselect"
+				[items]="items"
+				bindLabel="name"
+				bindValue="id"
+				placeholder="Categories" 
 
-	[(ngModel)]="filter.categories"
-	(change)="updateList()">
-</ng-select>
+				[(ngModel)]="filter.categories"
+				(change)="updateList()"></ng-select>
 
-<ng-select multiple="true" 
-	class="ion-margin ngselect"
-	[items]="stages"
-	bindLabel="name"
-	bindValue="id"
-	placeholder="Phase" 
+			</ion-col>
+			<ion-col>
+				<ng-select multiple="true" 
+				class="ion-margin ngselect"
+				[items]="stages"
+				bindLabel="name"
+				bindValue="id"
+				placeholder="Phase" 
 
-	[(ngModel)]="filter.stages"
-	(change)="updateList()">
-</ng-select>
+				[(ngModel)]="filter.stages"
+				(change)="updateList()">
+			</ng-select>
+		</ion-col>
+		<ion-col>
+			<ion-item lines="none" class="specialInput">
+				<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+
+
+
+
 
 <ion-grid class="gridTools">
 	<ion-row>

@@ -30,6 +30,7 @@ import { AutoCompleteModule } from 'ionic4-auto-complete';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgxLinkPreviewModule } from 'ngx-link-preview';
 
 
 const cookieConfig:NgcCookieConsentConfig = {
@@ -76,6 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   AutoCompleteModule,
   FormsModule,
   FileUploadModule,
+  NgxLinkPreviewModule,
   NgcCookieConsentModule.forRoot(cookieConfig),
   TranslateModule.forRoot({
     loader: {

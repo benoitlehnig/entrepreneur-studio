@@ -35,6 +35,15 @@ const routes: Routes = [
     }
     ]
   },
+  {
+    path: 'resources',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./resources/resources.module').then( m => m.ResourcesPageModule)
+    }
+    ]
+  },
   
   ]
 },
@@ -53,7 +62,11 @@ const routes: Routes = [
 {
   path: 'achievements',
   loadChildren: () => import('./achievements/achievements.module').then( m => m.AchievementsPageModule)
-}
+},
+  {
+    path: 'resources',
+    loadChildren: () => import('./resources/resources.module').then( m => m.ResourcesPageModule)
+  }
 ];
 
 @NgModule({

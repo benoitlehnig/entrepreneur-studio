@@ -1,15 +1,14 @@
 <ion-header *ngIf="isLogged === false">
 	<ion-toolbar>
-
-		<ion-title>
-			<img src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/landing-page" >
+		<ion-title class="title">
+			<img  src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/landing-page" >
 			<span >{{'LANDINGPAGE.Title' | translate}}
-				<ion-badge class="beta">Beta</ion-badge>
+				<ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
 			</span>
 		</ion-title>
 		<ion-buttons slot="secondary" class="secondary  ">
-			<ion-button (click)="scrollTo('content1')" class="ion-hide-sm-down ion-hide-md-down">
-				{{'LANDINGPAGE.Title1' | translate}}
+			<ion-button (click)="openSolutionMenu($event)" class="ion-hide-sm-down ion-hide-md-down">
+				{{'LANDINGPAGE.Title1' | translate}}<ion-icon name="chevron-down-outline"></ion-icon>
 			</ion-button>
 			<ion-button (click)="scrollTo('content2')" class=" ion-hide-md-down  ion-hide-lg-down" >
 				{{'LANDINGPAGE.Title2' | translate}}
@@ -22,7 +21,9 @@
 			<ion-button color="secondary" fill="solid" class="ion-hide-sm-down" (click)="presentSignUpPopover()">
 				{{'LANDINGPAGE.Register' | translate}}
 			</ion-button>
-			<ion-button color="primary" fill="solid"  (click)="presentLoginPopover()">
+			
+			<ion-icon name="person-circle-outline" color="primary" (click)="presentLoginPopover()" size="large" class="ion-hide-sm-up" ></ion-icon>
+			<ion-button color="primary" fill="solid"  (click)="presentLoginPopover()" class="ion-hide-sm-down" >
 				{{'LANDINGPAGE.Connection' | translate}}
 			</ion-button>
 		</ion-buttons>
@@ -35,8 +36,11 @@
 			<ion-menu-button autoHide="true" menu="mainMenu">
 			</ion-menu-button>
 		</ion-buttons>
-		<ion-title class="headerTitle">
-			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}</span></ion-title>
+		<ion-title class="headerTitle title">
+			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}<ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge></span>
+
+
+		</ion-title>
 		<app-user-avatar slot="end"></app-user-avatar>
 	</ion-toolbar>
 </ion-header>

@@ -13,26 +13,27 @@
 				<ion-badge>{{teamMembers.length}}</ion-badge>
 
 			</ion-tab-button>
+			<ion-tab-button tab="resources" >
+				<ion-icon name="grid-outline"></ion-icon>
+				<ion-label>Applications</ion-label>
+				<ion-badge>{{resources.length}}</ion-badge>
 
-			<ion-tab-button tab="achievements" disabled>
-				<ion-icon name="medal-outline"></ion-icon>
-				<ion-label>Achievements</ion-label>
-			</ion-tab-button>
-
-			<ion-tab-button tab="metrics" disabled>
-				<ion-icon name="pulse-outline"></ion-icon>	
-				<ion-label>Metrics</ion-label>
 			</ion-tab-button>
 
-			<ion-tab-button tab="todo" disabled>
-				<ion-icon name="list-outline"></ion-icon>	
-				<ion-label>Todo</ion-label>
+			<ion-tab-button (click)="openFeedbackPopover('network')">
+				<ion-icon name="color-filter"  class="disabledIcon"></ion-icon>
+				<ion-label  class="disabledIcon">Réseau</ion-label>
 			</ion-tab-button>
-			<ion-tab-button tab="evolution" disabled>
-				<ion-icon name="analytics-outline"></ion-icon>
-				<ion-label>Evolution</ion-label>
+
+			<ion-tab-button  (click)="openFeedbackPopover('finance')">
+				<ion-icon name="briefcase" class="disabledIcon"></ion-icon>	
+				<ion-label  class="disabledIcon">Finances</ion-label>
 			</ion-tab-button>
-			
+
+			<ion-tab-button (click)="openFeedbackPopover('other')">
+				<ion-icon name="ellipsis-horizontal-circle"  class="disabledIcon"></ion-icon>	
+				<ion-label  class="disabledIcon">Autre </ion-label>
+			</ion-tab-button>
 		</ion-tab-bar>
 	</ion-tabs>
 </ion-content>

@@ -9,6 +9,8 @@ import { MenuController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import {TranslateService} from '@ngx-translate/core';
 import { ModalController } from '@ionic/angular';
+import { first } from 'rxjs/operators';
+
 import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
 @Component({
 	selector: 'app-project',
@@ -59,16 +61,15 @@ export class ProjectPage implements OnInit {
 
 
 	initProject(){
-		console.log("ProjectPage initProject" )
-
-		this.projectService.getProject(this.projectId).subscribe(
+		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');	
+		console.log("ProjectPage initProject", this.projectId  )
+		this.projectService.getProject(this.projectId).pipe(first()).subscribe(
 			(data)=>{
 				if(data){
 					console.log("projectService.getProject" , data);
 					this.project= data;
 					this.dataSharingServiceService.currentProject({id:this.projectId, data: data});
 				}
-
 			})
 	}
 

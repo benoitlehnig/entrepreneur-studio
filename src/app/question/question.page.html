@@ -1,0 +1,33 @@
+
+<ion-content>
+	<ion-item lines="none" >
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
+	<div class="ion-margin-top ion-margin-bottom fullWidth">
+		<div class="ion-text-center ">
+			<img src="./assets/images/undraw_fixing_bugs_w7gi.svg" class="welcomePicture">
+		</div>
+		<div class="header ion-padding ">
+			<ion-text class="ion-text-center  title" ><h1>{{'FEEDBACK.Title' | translate}}</h1></ion-text>
+			<ion-text class="ion-text-center  title" ><h3 class="ion-text-center ">{{'FEEDBACK.SubTitle' | translate}}</h3></ion-text>
+			<ion-text class="ion-text-center  title" ><h3 class="ion-text-center ">{{'FEEDBACK.SubTitle2' | translate}}</h3></ion-text>
+		</div>
+		<ion-item>
+			<ion-label color="primary" position="floating">{{'FEEDBACK.TypeTitle' | translate}}</ion-label>
+			<ion-select interface="action-sheet" [(ngModel)] ="feedback.type" >
+				<ion-select-option *ngFor="let item of typeItems" [value]="item.index">{{item.text}}</ion-select-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label  color="primary" position="floating" *ngIf="feedback.type==='1'" >{{'FEEDBACK.TextBugTitle' | translate}}</ion-label>
+			<ion-label  color="primary" position="floating" *ngIf="feedback.type==='2'">{{'FEEDBACK.TextImprovementTitle' | translate}}</ion-label>
+			<ion-textarea  type="text" [(ngModel)] ="feedback.text" *ngIf="feedback.type==='1'" placeholder="{{'FEEDBACK.TextTitleBugPlaceholder' | translate}}">
+			</ion-textarea><ion-textarea  type="text" [(ngModel)] ="feedback.text"  *ngIf="feedback.type==='2'" placeholder="{{'FEEDBACK.TextTitleImprovementPlaceholder' | translate}}">
+			</ion-textarea>
+		</ion-item>
+		<div class="ion-margin-top ion-margin-bottom ion-text-center">
+			<ion-button color="primary" (click)="send()">
+				<ion-icon name="paper-plane-outline" class="ion-margin-end"></ion-icon>{{'FEEDBACK.Send' | translate}}</ion-button>
+		</div>
+	</div>
+</ion-content>
