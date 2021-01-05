@@ -75,4 +75,17 @@ export class Resource{
 	title:string="";
 	source:string="";
 	pictureUrl:string="";
+	order:number=0;
+	CMSId:string="";
+}
+
+export class TimelineElement {
+	id:string="";
+	startDate:Date;
+	endDate:Date;
+	duration:number=0;
+	status:string="";
+	order:number;
+	type:string="";
+	stage:string="";
 }

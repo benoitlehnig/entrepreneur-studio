@@ -47,8 +47,11 @@ export class ProjectPage implements OnInit {
 				if(uid){
 					this.projectService.getProjectsIdsbyUid(uid.uid,this.projectId).subscribe(
 					response => {
-						console.log("response", response);
-						if(response === undefined){
+						console.log("ProjectPage ProjectPage response", response);
+						if(response === undefined ){
+							this.router.navigate(['/landing-page']);
+						}
+						else if(response.length === 0 ){
 							this.router.navigate(['/landing-page']);
 						}
 					})

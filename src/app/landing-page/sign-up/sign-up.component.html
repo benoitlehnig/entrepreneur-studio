@@ -1,17 +1,24 @@
 <ion-content>
+
 	<ion-grid class="noPaddingGrid">
+
 		<ion-row>
 			<ion-col class="leftSide ion-padding ion-text-center ion-hide-sm-down"  size="4">
 				<img class="logo" src="./assets/images/logo_contrast.svg" />
 				<ion-text class="ion-text-center"><h1>{{'COMMON.AppTitle' | translate}}</h1></ion-text>
 				<ion-text class="ion-text-center"><p>{{'SIGNUP.ShortText' | translate}}</p></ion-text>
 			</ion-col>
-			<ion-col class="ion-padding">
-				<ion-item lines="none" >
-					<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
-				</ion-item>
-				<ion-text class="ion-text-center"><h1>{{'SIGNUP.Title' | translate}}</h1></ion-text>
-				<div class="ion-text-center  ion-margin-top">
+			<ion-col class="noPadding">
+				<div class="topPart ion-padding-bottom">
+					<ion-item lines="none" class="closeItem" >
+						<ion-icon slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+					</ion-item>
+					<div *ngIf="unknownUser === true" class="message ion-padding">
+						{{'SIGNUP.NoAccountText' | translate}}
+					</div>
+					<h1 class="ion-text-center"><ion-text>{{'SIGNUP.Title' | translate}}</ion-text></h1>
+				</div>
+				<div class="ion-text-center  ion-margin-top youAreWrapper">
 					<ion-text>{{'SIGNUP.YouAre' | translate}}</ion-text>
 					<ion-grid>
 						<ion-row>
@@ -30,46 +37,46 @@
 				</div>
 				<div class="ion-text-center ion-margin-top ion-margin-bottom ">
 					
-					<ion-item>
+					<ion-item lines="none" class="cgu">
 						<ion-checkbox slot="start" [(ngModel)]="cguChecked"></ion-checkbox>
 						<ion-label class="ion-text-wrap">{{'SIGNUP.cguText' | translate}} <a href="/cgu" target="_blank">{{'SIGNUP.cguTextLink' | translate}} </a></ion-label>
 					</ion-item>
 					<ion-grid class="socialLoginButtons">
 						<ion-row>
-							<ion-col class="ion-text-center">
-								<ion-fab-button color="primary" class="socialLoginButton" (click)="signUpGoogle()"  size="large" [disabled]="cguChecked === false">
-									<ion-icon name="logo-google" size="large" ></ion-icon>
-								</ion-fab-button>
-
+							<ion-col>
+								<ion-button color="primary" size="block" class="socialLoginButton" (click)="signUpGoogle()" [disabled]="cguChecked === false">
+									<ion-icon name="logo-google" class="ion-margin-end"></ion-icon>
+									{{'SIGNUP.SignUpWithGoogle' | translate}}
+								</ion-button>
 							</ion-col>
-
-							<ion-col class="ion-text-center">
-								<ion-fab-button class="socialLoginButton"  color="primary"  size="large" (click)="signUpFacebook()" [disabled]="cguChecked === false">
-									<ion-icon name="logo-facebook" size="large"></ion-icon>
-								</ion-fab-button>
+							<ion-col>
+								<ion-button class="socialLoginButton"   size="block" color="primary"  (click)="signUpFacebook()" [disabled]="cguChecked === false">
+									<ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon>
+									{{'SIGNUP.SignUpWithFacebook' | translate}}
+								</ion-button>
 							</ion-col>
 						</ion-row>
+
 					</ion-grid>
 
 				</div>
-				<div class="">
-					<div class="separator -ion-padding"></div>
+				<div class="mailLogin ion-padding-bottom">
 					<ion-text color="medium" class="socialMediaText"><p>{{'SIGNUP.LoginWithEmail' | translate}}</p></ion-text>
-					<ion-item>
+					<ion-item class="item">
 						<ion-label position="floating">{{'SIGNUP.Email' | translate}}</ion-label>
 						<ion-input type="email"  [(ngModel)] ="user.email"></ion-input>
 					</ion-item>
-					<ion-item>
+					<ion-item class="item">
 						<ion-label position="floating">{{'SIGNUP.Password' | translate}}</ion-label>
 						<ion-input type="password" [(ngModel)] ="user.password"></ion-input>
 					</ion-item>
 					<div class="ion-text-center ion-margin-top">
-						<ion-button color="primary" (click)="signUpEmail()" expand="full" [disabled]="cguChecked === false">
+						<ion-button (click)="signUpEmail()" [disabled]="cguChecked === false">
 							{{'SIGNUP.EmailLogin' | translate}}
 						</ion-button>
 					</div>
 				</div>
-				
+
 
 			</ion-col>
 		</ion-row>

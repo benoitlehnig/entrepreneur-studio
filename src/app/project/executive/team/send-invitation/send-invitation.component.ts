@@ -14,6 +14,7 @@ export class SendInvitationComponent implements OnInit {
 
 	public teamMember: TeamMember= new TeamMember();
 	public displayErrorAlreadyMember:boolean=false;
+	public displayErrorFormatEmail:boolean=false;
 
 	@Input("homeref") value;
 	@Input("projectId") projectId;
@@ -34,33 +35,47 @@ export class SendInvitationComponent implements OnInit {
 	addNewMember(){
 		console.log("addNewMember, ", this.teamMember);
 		console.log("addNewMembers, ", this.teamMembers);
-		let existingMembers =  this.teamMembers.find(x => x.email == this.teamMember.email);
-		console.log("existingMembers	", existingMembers);
-		if(existingMembers === undefined){
-			
-			this.displayErrorAlreadyMember = false;
-			this.projectService.inviteTeamMember(this.teamMember, this.projectId).then(function(docRef) {
-				console.log("Document written with ID: ", docRef.id);
-				const callable = this.functions.httpsCallable('inviteTeamMember');
-				let invite ={projectId : this.projectId, email: this.teamMember.email, teamMemberId: docRef.id, project : this.project};
-				const obs = callable(invite)
 
-				obs.subscribe(res => {
-					console.log("done", res);
+		this.teamMember.email = this.teamMember.email.trim();
+
+		if(this.emailIsValid(this.teamMember.email)){
+			console.log("addNewMember, ", this.teamMember);
+			let existingMembers =  this.teamMembers.find(x => x.email == this.teamMember.email);
+			console.log("existingMembers	", existingMembers);
+			if(existingMembers === undefined){
+
+				this.displayErrorAlreadyMember = false;
+				this.projectService.inviteTeamMember(this.teamMember, this.projectId).then(function(docRef) {
+					console.log("Document written with ID: ", docRef.id);
+					const callable = this.functions.httpsCallable('inviteTeamMember');
+					let invite ={projectId : this.projectId, email: this.teamMember.email, teamMemberId: docRef.id, project : this.project};
+					const obs = callable(invite)
+
+					obs.subscribe(res => {
+						console.log("done", res);
+					});
+					this.presentToast();
+					this.navParams.get('homeref').closePopUp();
+				}.bind(this))
+				.catch(function(error) {
+					console.error("Error adding document: ", error);
 				});
-				this.presentToast();
-				this.navParams.get('homeref').closePopUp();
-			}.bind(this))
-			.catch(function(error) {
-				console.error("Error adding document: ", error);
-			});
+			}
+			else{
+				this.displayErrorAlreadyMember = true;
+				console.log("already existing");
+			}
 		}
 		else{
-			this.displayErrorAlreadyMember = true;
-			console.log("already existing");
+			this.displayErrorFormatEmail = true;
 		}
 		
+		
 	}
+	emailIsValid(email) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+	}
+
 	async presentToast() {
 		const toast = await this.toastController.create({
 			message: 'Invitation envoyée',

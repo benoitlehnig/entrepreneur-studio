@@ -1,55 +1,103 @@
 <app-header></app-header>
+<div class="share ion-hide-sm-down" >
+	<share-buttons
+	[include]="['facebook','twitter','linkedin','pinterest','reddit','tumblr','mix','viber','vk','telegram','messenger','whatsapp','xing','line','sms','email','print','copy']"
+	[show]="7"
+	[size]="-2"
+	[url]="'https://entrepreneur-studio.com'"
+	></share-buttons>
+</div>
+
+
 
 <ion-content>
-	<ion-grid class="filter">
-		<ion-row>
-			<ion-col >
-				<ng-select multiple="true" 
-				class="ion-margin ngselect"
-				[items]="items"
-				bindLabel="name"
-				bindValue="id"
-				placeholder="Categories" 
+	<div class="header">
+		<ion-grid class="filter">
+			<ion-row>
+				<ion-col >
+					<ng-select multiple="true" 
+					class="ion-margin ngselect"
+					[items]="items"
+					bindLabel="name"
+					bindValue="id"
+					placeholder="Categories" 
 
-				[(ngModel)]="filter.categories"
-				(change)="updateList()"></ng-select>
+					[(ngModel)]="filter.categories"
+					(change)="updateList()"></ng-select>
 
+				</ion-col>
+				<ion-col>
+					<ng-select multiple="true" 
+					class="ion-margin ngselect"
+					[items]="stages"
+					bindLabel="name"
+					bindValue="id"
+					placeholder="Phase" 
+
+					[(ngModel)]="filter.stages"
+					(change)="updateList()">
+				</ng-select>
 			</ion-col>
 			<ion-col>
-				<ng-select multiple="true" 
-				class="ion-margin ngselect"
-				[items]="stages"
-				bindLabel="name"
-				bindValue="id"
-				placeholder="Phase" 
-
-				[(ngModel)]="filter.stages"
-				(change)="updateList()">
-			</ng-select>
-		</ion-col>
-		<ion-col>
-			<ion-item lines="none" class="specialInput">
-				<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
-			</ion-item>
-		</ion-col>
-	</ion-row>
-</ion-grid>
-
-
-
+				<ion-item lines="none" class="specialInput">
+					<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<div class="ion-padding-start">
+		<ion-button class="ion-margin-start" (click)="requestAddTool()">
+			<ion-icon name="add-outline"></ion-icon>
+			<ion-text class="addTool" class="ion-hide-sm-down" (click)="requestAddTool()" >{{'TOOLS.AddToolLong' | translate}} </ion-text>
+			<ion-text class="addTool" class="ion-hide-sm-up" (click)="requestAddTool()">{{'TOOLS.AddToolShort' | translate}} </ion-text>
+		</ion-button>
+	</div>
+</div>
 
 
 <ion-grid class="gridTools">
 	<ion-row>
 		<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
+
 			<ion-card class="tool" >
+				<ion-fab edge horizontal="end" class="shareFabButton">
+					<ion-fab-button color="light"  size="small">
+						<ion-icon name="share-social-outline"></ion-icon>
+					</ion-fab-button>
+					<ion-fab-list [side]="side">
+						<ion-fab-button color="primary" shareButton="facebook" #fbBtn="shareButton" [url]="tool.link" size="small">
+							<fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="twitter" #tBtn="shareButton" [url]="tool.link"  size="small">
+							<fa-icon *ngIf="tBtn" [icon]="tBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="linkedin" #linkedinBtn="shareButton"  [url]="tool.link"  size="small">
+							<fa-icon *ngIf="linkedinBtn" [icon]="linkedinBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="messenger" #messengerBtn="shareButton" [url]="tool.link" size="small">
+								<fa-icon *ngIf="messengerBtn" [icon]="messengerBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="whatsapp" #whatsappBtn="shareButton"  [url]="tool.link" size="small">
+							<fa-icon *ngIf="whatsappBtn" [icon]="whatsappBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="sms" #smsBtn="shareButton"  [url]="tool.link"  size="small">
+							<fa-icon *ngIf="smsBtn" [icon]="smsBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="email" #emailBtn="shareButton"  [url]="tool.link"  size="small">
+							<fa-icon *ngIf="emailBtn" [icon]="emailBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+						<ion-fab-button color="primary" shareButton="copy" #copyBtn="shareButton"  [url]="tool.link" size="small">
+							<fa-icon *ngIf="copyBtn" [icon]="copyBtn.icon" size="lg"></fa-icon>
+						</ion-fab-button>
+					</ion-fab-list>
+				</ion-fab>
 				<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
 				</div>
 
-				<ion-card-content>
-					
+				<ion-card-content class="toolCard">
+
 					<ion-item slot="start"  lines="none">
-						
+
 						<ion-label>
 							<h1>{{tool.name}}</h1>
 							<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
@@ -63,8 +111,10 @@
 							</div>
 						</div>
 					</ion-item>
+
 					<ion-item lines="none">
-						<a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> 
+						<ion-label ><a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> </ion-label>
+
 					</ion-item>
 				</ion-card-content>
 			</ion-card>

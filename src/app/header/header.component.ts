@@ -6,6 +6,9 @@ import { SolutionMenuComponent } from './solution-menu/solution-menu.component';
 import { LoginComponent } from '../landing-page/login/login.component';
 import { PartnersComponent } from '../landing-page/partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
+import { Router } from '@angular/router';
+import {QuestionPage} from '../question/question.page'
+
 
 
 @Component({
@@ -19,12 +22,15 @@ export class HeaderComponent implements OnInit {
 		public popoverController:PopoverController,
 		public dataSharingServiceService:DataSharingServiceService,
 		public modalController:ModalController,
+		public router:Router,
+
 		) { }
 
 	public isLogged:boolean = true;
 	ngOnInit() {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
+				console.log("HeaderComponent >> ngOnInit", uid)
 				if(uid ===null){
 					this.isLogged = false
 				}
@@ -43,7 +49,7 @@ export class HeaderComponent implements OnInit {
 
 	scrollTo(elementId: string) {
 		let y = document.getElementById(elementId).offsetTop;
-		console.log(y)
+		this.router.navigate(['/landing-page']); 
 		this.getContent().scrollToPoint(0, y,300);
 	}
 
@@ -64,7 +70,8 @@ export class HeaderComponent implements OnInit {
 		const popover = await this.modalController.create({
 			component: SignUpComponent,
 			componentProps:{homeref:this},
-			cssClass: 'loginPopover',
+			cssClass: 'popover',
+
 			backdropDismiss: true,
 		});
 		return await popover.present();
@@ -77,7 +84,8 @@ export class HeaderComponent implements OnInit {
 		const popover = await this.modalController.create({
 			component: LoginComponent,
 			componentProps:{homeref:this},
-			cssClass: 'registerPopover',
+			cssClass: 'popover',
+
 			backdropDismiss: true,
 		});
 		return await popover.present();
@@ -87,21 +95,32 @@ export class HeaderComponent implements OnInit {
 	}
 
 	async presentPartnersPopover() {
-		const popover = await this.popoverController.create({
+		const popover = await this.modalController.create({
 			component: PartnersComponent,
 			componentProps:{homeref:this},
 			cssClass: 'registerPopover',
 			backdropDismiss: true,
-			translucent: true
 		});
 		return await popover.present();
 	}
 	dismissParnersPopover(){
-		this.popoverController.dismiss();
+		this.modalController.dismiss();
 	}
 	dismissSolutionMenuPoverer(){
-				this.popoverController.dismiss();
+		this.popoverController.dismiss();
 
 	}
+	async displayQuestionModal(){
+		const popover = await this.modalController.create({
+			component: QuestionPage,
+			cssClass: 'popover',
+			componentProps: {homeref:this},
 
+		});
+		return await popover.present();
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
+	}
 }

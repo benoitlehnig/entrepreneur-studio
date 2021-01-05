@@ -15,6 +15,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 import { SummaryPage } from './summary.page';
 
+import { TooltipModule } from 'ng2-tooltip-directive';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +24,9 @@ import { SummaryPage } from './summary.page';
     IonicModule,
     TranslateModule,
     FileUploadModule,
-    SummaryPageRoutingModule
+    SummaryPageRoutingModule,
+TooltipModule
+    
   ],
   declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent,PopoverSocialNetworkComponent]
 })

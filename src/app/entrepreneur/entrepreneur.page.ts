@@ -11,6 +11,7 @@ import {OnBoardingPage} from '../on-boarding/on-boarding.page'
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -38,28 +39,26 @@ export class EntrepreneurPage implements OnInit {
 		public loadingController: LoadingController,
 		public modalController: ModalController,
 		public alertController: AlertController,
-		public translateService:TranslateService
+		public translateService:TranslateService,
+
 		) { }
 
 	ngOnInit() {
+		console.log("EntrepreneurPage >> ngOnInit " );
+		this.modalController.dismiss();
+
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			userIds=>{
 				if(userIds){
+					console.log("EntrepreneurPage ngOnInit this.userIds", userIds);
 					this.userIds =userIds;
 				}
 			});
 		this.dataSharingServiceService.getUserChanges().subscribe(
 			user=>{
 				if(user){
-					if(user.email){
-						this.projectService.getProjectsbyTeamMemberEmail(user.email).pipe(first()).subscribe(
-							data=>{
-								console.log("get getProjecsbyTeamMemberEmail", user.email,data);
-							})
-					}
 					
-					
-
+					console.log("EntrepreneurPage ngOnInit user ",user  );
 					this.projectService.getProjectsDetailsbyUid(this.userIds.uid).subscribe(
 						(data)=>{
 							if(data){
@@ -69,7 +68,6 @@ export class EntrepreneurPage implements OnInit {
 							
 						});
 					if(this.onboardingPopoverDisplayed === false){
-						console.log("display pop pup")
 						this.onboardingPopoverDisplayed = true;
 						if(this.destroyed ===false && (user.onBoardingDone ===false || user.onBoardingDone === undefined)) {
 							this.presentOnboardingPopover(0);
@@ -110,15 +108,28 @@ export class EntrepreneurPage implements OnInit {
 			this.loading.dismiss();
 			
 			teamMembers.forEach((teamMember)=>{
-				if(teamMember.email !=="" && teamMember.email !== undefined){
-					this.projectService.inviteTeamMember( teamMember, res.id).then(function(docRef) {
-						console.log("Document written with ID: ", docRef.id);
-					}).catch(function(error) {
-						console.error("Error adding document: ", error);
-					});
+				console.log( "createProject >> teamMember ," , teamMember)
+				if(teamMember.email !=="" && teamMember.email !== undefined && this.emailIsValid(teamMember.email)){
+					if(teamMember.email !== this.userIds.email){
+						this.projectService.inviteTeamMember( teamMember, res.id).then(function(docRef) {
+							console.log("Document written with ID: ", docRef.id);
+							console.log("Document written with ID: ", docRef.id);
+							const callable = this.functions.httpsCallable('inviteTeamMember');
+							let invite ={projectId :  res.id, email: teamMember.email, teamMemberId: docRef.id, project : project};
+							const obs = callable(invite)
+
+							obs.subscribe(res => {
+								console.log("done", res);
+							});
+						}.bind(this)).catch(function(error) {
+							console.error("Error adding document: ", error);
+						});
+					}
+					
 				}
 				
 			});
+			this.projectService.createDefaultTimeline(res.id);
 			
 			this.navCtrl.navigateRoot(['project/'+res.id]);
 		});
@@ -142,7 +153,7 @@ export class EntrepreneurPage implements OnInit {
 
 		const popover = await this.modalController.create({
 			component: OnBoardingPage,
-			cssClass: 'onboardingPopup',
+			cssClass: 'popover',
 			componentProps: {homeref:this, stepPage:step},
 
 		});
@@ -153,11 +164,11 @@ export class EntrepreneurPage implements OnInit {
 		console.log("ngOnDestroy InDashBoard");
 	}
 
-	async requestRemoveProject(projectId){
+	async requestRemoveProject(projectId, projectName){
 
 		const alert = await this.alertController.create({
 			cssClass: 'my-custom-class',
-			header: this.deletePopupTitle,
+			header: this.deletePopupTitle+ " \""+ projectName+"\"",
 			message: this.deletePopupSubTitle,
 			buttons: [
 			{
@@ -186,6 +197,9 @@ export class EntrepreneurPage implements OnInit {
 
 	dismiss(){
 		this.modalController.dismiss();
+	}
+	emailIsValid(email) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 	}
 
 }

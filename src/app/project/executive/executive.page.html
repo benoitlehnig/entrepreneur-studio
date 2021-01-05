@@ -7,6 +7,10 @@
 				<ion-icon name="speedometer-outline"></ion-icon>
 				<ion-label>{{'EXECUTIVE.Dashboard' | translate }}</ion-label>
 			</ion-tab-button>
+			<ion-tab-button tab="timeline" >
+				<ion-icon name="alarm-outline" class=""></ion-icon>
+				<ion-label  class="">{{'EXECUTIVE.Timeline' | translate }}</ion-label>
+			</ion-tab-button>
 			<ion-tab-button tab="team">
 				<ion-icon name="people-circle-outline"></ion-icon>
 				<ion-label>{{'EXECUTIVE.Team' | translate }}</ion-label>
@@ -18,11 +22,6 @@
 				<ion-label>Applications</ion-label>
 				<ion-badge>{{resources.length}}</ion-badge>
 
-			</ion-tab-button>
-
-			<ion-tab-button (click)="openFeedbackPopover('network')">
-				<ion-icon name="color-filter"  class="disabledIcon"></ion-icon>
-				<ion-label  class="disabledIcon">Réseau</ion-label>
 			</ion-tab-button>
 
 			<ion-tab-button  (click)="openFeedbackPopover('finance')">

@@ -11,9 +11,18 @@ export class CMSService {
 	constructor(private afs: AngularFirestore) {
 
 	}
+	public retrieveTimelineContent(){
+		return this.afs.collection<any>("timeline").snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				console.log("retrieveTimelineContent, ", a.payload.doc.data())
+				return {id:a.payload.doc.id, order:a.payload.doc.data().order, data:a.payload.doc.data()}
+			})
 
+		}))
+	}
 
 	public retrieveToolsContent(filter:any ){
+		console.log("retrieveToolsContent >>", filter);
 		return this.afs.collection<any>("tools").snapshotChanges().pipe(map(actions => {
 			return actions.map(a => {
 				let filterPositive = false;
@@ -28,7 +37,9 @@ export class CMSService {
 				let arrStage = [];  
 				if(data.stages){
 					Object.keys(data.stages).map(function(key){  
+
 						arrStage.push({'label':data.stages[key]})  
+						console.log("data.stages arrStage", arrStage);
 						return arrStage;  
 					}); 
 				}
@@ -60,7 +71,6 @@ export class CMSService {
 				}
 				let matchedProductName = true;
 				if(filter.productName !==""){
-					console.log(" matchedProductName",data.name, filter.productName)
 					matchedProductName = false;
 					if(data.name.toLowerCase().startsWith(filter.productName.toLowerCase())){
 						matchedProductName = true;
@@ -69,10 +79,13 @@ export class CMSService {
 				}
 				data.filtered = !(matchedCategories && matchedStages && matchedProductName);
 				
-				
 				return { id, ...data };
 				
 			});
+		})
+		).pipe(
+		map(tools => {
+			return  tools.filter(tool => tool.filtered === false);
 		})
 		)
 	}

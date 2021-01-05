@@ -44,6 +44,7 @@ export class OnBoardingPage implements OnInit {
 	public projectProfilesItems =[];
 	public roleItems =[];
 	public selectedIndex;
+	public activeIndex=0;
 	public customPopoverOptions: any = {
 		cssClass:'largerOptionPopover'
 	};
@@ -88,6 +89,13 @@ export class OnBoardingPage implements OnInit {
 
 	}
 
+	updateStep(){
+		this.slides.getActiveIndex().then(data=>{
+			this.activeIndex = data;
+			console.log("this.activeIndex",this.activeIndex)
+		});
+
+	}
 	ngOnInit() {
 
 		this.dataSharingServiceService.getUidChanges().pipe(first()).subscribe(
@@ -97,6 +105,7 @@ export class OnBoardingPage implements OnInit {
 					this.userIds=uid;
 					let teamMember = new TeamMember();
 					teamMember.uid = this.userIds.uid; 
+					console.log("this.userIds.uid", this.userIds);
 					teamMember.email = this.userIds.email; 
 					this.teamMembers.push(teamMember,new TeamMember());
 					
@@ -118,7 +127,6 @@ export class OnBoardingPage implements OnInit {
 				}
 				
 			})
-
 		
 
 		
@@ -192,7 +200,6 @@ export class OnBoardingPage implements OnInit {
 	nextStep(){
 		console.log(this.project);
 		this.slides.slideNext();
-		console.log("this.step", this.step);
 		this.step++;
 	}
 

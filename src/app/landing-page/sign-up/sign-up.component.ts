@@ -18,6 +18,7 @@ export class SignUpComponent implements OnInit {
 	public user={email:"",password:""};
 	public cguChecked:boolean=false;
 	@Input("homeref") value;
+	@Input("unknownUser") unknownUser;
 
 
 	constructor(
@@ -68,8 +69,9 @@ export class SignUpComponent implements OnInit {
 			}
 
 			console.log("data.additionalUserInfo.profile",data.additionalUserInfo.profile)
+			console.log("data.user",data.user)
 			console.log("data.additionalUserInfo.",data.additionalUserInfo)
-			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,role:this.role});
+			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,email:data.user.email, role:this.role});
 
 			obs.subscribe(res => {
 				if(this.incubator ===true){

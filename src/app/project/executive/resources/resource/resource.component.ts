@@ -42,6 +42,7 @@ export class ResourceComponent implements OnInit {
 
 	}
 	requestEdition(){
+		this.changed.emit(JSON.stringify(this.resource));
 		this.inEdition = true;
 	}
 

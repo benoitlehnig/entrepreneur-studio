@@ -40,7 +40,7 @@ export class SummaryPage implements OnInit {
 
 	}
 	ngOnInit() {
-		console.log("SummaryPage ngOnInit")
+
 	}
 
 	

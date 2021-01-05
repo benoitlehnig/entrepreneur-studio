@@ -17,7 +17,7 @@ const routes: Routes = [
 {
   path: 'entrepreneur',
   loadChildren: () => import('./entrepreneur/entrepreneur.module').then( m => m.EntrepreneurPageModule),
- // canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+ canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
 
 },
 {

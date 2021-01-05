@@ -5,7 +5,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
-import { AngularFireAnalytics  } from '@angular/fire/analytics';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-landing-page',
@@ -15,15 +15,14 @@ import { AngularFireAnalytics  } from '@angular/fire/analytics';
 export class LandingPagePage implements OnInit {
 
 	public isLogged:boolean = false;
+	public unknownUser:boolean = false;
 
 	
 	constructor(
 		public popoverController:PopoverController,
 		public modalController:ModalController,
 		public dataSharingServiceService:DataSharingServiceService,
-		public angularFireAnalytics: AngularFireAnalytics,
-
-
+		public activatedRoute: ActivatedRoute,
 		) { }
 
 	ngOnInit() {
@@ -36,7 +35,15 @@ export class LandingPagePage implements OnInit {
 					this.isLogged = true;
 				}
 			})
-		this.angularFireAnalytics.logEvent("toto");
+		this.activatedRoute.params.subscribe(params => {
+			console.log("params",params)
+			if(params['unknownUser'] === 'true'){
+				console.log("params2",params)
+				this.unknownUser = true;
+				this.popoverController.dismiss();
+				this.presentSignUpPopover();
+			}
+		});
 	}
 
 	getContent() {
@@ -52,7 +59,9 @@ export class LandingPagePage implements OnInit {
 	async presentSignUpPopover() {
 		const popover = await this.modalController.create({
 			component: SignUpComponent,
-			componentProps:{homeref:this},
+			showBackdrop:true,
+			cssClass: 'popover',
+			componentProps:{homeref:this, unknownUser:this.unknownUser},
 			backdropDismiss: true,
 		});
 		return await popover.present();
@@ -65,6 +74,7 @@ export class LandingPagePage implements OnInit {
 		const popover = await this.modalController.create({
 			component: LoginComponent,
 			componentProps:{homeref:this},
+			cssClass: 'onboardingPopup',
 			backdropDismiss: true,
 		});
 		return await popover.present();
@@ -74,17 +84,16 @@ export class LandingPagePage implements OnInit {
 	}
 
 	async presentPartnersPopover() {
-		const popover = await this.popoverController.create({
+		const popover = await this.modalController.create({
 			component: PartnersComponent,
 			componentProps:{homeref:this},
-			cssClass: 'registerPopover',
+			cssClass: 'popover',
 			backdropDismiss: true,
-			translucent: true
 		});
 		return await popover.present();
 	}
 	dismissParnersPopover(){
-		this.popoverController.dismiss();
+		this.modalController.dismiss();
 	}
 
 

@@ -1,0 +1,12 @@
+.header{
+	background: var(--ion-color-primary);
+	color: var(--ion-color-primary-contrast);
+
+}
+.closeItem{
+	--background: var(--ion-color-primary);
+	.pointer{
+		color:var(--ion-color-primary-contrast);
+		cursor: pointer;
+	}
+}

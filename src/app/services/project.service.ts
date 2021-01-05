@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import {Project} from '../models/project';
+import {Project,TimelineElement} from '../models/project';
+import {CMSService} from './cms.service';
 import { map, switchMap,first,filter } from 'rxjs/operators'
 import { Observable, combineLatest, of } from 'rxjs'
 import { uniq, flatten } from 'lodash'
@@ -14,7 +15,9 @@ export class ProjectService {
 	projectRef = this.afs.collection<Project>('projects');
 	
 	constructor(		
-		private afs: AngularFirestore) 
+		private afs: AngularFirestore,
+		private CMSService: CMSService,
+		) 
 	{ }
 
 
@@ -131,11 +134,7 @@ export class ProjectService {
 		})
 		);
 	}
-	saveResource(id,resources){
-		console.log("saveResource", id, resources);
-		return this.afs.collection('projects').doc(id).collection('resources').add(resources);
 
-	}
 	addResource(id,resource){
 		console.log("addResource", id, resource);
 		return this.afs.collection('projects').doc(id).collection('resources').add( JSON.parse(JSON.stringify(resource.data)));
@@ -147,6 +146,59 @@ export class ProjectService {
 	deleteResource(id,resourceId){
 		console.log("deleteResource", id, resourceId);
 		return this.afs.collection('projects').doc(id).collection('resources').doc(resourceId).delete();
+	}
+
+	createDefaultTimeline(id:string){
+		return this.CMSService.retrieveTimelineContent().pipe(first()).subscribe(
+			data=>{
+				return data.forEach(function(timelineElemenCMS){
+					let timelineElement= new TimelineElement();
+					timelineElement.id = timelineElemenCMS.id;
+					timelineElement.order= timelineElemenCMS.order;
+					timelineElement.status="todo";
+					timelineElement.startDate= null
+					return this.afs.collection('projects').doc(id).collection('timeline').add(JSON.parse(JSON.stringify(timelineElement)));	
+				}.bind(this))
+			});
+	}
+	getTimeline(id){
+		return this.afs.collection('projects').doc(id).collection('timeline').snapshotChanges()
+		.pipe(
+			switchMap(timelineElementsData  => {
+				const timelineElements = timelineElementsData.map(timelineElement =>{
+					const timelineElementReturned = {id:timelineElement.payload.doc.id, data: timelineElement.payload.doc.data() as any};
+
+					return timelineElementReturned;
+				}
+				)
+
+				return combineLatest(
+					of(timelineElements),
+					combineLatest(
+						timelineElements.map(timelineElement =>{
+							return this.afs.doc<Project>('timeline/' +timelineElement.data.id).valueChanges().pipe(
+								map(timelineElement2 => {
+									console.log("timelineElement timelineElement: ",timelineElement2);
+									return {timelineElementId: timelineElement.data.id, data:timelineElement2};}  )
+								
+								)
+						})
+						) as any,
+					)  as any
+			}),
+			map(([timelineElements, timelineStatic]) => {
+				return timelineStatic.map(timelineStatic  => {
+					return {
+						static:timelineStatic,
+						timelineElement: timelineElements.find(a => a.data.id === timelineStatic.timelineElementId)
+					}
+				})
+			})
+			);
+	}
+	saveTimelineElement(id,timelineElement){
+		return this.afs.collection('projects').doc(id).collection('timeline').doc(timelineElement.timelineElement.id).set(timelineElement.timelineElement.data);
+
 	}
 
 }

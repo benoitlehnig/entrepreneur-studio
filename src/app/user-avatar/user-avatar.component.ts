@@ -20,10 +20,10 @@ export class UserAvatarComponent implements OnInit {
 	ngOnInit() {
 		this.authService.getUserDetails().subscribe(
 			data =>{
-				console.log("getUserDetails", data)
 				if(data){
-					console.log("this.photoURL", this.photoURL);
-					this.photoURL = data.photoURL;
+					if(this.photoURL !== data.photoURL ){
+						this.photoURL = data.photoURL;
+					}
 				}
 				
 			})	

@@ -2,21 +2,17 @@
 	<ion-item lines="none">
 		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
 	</ion-item>
+	<ion-text>{{item.text}}</ion-text>
 	<ion-grid>
 		<ion-row>
 			<ion-col size="8">
-				<ion-text><ion-textarea name="text" class="input biggerFont" [(ngModel)]="item.text"></ion-textarea></ion-text>
+				<ion-text>
+					<ion-input name="text" class="input biggerFont" [(ngModel)]="item.text"></ion-input>
+				</ion-text>
 				<ion-text><h2><ion-icon name="reorder-four-outline" class="ion-margin-end"></ion-icon>More details</h2></ion-text>
 				<ion-item class="ion-margin-top">
 					<ion-textarea class="input" [(ngModel)]="item.description"> </ion-textarea>
 				</ion-item>
-				<ion-text>
-					<h2>
-						<ion-icon name="chatbubble-ellipses-outline" class="ion-margin-end"></ion-icon>
-						<ion-text>Comments</ion-text>
-					</h2>
-				</ion-text>
-
 			</ion-col>
 			<ion-col class="ion-margin-start ion-padding actionColumn" size="2">
 				<h3>Actions</h3>

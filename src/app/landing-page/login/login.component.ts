@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NavParams} from '@ionic/angular';
 
+
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -13,15 +14,19 @@ export class LoginComponent implements OnInit {
 	constructor(
 		public authService: AuthService,
 		public router:Router,
-		public navParams: NavParams,
+		public navParams: NavParams
 
 		) { }
 
 	public user={email:"",password:""};
 	public mode:string="login";
 	@Input("homeref") value;
+	@Input("reason") reason=null;
 
-	ngOnInit() {}
+	ngOnInit() {
+
+		
+	}
 
 	loginWithGoogle(){
 		this.authService.loginWithGoogle().then((data)=>
@@ -65,5 +70,9 @@ export class LoginComponent implements OnInit {
 	dismiss(){
 		this.navParams.get('homeref').dismissLoginPopover()
 	}
+	openSignUp(){
+		this.navParams.get('homeref').dismissLoginPopover()
 
+		this.navParams.get('homeref').presentSignUpPopover()
+	}
 }

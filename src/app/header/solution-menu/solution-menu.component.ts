@@ -23,4 +23,9 @@ export class SolutionMenuComponent implements OnInit {
 
 	ngOnInit() {}
 
+	dismissSolutionMenuPoverer(){
+		this.navParams.get('homeref').dismissSolutionMenuPoverer();
+
+	}
+
 }

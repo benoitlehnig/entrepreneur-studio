@@ -9,6 +9,9 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
 import { ResourcesPage } from './resources.page';
 import {ResourceComponent} from './resource/resource.component'
+import {ResourcePopoverComponent} from './resource-popover/resource-popover.component'
+import { AutoCompleteModule } from 'ionic4-auto-complete';
+
 
 @NgModule({
   imports: [
@@ -16,8 +19,10 @@ import {ResourceComponent} from './resource/resource.component'
     FormsModule,
     IonicModule,
     ResourcesPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    AutoCompleteModule
   ],
-  declarations: [ResourcesPage,ResourceComponent]
+  exports:[AutoCompleteModule,TranslatePipe],
+  declarations: [ResourcesPage,ResourceComponent,ResourcePopoverComponent]
 })
 export class ResourcesPageModule {}

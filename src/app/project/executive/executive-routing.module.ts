@@ -44,6 +44,16 @@ const routes: Routes = [
     }
     ]
   },
+  {
+    path: 'timeline',
+    children: [
+    {
+      path: '',
+    loadChildren: () => import('./timeline/timeline.module').then( m => m.TimelinePageModule)
+    }
+    ]
+  },
+  
   
   ]
 },
@@ -66,6 +76,10 @@ const routes: Routes = [
   {
     path: 'resources',
     loadChildren: () => import('./resources/resources.module').then( m => m.ResourcesPageModule)
+  },
+  {
+    path: 'timeline',
+    loadChildren: () => import('./timeline/timeline.module').then( m => m.TimelinePageModule)
   }
 ];
 

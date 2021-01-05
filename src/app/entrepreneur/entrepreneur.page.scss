@@ -36,4 +36,12 @@
 .cardfooter{
 	border-top:1px solid var(--ion-color-light);
 }
+.wave{
+	position:absolute;
+	width: 100%;
+    height: 100%;
+    background: url('/assets/images/undraw_Work_time_re_hdyv.svg');
+	background-repeat:no-repeat;
+	background-position:bottom; 
+}
 

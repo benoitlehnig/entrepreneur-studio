@@ -11,18 +11,23 @@ import { ToolsPage } from './tools.page';
 import { HeaderModule} from '../header/header.module';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AddToolComponent } from './add-tool/add-tool.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
 	imports: [
 	CommonModule,
 	FormsModule,
 	IonicModule,
+	HeaderModule,
 	TranslateModule,
 	ToolsPageRoutingModule,
 	NgSelectModule,
-	HeaderModule
+	ShareIconsModule,
+	ShareButtonsModule
 	],
-	declarations: [ToolsPage],
+	declarations: [ToolsPage,AddToolComponent],
 	exports:[TranslatePipe]
 })
 export class ToolsPageModule {}

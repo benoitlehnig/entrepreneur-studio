@@ -1,0 +1,48 @@
+<ion-content>
+	<ion-item lines="none" >
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
+	<div class="ion-margin-top ion-margin-bottom fullWidth ion-padding">
+		<div class="ion-text-center ">
+			<img src="./assets/images/undraw_add_post_64nu.svg" class="picture">
+		</div>
+		<ion-text class="ion-text-center ion-padding title"><h1>{{'ADDTOOL.Title' | translate}}</h1></ion-text>
+		<h2 class="ion-text-uppercase">{{'ADDTOOL.SubTitle' | translate}}</h2>
+		<ion-item>
+			<ion-label color="primary" position="floating">{{'ADDTOOL.Name' | translate}}</ion-label>
+			<ion-input [(ngModel)] ="tool.name"  ></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary" position="floating">{{'ADDTOOL.Description' | translate}}</ion-label>
+			<ion-input [(ngModel)] ="tool.description"  ></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="primary" position="floating">{{'ADDTOOL.Link' | translate}}</ion-label>
+			<ion-input [(ngModel)] ="tool.link"  ></ion-input>
+		</ion-item>
+		
+			<ng-select multiple="true" 
+			class="ion-margin ngselect"
+			[items]="categories"
+			bindLabel="name"
+			bindValue="id"
+			placeholder="Categories" 
+
+			[(ngModel)]="tool.categories"
+			 ></ng-select>
+	
+			<ng-select multiple="true" 
+			class="ion-margin ngselect"
+			[items]="stages"
+			bindLabel="name"
+			bindValue="id"
+			placeholder="Phase" 
+
+			[(ngModel)]="tool.stages"
+			>
+		</ng-select>
+	<div class="ion-margin-top ion-margin-bottom ion-text-center">
+		<ion-button color="primary" (click)="send()">{{'ADDTOOL.Send' | translate}}</ion-button>
+	</div>
+</div>
+</ion-content>

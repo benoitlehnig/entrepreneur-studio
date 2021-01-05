@@ -3,7 +3,7 @@
 		<ion-title class="title">
 			<img  src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/landing-page" >
 			<span >{{'LANDINGPAGE.Title' | translate}}
-				<ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
+				<ion-badge class="beta  ion-hide-sm-down" (click)="displayQuestionModal()">Beta</ion-badge>
 			</span>
 		</ion-title>
 		<ion-buttons slot="secondary" class="secondary  ">
@@ -37,10 +37,13 @@
 			</ion-menu-button>
 		</ion-buttons>
 		<ion-title class="headerTitle title">
-			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}<ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge></span>
-
-
+			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}<ion-badge class="beta  ion-hide-sm-down" (click)="displayQuestionModal()">Beta</ion-badge></span>
 		</ion-title>
+		<ion-buttons slot="secondary" class="secondary">
+			<ion-button  (click)="presentPartnersPopover()"  class="ion-hide-lg-down ion-margin-end">
+				{{'LANDINGPAGE.Title3' | translate}}
+			</ion-button>
+		</ion-buttons>
 		<app-user-avatar slot="end"></app-user-avatar>
 	</ion-toolbar>
 </ion-header>

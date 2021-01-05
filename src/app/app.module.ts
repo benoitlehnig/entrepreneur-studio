@@ -31,6 +31,8 @@ import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent'
 
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxLinkPreviewModule } from 'ngx-link-preview';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { AngularXTimelineModule } from 'angularx-timeline';
 
 
 const cookieConfig:NgcCookieConsentConfig = {
@@ -78,6 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   FormsModule,
   FileUploadModule,
   NgxLinkPreviewModule,
+  AngularXTimelineModule,
+
   NgcCookieConsentModule.forRoot(cookieConfig),
   TranslateModule.forRoot({
     loader: {
@@ -95,6 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   { provide: LOCALE_ID, useValue: "fr-FR" },
   TranslatePipe,
+  SocialSharing,
 
   ],
   bootstrap: [AppComponent]

@@ -25,6 +25,7 @@ export class DataSharingServiceService {
 	}
 
 	currentUid(uid){
+		console.log("currentUid", uid, Date.now())
 		this.uidDataSource.next(uid);
 	}
 	getUidChanges(){

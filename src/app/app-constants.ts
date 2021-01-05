@@ -84,6 +84,8 @@ export class AppConstants {
 	{
 		'trello.com': 'https://trello.com/favicon.ico',
 		'app.slack.com': 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
-		'app.mural.co': 'https://app.mural.co/static/favicon-32x32.png'
+		'app.mural.co': 'https://app.mural.co/static/favicon-32x32.png',
+		'accounts.google.com': 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico',
+		'asana.com': 'https://d1gwm4cf8hecp4.cloudfront.net/images/favicons/apple-touch-icon-57x57.png'
 	}
 }

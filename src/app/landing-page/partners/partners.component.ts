@@ -32,9 +32,12 @@ export class PartnersComponent implements OnInit {
 		const callable = this.functions.httpsCallable('newPartnerRequest');
 		const obs = callable(this.partnerRequest);
 		obs.subscribe(async res => {
-			this.navParams.get('homeref').dismissRegisterPopover();
+			this.navParams.get('homeref').dismissParnersPopover();
 		});
 
+	}
+	dismiss(){
+		this.navParams.get('homeref').dismissParnersPopover();
 	}
 
 }

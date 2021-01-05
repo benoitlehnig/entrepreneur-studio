@@ -6,6 +6,7 @@ import {UserService} from './user.service';
 import {DataSharingServiceService} from './data-sharing-service.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import firebase from 'firebase/app';
+import { first } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
 
 	public user: Observable<any>;
 	public claims={};
+	public logggedIn:boolean=false;
 
 	constructor(
 		private afAuth: AngularFireAuth,
@@ -22,75 +24,67 @@ export class AuthService {
 		public userService:UserService,
 		public dataSharingServiceService:DataSharingServiceService
 
+
 		) {
 		this.user = this.afAuth.authState;
 		this.afAuth.onAuthStateChanged((user) => {
-			console.log("router : ", this.router.url);
+			console.log("AuthService >> onAuthStateChanged : ", user, this.router.url);
 			if (user) {
-				console.log(" this.afAuth.authState, ", user)
-				this.dataSharingServiceService.currentUid({uid: user.uid, email: user.email});
+				console.log("AuthService >> this.afAuth.authState, ", user)
+				this.logggedIn = true;
 				
 				user.getIdTokenResult().then(
 					result=> {
-						console.log("result router",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
+						console.log("AuthService >> user.uid , result, router",user.uid , result,this.router.url,result.claims,this.router.url.indexOf("landing") );
 						this.claims = result.claims;
-						if(this.claims['entrepreneur'] ===true){
-							
-							console.log("result router2",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
-
-							if(this.router.url.indexOf("landing") !== -1){
-								console.log("navigate entrepreneur");
-								this.router.navigate(['/entrepreneur']);
-							}
-							else if(this.router.url.indexOf("admin") !== -1){
-								console.log("navigate admin");
-							//	this.router.navigate(['/admin']);
-							}	
-							else if(this.router.url.indexOf("tools") !== -1){
-								console.log("navigate");
-								//this.router.navigate(['/tools']);
-							}
-							if(this.router.url.indexOf("cgu") !== -1){
-								console.log("navigate");
-							//	this.router.navigate(['/cgu']);
-							}
-							if(this.router.url.indexOf("project") !== -1){
-								//this.router.navigate(['/entrepreneur']);
-							}				
-						}
-						else if(this.claims['incubator'] ===true){
-							//this.router.navigate(['/incubator']);
-						}
-						else{
-							this.router.navigate(['/entrepreneur']);
-						}
 						this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
-								if(data){
+								console.log("AuthService >> this.userService.getUserDetails", data, Date.now())
+								if(data && this.logggedIn){
+									console.log(" AuthService >> this.dataSharingServiceService.currentUid",user.uid,data.email )
+									this.dataSharingServiceService.currentUid({uid: user.uid, email: data.email});
 									this.dataSharingServiceService.currentUser(data);
-									console.log(">user", data);
 									if(data.photoUrl !== user.photoURL){
 										this.updatePhotoUrl(user);
 									}
+									if(this.claims['entrepreneur'] ===true){
+										console.log("AuthService >> result router2",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
+										if(this.router.url.indexOf("landing") !== -1){
+											console.log("AuthService >> navigate entrepreneur");
+											this.router.navigate(['/entrepreneur']);
+										}				
+									}
+									else if(this.claims['incubator'] ===true){
+										//this.router.navigate(['/incubator']);
+									}
+								}
+								else if(!data && this.logggedIn){
+									console.log("AuthService >> AuthService NO USER", data);
+									this.dataSharingServiceService.currentUid(null);								
+									this.router.navigate(['/landing-page',{ unknownUser:true}]); 
+
+
 								}
 							})
 					})
 			} else {
-				console.log("user not logged in auth");
-				console.log("router : ", this.router.url);
+				console.log("AuthService >> AuthService, user not logged in auth");
+				console.log("AuthService >> router : ", this.router.url);
 				this.dataSharingServiceService.currentUid(null);
-				console.log(this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
+				this.logggedIn = false;
+				console.log("AuthService >> ",this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
 				if(this.router.url.indexOf("cgu") !== -1){
-					console.log("navigate cgu");
+					console.log("AuthService >> navigate cgu");
 					this.router.navigate(['/cgu']);
 				}
-				else if( this.router.url.indexOf("entrepreneur") === -1 && this.router.url.indexOf("project") ===-1){
-
+				else if( this.router.url.indexOf("entrepreneur") !== -1 && this.router.url.indexOf("project") !==-1){
+					console.log("AuthService >> navigate landing, unknown true");
 					this.router.navigate(['/landing-page']); 
 				}
-
 				else{
-					this.router.navigate(['/landing-page']);
+					console.log("AuthService >> navigate landing, unknown false");
+
+					this.router.navigate(['/landing-page']); 
 				}
 			}
 		}); 
@@ -160,4 +154,6 @@ export class AuthService {
 			console.log("photoURL", "done");
 		});
 	}
+
+
 }

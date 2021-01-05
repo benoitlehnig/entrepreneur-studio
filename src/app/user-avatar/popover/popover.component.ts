@@ -5,6 +5,9 @@ import { NavParams} from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import {QuestionPage} from '../../question/question.page';
 
+import { PartnersComponent } from '../../landing-page/partners/partners.component';
+
+
 @Component({
 	selector: 'app-popover',
 	templateUrl: './popover.component.html',
@@ -35,18 +38,20 @@ export class PopoverComponent implements OnInit {
 	}
 
 
-	async displayQuestionModal(){
-		const popover = await this.modalController.create({
-			component: QuestionPage,
-			cssClass: 'onboardingPopup',
-			componentProps: {homeref:this},
 
-		});
+	async presentPartnersPopover() {
 		this.navParams.get('homeref').dismissPopover();
+
+		const popover = await this.modalController.create({
+			component: PartnersComponent,
+			componentProps:{homeref:this},
+			cssClass: 'registerPopover',
+			backdropDismiss: true,
+		});
 		return await popover.present();
 	}
-
-	dismiss(){
+	dismissParnersPopover(){
+		this.navParams.get('homeref').dismissPopover();
 		this.modalController.dismiss();
 	}
 }

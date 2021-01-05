@@ -1,9 +1,13 @@
 <ion-content>
 	<ion-card>
+		<div class="timeline">
+		</div>
 		<ion-card-content class="projectCard">
 			<ion-list>
 				<ion-item lines="none">
-					<ion-text position="floating" class="ion-hide-sm-down labelTop">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}</ion-text>
+					<ion-text position="floating" class="ion-hide-sm-down labelTop">{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}
+					<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectElevatorPitchTooltip' | translate }}"></ion-icon>
+				</ion-text>
 					<ion-item class="input">
 
 						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()"></ion-textarea>
@@ -11,13 +15,17 @@
 					
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
-					<ion-text position="floating" class="ion-hide-sm-down labelTop">{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}</ion-text>
+					<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}
+						<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectWebsiteUrlTooltip' | translate }}"></ion-icon>
+					</ion-text>
 					<ion-item class="input">
 						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="{{'PROJECT_SUMMARY.ProjectWebsiteUrlPlaceholder' | translate }}" (ionChange)="updateProject()"></ion-input>
 					</ion-item>
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
-					<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}</ion-text>
+					<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}
+						<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectSocialNetworksTooltip' | translate }}"></ion-icon>
+					</ion-text>
 				</ion-item>
 				<ion-item lines="none">
 					<ion-grid>
@@ -52,8 +60,7 @@
 	</ion-card>
 
 
-
-	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }}</h2>
+	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }} <ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.BusinessCanvasTitleTooltip' | translate }}"></ion-icon></h2>
 	<ion-card *ngIf="project.summary">
 		<ion-card-content class="projectCard">
 			<ion-grid>

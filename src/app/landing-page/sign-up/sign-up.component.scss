@@ -36,24 +36,77 @@
 
 	}
 }
-.separator{
-	border-top:2px solid var(--ion-color-medium);
-	margin-top:30px;
+.noPadding{
+	padding:0px;
 }
 .socialLoginButtons{
-	max-width:180px;
+	max-width:800px;
+	margin-left:auto;
+	margin-right:auto;
 }
 .socialLoginButton{
 	margin-left: auto;
 	margin-right: auto;
-	--box-shadow: none;
+	max-width:380px;
+
 }
 .socialMediaText p{
 	width: fit-content;
 	position: relative;
-	top: -10px;
+	top: -13px;
+	font-size: 1.3em;
 	background: var(--ion-color-primary-contrast);
+	border-radius: 17px;
 	margin: auto;
 	padding-left:12px;
 	padding-right:12px;
+}
+
+.message{
+	border-radius: 3px;
+	background: var(--ion-color-primary);
+	color: var(--ion-color-primary-contrast);
+}
+.mailLogin{
+	background: var(--ion-color-light);
+	border-radius: 3px;
+	border-top:1px solid var(--ion-color-medium);
+	.item{
+		--background: var(--ion-color-light);
+	}
+	@media(min-width: 800px) {
+		margin-top:80px;
+	}
+}
+.topPart{
+	h1{
+		margin-top:0px;
+	}
+	@media(max-width: 576px) {
+		background: var(--ion-color-primary);
+		color:var(--ion-color-primary-contrast);
+	}
+}
+.youAreWrapper{
+	max-width: 800px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.closeItem{
+	--background: var(--ion-color-primary-contrast);
+	.pointer{
+		color:var(--ion-color-primary);
+		cursor: pointer;
+	}
+	@media(max-width: 576px) {
+		--background: var(--ion-color-primary);
+		.pointer{
+			color:var(--ion-color-primary-contrast);
+		}
+	}
+}
+
+.cgu{
+	font-size:0.8em;
 }

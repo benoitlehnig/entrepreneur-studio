@@ -1,59 +1,63 @@
 <ion-content>
-	<ion-grid class="teamMembers">
-		<ion-row>
-			<ion-col *ngFor="let teamMember of teamMembers">
-				<ion-card class="teamMember">
-					<ion-card-content class="ion-text-center">
-						<ion-avatar *ngIf="teamMember.profile !== undefined && teamMember.profile.photoUrl !== undefined" class="avatar ion-margin-bottom">
-							<img [src]="teamMember.profile.photoUrl" >
-						</ion-avatar>
-						<ion-avatar *ngIf="teamMember.profile === undefined || teamMember.profile.photoUrl === undefined" class="avatar ion-margin-bottom">
-							<ion-icon color="primary" class="iconUnknown" name="person-circle-outline"></ion-icon>
-						</ion-avatar>
-						<div class="linkedInWrapper">
-							<div *ngIf="teamMember.profile !== undefined">
-								<div *ngIf="teamMember.profile.linkedInUrl !== undefined">
-									<a [href]="teamMember.profile.linkedInUrl" target="_blank" *ngIf="teamMember.profile.linkedInUrl !== '' "   >LinkedIn Profile</a>
+	<div class="wave">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+			<path fill="#3880ff" fill-opacity="1" d="M0,192L40,192C80,192,160,192,240,192C320,192,400,192,480,208C560,224,640,256,720,245.3C800,235,880,181,960,144C1040,107,1120,85,1200,112C1280,139,1360,213,1400,250.7L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+		</div>
+		<ion-grid class="teamMembers">
+			<ion-row>
+				<ion-col *ngFor="let teamMember of teamMembers">
+					<ion-card class="teamMember">
+						<ion-card-content class="ion-text-center">
+							<ion-avatar *ngIf="teamMember.profile !== undefined && teamMember.profile.photoUrl !== undefined" class="avatar ion-margin-bottom">
+								<img [src]="teamMember.profile.photoUrl" >
+							</ion-avatar>
+							<ion-avatar *ngIf="teamMember.profile === undefined || teamMember.profile.photoUrl === undefined" class="avatar ion-margin-bottom">
+								<ion-icon color="primary" class="iconUnknown" name="person-circle-outline"></ion-icon>
+							</ion-avatar>
+							<div class="linkedInWrapper">
+								<div *ngIf="teamMember.profile !== undefined">
+									<div *ngIf="teamMember.profile.linkedInUrl !== undefined">
+										<a [href]="teamMember.profile.linkedInUrl" target="_blank" *ngIf="teamMember.profile.linkedInUrl !== '' "   >LinkedIn Profile</a>
+									</div>
 								</div>
+								
 							</div>
-							
-						</div>
-						<div class="title">
-							<h1 *ngIf="teamMember.uid && teamMember.profile" class="ion-margin-top"> 
-								<ion-text>{{teamMember.profile.firstName }} {{teamMember.profile.lastName}} </ion-text>
-							</h1>
-							<h1 *ngIf="!teamMember.uid" class="ion-margin-top"> <ion-text  color="primary">{{teamMember.email}} </ion-text></h1>
-						</div>
-						<ion-item>
-							<ion-select [interfaceOptions]="customAlertOptions"  placeholder="{{'TEAM.TeamMember.Role' | translate }}" [(ngModel)] ="teamMember.role"  (ionChange)="updateProfile(teamMember)" class="fullWidth selectStyle">
-								<ion-select-option *ngFor="let item of roleItems" [value]="item.index">{{item.text}}</ion-select-option>
-							</ion-select>
-						</ion-item>
-						<ion-item>
-							<ion-select [interfaceOptions]="customAlertOptions" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMember.projectProfile" (ionChange)="updateProfile(teamMember)"  multiple="true"  class="fullWidth selectStyle">
-								<ion-select-option  *ngFor="let item of projectProfilesItems" [value]="item.index">{{item.text}}</ion-select-option>
-							</ion-select>
-						</ion-item>
-						<ion-item >
-							<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
-							<ion-textarea [(ngModel)] ="teamMember.mission" class="fullWidth" (ionChange)="updateProfile(teamMember)"></ion-textarea>
-						</ion-item>
+							<div class="title">
+								<h1 *ngIf="teamMember.uid && teamMember.profile" class="ion-margin-top"> 
+									<ion-text>{{teamMember.profile.firstName }} {{teamMember.profile.lastName}} </ion-text>
+								</h1>
+								<h1 *ngIf="!teamMember.uid" class="ion-margin-top"> <ion-text  color="primary">{{teamMember.email}} </ion-text></h1>
+							</div>
+							<ion-item>
+								<ion-select [interfaceOptions]="customAlertOptions"  placeholder="{{'TEAM.TeamMember.Role' | translate }}" [(ngModel)] ="teamMember.role"  (ionChange)="updateProfile(teamMember)" class="fullWidth selectStyle">
+									<ion-select-option *ngFor="let item of roleItems" [value]="item.index">{{item.text}}</ion-select-option>
+								</ion-select>
+							</ion-item>
+							<ion-item>
+								<ion-select [interfaceOptions]="customAlertOptions" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMember.projectProfile" (ionChange)="updateProfile(teamMember)"  multiple="true"  class="fullWidth selectStyle">
+									<ion-select-option  *ngFor="let item of projectProfilesItems" [value]="item.index">{{item.text}}</ion-select-option>
+								</ion-select>
+							</ion-item>
+							<ion-item >
+								<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
+								<ion-textarea [(ngModel)] ="teamMember.mission" class="fullWidth" (ionChange)="updateProfile(teamMember)"></ion-textarea>
+							</ion-item>
 
-						<ion-item lines="none">		
-							<ion-button (click)="removeTeamMember(teamMember) "  *ngIf="uid !== teamMember.uid">{{'TEAM.Remove' | translate }}</ion-button>
-						</ion-item>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
+							<ion-item lines="none">		
+								<ion-button (click)="removeTeamMember(teamMember) "  *ngIf="uid !== teamMember.uid">{{'TEAM.Remove' | translate }}</ion-button>
+							</ion-item>
+						</ion-card-content>
+					</ion-card>
+				</ion-col>
 
-			<ion-col >
-				<ion-card class="teamMember teamMemberAdd" (click)="requestNewMember()">
-					<ion-card-content>
-						<ion-icon name="add-outline" color="primary"  class="addButton"></ion-icon>
-						<h2>{{'TEAM.SendInviteText' | translate }}</h2>
-					</ion-card-content>
-				</ion-card>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
-</ion-content>
+				<ion-col >
+					<ion-card class="teamMember teamMemberAdd" (click)="requestNewMember()">
+						<ion-card-content>
+							<ion-icon name="add-outline" color="primary"  class="addButton"></ion-icon>
+							<h2>{{'TEAM.SendInviteText' | translate }}</h2>
+						</ion-card-content>
+					</ion-card>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-content>

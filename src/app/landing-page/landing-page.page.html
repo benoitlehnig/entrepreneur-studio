@@ -3,13 +3,13 @@
 	<div class="mainContent">
 		<ion-grid>
 			<ion-row>
-				<ion-col>
+				<ion-col class="head">
 					<ion-text ><h1>{{'LANDINGPAGE.MainContent' | translate}}</h1></ion-text>
 					<ion-button size="large" expand="block" color="primary" class="startNowButton"  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
-					<ion-text><p class="freeAccess">{{'LANDINGPAGE.FreeStart' | translate}}</p></ion-text>
+					<ion-text class="ion-text-right"><p class="freeAccess ">{{'LANDINGPAGE.FreeStart' | translate}}</p></ion-text>
 				</ion-col>
 				<ion-col class="screenCapture">
-					<img src="assets/images/screenCatpure.png">
+					<img src="assets/images/appScreens.gif">
 				</ion-col>
 			</ion-row>
 		</ion-grid>
@@ -19,7 +19,10 @@
 			<ion-card-content>
 				<div >
 					<h1 class="subContentTitle ion-padding ion-text-center" >{{'LANDINGPAGE.subContentTitle1' | translate}}</h1>
-
+					<div class="timelinePictureWrapper">
+						<img src="assets/images/journey.png" class="ion-margin timelinePicture ion-hide-md-down">
+						<img src="assets/images/journey_mobile.png" class="ion-margin timelinePicture ion-hide-md-up">
+					</div>
 					<ion-grid class="subContentGrid ">
 						<ion-row>
 							<ion-col>

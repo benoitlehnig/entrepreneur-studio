@@ -3,5 +3,9 @@ export class Tool {
 	public brandName: string ="" 
 	public imgUrl:string=""
 	public description:string=""
-	public labels:Array<string> =[] 
+	public labels:Array<string> =[];
+	public stages;
+	public categories;
+	public link;
+
 }

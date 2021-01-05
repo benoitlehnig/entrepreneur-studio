@@ -6,8 +6,8 @@
 		"Title3": "Partenaire",
 		"Register": "Inscription",
 		"Connection": "Connexion",
-		"MainContent": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
-		"StartNow": "Commencez maintenant",
+		"MainContent": "Lancez votre projet avec la plateforme des entrepreneurs",
+		"StartNow": "Tester la Beta",
 		"FreeStart": "Accès gratuit et sans engagement",
 		"Content1Title": "Lancez votre projet avec la plateforme gratuite 100% dédiée aux entrepreneurs",
 		"Content1Text": "Entrepreneur Studio permet de créer et booster votre activité. Validation d’idée, business plan, marketing, communication, développement, investissement… Tous les outils et ressources pour lancer votre projet étape par étape.",
@@ -31,7 +31,7 @@
 		"Icon5Title": "Pratique ",
 		"Icon5Text": "Des ressources et outils integrés",
 		"Content2Title": "Comment ça marche",
-		"subContentTitle1": "Un environnement unique, des outils actionnables, une communauté active pour valider, lancer et booster son projet",
+		"subContentTitle1": "Par des entrepreneurs pour des entrepreneurs. Construisons ensemble l'environnement pour valider, lancer et booster nos projets",
 		"Icon1SubTitle": "Le garage",
 		"Icon1SubText": "Un espace pour créer, suivre et partager son projet avec ses associés et ses partenaires",
 		"Icon2SubTitle": "La boite à outils",
@@ -67,9 +67,12 @@
 		"Password": "Mot de passe",
 		"LoginWithSocial": "ou",
 		"LoginWithEmail": "ou",
-		"EmailLogin": "Creer son compte",
+		"SignUpWithGoogle": "Créer son compte avec Google",
+		"SignUpWithFacebook": "Créer son compte avec Facebook",
+		"EmailLogin": "Créer son compte",
 		"cguText": "J'accepte les ",
-		"cguTextLink": " conditions générales d'utilisation de Entrepreneur Studio"
+		"cguTextLink": " conditions générales d'utilisation de Entrepreneur Studio",
+		"NoAccountText": "Vous n'avez pas encore de compte. Veuillez vous inscrire pour accéder à Entrepreneur Studio."
 	},
 	"LOGIN":{
 		"Title": "De retour au travail :) ",
@@ -83,7 +86,10 @@
 		"ResetPasswordButton": "Valider",
 		"ResetPasswordCancelButton": "Annuler",
 		"LoginWithSocial": "ou bien utilisez vos reseaux sociaux preferes",
-		"LoginWithEmail": "ou bien utilisez votre email"
+		"LoginWithEmail": "ou bien utilisez votre email",
+		"NoAccountText": "Vous n'avez pas encore de compte ? ",
+		"NoAccountTextLink": "Créez votre compte ici",
+		"ToolAccess": "Il faut être identifié pour pouvoir ajouter un outil. "
 	},
 	"COMMON":{
 		"Logout": "Se déconnecter" ,
@@ -105,6 +111,7 @@
 	},
 	"EXECUTIVE":{
 		"Dashboard": "Tableau de bord",
+		"Timeline": "Timeline",
 		"Team": "Equipe"
 	},
 	"CGU":{
@@ -116,13 +123,17 @@
 		"ProjectName": "Nom",
 		"ProjectLogoUrl": "Logo",
 		"ProjectElevatorPitch": "Elevator Pitch",
+		"ProjectElevatorPitchTooltip": "Résumez votre projet de manière concise pour donner envie à des partenaires ou des investisseurs de vous suivre. Soyez bref et impactant.",
 		"ProjectElevatorPitchPlaceholder": "Entrer votre Elevator Pitch ! ",
 		"ProjectWebsiteUrl": "Site web",
+		"ProjectWebsiteUrlTooltip": "Ajoutez le lien vers le site web de votre projet",
 		"ProjectWebsiteUrlPlaceholder": "Entrer votre site web",
 		"ProjectSocialNetworks": "Réseaux sociaux",
+		"ProjectSocialNetworksTooltip": "Ajoutez les liens vers vos réseaux sociaux",
 		"ProjectUpdate": "Modifier ",
 		"ProjectSave": "Sauvegarder",
 		"BusinessCanvasTitle": "Business Canvas",
+		"BusinessCanvasTitleTooltip": "Remplissez la matrice afin de structurer votre projet et d'aborder les points essentiels à sa réalisation",
 		"BusinessCanvasProblem": "Problème ",
 		"BusinessCanvasProblemPlaceholder": "Quels sont les principaux probèmes que vous souhaitez résoudre ?",
 		"BusinessCanvasProblemTitle": "Le problème",
@@ -225,6 +236,7 @@
 	"ONBOARDINGPAGE":{
 		"Title":"Bienvenue !!",
 		"SubTitle":"APPRENONS À SE CONNAÎTRE",
+		"SkipThisStep":"Passer cette étape",
 		"CurrentSituation":"Quelle est votre situation actuelle",
 		"CurrentSituationItems": {
 			"1":"Etudiant", 
@@ -255,7 +267,7 @@
 		"ProjectMaturity":"Maturité du projet", 
 		"ProjectMaturityItems": {
 			"1":"Découvrir l'entrepreneuriat et trouver mon idée", 
-			"2":"Valider de mon idée",
+			"2":"Valider mon idée",
 			"3":"Lancer mon produit/service",
 			"4":"Déveloper ou accélerer mon activité"
 		},
@@ -384,13 +396,19 @@
 			"48" :"Contrat",
 			"49" :"Finance",
 			"50" :"RH",
-			"51" :"Freelance"
+			"51" :"Freelance",
+			"52" :"Hébergeur web",
+			"53" :"Nom de domaine",
+			"54" :"Crowdfunding",
+			"55" :"Agenda"
 		},
 		"STAGES":{
 			"ideation" :"Ideation",
 			"creation" :"Creation",
 			"development" :"Développement"
-		}
+		},
+		"AddToolLong":"Ajouter un outil ",
+		"AddToolShort":"Ajouter un outil"
 	},
 	"FEEDBACK":{
 		"Title": "Version BETA",
@@ -451,6 +469,7 @@
 			"financial": "Financier"
 		},
 		"ErrorMemberAlreadyExists": "Le membre fait déjà parti de votre équipe",
+		"ErrorFormatEmail": "Le format de l'addresse email n'est pas correct.",
 		"SendInviteText": "Envoyer une invitation a rejoindre le projet pour les autres associes ou conseils",
 		"SendInviteRequestTextButton": "Ajouter un membre",
 		"Email": "Email",
@@ -461,7 +480,36 @@
 
 	},
 	"RESOURCES":{
+		"AddResource": "Ajouter un lien vers une application",
+		"AddResourcePopoverTitle": "Ajouter nouvelle application",
+		"AddResourceTitle": "Ajouter un nouveau lien vers une application",
+		"AddResourceStep1": "1. Selectionner votre application",
+		"AddResourceStep2": "2. Configurer l'application",
 		"AddResource": "Ajouter un nouveau lien vers une application",
-		"AddResourceGuidanteText": "Centralisez ici les liens vers les applications ou les sites utiles à votre projet "
+		"AddResourceGuidanteText": "Centralisez ici les liens vers les applications ou les sites utiles à votre projet ",
+		"AddResourceUrlPlaceholder": "par exemple: https://trello.com/b/UNrbWWxV/mvp-entrepreneur-studio",
+		"AddResourceFreeLink": "Ou ajouter un lien libre",
+		"AddResourceUrlText": "Entrer le lien vers votre application",
+		"AddResourceOKButton": "Ajouter"
+	},
+	"ADDTOOL":{ 
+		"Title": "Ajouter un nouvel outil",
+		"SubTitle": "Decrivez l'outil",
+		"Name": "Nom",
+		"Description": "Description",
+		"Link": "Lien vers la page de l'outil",
+		"SuccessfullySent": "Merci ! Nous allons revoir votre proposition et l'ajouter pour la communauté",
+		"Send":"Soumettre"
+	},
+	"TIMELINE":{
+		"Status": "Mon statut",
+		"StatusOnGoing": "En cours",
+		"StatusDone": "Fini",
+		"StatusTodo": "A Faire",
+		"ItemDescription": "Description",
+		"ItemTimeObjective": "Objectif de temps",
+		"ItemDelivrable": "Délivrables",
+		"ItemResources": "Resources",
+		"ItemApplications": "Outils"
 	}
 }

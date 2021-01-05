@@ -1,0 +1,37 @@
+.timelineElement{
+	--background:none;
+	.icon{
+		background:var(--ion-color-primary-contrast);
+		border:var(--ion-color-primary) 2px solid;
+		text-align: center;
+		ion-icon{
+			font-size: 	20px;
+			margin-top:7px;
+		}
+	}
+	cursor: pointer;
+	.dateColumn{
+		max-width:100px;
+	}
+}
+.selected{
+	background:var(--ion-color-primary);
+	color:var(--ion-color-primary-contrast);
+	font-weight: bold;
+	.icon{
+		background:var(--ion-color-primary);
+		border:var(--ion-color-primary-contrast) 2px solid;
+		text-align: center;
+		ion-icon{
+			font-size: 	20px;
+			margin-top:7px;
+		}
+	}
+	ion-note{
+		color:var(--ion-color-primary-contrast);
+		max-width: 	min-content;
+	}
+}
+.mainElement{
+	
+}

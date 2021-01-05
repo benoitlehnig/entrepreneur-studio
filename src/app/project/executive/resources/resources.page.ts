@@ -6,12 +6,15 @@ import {Resource} from '../../../models/project';
 import {DataSharingServiceService} from '../../../services/data-sharing-service.service';
 import { first } from 'rxjs/operators';
 import {ProjectService} from '../../../services/project.service';
+import { ModalController } from '@ionic/angular';
+import {ResourcePopoverComponent} from './resource-popover/resource-popover.component'
 
 @Component({
 	selector: 'app-resources',
 	templateUrl: './resources.page.html',
 	styleUrls: ['./resources.page.scss'],
 })
+
 
 
 export class ResourcesPage implements OnInit {
@@ -22,6 +25,8 @@ export class ResourcesPage implements OnInit {
 		private functions: AngularFireFunctions,
 		public dataSharingServiceService: DataSharingServiceService,
 		public projectService: ProjectService,
+		public modalController: ModalController,
+
 
 		) { }
 
@@ -31,6 +36,9 @@ export class ResourcesPage implements OnInit {
 	ngOnInit() {
 		this.initResources()
 	}
+
+
+
 
 	initResources(){
 		this.dataSharingServiceService.getProjectChanges().subscribe(
@@ -42,7 +50,7 @@ export class ResourcesPage implements OnInit {
 						resources=>{
 							console.log("resources", resources);
 							if(resources !==null){
-								this.resources = resources;
+								this.resources = resources.sort((n1,n2) => n1.data.order - n2.data.order);
 							}
 
 
@@ -52,40 +60,15 @@ export class ResourcesPage implements OnInit {
 	}
 
 	updateResource(resource){
-		const callable = this.functions.httpsCallable('getMetadata');
-		const obs = callable({url:  resource.data.url });
-		console.log("updateResource", resource);
 		if(resource.data.url !=="")
 		{
 			if(resource.id){
-				obs.pipe(first()).subscribe(async res => {
-					try {
-						console.log("resobs", res)
-						let metadata = JSON.parse(res);
-						console.log("metadata",JSON.parse(res));
-						resource.data.pictureUrl = metadata.image;
-						resource.data.source = metadata.source;
-						resource.data.title = metadata.title;
-					}catch (error) {
-						console.error('Here is the error message', error);
-					}
-					this.projectService.updateResource(this.projectId,resource.data);
-				});
+				this.projectService.updateResource(this.projectId,resource.data);
 			}
 			else{
 
-				obs.pipe(first()).subscribe(async res => {
-					try {
-						let metadata = JSON.parse(res);
-						console.log("metadata",JSON.parse(res));
-						resource.data.pictureUrl = metadata.image;
-						resource.data.source = metadata.source;
-						resource.data.title = metadata.title;
-					}catch (error) {
-						console.error('Here is the error message', error);
-					}
-					this.projectService.addResource(this.projectId,resource);
-				});
+				resource.data.order = this.resources.length+1
+				this.projectService.addResource(this.projectId,resource);
 
 			}
 		}
@@ -107,26 +90,22 @@ export class ResourcesPage implements OnInit {
 
 		}
 	}
-	public retrieveMetadata(url){
-		const callable = this.functions.httpsCallable('getMetadata');
-		const obs = callable({url:  url});
-		return obs.subscribe(async res => {
-			console.log("res",res)
-			return res;
-		});
-	};
+
 
 	public requestAddNewResource(){
 		let resource = {id:null,data:new Resource()};
-		this.resources.push(resource);
+		this.presentResourcePopoverComponent(resource);
 	}
+	public requestUpdateResource(event){
+		console.log("resourceDelet", event);
+		let resource =JSON.parse(event)
+		this.presentResourcePopoverComponent(resource);
+	}
+	
 	public deleteResource(resourceId){
 		this.projectService.deleteResource(this.projectId,resourceId);
 	}
 
-	public saveResources(){
-		//this.project.
-	}
 
 	resourceUpdated(event){
 		console.log("resourceUpdated", event);
@@ -140,5 +119,19 @@ export class ResourcesPage implements OnInit {
 			this.projectService.deleteResource(this.projectId,resource.id);
 		}
 
+	}
+
+	dismiss(){
+		this.modalController.dismiss();
+	}
+	async presentResourcePopoverComponent(resource) {
+
+		const popover = await this.modalController.create({
+			component: ResourcePopoverComponent,
+			cssClass: 'popover',
+			componentProps: {homeref:this, resource:resource},
+
+		});
+		return await popover.present();
 	}
 }
