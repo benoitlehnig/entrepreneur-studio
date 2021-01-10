@@ -22,8 +22,7 @@ export class AuthService {
 		public functions : AngularFireFunctions,
 		public router:Router,
 		public userService:UserService,
-		public dataSharingServiceService:DataSharingServiceService
-
+		public dataSharingServiceService:DataSharingServiceService,
 
 		) {
 		this.user = this.afAuth.authState;
@@ -35,7 +34,7 @@ export class AuthService {
 				
 				user.getIdTokenResult().then(
 					result=> {
-						console.log("AuthService >> user.uid , result, router",user.uid , result,this.router.url,result.claims,this.router.url.indexOf("landing") );
+						console.log("AuthService >> user,user.uid , result, router",user, user.uid , result,this.router.url,result.claims,this.router.url.indexOf("landing") );
 						this.claims = result.claims;
 						this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
@@ -59,10 +58,18 @@ export class AuthService {
 									}
 								}
 								else if(!data && this.logggedIn){
-									console.log("AuthService >> AuthService NO USER", data);
-									this.dataSharingServiceService.currentUid(null);								
-									this.router.navigate(['/landing-page',{ unknownUser:true}]); 
+									this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((started) =>{
+										if(started ===true){
+											console.log("AuthService >> AuthService NO USER ONBOARDING STARTED", data, started);
+											this.router.navigate(['/entrepreneur']);
 
+										}
+										else{
+											console.log("AuthService >> AuthService NO USER  ONBOARDING STARTED", data, started);
+											this.dataSharingServiceService.currentUid(null);								
+											this.router.navigate(['/landing-page',{ unknownUser:true}]); 
+										}
+									})
 
 								}
 							})
@@ -71,6 +78,8 @@ export class AuthService {
 				console.log("AuthService >> AuthService, user not logged in auth");
 				console.log("AuthService >> router : ", this.router.url);
 				this.dataSharingServiceService.currentUid(null);
+				this.dataSharingServiceService.onBoardingStarted(false);
+
 				this.logggedIn = false;
 				console.log("AuthService >> ",this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
 				if(this.router.url.indexOf("cgu") !== -1){
@@ -84,7 +93,7 @@ export class AuthService {
 				else{
 					console.log("AuthService >> navigate landing, unknown false");
 
-					this.router.navigate(['/landing-page']); 
+					//this.router.navigate(['/landing-page']); 
 				}
 			}
 		}); 
@@ -154,6 +163,8 @@ export class AuthService {
 			console.log("photoURL", "done");
 		});
 	}
+
+	
 
 
 }

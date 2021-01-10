@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import {User} from '../../models/user';
 import { NavParams} from '@ionic/angular';
+import {DataSharingServiceService} from '../../services/data-sharing-service.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
 		public router:Router,
 		private functions: AngularFireFunctions,
 		public navParams: NavParams,
+		public dataSharingServiceService:DataSharingServiceService,
 
 
 		) { }
@@ -60,6 +62,7 @@ export class SignUpComponent implements OnInit {
 
 	createUser(data){
 		if(data.user){
+			this.dataSharingServiceService.onBoardingStarted(true);
 			const callable = this.functions.httpsCallable('createUser');
 			if(this.incubator ===true){
 				this.role ="incubator";
@@ -74,12 +77,7 @@ export class SignUpComponent implements OnInit {
 			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,email:data.user.email, role:this.role});
 
 			obs.subscribe(res => {
-				if(this.incubator ===true){
-					this.role ="incubator";
-				}
-				else{
-					this.router.navigate(['/entrepreneur']);
-				}
+				
 
 			});
 		}

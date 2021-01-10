@@ -29,6 +29,9 @@ export class TimelinePage implements OnInit {
 
 
 	public projectId:string="";
+	public accessRights={read: false, write:false};
+
+
 	public timeline;
 	public selectionChange:boolean=false;
 	
@@ -58,10 +61,15 @@ export class TimelinePage implements OnInit {
 				if(data !==null){
 					console.log("TimelinePage dataSharingServiceService", data);
 					this.projectId	= data.id;
+					this.accessRights = data.accessRights;
+
 					this.projectService.getTimeline(this.projectId).subscribe(timeline=>{
 						console.log("timeline", timeline);
 						timeline.sort((a, b) => {
-							return a.static.data.order - b.static.data.order;
+							let orderA = String(a.static.data.mainOrder) + String(a.static.data.itemPosition);
+							let orderB = String(b.static.data.mainOrder) + String(b.static.data.itemPosition);
+							console.log(" orderA,orderB" ,orderA,orderB, )
+							return Number(orderA) - Number(orderB);
 						});
 						this.timeline = timeline;
 						if(this.selectedTimelineElement===null && this.platform.width() >768){
@@ -170,9 +178,10 @@ export class TimelinePage implements OnInit {
 		const popover = await this.modalController.create({
 			component: TimelinePopoverComponent,
 			cssClass: 'onboardingPopup',
-			componentProps: {homeref:this, timelineElement:this.selectedTimelineElement, projectId:this.projectId,tools: this.tools, delivrable: this.selectedTimelineElementDelivrable},
+			componentProps: {homeref:this, timelineElement:this.selectedTimelineElement, projectId:this.projectId,tools: this.tools,
+				delivrable: this.selectedTimelineElementDelivrable, accessRights:this.accessRights},
 
-		});
+			});
 		console.log("presentTimelinePopoverComponent >> ",popover.componentProps)
 		return await popover.present();
 	}
@@ -180,6 +189,9 @@ export class TimelinePage implements OnInit {
 	saveTimelineElement(){
 		if(this.selectedTimelineElement.timelineElement.data.status ==='done'){
 			this.selectedTimelineElement.timelineElement.data.endDate = moment().format();
+			if(!this.selectedTimelineElement.timelineElement.data.startDate){
+				this.selectedTimelineElement.timelineElement.data.startDate = moment().format();
+			}
 		}
 		else{
 			this.selectedTimelineElement.timelineElement.data.endDate=null

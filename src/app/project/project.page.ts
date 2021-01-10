@@ -11,7 +11,13 @@ import {TranslateService} from '@ngx-translate/core';
 import { ModalController } from '@ionic/angular';
 import { first } from 'rxjs/operators';
 
+import { PopoverController } from '@ionic/angular';
+
+import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
+
+
 import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
+
 @Component({
 	selector: 'app-project',
 	templateUrl: './project.page.html',
@@ -21,6 +27,10 @@ export class ProjectPage implements OnInit {
 
 	public project:Project= new Project();
 	public projectId:string="";
+	public writeAccess:boolean=false;
+	public accessRights={read: false, write:false};
+	public projectsIdsbyUid=[];
+	public uid=null;
 
 	constructor(
 		public projectService:ProjectService,
@@ -31,7 +41,9 @@ export class ProjectPage implements OnInit {
 		private menu: MenuController,
 		public alertController: AlertController,
 		public translateService: TranslateService,
-		public modalController:ModalController
+		public modalController:ModalController,
+		public popoverController: PopoverController,
+
 		) {
 
 
@@ -44,17 +56,27 @@ export class ProjectPage implements OnInit {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			(uid) =>{
 				console.log("ProjectPage uid", uid );
+				this.uid=uid; 
 				if(uid){
 					this.projectService.getProjectsIdsbyUid(uid.uid,this.projectId).subscribe(
-					response => {
-						console.log("ProjectPage ProjectPage response", response);
-						if(response === undefined ){
-							this.router.navigate(['/landing-page']);
-						}
-						else if(response.length === 0 ){
-							this.router.navigate(['/landing-page']);
-						}
-					})
+						response => {
+							console.log("ProjectPage >>ngOnInit>> getProjectsIdsbyUid response", response);
+							this.projectsIdsbyUid= response;
+							this.projectService.getProject(this.projectId).pipe(first()).subscribe(
+								(data)=>{
+									if(data){
+										if(!this.project.sharingStatus){
+											this.project.sharingStatus = "private";
+										}
+										this.checkWriteAccess();
+										console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
+
+										if(this.writeAccess===false && data.sharingStatus ==='private'){
+											this.router.navigate(['/landing-page']);
+										}
+									}
+								})
+						})
 				}
 			})
 		this.initProject();
@@ -69,11 +91,35 @@ export class ProjectPage implements OnInit {
 		this.projectService.getProject(this.projectId).pipe(first()).subscribe(
 			(data)=>{
 				if(data){
-					console.log("projectService.getProject" , data);
+					console.log("ProjectPage >>ngOnInit>> initProject >> getProject" , data);
 					this.project= data;
-					this.dataSharingServiceService.currentProject({id:this.projectId, data: data});
+					this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
+
+
 				}
 			})
+
+
+	}
+
+	checkWriteAccess(){
+		if(this.projectsIdsbyUid === undefined ){
+			this.writeAccess=false;
+		}
+		else if(this.projectsIdsbyUid.length === 0 ){
+			this.writeAccess=false;
+		}
+		else{
+			this.writeAccess=true;
+		}
+		if(this.writeAccess===false && this.project.sharingStatus ==='public'){
+			this.accessRights.read=true;
+		}
+		if(this.writeAccess===true){
+			this.accessRights.read=true;
+			this.accessRights.write=true;
+		}
+		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 	}
 
 
@@ -108,5 +154,25 @@ export class ProjectPage implements OnInit {
 	dismiss(){
 		this.modalController.dismiss();
 	}
+	async presentSharingStatusPopover(ev: any) {
+		const popover = await this.popoverController.create({
+			component: SharingStatusPopoverComponent,
+			componentProps: {homeref:this, projectId:this.projectId},
+			event: ev,
+			translucent: true
+		});
+		return await popover.present();
+	}
+	dismissSharingStatusPopover(){
+		this.popoverController.dismiss();
+	}
+
+	updateStatus(status){
+		this.dismissSharingStatusPopover();
+		this.project.sharingStatus = status;
+		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
+	}
+
+
 
 }

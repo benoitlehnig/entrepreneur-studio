@@ -107,7 +107,12 @@
 		"DeletePopupSubTitle" :"Etes-vous sur de vouloir supprimer le projet ?",
 		"DeletePopupCancelButton" :"Annuler",
 		"DeletePopupOKButton":"Supprimer",
-		"SystemD":"Le Système D"
+		"SystemD":"Le Système D",
+		"Public":"Public",
+		"Private":"Privé",
+		"PrivateSubLabel":"Seuls les membres de ce projet peuvent consulter et modifier ce projet.",
+		"PublicSubLabel":"Tout le monde peut consulter ce projet. Seuls les membres du projet peuvent le modifier."
+
 	},
 	"EXECUTIVE":{
 		"Dashboard": "Tableau de bord",
@@ -176,11 +181,11 @@
 		"BusinessCanvasChannelsGuidance": "Canaux",
 		"BusinessCanvasChannelsExample": "Canaux",
 		"BusinessCanvasChannelsPlaceholder": "Par quels canaux de communication et de distribution touchez-vous vos clients ? Quel est le parcours client ?",
-		"BusinessCanvasCustomerSegmentation": "Segmentation cliente",
-		"BusinessCanvasCustomerSegmentationTitle": "Segmentation cliente",
-		"BusinessCanvasCustomerSegmentationSubTitle": "Segmentation cliente",
-		"BusinessCanvasCustomerSegmentationGuidance": "Segmentation cliente",
-		"BusinessCanvasCustomerSegmentationExample": "Segmentation cliente",
+		"BusinessCanvasCustomerSegmentation": "Segmentation clients",
+		"BusinessCanvasCustomerSegmentationTitle": "Segmentation clients",
+		"BusinessCanvasCustomerSegmentationSubTitle": "Segmentation clients",
+		"BusinessCanvasCustomerSegmentationGuidance": "Segmentation clients",
+		"BusinessCanvasCustomerSegmentationExample": "Segmentation clients",
 		"BusinessCanvasCustomerSegmentationPlaceholder": "Qui sont les utilisateurs? Qui sont les clients (ceux qui payent) ?",
 		"BusinessCanvasEarlyAdopters": "Adopteurs précoces",
 		"BusinessCanvasEarlyAdoptersPlaceholder": "Quel est le profil de vos premiers utilisateurs ? ",
@@ -323,7 +328,8 @@
 		}
 	},
 	"ENTREPENEUR" :{
-		"StartProject": "Créer un projet" 
+		"StartProject": "Créer un projet",
+		"SeeAstarterProject": "Voir un projet de demo"
 	},
 	"PARTNERS":{
 		"Title":"Devenir partenaire",
@@ -408,7 +414,9 @@
 			"development" :"Développement"
 		},
 		"AddToolLong":"Ajouter un outil ",
-		"AddToolShort":"Ajouter un outil"
+		"AddToolShort":"Ajouter un outil",
+		"Stages": "Etapes",
+		"Categories": "Catégories"
 	},
 	"FEEDBACK":{
 		"Title": "Version BETA",

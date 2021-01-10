@@ -27,7 +27,7 @@ const routes: Routes = [
 {
   path: 'project/:id',
   loadChildren: () => import('./project/project.module').then( m => m.ProjectPageModule),
-  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+ // canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
 },
 {
   path: 'profile',

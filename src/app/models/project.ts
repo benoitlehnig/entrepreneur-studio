@@ -9,6 +9,7 @@ export class Project {
 	public teamMembers:Array<TeamMember>=[];
 	public financialResources : FinancialResources = new FinancialResources();
 	public status : string="active"; 
+	public sharingStatus:string="private"
 }
 
 export class Summary {

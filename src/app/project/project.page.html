@@ -4,15 +4,37 @@
       <ion-menu-button autoHide="true" >
       </ion-menu-button>
     </ion-buttons>
-    <ion-title  class="headerTitle"> 
+
+
+    <ion-title  class="headerTitle" *ngIf="accessRights.write === true"> 
       <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end cursor"  (click)="openPopover('projectSummary')"/>
       <ion-icon class="cursor" slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" (click)="openPopover('projectSummary')"></ion-icon>
       <ion-text  class="cursor" (click)="openPopover('projectSummary')">{{project.summary.name}}</ion-text>
       <ion-icon class="ion-margin-start cursor" name="pencil-outline"  (click)="openPopover('projectSummary')"></ion-icon>
     </ion-title>
-    <app-user-avatar slot="end"></app-user-avatar>
+    <ion-title  class="headerTitle" *ngIf="accessRights.write === false">
+      <div class="menu ion-margin-end">
+        <img  src="assets/images/logo.svg" class="logoES ion-margin-end" routerLink="/landing-page" *ngIf="uid ===null" >
+        <span  *ngIf="uid ===null" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
+          <ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
+        </span> 
+      </div>
+      <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end"  />
+      <ion-icon   slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
+      <ion-text  >{{project.summary.name}}</ion-text>
+    </ion-title>
+    <ion-buttons slot="primary" *ngIf="project">
+     <ion-button  [disabled]="accessRights.write === false" (click)="presentSharingStatusPopover($event)">
+      <ion-icon class="ion-margin-end cursor"  name="lock-closed-outline" *ngIf="project.sharingStatus ==='private'" ></ion-icon>
+      <ion-icon class="ion-margin-end cursor"  name="globe-outline" *ngIf="project.sharingStatus ==='public'" ></ion-icon>
+      <ion-text class="ion-hide-sm-down" *ngIf="project.sharingStatus ==='private'">{{'PROJECT.Private'  | translate}}  </ion-text>
+      <ion-text class="ion-hide-sm-down" *ngIf="project.sharingStatus ==='public'">{{'PROJECT.Public'  | translate}}  </ion-text>
 
-  </ion-toolbar>
+    </ion-button>
+  </ion-buttons>
+  <app-user-avatar slot="end" *ngIf="uid !==null"></app-user-avatar>
+
+</ion-toolbar>
 </ion-header>     
 <ion-content>
   <ion-router-outlet id="project-content"></ion-router-outlet>

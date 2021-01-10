@@ -1,9 +1,17 @@
+@media(max-width: 800px) {
+	ion-card{
+		margin-left: 	0px;
+		margin-right: 	0px;
+	}
+}
+
+
 .projectCard{
 	@media(max-width: 800px) {
 		padding-left: 0px;
 		padding-right: 0px;
 		padding-top: 20px;
-		padding-bottom: 0px;
+		padding-bottom: 0px;		
 	}
 }
 .cell{
@@ -126,4 +134,105 @@
 
 .labelTop{
 	min-width:130px;
+}
+
+.timeline{
+	ion-col{
+		cursor:pointer;
+		border-radius: 4px;
+
+	}
+	.move{
+		position: absolute;
+		top: 26%;
+		right: -48px;
+		font-size: 75px;
+		color: var(--ion-color-primary);
+	}
+	@media(max-width: 1000px) {
+		h1{
+			font-size: 1.3em;
+		}
+	}
+	@media(max-width: 800px) {
+		h1{
+			font-size: 1em;
+		}
+		ion-col{
+			margin:5px;
+			padding:5px;
+			border-radius: 4px;
+
+		}
+	}
+	@media(max-width: 600px) {
+		h1{
+			font-size: 0.8em;
+			margin:5px;
+		}
+		ion-col{
+			margin:2px;
+			padding:2px;
+			border-radius: 4px;
+
+		}
+	}
+	ion-icon{
+		font-size:32px;
+		@media(max-width: 600px) {
+			font-size: 20px;
+		}
+	}
+	ion-badge{
+		position: absolute;
+		right: 12px;
+		@media(max-width: 600px) {
+			font-size: 0.8em;
+			padding: 2px;
+			right: 6px;
+		}
+	}
+
+	.done{
+		background-color: var(--ion-color-primary);
+		border:1px solid var(--ion-color-primary);
+		color: var(--ion-color-primary-contrast);
+		ion-badge{
+			--background: var(--ion-color-primary-contrast);
+			--color: var(--ion-color-primary);
+
+		}
+		.move{
+			color: var(--ion-color-primary);
+		}
+
+	}
+	.ongoing{
+		background-color: var(--ion-color-secondary);
+		border:1px solid var(--ion-color-secondary);
+		color: var(--ion-color-secondary-contrast);
+		ion-badge{
+			--background: var(--ion-color-secondary-contrast);
+			color: var(--ion-color-secondary);
+
+		}
+		.move{
+			color: var(--ion-color-secondary);
+		}
+
+
+
+	}
+	.todo{
+		background-color: var(--ion-color-light);
+		border:1px solid var(--ion-color-light);
+		color: var(--ion-color );
+		ion-badge{
+			--background: var(--ion-color-light-contrast);
+			color: var(--ion-color-light);
+		}
+		.move{
+			color: var(--ion-color-light);
+		}
+	}
 }

@@ -16,6 +16,7 @@ export class TimelinePopoverComponent implements OnInit {
 	@Input("projectId") projectId;
 	@Input("tools") tools;
 	@Input("delivrable") delivrable;
+	@Input("accessRights") accessRights ={read: false, write:false};
 
 	constructor(
 		public navParams: NavParams,

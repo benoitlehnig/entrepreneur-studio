@@ -11,6 +11,7 @@ import { ProjectPage } from './project.page';
 
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import {UserAvatarModule} from '../user-avatar/user-avatar.module';
+import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import {UserAvatarModule} from '../user-avatar/user-avatar.module';
     UserAvatarModule
 
   ],
-  declarations: [ProjectPage]
+  declarations: [ProjectPage,SharingStatusPopoverComponent]
 })
 export class ProjectPageModule {}

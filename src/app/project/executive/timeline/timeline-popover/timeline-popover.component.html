@@ -8,47 +8,44 @@
 	<div class="ion-padding">
 		<ion-item>
 			<ion-label>{{'TIMELINE.Status' | translate }} </ion-label>
-			<ion-select [(ngModel)]="timelineElement.timelineElement.data.status" cancelText="Dismiss" (ionChange)="saveTimelineElement()">
-				<ion-select-option value="ongoing">{{'TIMELINE.StatusOnGoing' | translate }}</ion-select-option>
-				<ion-select-option value="done">{{'TIMELINE.StatusDone' | translate }}</ion-select-option>
-				<ion-select-option value="todo">{{'TIMELINE.StatusTodo' | translate }}</ion-select-option>
-			</ion-select>
-		</ion-item>
-		<h2><ion-icon name="information-circle-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDescription' | translate }}</h2>
+			<ion-select *ngIf="accessRights.write === true"
+			[(ngModel)]="timelineElement.timelineElement.data.status" cancelText="Dismiss" (ionChange)="saveTimelineElement()">
+			<ion-select-option value="ongoing">{{'TIMELINE.StatusOnGoing' | translate }}</ion-select-option>
+			<ion-select-option value="done">{{'TIMELINE.StatusDone' | translate }}</ion-select-option>
+			<ion-select-option value="todo">{{'TIMELINE.StatusTodo' | translate }}</ion-select-option>
+		</ion-select>
+		<ion-text ion-select *ngIf="accessRights.write === false">{{timelineElement.timelineElement.data.status}}</ion-text>
 
-		<div [innerHTML]="timelineElement.static.data.description" class="block"></div>
+	</ion-item>
+	<h2><ion-icon name="information-circle-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDescription' | translate }}</h2>
 
-		<h2><ion-icon name="hourglass-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemTimeObjective' | translate }}</h2>
-		<div  class="block">
-			{{timelineElement.static.data.estimatedDuration}} jours
-		</div>
-		<div class="item ion-margin-top"> 
-			<h2><ion-icon name="open-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDelivrable' | translate }}</h2>
-			<div  class="block" >
-				<ul>
-					<li *ngFor="let element of delivrable">
-						<div *ngIf="element.link === ''">{{element.title}}</div>
-						<div *ngIf="element.link !== ''">
-							<a class="element" [href]="element.link" target="_blank" *ngIf="element.type ==='web'">{{element.title}}</a>
-							<a  class="element" *ngIf="element.type ==='ES'"  [routerLink]="['/project/'+projectId]" (click)="dismiss()">{{element.title}}</a>
-						</div>
-					</li>
-				</ul>
+	<div [innerHTML]="timelineElement.static.data.description" class="block"></div>
 
-			</div>
-		</div>
-
-		<h2><ion-icon name="document-text-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemResources' | translate }}</h2>
-		<div [innerHTML]="timelineElement.static.data.resources" class="block"></div>
-
-		<div class="item ion-margin-top toolsWrapper">
-			<h1><ion-icon name="grid-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemApplications' | translate }} </h1>
-			<div class="block tools">
-				<div *ngFor="let tool of tools">
-					<a [href]="tool.link" target="_blank" class="tool"> {{tool.name}}</a>
-				</div>
-			</div>
+	
+	<div class="item ion-margin-top"> 
+		<h2><ion-icon name="open-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDelivrable' | translate }}</h2>
+		<div  class="block" >
+			<ul>
+				<li *ngFor="let element of delivrable">
+					<div *ngIf="element.link === ''">{{element.title}}</div>
+					<div *ngIf="element.link !== ''">
+						<a class="element" [href]="element.link" target="_blank" *ngIf="element.type ==='web'">{{element.title}}</a>
+						<a  class="element" *ngIf="element.type ==='ES'"  [routerLink]="['/project/'+projectId]" (click)="dismiss()">{{element.title}}</a>
+					</div>
+				</li>
+			</ul>
 
 		</div>
 	</div>
+
+	<div class="item ion-margin-top toolsWrapper">
+		<h1><ion-icon name="grid-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemApplications' | translate }} </h1>
+		<div class="block tools">
+			<div *ngFor="let tool of tools">
+				<a [href]="tool.link" target="_blank" class="tool"> {{tool.name}}</a>
+			</div>
+		</div>
+
+	</div>
+</div>
 </ion-content>

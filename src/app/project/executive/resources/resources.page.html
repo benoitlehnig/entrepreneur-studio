@@ -5,13 +5,13 @@
 		</div>
 		<div class="wrapper ion-margin-top">
 			<ion-list *ngIf="resources.length !==0">
-				<app-resource [resource]="resource" (changed)="requestUpdateResource($event)" (deleted)="resourceDeleted($event)" *ngFor="let resource of resources" ></app-resource>
+				<app-resource [resource]="resource" [accessRights]="accessRights" (changed)="requestUpdateResource($event)" (deleted)="resourceDeleted($event)" *ngFor="let resource of resources" ></app-resource>
 			</ion-list>
 			<div *ngIf="resources.length ===0" class="ion-text-center ion-margin-top helpText ion-padding" >
 				<h2><ion-text>{{'RESOURCES.AddResourceGuidanteText' | translate }}</ion-text></h2>
 			</div>
 
-			<div class="ion-text-center ion-margin-top">
+			<div class="ion-text-center ion-margin-top" *ngIf="accessRights.write === true">
 				<ion-button color="primary"  fill="outline" class="ion-text-left addButton" (click)="requestAddNewResource()">{{'RESOURCES.AddResource' | translate }}</ion-button>
 			</div>
 		</div>

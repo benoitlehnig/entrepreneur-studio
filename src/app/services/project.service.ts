@@ -135,6 +135,10 @@ export class ProjectService {
 		);
 	}
 
+	setSharingStatus(id,status){
+		return this.afs.collection('projects').doc(id).update({sharingStatus: status});
+	}
+
 	addResource(id,resource){
 		console.log("addResource", id, resource);
 		return this.afs.collection('projects').doc(id).collection('resources').add( JSON.parse(JSON.stringify(resource.data)));

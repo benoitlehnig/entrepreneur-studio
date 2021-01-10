@@ -63,6 +63,7 @@ export class CMSService {
 				if(filter.stages.length>0){
 					matchedStages = false;
 					for(let i=0; i< filter.stages.length;i++){
+						console.log("filter.stages", filter.stages[i])
 						if(arrStage.find(x => x.label == filter.stages[i]) !== undefined){
 							matchedStages = true;
 							break;

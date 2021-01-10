@@ -11,6 +11,7 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import {UserAvatarModule} from '../../user-avatar/user-avatar.module';
 import { PopoverFeedbackComponent } from './summary/popover-feedback/popover-feedback.component';
 
+
 @NgModule({
   imports: [
     CommonModule,

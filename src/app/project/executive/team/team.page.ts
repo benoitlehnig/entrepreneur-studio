@@ -19,6 +19,8 @@ export class TeamPage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
+	public accessRights={read: false, write:false};
+
 	public uid:string="";
 	public roleItems:Array<any>=[];
 	public projectProfilesItems:Array<any>=[];
@@ -74,6 +76,7 @@ export class TeamPage implements OnInit {
 					console.log("initProject dataSharingServiceService", data);
 					this.project= data.data;
 					this.projectId	= data.id;
+					this.accessRights = data.accessRights;
 					if(this.teamMembers.length ===0){
 						this.projectService.getProjectTeamMembers(this.projectId).subscribe(
 							data=>{

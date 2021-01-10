@@ -1,125 +1,158 @@
 <app-header></app-header>
-<div class="share ion-hide-sm-down" >
-	<share-buttons
-	[include]="['facebook','twitter','linkedin','pinterest','reddit','tumblr','mix','viber','vk','telegram','messenger','whatsapp','xing','line','sms','email','print','copy']"
-	[show]="7"
-	[size]="-2"
-	[url]="'https://entrepreneur-studio.com'"
-	></share-buttons>
-</div>
+
 
 
 
 <ion-content>
-	<div class="header">
-		<ion-grid class="filter">
-			<ion-row>
-				<ion-col >
-					<ng-select multiple="true" 
-					class="ion-margin ngselect"
-					[items]="items"
-					bindLabel="name"
-					bindValue="id"
-					placeholder="Categories" 
+	<div class="share ion-hide-sm-down" >
+		<share-buttons
+		[include]="['facebook','twitter','linkedin', 'messenger','whatsapp','sms']"
+		[show]="7"
+		[size]="-2"
+		[url]="'https://entrepreneur-studio.com'"
+		></share-buttons>
+	</div>
 
-					[(ngModel)]="filter.categories"
-					(change)="updateList()"></ng-select>
+	<ion-grid class="toolsGridLayout">
+		<ion-row>
+			<ion-col class="categories" >
+				<div class="filter ion-margin-bottom">
+					<div class="filterHeader ion-padding" (click)="expandStage()">
+						<ion-text >{{'TOOLS.Stages' | translate}} ({{filter.stages.length}}/{{stages.length}})</ion-text>
+						<ion-icon name="chevron-forward-outline" *ngIf="stageExpanded ===false"></ion-icon>
+						<ion-icon name="chevron-down-outline" *ngIf="stageExpanded ===true"></ion-icon>
+					</div>
+					<ion-list *ngIf="stageExpanded ===true" class="filterContent">
+						<ion-item *ngFor="let stage of stages">
+							<ion-label>{{stage.name}}</ion-label>
+							<ion-checkbox slot="start" (ionChange)="selectFilter('stage', stage,$event)"></ion-checkbox>
+						</ion-item>
+					</ion-list>
+				</div>
+				<div class="filter ion-margin-bottom">
+					<div class="filterHeader ion-padding" (click)="expandCategory()">
+						<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{items.length}})</ion-text>
+						<ion-icon name="chevron-forward-outline" *ngIf="categoryExpanded ===false"></ion-icon>
+						<ion-icon name="chevron-down-outline" *ngIf="categoryExpanded ===true"></ion-icon>
+					</div>
+					<ion-list *ngIf="categoryExpanded ===true" class="filterContent">
+						<ion-item *ngFor="let category of items">
+							<ion-label>{{category.name}}</ion-label>
+							<ion-checkbox slot="start" (ionChange)="selectFilter('category', category,$event)" ></ion-checkbox>
+						</ion-item>
+					</ion-list>
+				</div>
 
-				</ion-col>
-				<ion-col>
-					<ng-select multiple="true" 
-					class="ion-margin ngselect"
-					[items]="stages"
-					bindLabel="name"
-					bindValue="id"
-					placeholder="Phase" 
-
-					[(ngModel)]="filter.stages"
-					(change)="updateList()">
-				</ng-select>
 			</ion-col>
-			<ion-col>
-				<ion-item lines="none" class="specialInput">
-					<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
-				</ion-item>
+			<ion-col class="toolsContent" >
+				<ion-searchbar showCancelButton="focus" [(ngModel)]="filter.productName" (ionChange)="getTools()"  placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} "></ion-searchbar>
+
+				
+				<div class="ion-padding-start">
+					<ion-button class="ion-margin-start" (click)="requestAddTool()">
+						<ion-icon name="add-outline"></ion-icon>
+						<ion-text class="addTool" class="ion-hide-sm-down" (click)="requestAddTool()" >{{'TOOLS.AddToolLong' | translate}} </ion-text>
+						<ion-text class="addTool" class="ion-hide-sm-up" (click)="requestAddTool()">{{'TOOLS.AddToolShort' | translate}} </ion-text>
+					</ion-button>
+				</div>
+				<ion-grid class="gridTools">
+					<ion-row *ngIf="loadingOngoing" >
+						<ion-col  *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10]"  size="3" class="toolCol">
+							<ion-card class="tool" >
+								<div class="logoWrapper" >
+									<ion-skeleton-text animated></ion-skeleton-text>
+								</div>
+								<ion-card-content class="toolCard">
+									<ion-item slot="start"  lines="none">
+										<ion-label>
+											<h1>  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h1>
+											<p class="ion-text-wrap ion-text-justify description"><ion-skeleton-text animated></ion-skeleton-text></p>
+											<ion-text class="bold"><ion-skeleton-text animated></ion-skeleton-text></ion-text>
+										</ion-label>
+									</ion-item>
+									<ion-item>
+										<div class="ion-justify-content-start labels">
+											<ion-skeleton-text animated></ion-skeleton-text>
+										</div>
+									</ion-item>
+
+									<ion-item lines="none">
+										<ion-label ><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+
+									</ion-item>
+								</ion-card-content>
+							</ion-card>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
+
+							<ion-card class="tool" >
+								<ion-fab edge horizontal="end" class="shareFabButton">
+									<ion-fab-button color="light"  size="small">
+										<ion-icon name="share-social-outline"></ion-icon>
+									</ion-fab-button>
+									<ion-fab-list [side]="side">
+										<ion-fab-button color="primary" shareButton="facebook" #fbBtn="shareButton" [url]="tool.link" size="small">
+											<fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="twitter" #tBtn="shareButton" [url]="tool.link"  size="small">
+											<fa-icon *ngIf="tBtn" [icon]="tBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="linkedin" #linkedinBtn="shareButton"  [url]="tool.link"  size="small">
+											<fa-icon *ngIf="linkedinBtn" [icon]="linkedinBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="messenger" #messengerBtn="shareButton" [url]="tool.link" size="small">
+											<fa-icon *ngIf="messengerBtn" [icon]="messengerBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="whatsapp" #whatsappBtn="shareButton"  [url]="tool.link" size="small">
+											<fa-icon *ngIf="whatsappBtn" [icon]="whatsappBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="sms" #smsBtn="shareButton"  [url]="tool.link"  size="small">
+											<fa-icon *ngIf="smsBtn" [icon]="smsBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="email" #emailBtn="shareButton"  [url]="tool.link"  size="small">
+											<fa-icon *ngIf="emailBtn" [icon]="emailBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+										<ion-fab-button color="primary" shareButton="copy" #copyBtn="shareButton"  [url]="tool.link" size="small">
+											<fa-icon *ngIf="copyBtn" [icon]="copyBtn.icon" size="lg"></fa-icon>
+										</ion-fab-button>
+									</ion-fab-list>
+								</ion-fab>
+
+								<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+								</div>
+
+								<ion-card-content class="toolCard">
+
+									<ion-item slot="start"  lines="none">
+
+										<ion-label>
+											<h1>{{tool.name}}</h1>
+											<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
+											<ion-text class="bold">{{tool.price}}</ion-text>
+										</ion-label>
+									</ion-item>
+									<ion-item>
+										<div class="ion-justify-content-start labels">
+											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
+												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+											</div>
+										</div>
+									</ion-item>
+
+									<ion-item lines="none" (click)="clickTool(tool)">
+										<ion-label ><a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> </ion-label>
+
+									</ion-item>
+								</ion-card-content>
+							</ion-card>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
 			</ion-col>
 		</ion-row>
 	</ion-grid>
-	<div class="ion-padding-start">
-		<ion-button class="ion-margin-start" (click)="requestAddTool()">
-			<ion-icon name="add-outline"></ion-icon>
-			<ion-text class="addTool" class="ion-hide-sm-down" (click)="requestAddTool()" >{{'TOOLS.AddToolLong' | translate}} </ion-text>
-			<ion-text class="addTool" class="ion-hide-sm-up" (click)="requestAddTool()">{{'TOOLS.AddToolShort' | translate}} </ion-text>
-		</ion-button>
-	</div>
-</div>
 
-
-<ion-grid class="gridTools">
-	<ion-row>
-		<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
-
-			<ion-card class="tool" >
-				<ion-fab edge horizontal="end" class="shareFabButton">
-					<ion-fab-button color="light"  size="small">
-						<ion-icon name="share-social-outline"></ion-icon>
-					</ion-fab-button>
-					<ion-fab-list [side]="side">
-						<ion-fab-button color="primary" shareButton="facebook" #fbBtn="shareButton" [url]="tool.link" size="small">
-							<fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="twitter" #tBtn="shareButton" [url]="tool.link"  size="small">
-							<fa-icon *ngIf="tBtn" [icon]="tBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="linkedin" #linkedinBtn="shareButton"  [url]="tool.link"  size="small">
-							<fa-icon *ngIf="linkedinBtn" [icon]="linkedinBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="messenger" #messengerBtn="shareButton" [url]="tool.link" size="small">
-								<fa-icon *ngIf="messengerBtn" [icon]="messengerBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="whatsapp" #whatsappBtn="shareButton"  [url]="tool.link" size="small">
-							<fa-icon *ngIf="whatsappBtn" [icon]="whatsappBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="sms" #smsBtn="shareButton"  [url]="tool.link"  size="small">
-							<fa-icon *ngIf="smsBtn" [icon]="smsBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="email" #emailBtn="shareButton"  [url]="tool.link"  size="small">
-							<fa-icon *ngIf="emailBtn" [icon]="emailBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-						<ion-fab-button color="primary" shareButton="copy" #copyBtn="shareButton"  [url]="tool.link" size="small">
-							<fa-icon *ngIf="copyBtn" [icon]="copyBtn.icon" size="lg"></fa-icon>
-						</ion-fab-button>
-					</ion-fab-list>
-				</ion-fab>
-				<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
-				</div>
-
-				<ion-card-content class="toolCard">
-
-					<ion-item slot="start"  lines="none">
-
-						<ion-label>
-							<h1>{{tool.name}}</h1>
-							<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
-							<ion-text class="bold">{{tool.price}}</ion-text>
-						</ion-label>
-					</ion-item>
-					<ion-item>
-						<div class="ion-justify-content-start labels">
-							<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
-								<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
-							</div>
-						</div>
-					</ion-item>
-
-					<ion-item lines="none">
-						<ion-label ><a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> </ion-label>
-
-					</ion-item>
-				</ion-card-content>
-			</ion-card>
-		</ion-col>
-	</ion-row>
-</ion-grid>
 
 </ion-content>

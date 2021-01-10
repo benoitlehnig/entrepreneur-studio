@@ -17,3 +17,16 @@
     display: inline-block;
     vertical-align: middle;
 }
+.menu{
+	display: inline-block;
+
+}
+.logoES{
+	width:100px;
+	display: inline-block;
+	vertical-align:middle;
+	@media(max-width: 800px) {
+		width:50px;
+		left:0px;
+	}
+}

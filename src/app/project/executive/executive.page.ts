@@ -8,6 +8,8 @@ import { PopoverFeedbackComponent } from './summary/popover-feedback/popover-fee
 import {ProjectService} from '../../services/project.service';
 
 
+
+
 @Component({
 	selector: 'app-executive',
 	templateUrl: './executive.page.html',
@@ -19,6 +21,8 @@ export class ExecutivePage implements OnInit {
 	public projectId:string="";
 	public teamMembers=[];
 	public resources=[];
+	public accessRights={read: false, write:false};
+
 
 	constructor(
 		private dataSharingServiceService : DataSharingServiceService,
@@ -28,7 +32,7 @@ export class ExecutivePage implements OnInit {
 		) { }
 
 	ngOnInit() {
-		console.log("ngOnInit ExecutivePage")
+		console.log("ExecutivePage >> ngOnInit")
 		this.initProject()
 	}
 
@@ -38,7 +42,8 @@ export class ExecutivePage implements OnInit {
 				if(data !==null){
 					this.project= data.data;
 					this.projectId	= data.id;
-					console.log("ngOnInit ExecutivePage", this.projectId)
+					this.accessRights = data.accessRights;
+					console.log("ExecutivePage >> initProject this.project", this.project)
 
 					this.projectService.getProjectTeamMembers(this.projectId).subscribe(
 						teamMembers =>{
@@ -47,10 +52,12 @@ export class ExecutivePage implements OnInit {
 						})
 					this.projectService.getResources(this.projectId).subscribe(
 						resources=>{
+							console.log("ExecutivePage >> initProject getResources", resources)
 							this.resources = resources;
 						})
-				}
+					
 
+				}
 			})
 
 	}
@@ -89,5 +96,6 @@ export class ExecutivePage implements OnInit {
 
 
 	}
+	
 
 }

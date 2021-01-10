@@ -3,13 +3,19 @@
 	<h1>{{title }} </h1> 
 	<div >
 		<div *ngFor="let item of elementData"  > 
-			<ion-badge color="primary" tooltip="Tooltip" *ngIf="item.id  !== editedItemId" class="item ion-text-wrap" (click)="edit(item.id)">{{item.text}}
+			<ion-badge color="primary" tooltip="Tooltip" *ngIf="item.id  !== editedItemId && accessRights.write ===true" class="item ion-text-wrap" (click)="edit(item.id)" >{{item.text}}
 				
 			</ion-badge>
-			<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item)"> </ion-icon>
-			<ion-item class="input" *ngIf="item.id  === editedItemId" >
+			<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item)" *ngIf="accessRights.write ===true" > </ion-icon>
+			<ion-item class="input" *ngIf="item.id  === editedItemId && accessRights.write ===true" >
 				<ion-textarea maxlength="140" type="text" name="newItem" class="ion-text-justify" [(ngModel)]="item.text" placeholder="{{'PROJECT_SUMMARY.AddNewItemPlaceHolder' | translate }}" (ionBlur)="saveItem()" (keyup.enter)="saveItem()" >
 				</ion-textarea>
+
+			</ion-item>
+			<ion-item lines="none" class="input readOnly" *ngIf="accessRights.write ===false" >
+				<ion-text  class="ion-text-justify"  >{{item.text}}
+				</ion-text>
+
 			</ion-item>
 		</div>
 	</div>
@@ -20,6 +26,6 @@
 		<ion-textarea  maxlength="140" type="text" name="newItem" class="ion-text-justify  " [(ngModel)]="newItem.text" placeholder="{{'PROJECT_SUMMARY.AddNewItemPlaceHolder' | translate }}" (ionBlur)="addItem()" (keyup.enter)="addItem()" >
 		</ion-textarea>
 	</ion-item>
-	<ion-button fill="outline" class="ion-margin fillItButton" (click)="requestAddItem()"><ion-icon name="add-outline" ></ion-icon>{{'PROJECT_SUMMARY.AddNewItem' | translate }}</ion-button>
+	<ion-button fill="outline" class="ion-margin fillItButton"  *ngIf="accessRights.write ===true" (click)="requestAddItem()"><ion-icon name="add-outline" ></ion-icon>{{'PROJECT_SUMMARY.AddNewItem' | translate }}</ion-button>
 </div>
 

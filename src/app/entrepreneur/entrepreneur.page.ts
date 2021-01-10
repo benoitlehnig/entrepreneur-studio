@@ -23,7 +23,6 @@ export class EntrepreneurPage implements OnInit {
 
 	public projects;
 	public loading;
-	public onboardingPopoverDisplayed:boolean=false;
 	public destroyed=false;
 	public userIds:any;
 	public deletePopupTitle:string="";
@@ -45,7 +44,6 @@ export class EntrepreneurPage implements OnInit {
 
 	ngOnInit() {
 		console.log("EntrepreneurPage >> ngOnInit " );
-		this.modalController.dismiss();
 
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			userIds=>{
@@ -65,19 +63,17 @@ export class EntrepreneurPage implements OnInit {
 								console.log("getProjectsDetailsbyUid data", data)
 								this.projects = data
 							}
-							
 						});
-					if(this.onboardingPopoverDisplayed === false){
-						this.onboardingPopoverDisplayed = true;
-						if(this.destroyed ===false && (user.onBoardingDone ===false || user.onBoardingDone === undefined)) {
+					this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((started) =>{
+						console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges ",user, started );
+						if(started ===true || (user.onBoardingDone ===false || user.onBoardingDone === undefined)){
+							console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges >> presentOnboardingPopover",user, started );
 							this.presentOnboardingPopover(0);
 						}
-
-					}
+					});
 				}
 			});
 		this.initDeleteProject();
-		
 	}
 
 	async startNewProject(){
@@ -93,8 +89,6 @@ export class EntrepreneurPage implements OnInit {
 
 	async createProject(project:any,teamMembers:any){
 		
-		console.log()
-		
 		const callable = this.functions.httpsCallable('createProject');
 		const obs = callable(project);
 		this.loading = await this.loadingController.create({
@@ -108,11 +102,10 @@ export class EntrepreneurPage implements OnInit {
 			this.loading.dismiss();
 			
 			teamMembers.forEach((teamMember)=>{
-				console.log( "createProject >> teamMember ," , teamMember)
+				console.log( "EntrepreneurPage >> createProject >> teamMember ," , teamMember)
 				if(teamMember.email !=="" && teamMember.email !== undefined && this.emailIsValid(teamMember.email)){
 					if(teamMember.email !== this.userIds.email){
 						this.projectService.inviteTeamMember( teamMember, res.id).then(function(docRef) {
-							console.log("Document written with ID: ", docRef.id);
 							console.log("Document written with ID: ", docRef.id);
 							const callable = this.functions.httpsCallable('inviteTeamMember');
 							let invite ={projectId :  res.id, email: teamMember.email, teamMemberId: docRef.id, project : project};
@@ -125,9 +118,11 @@ export class EntrepreneurPage implements OnInit {
 							console.error("Error adding document: ", error);
 						});
 					}
-					
+					else{
+						this.projectService.inviteTeamMember( teamMember, res.id);
+					}
 				}
-				
+
 			});
 			this.projectService.createDefaultTimeline(res.id);
 			

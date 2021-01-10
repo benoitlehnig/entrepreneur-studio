@@ -32,7 +32,10 @@ export class ResourcesPage implements OnInit {
 
 	public projectId:string="";
 	public resources=[];
+	public accessRights={read: false, write:false};
+
 	
+
 	ngOnInit() {
 		this.initResources()
 	}
@@ -46,6 +49,7 @@ export class ResourcesPage implements OnInit {
 				console.log("initResources",data)
 				if(data !==null){
 					this.projectId	= data.id;
+					this.accessRights = data.accessRights;
 					this.projectService.getResources(this.projectId).subscribe(
 						resources=>{
 							console.log("resources", resources);

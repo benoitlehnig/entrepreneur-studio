@@ -13,7 +13,7 @@
 					</ion-item>	
 				</ion-list> 
 
-				<ion-item lines="none" class="removeButton fullWidth" *ngIf="projectRoute === true && project !== null">
+				<ion-item lines="none" class="removeButton fullWidth" *ngIf="projectRoute === true && project !== null && userIds">
 					<ion-button expand="block" fill="outline" color="danger" class="fullWidth" (click)="requestRemoveProject()" *ngIf="project.data.ownerUid === userIds.uid">{{'PROJECT.Remove' | translate }}</ion-button>
 				</ion-item>
 			</ion-content>

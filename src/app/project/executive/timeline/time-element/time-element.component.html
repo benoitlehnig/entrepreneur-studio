@@ -1,4 +1,6 @@
-<ion-item 		class="timelineElement" [ngClass]="{'selected': selectedStatus ===true}" (click)="select()" *ngIf="isTitle===false" >
+<ion-item 		class="timelineElement" [ngClass]="{'done': element.timelineElement.data.status === 'done',
+						'ongoing': element.timelineElement.data.status === 'ongoing',
+						'todo': element.timelineElement.data.status === 'todo','selected': selectedStatus ===true}"  (click)="select()" *ngIf="isTitle===false" >
 	<ion-label class="dateColumn">
 		{{element.timelineElement.data.startDate |  date:'shortDate'}}
 	</ion-label>

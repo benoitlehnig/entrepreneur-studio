@@ -5,9 +5,9 @@ import { first } from 'rxjs/operators';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
 import { ModalController } from '@ionic/angular';
 import { AddToolComponent } from './add-tool/add-tool.component';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { LoginComponent } from '../landing-page/login/login.component';
 import { Platform } from '@ionic/angular';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 
 @Component({
@@ -28,6 +28,9 @@ export class ToolsPage implements OnInit {
 	}
 	public stages = [];
 	public side ="bottom";
+	public loadingOngoing:boolean=false;
+	public stageExpanded:boolean=false;
+	public categoryExpanded:boolean=false;
 
 
 
@@ -36,22 +39,16 @@ export class ToolsPage implements OnInit {
 		public translateService : TranslateService,
 		public dataSharingServiceService : DataSharingServiceService,
 		public modalController:ModalController,
-		private socialSharing: SocialSharing,
-		public platform: Platform
-
-
+		public platform: Platform,
+		public angularFireAnalytics:AngularFireAnalytics
 		)
 	{
-		
+		console.log("ToolsPage >> constructor");
 	}
 
 	ngOnInit() {
-		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
-			data=>{
-				if(data !==null){
-					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
-				}
-			});
+		console.log("ToolsPage >> ngOnInit");
+		this.getTools();
 		if(this.platform.width() <768){
 			this.side ="start";
 		}
@@ -80,25 +77,21 @@ export class ToolsPage implements OnInit {
 				(uid ===null)? this.isLogged = false : this.isLogged = true;
 			})
 	}
-	updateList(){
-
-		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
-			data=>{
-				this.tools = data;
-				if(data !==null){
-					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
-				}
-			})
-	}
+	
 
 	requestAddTool(){
-		if(this.isLogged ===true){
-			this.presentAddToolPopover();
-		}
-		else{
-			this.presentLoginPopover();
+		(this.isLogged ===true)? this.presentAddToolPopover() : this.presentLoginPopover();
 
-		}
+	}
+	getTools(){
+		this.loadingOngoing = true;
+		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
+			data=>{
+				if(data !==null){
+					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
+					this.loadingOngoing = false;
+				}
+			});
 
 	}
 	async presentLoginPopover() {
@@ -125,5 +118,42 @@ export class ToolsPage implements OnInit {
 	}
 	dismissAddToolPopover(){
 		this.modalController.dismiss();
+	}
+
+
+	expandStage(){
+		this.stageExpanded = !this.stageExpanded;
+
+	}
+	expandCategory(){
+		this.categoryExpanded = !this.categoryExpanded;
+	}
+
+	selectFilter(type,filter,event){
+		console.log("selectFilter",type,filter,event )
+		if(type ==='stage'){
+			if(event.detail.checked ===true){
+				this.filter.stages.push(filter.id);
+			}
+			else{
+				this.filter.stages.splice(this.filter.stages.indexOf(filter.id), 1);
+			}
+
+		}
+		if(type ==='category'){
+			if(event.detail.checked ===true){
+					this.filter.categories.push(filter.id);
+			}
+			else{
+				this.filter.categories.splice(this.filter.categories.indexOf(filter.id), 1);
+
+			}
+		}
+		console.log("this.filter", this.filter)
+		this.getTools();
+	}
+	clickTool(tool){
+		this.angularFireAnalytics.logEvent('custom_event',  {id: '6_25'});
+
 	}
 }

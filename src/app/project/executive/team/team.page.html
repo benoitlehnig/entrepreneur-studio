@@ -29,28 +29,34 @@
 								<h1 *ngIf="!teamMember.uid" class="ion-margin-top"> <ion-text  color="primary">{{teamMember.email}} </ion-text></h1>
 							</div>
 							<ion-item>
-								<ion-select [interfaceOptions]="customAlertOptions"  placeholder="{{'TEAM.TeamMember.Role' | translate }}" [(ngModel)] ="teamMember.role"  (ionChange)="updateProfile(teamMember)" class="fullWidth selectStyle">
+								<ion-select [interfaceOptions]="customAlertOptions"
+								*ngIf="accessRights.write ===true"  placeholder="{{'TEAM.TeamMember.Role' | translate }}" [(ngModel)] ="teamMember.role"  (ionChange)="updateProfile(teamMember)" class="fullWidth selectStyle">
 									<ion-select-option *ngFor="let item of roleItems" [value]="item.index">{{item.text}}</ion-select-option>
 								</ion-select>
+								<ion-text  *ngIf="accessRights.write ===false" >{{teamMember.role}}</ion-text>
 							</ion-item>
 							<ion-item>
-								<ion-select [interfaceOptions]="customAlertOptions" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMember.projectProfile" (ionChange)="updateProfile(teamMember)"  multiple="true"  class="fullWidth selectStyle">
+								<ion-select [interfaceOptions]="customAlertOptions" 
+								 *ngIf="accessRights.write ===true" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMember.projectProfile" (ionChange)="updateProfile(teamMember)"  multiple="true"  class="fullWidth selectStyle">
+
 									<ion-select-option  *ngFor="let item of projectProfilesItems" [value]="item.index">{{item.text}}</ion-select-option>
 								</ion-select>
+								<ion-text  *ngIf="accessRights.write ===false" >{{teamMember.projectProfile}}</ion-text>
 							</ion-item>
 							<ion-item >
 								<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
-								<ion-textarea [(ngModel)] ="teamMember.mission" class="fullWidth" (ionChange)="updateProfile(teamMember)"></ion-textarea>
+								<ion-textarea *ngIf="accessRights.write ===true"  [(ngModel)] ="teamMember.mission" class="fullWidth" (ionChange)="updateProfile(teamMember)"></ion-textarea>
+								<ion-text  *ngIf="accessRights.write ===false" >{{teamMember.mission}}</ion-text>
 							</ion-item>
 
-							<ion-item lines="none">		
+							<ion-item lines="none"  *ngIf="accessRights.write ===true">		
 								<ion-button (click)="removeTeamMember(teamMember) "  *ngIf="uid !== teamMember.uid">{{'TEAM.Remove' | translate }}</ion-button>
 							</ion-item>
 						</ion-card-content>
 					</ion-card>
 				</ion-col>
 
-				<ion-col >
+				<ion-col *ngIf="accessRights.write ===true">
 					<ion-card class="teamMember teamMemberAdd" (click)="requestNewMember()">
 						<ion-card-content>
 							<ion-icon name="add-outline" color="primary"  class="addButton"></ion-icon>

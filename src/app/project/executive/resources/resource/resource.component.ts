@@ -12,6 +12,8 @@ import {AppConstants} from '../../../../app-constants'
 export class ResourceComponent implements OnInit {
 
 	@Input() resource;
+	@Input() accessRights ={read: false, write:false};
+
 	@Output()
 	changed = new EventEmitter<string>();
 	@Output()

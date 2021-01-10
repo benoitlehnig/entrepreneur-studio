@@ -15,7 +15,7 @@ export class BusinessCanvasElementComponent implements OnInit {
 	@Input() elementData=[];
 	@Input() elementType=""; 
 	@Input() elementStyle=""; 
-
+	@Input() accessRights ={read: false, write:false};
 
 	public title:string="";
 	public placeholder:string="";

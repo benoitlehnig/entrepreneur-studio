@@ -17,11 +17,17 @@ export class SummaryPage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
+	public accessRights={read: false, write:false};
+
+
 
 	public socialNetworks=[
 	{type: "facebook"},{type: "linkedIn"},{type: "instagram"},{type: "twitter"},{type: "youtube"}]
 
 	public updateOnGoing:boolean= false;
+	public timeline=[];
+	public timelineStat=[];
+
 
 	public lastUpdateTime =moment();
 	constructor(
@@ -50,10 +56,57 @@ export class SummaryPage implements OnInit {
 			(data)=>{
 				if(data !==null){
 					this.projectId	= data.id
+					this.accessRights = data.accessRights;
 					if(data.data !==null){
 						console.log("initProject dataSharingServiceService", data);
 						this.project= data.data;
-						;
+						this.projectService.getTimeline(this.projectId).subscribe(timeline=>{
+							console.log("SummaryPage >> initProject getTimeline", timeline);
+							if(timeline){
+								timeline.sort((a, b) => {
+									return a.static.data.order - b.static.data.order;
+								});
+								this.timeline = timeline;
+								this.timelineStat=[];
+								for(var i=0; i< this.timeline.length;i++){
+									if(this.timeline[i].static.data.type === "main"){
+										
+
+										this.timelineStat.push({stage: this.timeline[i].static.data.stage, 
+											title: this.timeline[i].static.data.title,
+											icon: this.timeline[i].static.data.icon, 
+											completedElements:0, totalElements:0, startedElements:0,status:'todo',mainOrder: this.timeline[i].static.data.mainOrder });
+
+									}
+								}
+								for(var i=0; i< this.timeline.length;i++){
+									if(this.timeline[i].static.data.type === "item"){
+										const mainOrderElement = this.timeline[i].static.data.mainOrder;
+										console.log("mainOrder", this.timelineStat);
+
+										const index = this.timelineStat.findIndex(x => x.mainOrder === mainOrderElement);
+										this.timelineStat[index].totalElements ++;
+
+										if(this.timeline[i].timelineElement.data.status ==='done'){
+											this.timelineStat[index].completedElements ++;
+										}
+										if(this.timeline[i].timelineElement.data.status ==='ongoing'){
+											this.timelineStat[index].startedElements ++;
+										}
+
+										if(this.timelineStat[index].completedElements === this.timelineStat[index].totalElements){
+											this.timelineStat[index].status ='done'
+										}
+										else if(this.timelineStat[index].completedElements > 0 || this.timelineStat[index].startedElements>0 ){
+											this.timelineStat[index].status ='ongoing'
+										}
+
+									}
+								}
+							}
+							
+							console.log("SummaryPage >> initProject this.timelineStat, ", this.timelineStat)
+						})
 					}
 				}
 				else{
@@ -95,15 +148,18 @@ export class SummaryPage implements OnInit {
 	}
 	
 	async requestAddPage(type:string,mode:string){
-		let modal = await this.modalController.create({
-			component: PopoverSocialNetworkComponent,
-			cssClass: 'my-custom-class',
-			componentProps: {homeref:this, type:type, project:this.project, mode:mode},
-		});		
-		modal.onWillDismiss().then(
-			data=> this.initProject()
-			)
-		return await modal.present();
+		if(this.accessRights.write === true){
+			let modal = await this.modalController.create({
+				component: PopoverSocialNetworkComponent,
+				cssClass: 'my-custom-class',
+				componentProps: {homeref:this, type:type, project:this.project, mode:mode},
+			});		
+			modal.onWillDismiss().then(
+				data=> this.initProject()
+				)
+			return await modal.present();
+		}
+		
 	}
 
 	dismiss(){
