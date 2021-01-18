@@ -17,19 +17,26 @@
 						{{'SIGNUP.NoAccountText' | translate}}
 					</div>
 					<h1 class="ion-text-center"><ion-text>{{'SIGNUP.Title' | translate}}</ion-text></h1>
+					<h3 class="ion-text-center"><ion-text>{{'SIGNUP.SubTitle' | translate}}</ion-text></h3>
 				</div>
 				<div class="ion-text-center  ion-margin-top youAreWrapper">
 					<ion-text>{{'SIGNUP.YouAre' | translate}}</ion-text>
 					<ion-grid>
 						<ion-row>
 							<ion-col>
-								<ion-text color="primary"  [ngClass]="{'bold': incubator === false}" (click)="incubator=false">{{'SIGNUP.Entrepreneur' | translate}}</ion-text>
+								<ion-text color="primary"  class="typeText" [ngClass]="{'bold': incubator === false}" (click)="incubator=false">{{'SIGNUP.Entrepreneur' | translate}}</ion-text>
+								<div>
+									<ion-text color="primary"  class="subText" [ngClass]="{'bold': incubator === false}" (click)="incubator=false">{{'SIGNUP.EntrepreneurSubText' | translate}}</ion-text>
+								</div>
 							</ion-col>
 							<ion-col>
-								<ion-toggle [(ngModel)]="incubator"  [ngClass]="{'incubatorToggle': incubator === true, 'entrepreneurToggle': incubator === false}"></ion-toggle>
+								<ion-toggle [(ngModel)]="incubator"   [ngClass]="{'incubatorToggle': incubator === true, 'entrepreneurToggle': incubator === false}"></ion-toggle>
 							</ion-col>
 							<ion-col>
-								<ion-text color="secondary"  [ngClass]="{'bold': incubator === true}" (click)="incubator=true">{{'SIGNUP.Incubator' | translate}}</ion-text>
+								<ion-text color="secondary"  class="typeText" [ngClass]="{'bold': incubator === true}" (click)="incubator=true">{{'SIGNUP.Incubator' | translate}}</ion-text>
+								<div>
+									<ion-text color="secondary"  class="subText" [ngClass]="{'bold': incubator === true}" (click)="incubator=true">{{'SIGNUP.IncubatorSubText' | translate}}</ion-text>
+								</div>
 							</ion-col>
 						</ion-row>
 					</ion-grid>

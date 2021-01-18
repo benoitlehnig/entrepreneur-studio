@@ -12,10 +12,11 @@ export class CMSService {
 
 	}
 	public retrieveTimelineContent(){
+
 		return this.afs.collection<any>("timeline").snapshotChanges().pipe(map(actions => {
+			console.log("retrieveTimelineContent", actions)
 			return actions.map(a => {
-				console.log("retrieveTimelineContent, ", a.payload.doc.data())
-				return {id:a.payload.doc.id, order:a.payload.doc.data().order, data:a.payload.doc.data()}
+				return {id:a.payload.doc.id, data:a.payload.doc.data()}
 			})
 
 		}))
@@ -39,7 +40,6 @@ export class CMSService {
 					Object.keys(data.stages).map(function(key){  
 
 						arrStage.push({'label':data.stages[key]})  
-						console.log("data.stages arrStage", arrStage);
 						return arrStage;  
 					}); 
 				}
@@ -99,6 +99,10 @@ export class CMSService {
 				const id = a.payload.doc.id;
 				return { id, ...data };
 			})))
+	}
+	getToolsNumber(){
+		return this.afs.doc('ApplicationParameters/tools').valueChanges();
+
 	}
 
 }

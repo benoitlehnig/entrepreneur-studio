@@ -18,6 +18,7 @@ import { AngularFireAnalytics } from '@angular/fire/analytics';
 export class ToolsPage implements OnInit {
 
 	public tools;
+	public numberofTools:number=83;
 	public isLogged:boolean=false;
 
 	public items = [];
@@ -76,6 +77,10 @@ export class ToolsPage implements OnInit {
 			uid=>{
 				(uid ===null)? this.isLogged = false : this.isLogged = true;
 			})
+
+		this.CMSService.getToolsNumber().pipe(first()).subscribe( (data:any)=>{
+			this.numberofTools = data.number;
+		})
 	}
 	
 
@@ -84,6 +89,9 @@ export class ToolsPage implements OnInit {
 
 	}
 	getTools(){
+		this.angularFireAnalytics.logEvent('tool_searched',  {search_term:this.filter.productName,
+		 search_categories: JSON.stringify(this.filter.categories), search_stages: JSON.stringify(this.filter.stages)});
+
 		this.loadingOngoing = true;
 		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
 			data=>{
@@ -95,6 +103,7 @@ export class ToolsPage implements OnInit {
 
 	}
 	async presentLoginPopover() {
+
 		const popover = await this.modalController.create({
 			component: LoginComponent,
 			componentProps:{homeref:this, reason:"ToolAccess"},
@@ -108,6 +117,7 @@ export class ToolsPage implements OnInit {
 	}
 
 	async presentAddToolPopover() {
+		this.angularFireAnalytics.logEvent('page_view', {page_path: '/tools',  page_title: 'add_tool'});
 		const popover = await this.modalController.create({
 			component: AddToolComponent,
 			componentProps:{homeref:this},
@@ -153,7 +163,7 @@ export class ToolsPage implements OnInit {
 		this.getTools();
 	}
 	clickTool(tool){
-		this.angularFireAnalytics.logEvent('custom_event',  {id: '6_25'});
+		this.angularFireAnalytics.logEvent('tool_clicked',  {name: tool.name});
 
 	}
 }

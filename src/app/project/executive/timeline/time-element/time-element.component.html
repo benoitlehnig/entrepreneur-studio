@@ -14,11 +14,11 @@
 </ion-item>
 
 
-<ion-item class="mainElement"  *ngIf="isTitle===true" >
+<ion-item class="mainElement"  *ngIf="isTitle===true"  (click)="select()" [ngClass]="{'selected': selectedStatus ===true}">
 	<h1>
-		<ion-icon color="primary" [name]="element.static.data.icon" class="ion-margin-end">		
+		<ion-icon [name]="element.static.data.icon" class="ion-margin-end">		
 		</ion-icon>
-		<ion-text color="primary" >{{element.static.data.title}}</ion-text>
+		<ion-text  >{{element.static.data.title}}</ion-text>
 	</h1>
 
 </ion-item>

@@ -8,6 +8,8 @@ import { ModalController } from '@ionic/angular';
 import { TimelinePopoverComponent } from './timeline-popover/timeline-popover.component';
 import { CMSService} from '../../../services/cms.service';
 import { first } from 'rxjs/operators';
+import { PopoverFeedbackComponent } from '../summary/popover-feedback/popover-feedback.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 import * as moment from 'moment';
@@ -24,6 +26,7 @@ export class TimelinePage implements OnInit {
 		public modalController: ModalController,
 		public platform: Platform,
 		public CMSService:CMSService,
+		private activatedRoute: ActivatedRoute
 
 		) { }
 
@@ -45,10 +48,17 @@ export class TimelinePage implements OnInit {
 		productName:""
 	}
 	public tools;
+	public mainOrder=-1;
 
 	ngOnInit() {
-		this.initProject();
+
 		console.log("TimelinePage ngOnInit");
+		if(this.activatedRoute.snapshot.paramMap.get('mainOrder')){
+
+			this.mainOrder = Number(this.activatedRoute.snapshot.paramMap.get('mainOrder'));
+			console.log("TimelinePage ngOnInit mainOrder", this.mainOrder );
+		}
+		this.initProject();
 		
 	}
 
@@ -68,12 +78,21 @@ export class TimelinePage implements OnInit {
 						timeline.sort((a, b) => {
 							let orderA = String(a.static.data.mainOrder) + String(a.static.data.itemPosition);
 							let orderB = String(b.static.data.mainOrder) + String(b.static.data.itemPosition);
-							console.log(" orderA,orderB" ,orderA,orderB, )
 							return Number(orderA) - Number(orderB);
 						});
 						this.timeline = timeline;
 						if(this.selectedTimelineElement===null && this.platform.width() >768){
-							this.elementSelected(JSON.stringify(this.timeline[1]));
+							if(this.mainOrder !==-1){
+								console.log("this.mainOrder",this.mainOrder)
+								const index = this.timeline.findIndex(x => Number(x.static.data.mainOrder) === this.mainOrder);
+								if(index <=this.timeline.length){
+									this.elementSelected(JSON.stringify(this.timeline[index+1]));
+								}
+							}
+							else{
+								this.elementSelected(JSON.stringify(this.timeline[1]));
+
+							}
 
 						}
 					});
@@ -90,34 +109,37 @@ export class TimelinePage implements OnInit {
 		console.log("selectionChange:: ", this.selectionChange);
 		await this.delay(50);
 		this.selectionChange = false;
-		console.log("selectionChange:: ", this.selectedTimelineElement.static.data);
-		console.log("selectionChange:: ", this.selectedTimelineElement.static.data.stage);
-		console.log("selectionChange:: ", this.selectedTimelineElement.static.data.toolCategories);
+		
 		this.filter.stages =[];
 		this.filter.categories =[];
 		this.filter.stages.push(this.selectedTimelineElement.static.data.stage);
-		console.log("toolCategories ", this.selectedTimelineElement.static.data.toolCategories)
-		if(this.selectedTimelineElement.static.data.toolCategories){
-			Object.keys(this.selectedTimelineElement.static.data.toolCategories).forEach(key => {
-				this.filter.categories.push(this.selectedTimelineElement.static.data.toolCategories[key]);
-			})
+		if(this.selectedTimelineElement.static.data.status ==='draft'){
+			this.openFeedbackPopover(this.selectedTimelineElement.static.data.title);
 		}
-		this.selectedTimelineElementDelivrable = this.parseDelivrable(this.selectedTimelineElement.static.data.delivrable);
+		else{
+			if(this.selectedTimelineElement.static.data.toolCategories){
+				Object.keys(this.selectedTimelineElement.static.data.toolCategories).forEach(key => {
+					this.filter.categories.push(this.selectedTimelineElement.static.data.toolCategories[key]);
+				})
+			}
+			this.selectedTimelineElementDelivrable = this.parseDelivrable(this.selectedTimelineElement.static.data.delivrable);
 
-		
-		console.log("this.filter", this.filter)
-		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
-			data=>{
-				console.log("CMSService", data)
-				if(data !==null){
-					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
+			
+			console.log("this.filter", this.filter)
+			this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
+				data=>{
+					console.log("CMSService", data)
+					if(data !==null){
+						this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
 
-				}
-				if(this.platform.width() <768){
-					this.presentTimelinePopoverComponent()
+					}
+					if(this.platform.width() <768){
+						this.presentTimelinePopoverComponent()
 
-				}
-			});
+					}
+				});
+			
+		}
 		
 
 	}
@@ -136,16 +158,18 @@ export class TimelinePage implements OnInit {
 
 				let parsedDelivrableItem = {
 					title:"",
+					linkText:"",
 					link:"",
 					type:""
 
 				};
-				console.log("parsedDelivrable, ", LIs[i] );
+				console.log("parsedDelivrable LI ", i , LIs[i] );
 
 				if(LIs[i].indexOf("<a href") !==-1){
 					console.log("parsedDelivrabl link, ", LIs[i].split("\">")[1]);
 
-					parsedDelivrableItem.title = LIs[i].split("\">")[1].split("</a>")[0];
+					parsedDelivrableItem.title = LIs[i].split("<")[0];
+					parsedDelivrableItem.linkText = LIs[i].split("\">")[1].split("</a>")[0];
 					parsedDelivrableItem.link =LIs[i].split("<a href=\"")[1].split("\" target")[0];
 					console.log("parsedDelivrable, ", LIs[i].split("<a href=\"")[1] )
 					console.log("parsedDelivrable, ", LIs[i].split("<a href=\"")[1] )
@@ -160,7 +184,7 @@ export class TimelinePage implements OnInit {
 				else{
 					parsedDelivrableItem.title = LIs[i];
 				}
-				if(parsedDelivrableItem.title !==""){
+				if(parsedDelivrableItem.title !=="" || parsedDelivrableItem.linkText !==""){
 					parsedDelivrable.push(parsedDelivrableItem);
 
 				}
@@ -228,6 +252,21 @@ export class TimelinePage implements OnInit {
 	}
 	delay(ms: number) {
 		return new Promise( resolve => setTimeout(resolve, ms) );
+	}
+
+
+	async openFeedbackPopover(type:string){
+		let modal = await this.modalController.create({
+			component: PopoverFeedbackComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:type },
+		});
+
+		return await modal.present();
+
+	}
+	createDefaultTimeline(){
+		this.projectService.createDefaultTimeline(this.projectId);
 	}
 
 }

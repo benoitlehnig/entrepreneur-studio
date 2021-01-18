@@ -6,54 +6,68 @@
 		<div *ngIf="timeline">
 			<app-time-element *ngFor="let element of timeline; let i = index "  (selected)="elementSelected($event)"  [element]="element" [index]="" [selected]="isSelected(element)"></app-time-element>
 		</div>
-		<ion-card class="timelineContent ion-hide-md-down" *ngIf="selectedTimelineElement!==null" [ngClass]="{'active': selectionChange === false, 'notActive': selectionChange === true,'done': selectedTimelineElement.timelineElement.data.status === 'done',
-						'ongoing': selectedTimelineElement.timelineElement.data.status === 'ongoing',
-						'todo': selectedTimelineElement.timelineElement.data.status === 'todo'}">
-			<ion-card-header>
-				<h1>{{selectedTimelineElement.static.data.stage}} - {{selectedTimelineElement.static.data.title}}</h1>
-			</ion-card-header>
-			<ion-card-content>
-				<ion-item>
-					<ion-label>{{'TIMELINE.Status' | translate }} </ion-label>
-					<ion-select *ngIf="accessRights.write === true" [(ngModel)]="selectedTimelineElement.timelineElement.data.status" cancelText="Dismiss" (ionChange)="saveTimelineElement()">
-						<ion-select-option value="ongoing">{{'TIMELINE.StatusOnGoing' | translate }}</ion-select-option>
-						<ion-select-option value="done">{{'TIMELINE.StatusDone' | translate }}</ion-select-option>
-						<ion-select-option value="todo">{{'TIMELINE.StatusTodo' | translate }}</ion-select-option>
-					</ion-select>
-					<ion-text ion-select *ngIf="accessRights.write === false">{{selectedTimelineElement.timelineElement.data.status}}</ion-text>
-				</ion-item>
-				<div class="item ion-margin-top">
-					<h1><ion-icon name="information-circle-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDescription' | translate }}</h1>
+		<ion-card class="timelineContent ion-hide-md-down" *ngIf="selectedTimelineElement!==null && selectedTimelineElement.static.data.type === 'item'" [ngClass]="{'active': selectionChange === false, 'notActive': selectionChange === true,'done': selectedTimelineElement.timelineElement.data.status === 'done',
+		'ongoing': selectedTimelineElement.timelineElement.data.status === 'ongoing',
+		'todo': selectedTimelineElement.timelineElement.data.status === 'todo'}"
+		[style.--background]="'url(' + selectedTimelineElement.static.data.backgroundPictureUrl + ') no-repeat center center / cover var(--ion-color-primary)'  "
+		>
+		<ion-card-header>
+			<h1>{{selectedTimelineElement.static.data.title}}</h1>
+		</ion-card-header>
+		<ion-card-content >
+			<ion-item>
+				<ion-label>{{'TIMELINE.Status' | translate }} </ion-label>
+				<ion-select *ngIf="accessRights.write === true" [(ngModel)]="selectedTimelineElement.timelineElement.data.status" cancelText="{{'TIMELINE.Dismiss' | translate }}" (ionChange)="saveTimelineElement()">
+					<ion-select-option value="ongoing">{{'TIMELINE.StatusOnGoing' | translate }}</ion-select-option>
+					<ion-select-option value="done">{{'TIMELINE.StatusDone' | translate }}</ion-select-option>
+					<ion-select-option value="todo">{{'TIMELINE.StatusTodo' | translate }}</ion-select-option>
+				</ion-select>
+				<ion-text ion-select *ngIf="accessRights.write === false">{{selectedTimelineElement.timelineElement.data.status}}</ion-text>
+			</ion-item>
+			<div class="item ion-margin-top">
+				<h1><ion-icon name="information-circle-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDescription' | translate }}</h1>
 
-					<div [innerHTML]="selectedTimelineElement.static.data.description" class="block"></div>
-				</div>
-				
-				<div class="item ion-margin-top"> 
-					<h1><ion-icon name="open-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDelivrable' | translate }}</h1>
-					<div  class="block" >
-						<ul>
-							<li *ngFor="let delivrable of selectedTimelineElementDelivrable">
-								<div *ngIf="delivrable.link === ''">{{delivrable.title}}</div>
-								<div *ngIf="delivrable.link !== ''">
-									<a class="delivrable" [href]="delivrable.link" target="_blank" *ngIf="delivrable.type ==='web'">{{delivrable.title}}</a>
-									<a  class="delivrable" *ngIf="delivrable.type ==='ES'"  [routerLink]="['/project/'+projectId]">{{delivrable.title}}</a>
-								</div>
-							</li>
-						</ul>
-						
-					</div>
-				</div>
-				
-				<div class="item ion-margin-top toolsWrapper">
-					<h1><ion-icon name="grid-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemApplications' | translate }} </h1>
-					<div class="block tools">
-						<div *ngFor="let tool of tools">
-							<a [href]="tool.link" target="_blank" class="tool"> {{tool.name}}</a>
-						</div>
-					</div>
+				<div [innerHTML]="selectedTimelineElement.static.data.description" class="block"></div>
+			</div>
+
+			<div class="item ion-margin-top"> 
+				<h1><ion-icon name="open-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemDelivrable' | translate }}</h1>
+				<div  class="block" >
+					<ul>
+						<li *ngFor="let delivrable of selectedTimelineElementDelivrable">
+							<div *ngIf="delivrable.link === ''">{{delivrable.title}}</div>
+							<div *ngIf="delivrable.link !== ''">
+								<span >{{delivrable.title}}</span>
+								<a class="delivrable" [href]="delivrable.link" target="_blank" *ngIf="delivrable.type ==='web'">{{delivrable.linkText}}</a>
+								<a  class="delivrable" *ngIf="delivrable.type ==='ES'"  [routerLink]="['/project/'+projectId]">{{delivrable.linkText}}</a>
+							</div>
+						</li>
+					</ul>
 
 				</div>
-			</ion-card-content>
-		</ion-card>
-	</div>
+			</div>
+
+			<div class="item ion-margin-top toolsWrapper">
+				<h1><ion-icon name="grid-outline" class="ion-margin-end"></ion-icon>{{'TIMELINE.ItemApplications' | translate }} </h1>
+				<div class="block tools">
+					<div *ngFor="let tool of tools">
+						<a [href]="tool.link" target="_blank" class="tool"> {{tool.name}}</a>
+					</div>
+				</div>
+
+			</div>
+		</ion-card-content>
+	</ion-card>
+	<ion-card class="timelineContent ion-hide-md-down main" *ngIf="selectedTimelineElement!==null && selectedTimelineElement.static.data.type === 'main'" 
+	  [style.--background]="'url(' + selectedTimelineElement.static.data.backgroundPictureUrl + ') no-repeat center center / cover var(--ion-color-primary)'  "
+	  >
+		<ion-card-header>
+			<h1>{{selectedTimelineElement.static.data.title}}</h1>
+		</ion-card-header>
+		<ion-card-content >
+			<div [innerHTML]="selectedTimelineElement.static.data.description" class="block"></div>
+		</ion-card-content>
+	</ion-card>
+</div>
+<ion-button (click)="createDefaultTimeline()" class="ion-hide">createDefaultTimeline</ion-button>
 </ion-content>

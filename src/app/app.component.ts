@@ -166,7 +166,6 @@
           role: 'cancel',
           cssClass: 'primary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: this.deletePopupOKButton,

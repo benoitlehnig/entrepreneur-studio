@@ -16,6 +16,9 @@
 	<ion-grid class="toolsGridLayout">
 		<ion-row>
 			<ion-col class="categories" >
+				<div class="filter ion-margin-bottom toolsNumber ion-text-justify">
+					<span>{{numberofTools}}  {{'TOOLS.ToolsNumberText1' | translate}}</span> {{'TOOLS.ToolsNumberText2' | translate}}
+				</div>
 				<div class="filter ion-margin-bottom">
 					<div class="filterHeader ion-padding" (click)="expandStage()">
 						<ion-text >{{'TOOLS.Stages' | translate}} ({{filter.stages.length}}/{{stages.length}})</ion-text>

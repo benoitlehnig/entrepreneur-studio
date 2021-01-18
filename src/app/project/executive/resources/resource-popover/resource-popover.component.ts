@@ -26,7 +26,8 @@ export class ResourcePopoverComponent implements OnInit {
 		name:"",
 		source:"",
 		title: "",
-		imgUrl: ""
+		imgUrl: "",
+		link: ""
 	}
 	public filter={
 		categories : [],
@@ -44,6 +45,8 @@ export class ResourcePopoverComponent implements OnInit {
 	public activeIndex=0;
 
 	public selectedApplicationUrl:string="";
+
+	public selectedButton:string="application";
 
 	constructor(
 		public navParams: NavParams,
@@ -82,6 +85,7 @@ export class ResourcePopoverComponent implements OnInit {
 		console.log("selectApplication", application);
 		if(application === 'other'){
 			this.selectedApplication.CMSId = null;
+			this.selectedApplication.id = null;
 			this.selectedApplication.name = "Other";
 			this.selectedApplication.source =   "Other";
 			this.selectedApplication.title  = "Other";
@@ -89,6 +93,7 @@ export class ResourcePopoverComponent implements OnInit {
 		}
 		else{
 			this.selectedApplication = application;
+			this.selectedApplicationUrl = application.link;
 		}
 		
 
@@ -127,6 +132,14 @@ export class ResourcePopoverComponent implements OnInit {
 			url = "http://" + url;
 		}
 		return url
+	}
+
+	segmentChanged(event){
+		console.log("resource,", event);
+		this.selectedButton = event.detail.value;
+		if(this.selectedButton ==='link'){
+			this.selectApplication('other');
+		}
 	}
 
 	

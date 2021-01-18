@@ -1,11 +1,14 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {DataSharingServiceService} from '../../../../services/data-sharing-service.service';
 import {Project} from '../../../../models/project';
+import {Theme} from '../../../../models/project';
 import { NavParams} from '@ionic/angular';
 import {AutocompleteService} from '../../../../services/autocomplete.service';
 import {StorageService} from '../../../../services/storage.service';
 import {AutoCompleteOptions} from 'ionic4-auto-complete';
 import { FileUploader } from 'ng2-file-upload';
+import { AngularFireFunctions } from '@angular/fire/functions';
+
 
 @Component({
 	selector: 'app-popover-project-summary',
@@ -23,6 +26,7 @@ export class PopoverProjectSummaryComponent implements OnInit {
 	public otherDomain= [];
 	public selected = [];
 	public providerDomains=null;
+	public backgroundPictures=[];
 
 	public uploader:FileUploader;
 	public hasBaseDropZoneOver:boolean;
@@ -35,6 +39,8 @@ export class PopoverProjectSummaryComponent implements OnInit {
 		public dataSharingServiceService: DataSharingServiceService,
 		public navParams : NavParams,
 		public storageService : StorageService,
+		private functions: AngularFireFunctions,
+
 
 		) {
 		this.providerDomains = new AutocompleteService('domains'); 
@@ -64,6 +70,14 @@ export class PopoverProjectSummaryComponent implements OnInit {
 
 			alert(message);
 		};
+
+		const callable = this.functions.httpsCallable('getBackgroundPictures');
+			const obs = callable({});
+			obs.subscribe(async res => {
+				console.log(" getBackgroundPictures >> ", res);
+				console.log(res.photo.results)
+				this.backgroundPictures = res.photo.results;
+			});
 	}
 
 
@@ -82,6 +96,9 @@ export class PopoverProjectSummaryComponent implements OnInit {
 				if(data){
 					this.project = data.data;
 					this.projectId = data.id;
+					if(!this.project.theme){
+						this.project.theme ={backgroundPictureId: '-1', backgroundPictureUrl:''};
+					}
 				}
 			});
 	}
@@ -104,15 +121,26 @@ export class PopoverProjectSummaryComponent implements OnInit {
 				this.fileToUpload,
 				);
 
-			 returnData.downloadUrl$.subscribe(data=>{
-			 	console.log(data);
-			 	this.project.summary.logoUrl = data;
-			 });
+			returnData.downloadUrl$.subscribe(data=>{
+				console.log(data);
+				this.project.summary.logoUrl = data;
+			});
 		}
 	}
 
+	selectBackgroundPicture(backgroundPicture){
+		console.log("selectBackgroundPicture >>", backgroundPicture );
+		let theme: Theme = new Theme();
+		theme.backgroundPictureUrl= backgroundPicture.urls.regular; 
+		theme.backgroundPictureId= backgroundPicture.id; 
+		this.project.theme = theme; 
+	}
 	dismiss(){
 		this.navParams.get('homeref').dismiss();
+	}
+	segmentChanged(event){
+		console.log("sharingStatus,", event);
+		this.project.sharingStatus = event.detail.value;
 	}
 
 }

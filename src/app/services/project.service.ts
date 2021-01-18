@@ -5,6 +5,8 @@ import {CMSService} from './cms.service';
 import { map, switchMap,first,filter } from 'rxjs/operators'
 import { Observable, combineLatest, of } from 'rxjs'
 import { uniq, flatten } from 'lodash'
+import * as moment from 'moment';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -76,17 +78,17 @@ export class ProjectService {
 	}
 
 	saveProject(id:string,project:Project){
-		console.log("saveProject", id, project)
+		console.log("Update project >> saveProject", id, project)
 		return this.projectRef.doc(id).set(JSON.parse( JSON.stringify(project)));
 	}
 	addElement(id:string,elementType:string,elementData){
-		console.log("addElement", id, elementType,elementData)
+		console.log("Update project >>  addElement", id, elementType,elementData)
 		return this.afs.collection('projects').doc(id+'/businessCanvas').collection('problem').add({ name: 'item', price: 10 }).then(
 			value=> {return value.id})
 
 	}
 	removeProject(id:string){
-		console.log("removeProject", id)
+		console.log("Update project >> removeProject", id)
 		return this.afs.collection('projects').doc(id).update({status: "deleted"})
 	}
 
@@ -101,13 +103,13 @@ export class ProjectService {
 		);
 	}
 	inviteTeamMember(teamMember:any,id:string){
-		console.log("inviteTeamMember", id, teamMember);
+		console.log("Update project >>  inviteTeamMember", id, teamMember);
 		return this.afs.collection('projects').doc(id).collection('teamMembers').add( 
 			JSON.parse(JSON.stringify(teamMember))  );
 	}
 
 	removeTeamMember(projectId, teamMember){
-		console.log("removeTeamMember", projectId, teamMember);
+		console.log("Update project >> removeTeamMember", projectId, teamMember);
 		if(teamMember.email){
 			this.afs.collection('invites').doc(teamMember.email).collection('projectIds').doc(projectId).delete();
 
@@ -120,6 +122,7 @@ export class ProjectService {
 
 	}
 	updateTeamMember(projectId, teamMember){
+		console.log("Update project >> updateTeamMember ");
 		this.afs.collection('projects').doc(projectId).collection('teamMembers').doc(teamMember.id).update(
 			{role: teamMember.role, projectProfile: teamMember.projectProfile, mission : teamMember.mission});
 	}
@@ -136,29 +139,33 @@ export class ProjectService {
 	}
 
 	setSharingStatus(id,status){
+		console.log("Update project >> setSharingStatus ");
+
 		return this.afs.collection('projects').doc(id).update({sharingStatus: status});
 	}
 
 	addResource(id,resource){
-		console.log("addResource", id, resource);
+		console.log("Update project >> addResource", id, resource);
 		return this.afs.collection('projects').doc(id).collection('resources').add( JSON.parse(JSON.stringify(resource.data)));
 	}
 	updateResource(id,resource){
-		console.log("addResource", id, resource);
+		console.log("Update project >> addResource", id, resource);
 		//return this.afs.collection('projects').doc(id).collection('resources').doc(resource.id).set( res);
 	}
 	deleteResource(id,resourceId){
-		console.log("deleteResource", id, resourceId);
+		console.log("Update project >> deleteResource", id, resourceId);
 		return this.afs.collection('projects').doc(id).collection('resources').doc(resourceId).delete();
 	}
 
 	createDefaultTimeline(id:string){
+		console.log("Update project >> createDefaultTimeline");
+
 		return this.CMSService.retrieveTimelineContent().pipe(first()).subscribe(
 			data=>{
 				return data.forEach(function(timelineElemenCMS){
+					console.log("createDefaultTimeline >> ", timelineElemenCMS)
 					let timelineElement= new TimelineElement();
 					timelineElement.id = timelineElemenCMS.id;
-					timelineElement.order= timelineElemenCMS.order;
 					timelineElement.status="todo";
 					timelineElement.startDate= null
 					return this.afs.collection('projects').doc(id).collection('timeline').add(JSON.parse(JSON.stringify(timelineElement)));	
@@ -201,6 +208,8 @@ export class ProjectService {
 			);
 	}
 	saveTimelineElement(id,timelineElement){
+		console.log("Update project >> saveTimelineElement");
+
 		return this.afs.collection('projects').doc(id).collection('timeline').doc(timelineElement.timelineElement.id).set(timelineElement.timelineElement.data);
 
 	}

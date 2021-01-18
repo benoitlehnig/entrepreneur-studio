@@ -6,6 +6,9 @@ import { ModalController } from '@ionic/angular';
 import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popover-business-canvas.component';
 import { PopoverSocialNetworkComponent } from './popover-social-network/popover-social-network.component';
 import * as moment from 'moment';
+import { Platform } from '@ionic/angular';
+
+		
 
 
 @Component({
@@ -17,6 +20,7 @@ export class SummaryPage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
+	public backgroundPicture:string="";
 	public accessRights={read: false, write:false};
 
 
@@ -27,13 +31,14 @@ export class SummaryPage implements OnInit {
 	public updateOnGoing:boolean= false;
 	public timeline=[];
 	public timelineStat=[];
-
-
 	public lastUpdateTime =moment();
+	public width= this.platform.width();
+
 	constructor(
 		public dataSharingServiceService: DataSharingServiceService,
 		public projectService:ProjectService,
 		public modalController: ModalController,
+		public platform: Platform,
 
 		) { 
 		
@@ -60,11 +65,16 @@ export class SummaryPage implements OnInit {
 					if(data.data !==null){
 						console.log("initProject dataSharingServiceService", data);
 						this.project= data.data;
+						if(this.project.theme){
+							this.backgroundPicture = this.project.theme.backgroundPictureUrl;
+							console.log("initProject backgroundPicture", this.backgroundPicture);
+
+						}
 						this.projectService.getTimeline(this.projectId).subscribe(timeline=>{
 							console.log("SummaryPage >> initProject getTimeline", timeline);
 							if(timeline){
 								timeline.sort((a, b) => {
-									return a.static.data.order - b.static.data.order;
+									return a.static.data.mainOrder - b.static.data.mainOrder;
 								});
 								this.timeline = timeline;
 								this.timelineStat=[];
@@ -75,7 +85,8 @@ export class SummaryPage implements OnInit {
 										this.timelineStat.push({stage: this.timeline[i].static.data.stage, 
 											title: this.timeline[i].static.data.title,
 											icon: this.timeline[i].static.data.icon, 
-											completedElements:0, totalElements:0, startedElements:0,status:'todo',mainOrder: this.timeline[i].static.data.mainOrder });
+											completedElements:0, totalElements:0, startedElements:0,status:'todo',mainOrder: 
+											this.timeline[i].static.data.mainOrder , backgroundPictureUrl:this.timeline[i].static.data.backgroundPictureUrl});
 
 									}
 								}
@@ -104,6 +115,7 @@ export class SummaryPage implements OnInit {
 									}
 								}
 							}
+
 							
 							console.log("SummaryPage >> initProject this.timelineStat, ", this.timelineStat)
 						})
@@ -116,6 +128,7 @@ export class SummaryPage implements OnInit {
 	}
 
 	saveProject(project){
+		console.log("SummaryPage >>saveProject >> this.projectService.saveProject")
 		this.projectService.saveProject(this.projectId,project).then(
 			data=>{
 				this.updateOnGoing =false;
@@ -125,6 +138,8 @@ export class SummaryPage implements OnInit {
 
 
 	async updateProject(){
+		console.log("SummaryPage >> updateProject  >> this.projectService.saveProject")
+
 		this.projectService.saveProject(this.projectId,this.project);
 		this.lastUpdateTime = moment();
 	}

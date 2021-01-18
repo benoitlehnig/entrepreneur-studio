@@ -11,7 +11,7 @@
 		</div>
 	</ion-label>
 	<ion-note color="primary"  slot="end">
-		<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()"></ion-icon>
+		<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()" *ngIf="accessRights.write === true"></ion-icon>
 	</ion-note>
 
 </ion-item>

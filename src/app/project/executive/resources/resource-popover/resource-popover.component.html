@@ -4,17 +4,25 @@
 			<ion-icon  slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
 		</ion-item>
 		<h1 class="ion-text-center">{{'RESOURCES.AddResourcePopoverTitle' | translate}}</h1>
-		<h2 class="ion-text-center" ><ion-text  *ngIf="activeIndex ===0" >{{'RESOURCES.AddResourceStep1' | translate}}</ion-text></h2>
-		<h2 class="ion-text-center" ><ion-text  *ngIf="activeIndex ===1" >{{'RESOURCES.AddResourceStep2' | translate}} </ion-text><ion-text  *ngIf="activeIndex ===1 && selectedApplication.id !== null">{{selectedApplication.name}}</ion-text></h2>
 	</div>
-	<ion-slides  #slides pager="true" [options]="slideOpts" class="slides"(ionSlideWillChange)="updateStep()">
+	<ion-segment (ionChange)="segmentChanged($event)" value="application">
+		<ion-segment-button value="application">
+			<ion-label class="ion-hide-md-down">{{'RESOURCES.AddResourcePopoverTabApplication' | translate}}</ion-label>
+			<ion-label class="ion-hide-md-up">{{'RESOURCES.AddResourcePopoverTabApplicationShort' | translate}}</ion-label>
+		</ion-segment-button>
+		<ion-segment-button value="link">
+			<ion-label class="ion-hide-md-down">{{'RESOURCES.AddResourcePopoverTabLink' | translate}}</ion-label>
+			<ion-label class="ion-hide-md-up">{{'RESOURCES.AddResourcePopoverTabLinkShort' | translate}}</ion-label>
+
+		</ion-segment-button>
+	</ion-segment>
+	<ion-slides  #slides pager="true" [options]="slideOpts" class="slides"(ionSlideWillChange)="updateStep()" *ngIf="selectedButton ==='application'">
 		<ion-slide  >
 
 			<div class="filter ion-padding ion-text-left">
 				<ion-item  lines ="none" >
 					<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
 				</ion-item>
-				<a (click)="selectApplication('other')" class="ion-padding-start ion-text-left">{{'RESOURCES.AddResourceFreeLink' | translate}}</a>
 			</div>
 			<div class="gridsWrapper">
 				<ion-grid class="gridTools"  *ngIf="activeIndex ===0" >
@@ -54,12 +62,22 @@
 		<ion-slide  >
 
 			<div class="wrapper ion-text-center">
-				<p class="informationBox ion-padding ion-text-left ion-margin">{{'RESOURCES.AddResourceUrlText' | translate}} <ion-text  *ngIf="selectedApplication.id !==null">{{selectedApplication.name}}</ion-text></p>
+
+				<p class="informationBox ion-padding ion-text-left ion-margin">{{'RESOURCES.AddResourceUrlText' | translate}} {{selectedApplication.name}} </p>
 				<ion-item >
-					<ion-input type="url" placeholder="{{'RESOURCES.AddResourceUrlPlaceholder' | translate}} " class="ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="selectedApplicationUrl"> </ion-input>
+					<ion-input type="url" [placeholder]="selectedApplication.link" class="ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="selectedApplicationUrl"> </ion-input>
 				</ion-item>
 				<ion-button class="ion-margin-top" (click)="updateResource()" [disabled]="selectedApplicationUrl ==='' || selectedApplicationUrl === null">{{'RESOURCES.AddResourceOKButton' | translate}} </ion-button>
 			</div>
 		</ion-slide>
 	</ion-slides>
+
+	<div class="ion-text-center"  *ngIf="selectedButton ==='link'">
+
+		<p class="informationBox ion-padding ion-text-left ion-margin"> {{'RESOURCES.AddResourceFreeLink' | translate}} </p>
+		<ion-item >
+			<ion-input type="url" placeholder="{{'RESOURCES.AddResourceUrlTextPlaceholder' | translate}}" class="ion-padding-start"  [(ngModel)]="selectedApplicationUrl"> </ion-input>
+		</ion-item>
+		<ion-button class="ion-margin-top" (click)="updateResource()" [disabled]="selectedApplicationUrl ==='' || selectedApplicationUrl === null">{{'RESOURCES.AddResourceOKButton' | translate}} </ion-button>
+	</div>
 </ion-content>

@@ -1,4 +1,5 @@
-<ion-content>
+<ion-content  class="defaultStyle" [ngClass]="{
+'customStyle' :  project.theme !== null}" [style.--background]="'url(' + backgroundPicture + ') no-repeat center center / cover var(--ion-color-primary)'  ">
 	<ion-card>
 		<div class="timeline">
 			<ion-grid>
@@ -6,7 +7,7 @@
 					<ion-col *ngFor="let timelineStatElement of timelineStat; let last = last;" class="ion-margin ion-padding" [ngClass]="{'done': timelineStatElement.status === 'done',
 						'ongoing': timelineStatElement.status === 'ongoing',
 						'todo': timelineStatElement.status === 'todo'}" 
-						 [routerLink]="['/project/'+projectId+ '/details/executive/tabs/timeline']">
+						 [routerLink]="['/project/'+projectId+ '/details/executive/tabs/timeline', {mainOrder:timelineStatElement.mainOrder}] ">
 						<ion-icon [name]="timelineStatElement.icon" ></ion-icon>
 						<ion-badge>{{timelineStatElement.completedElements}}/{{timelineStatElement.totalElements}} </ion-badge>
 						<h1>{{timelineStatElement.title}}</h1>
@@ -19,17 +20,19 @@
 			<ion-list>
 				<ion-item lines="none">
 					<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}
-					<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectElevatorPitchTooltip' | translate }}"></ion-icon>
-				</ion-text>
-					<ion-item class="input">
-
-						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()" [readonly]="accessRights.write === false"></ion-textarea>
+							<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectElevatorPitchTooltip' | translate }}"></ion-icon>
+					</ion-text>
+					<ion-item class="input"  *ngIf="accessRights.write !== false">
+						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()" rows="3"></ion-textarea>
+					</ion-item>
+					<ion-item class="input"  *ngIf="accessRights.write === false">
+						<ion-text class="ion-text-justify ion-padding-top ion-padding-bottom">{{project.summary.elevatorPitch}}</ion-text>
 					</ion-item>
 					
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
 					<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}
-						<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectWebsiteUrlTooltip' | translate }}"></ion-icon>
+						<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectWebsiteUrlTooltip' | translate }}"></ion-icon>
 					</ion-text>
 					<ion-item class="input">
 						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="{{'PROJECT_SUMMARY.ProjectWebsiteUrlPlaceholder' | translate }}" [readonly]="accessRights.write === false" (ionChange)="updateProject()"></ion-input>
@@ -37,7 +40,7 @@
 				</ion-item>
 				<ion-item lines="none" class="ion-margin-top">
 					<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}
-						<ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectSocialNetworksTooltip' | translate }}"></ion-icon>
+						<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectSocialNetworksTooltip' | translate }}"></ion-icon>
 					</ion-text>
 				</ion-item>
 				<ion-item lines="none">
@@ -68,7 +71,7 @@
 	</ion-card>
 
 
-	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }} <ion-icon color="primary" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.BusinessCanvasTitleTooltip' | translate }}"></ion-icon></h2>
+	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }} <ion-icon name="help-circle-outline" class="iconColor"  tooltip="{{'PROJECT_SUMMARY.BusinessCanvasTitleTooltip' | translate }}"></ion-icon></h2>
 	<ion-card *ngIf="project.summary">
 		<ion-card-content class="projectCard">
 			<ion-grid>

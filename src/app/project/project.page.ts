@@ -74,12 +74,35 @@ export class ProjectPage implements OnInit {
 										if(this.writeAccess===false && data.sharingStatus ==='private'){
 											this.router.navigate(['/landing-page']);
 										}
+										else{
+											this.initProject();		
+										}
 									}
 								})
 						})
 				}
+				else{
+
+					this.projectService.getProject(this.projectId).pipe(first()).subscribe(
+						(data)=>{
+							if(data){
+								if(!this.project.sharingStatus){
+									this.project.sharingStatus = "private";
+								}
+								this.checkWriteAccess();
+								console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
+
+								if(this.writeAccess===false && data.sharingStatus ==='private'){
+									this.router.navigate(['/landing-page']);
+								}
+								else{
+									this.initProject();
+								}
+							}
+						})
+				}
 			})
-		this.initProject();
+		
 
 	}
 

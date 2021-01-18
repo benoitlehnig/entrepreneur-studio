@@ -1,19 +1,20 @@
 <ion-content>
 	<ion-list>
 		<ion-item button (click)="updateSharingStatus('private')">
-			  <ion-icon name="lock-closed-outline"  class="ion-margin-end"></ion-icon>
+			<ion-icon name="lock-closed-outline"  class="ion-margin-end"></ion-icon>
 			<ion-label>{{'PROJECT.Private' | translate}}
 				<div class="subLabel ion-text-wrap">{{'PROJECT.PrivateSubLabel' | translate}}</div>
 			</ion-label>
 			
 		</ion-item>
-			<ion-item lines="none" button (click)="updateSharingStatus('public')">
-			 <ion-icon name="globe-outline" class="ion-margin-end"></ion-icon>
+		<ion-item lines="none" button (click)="updateSharingStatus('public')">
+			<ion-icon name="globe-outline" class="ion-margin-end"></ion-icon>
 			<ion-label>{{'PROJECT.Public' | translate}}
-			<div class="subLabel ion-text-wrap">
-				{{'PROJECT.PublicSubLabel' | translate}}
-			</div></ion-label>
-			
+				<div class="subLabel ion-text-wrap">
+					{{'PROJECT.PublicSubLabel' | translate}}
+				</div>
+			</ion-label>
+
 
 		</ion-item>
 	</ion-list>

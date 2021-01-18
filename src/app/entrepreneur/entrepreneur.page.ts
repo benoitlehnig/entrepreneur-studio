@@ -11,6 +11,8 @@ import {OnBoardingPage} from '../on-boarding/on-boarding.page'
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AngularFireAnalytics } from '@angular/fire/analytics';
+import * as moment from 'moment';
 
 import { first } from 'rxjs/operators';
 
@@ -39,6 +41,7 @@ export class EntrepreneurPage implements OnInit {
 		public modalController: ModalController,
 		public alertController: AlertController,
 		public translateService:TranslateService,
+		public angularFireAnalytics:AngularFireAnalytics
 
 		) { }
 
@@ -61,7 +64,13 @@ export class EntrepreneurPage implements OnInit {
 						(data)=>{
 							if(data){
 								console.log("getProjectsDetailsbyUid data", data)
-								this.projects = data
+								this.projects = data;
+
+								this.projects = this.projects.sort((a, b) => {
+									return moment(a.data.lastUpdateDateTime).unix()- moment(b.data.lastUpdateDateTime).unix();;
+								});
+								console.log("getProjectsDetailsbyUid data after sort", data)
+
 							}
 						});
 					this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((started) =>{
@@ -78,7 +87,9 @@ export class EntrepreneurPage implements OnInit {
 
 	async startNewProject(){
 		let project = new Project();
-		console.log("startNewProject", project)
+		console.log("startNewProject", project);
+		this.angularFireAnalytics.logEvent('page_view', { page_path: '/entrepreneur',  page_title: 'projectOnboarding'});
+
 		this.presentOnboardingPopover(1);
 
 	}
@@ -88,8 +99,11 @@ export class EntrepreneurPage implements OnInit {
 	}
 
 	async createProject(project:any,teamMembers:any){
-		
+
 		const callable = this.functions.httpsCallable('createProject');
+		let currentDateTime =moment().toDate();
+		project.lastUpdateDateTime = currentDateTime;
+		project.creationDateTime = currentDateTime;
 		const obs = callable(project);
 		this.loading = await this.loadingController.create({
 			cssClass: 'my-custom-class',
@@ -100,6 +114,8 @@ export class EntrepreneurPage implements OnInit {
 		obs.subscribe(res => {
 			console.log("done", res);
 			this.loading.dismiss();
+			this.angularFireAnalytics.logEvent('project_creation',{projectId:res.id});
+
 			
 			teamMembers.forEach((teamMember)=>{
 				console.log( "EntrepreneurPage >> createProject >> teamMember ," , teamMember)

@@ -9,7 +9,10 @@ export class Project {
 	public teamMembers:Array<TeamMember>=[];
 	public financialResources : FinancialResources = new FinancialResources();
 	public status : string="active"; 
-	public sharingStatus:string="private"
+	public sharingStatus:string="private";
+	public theme:Theme;
+	public lastUpdateDateTime:Date;
+	public creationDateTime:Date;
 }
 
 export class Summary {
@@ -48,6 +51,11 @@ export class Team{
 }
 export class FinancialResources{
 	public initialFinancialResources:string="";
+
+}
+export class Theme{
+	public backgroundPictureUrl:string="";
+	public backgroundPictureId:string="";
 
 }
 export class SocialNetworks{

@@ -30,3 +30,12 @@
 		left:0px;
 	}
 }
+.projectName{
+    @media(max-width: 400px) {
+      font-size: small;
+    }
+
+}
+.projectName:hover{
+  background:   var(--ion-color-light);
+}

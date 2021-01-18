@@ -10,3 +10,19 @@
 		cursor: pointer;
 	}
 }
+.main{
+	
+	.closeItem{
+		--background: none;
+	}
+
+	.header{
+		background: rgba(0, 0, 0, 0.2);
+		color: var(--ion-color-primary-contrast);
+	}
+}
+.mainContent{
+	background: rgba(0, 0, 0, 0.3);
+	color: var(--ion-color-primary-contrast);
+	height: calc(100% - 141px);
+}

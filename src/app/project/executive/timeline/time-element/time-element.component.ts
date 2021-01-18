@@ -35,5 +35,6 @@ export class TimeElementComponent implements OnInit {
 	select(){
 		this.selected.emit(JSON.stringify(this.element));
 	}
+	
 
 }
