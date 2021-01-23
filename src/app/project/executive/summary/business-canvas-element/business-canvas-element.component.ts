@@ -82,11 +82,14 @@ export class BusinessCanvasElementComponent implements OnInit {
 		return uint32.toString(16);
 	}
 
-	async openPopover(item){
+	async openPopover(item,index){
+		let indexToBeDisplayed = Number(index) +1;
+		 
+
 		let modal = await this.modalController.create({
 			component: PopoverBusinessCanvasElementComponent,
 			cssClass: 'my-custom-class',
-			componentProps: {homeref:this, type:this.elementType, item:item},
+			componentProps: {homeref:this, type:this.elementType, item:item, title:this.title,index:indexToBeDisplayed},
 		});
 		return await modal.present();
 

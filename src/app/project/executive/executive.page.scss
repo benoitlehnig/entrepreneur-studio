@@ -4,3 +4,9 @@
 .disabledIcon{
 	color:var(--ion-color-light-shade);
 }
+ion-icon{
+	@media(max-width: 400px) {
+
+		size:20px;
+	}
+}

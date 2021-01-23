@@ -1,0 +1,23 @@
+fa-icon{
+	color:var(--ion-color-primary);
+	margin-right:12px;
+}
+.closeItem{
+	--background: var(--ion-color-primary);
+	.pointer{
+		color:var(--ion-color-primary-contrast);
+		cursor: pointer;
+	}
+}
+
+.header{
+	background: var(--ion-color-primary);
+	color:var(--ion-color-primary-contrast);
+	h1{
+		background: var(--ion-color-primary);
+		color:var(--ion-color-primary-contrast);
+	}
+}
+ion-content{
+	min-width:300px;
+}

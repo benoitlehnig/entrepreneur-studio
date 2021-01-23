@@ -47,10 +47,16 @@ export class AuthService {
 										this.updatePhotoUrl(user);
 									}
 									if(this.claims['entrepreneur'] ===true){
-										console.log("AuthService >> result router2",result,this.router.url,result.claims,this.router.url.indexOf("landing") );
-										if(this.router.url.indexOf("landing") !== -1){
+										console.log("AuthService >> result router2",result,this.router.url,result.claims,this.router.url.indexOf("/intl/") );
+										if(this.router.url.indexOf("/intl/") !== -1){
 											console.log("AuthService >> navigate entrepreneur");
-											this.router.navigate(['/entrepreneur']);
+											if(this.router.url.indexOf("/intl/fr/tools") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
+											else{
+												this.router.navigate(['/entrepreneur']);
+											}
 										}				
 									}
 									else if(this.claims['incubator'] ===true){
@@ -67,7 +73,7 @@ export class AuthService {
 										else{
 											console.log("AuthService >> AuthService NO USER  ONBOARDING STARTED", data, started);
 											this.dataSharingServiceService.currentUid(null);								
-											this.router.navigate(['/landing-page',{ unknownUser:true}]); 
+											this.router.navigate(['/intl/fr',{ unknownUser:true}]); 
 										}
 									})
 
@@ -84,11 +90,11 @@ export class AuthService {
 				console.log("AuthService >> ",this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
 				if(this.router.url.indexOf("cgu") !== -1){
 					console.log("AuthService >> navigate cgu");
-					this.router.navigate(['/cgu']);
+					this.router.navigate(['/intl/fr/cgu']);
 				}
-				else if( this.router.url.indexOf("entrepreneur") !== -1 && this.router.url.indexOf("project") !==-1){
+				else if( this.router.url.indexOf("entrepreneur") !== -1){
 					console.log("AuthService >> navigate landing, unknown true");
-					this.router.navigate(['/landing-page']); 
+					this.router.navigate(['/intl/fr']); 
 				}
 				else{
 					console.log("AuthService >> navigate landing, unknown false");

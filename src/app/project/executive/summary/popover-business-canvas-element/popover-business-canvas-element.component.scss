@@ -15,5 +15,12 @@
 	cursor: pointer;
 }
 .actionColumn{
-	min-width: 	110px;
+	min-width: 	140px;
 }
+.inputs{
+	min-width:400px;
+	@media(max-width: 500px) {
+		min-width:100%;
+	}
+}
+

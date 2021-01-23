@@ -2,11 +2,11 @@
 	<ion-icon name="checkmark-outline"  *ngIf="elementData.length !==0" class="stepDone ion-float-right"></ion-icon>
 	<h1>{{title }} </h1> 
 	<div >
-		<div *ngFor="let item of elementData"  > 
+		<div *ngFor="let item of elementData; index as index"  > 
 			<ion-badge color="primary" *ngIf="item.id  !== editedItemId && accessRights.write ===true" class="item ion-text-wrap" (click)="edit(item.id)" >{{item.text}}
 				
 			</ion-badge>
-			<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item)" *ngIf="accessRights.write ===true" > </ion-icon>
+			<ion-icon name="pencil-outline" class="editIcon" (click)="openPopover(item,index)" *ngIf="accessRights.write ===true" > </ion-icon>
 			<ion-item class="input" *ngIf="item.id  === editedItemId && accessRights.write ===true" >
 				<ion-textarea maxlength="140" type="text" name="newItem" class="ion-text-justify" [(ngModel)]="item.text" placeholder="{{'PROJECT_SUMMARY.AddNewItemPlaceHolder' | translate }}" (ionBlur)="saveItem()" (keyup.enter)="saveItem()" >
 				</ion-textarea>

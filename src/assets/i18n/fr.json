@@ -2,8 +2,10 @@
 	"LANDINGPAGE":{
 		"Title": "Entrepreneur Studio",
 		"Title1": "Entrepreneur",
-		"Title2": "Comment ca marche ?",
+		"Title2": "En savoir plus",
 		"Title3": "Partenaire",
+		"ProductMenuItem1": "Comment ca marche ?",
+		"ProductMenuItem2": "Notre roadmap",
 		"Register": "Inscription",
 		"Connection": "Connexion",
 		"MainContent": "Lancez votre projet avec la plateforme des entrepreneurs",
@@ -73,7 +75,9 @@
 		"TimelineStep8LineBottomText1" :"Industrialisation",
 		"TimelineStep8LineBottomText2" :"Investissement",
 		"TimelineStep8LineBottomText3" :"Croissance",
-		"TimelineStep9IconText" :"Croissance"
+		"TimelineStep9IconText" :"Croissance",
+		"FollowUsTitle":"Nous suivre",
+		"PracticalInformationTitle" :"Informations pratiques"
 
 	},
 	"cookie": {
@@ -449,6 +453,7 @@
 			"54" :"Crowdfunding",
 			"55" :"Agenda"
 		},
+		"Like": "J'aime",
 		"STAGES":{
 			"ideation" :"Ideation",
 			"creation" :"Creation",
@@ -477,6 +482,13 @@
 		"TextTitleImprovementPlaceholder":"Description de l'amélioration",
 		"TextImprovementTitle":"Votre idée d'amélioration",
 		"TextPlaceholder":"Votre idée d'amélioration",
+		"RoadmapText1":"N'hesitez pas à consulter", 
+		"RoadmapText2":"notre roadmap",
+		"RoadmapText3":" et à voter pour les futures améliorations ! ",
+		"RoadmapText4":" Pour accèder à notre roadmap, veuillez-vous ",
+		"RoadmapText5":" vous connecter ",
+		"RoadmapText6":" ou ",
+		"RoadmapText7":" vous inscrire ",
 		"Send":"Envoyer",
 		"SuccessfullySent":"Feedback envoyés ! Merci encore :)"
 	},

@@ -10,14 +10,15 @@ import { NavParams} from '@ionic/angular';
 export class PopoverBusinessCanvasElementComponent implements OnInit {
 
 	@Input() type; 
+	@Input() title; 
 	@Input() item; 
+	@Input() index; 
 	@Input("homeref") homeref;
 
 	@Output()
 	changed = new EventEmitter<string>();
 
-	public title="";
-	public placeholder="";
+
 
 	constructor(
 		public translateService : TranslateService,
@@ -28,13 +29,7 @@ export class PopoverBusinessCanvasElementComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log("ngOnInit BusinessCanvasElementComponent", this.type)
-		this.translateService.get(['PROJECT_SUMMARY.BusinessCanvas'+this.type, 'PROJECT_SUMMARY.BusinessCanvas'+this.type+'Placeholder']).subscribe(
-			value => {
-				this.title = value['PROJECT_SUMMARY.BusinessCanvas'+this.type]
-				this.placeholder = value['PROJECT_SUMMARY.BusinessCanvas'+this.type+'Placeholder'];
-
-			})
+	
 
 	}
 

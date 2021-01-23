@@ -88,40 +88,10 @@
 						</ion-col>
 					</ion-row>
 					<ion-row>
-						<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
+						<ion-col  *ngFor="let tool of tools; let i = index" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
 
 							<ion-card class="tool" >
-								<ion-fab edge horizontal="end" class="shareFabButton">
-									<ion-fab-button color="light"  size="small">
-										<ion-icon name="share-social-outline"></ion-icon>
-									</ion-fab-button>
-									<ion-fab-list [side]="side">
-										<ion-fab-button color="primary" shareButton="facebook" #fbBtn="shareButton" [url]="tool.link" size="small">
-											<fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="twitter" #tBtn="shareButton" [url]="tool.link"  size="small">
-											<fa-icon *ngIf="tBtn" [icon]="tBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="linkedin" #linkedinBtn="shareButton"  [url]="tool.link"  size="small">
-											<fa-icon *ngIf="linkedinBtn" [icon]="linkedinBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="messenger" #messengerBtn="shareButton" [url]="tool.link" size="small">
-											<fa-icon *ngIf="messengerBtn" [icon]="messengerBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="whatsapp" #whatsappBtn="shareButton"  [url]="tool.link" size="small">
-											<fa-icon *ngIf="whatsappBtn" [icon]="whatsappBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="sms" #smsBtn="shareButton"  [url]="tool.link"  size="small">
-											<fa-icon *ngIf="smsBtn" [icon]="smsBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="email" #emailBtn="shareButton"  [url]="tool.link"  size="small">
-											<fa-icon *ngIf="emailBtn" [icon]="emailBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-										<ion-fab-button color="primary" shareButton="copy" #copyBtn="shareButton"  [url]="tool.link" size="small">
-											<fa-icon *ngIf="copyBtn" [icon]="copyBtn.icon" size="lg"></fa-icon>
-										</ion-fab-button>
-									</ion-fab-list>
-								</ion-fab>
+								
 
 								<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
 								</div>
@@ -143,10 +113,28 @@
 											</div>
 										</div>
 									</ion-item>
-
+									<ion-item >
+										<ion-label class="likes">
+											<ion-icon name="thumbs-up-outline" > </ion-icon>
+											<span *ngIf="tool.likes !==undefined">{{tool.likes}}</span>
+											<span *ngIf="tool.likes === undefined">0</span>
+										</ion-label>
+										<ion-label >
+											<a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> 
+										</ion-label>
+										
+									</ion-item>
 									<ion-item lines="none" (click)="clickTool(tool)">
-										<ion-label ><a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> </ion-label>
-
+											<ion-button *ngIf="isToolLiked(tool) ===true && isLogged ===true" fill="outline"  (click)="like(i,tool)" class=" likeButtonliked">
+												<ion-icon name="thumbs-up-outline"  class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+											</ion-button>
+											<ion-button *ngIf="isToolLiked(tool) === false && isLogged ===true" fill="none"  (click)="like(i,tool)" class=" notLiked">
+												<ion-icon name="thumbs-up-outline" class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+											</ion-button>
+											<ion-button fill="none" class="shareButton" (click)="openSharePopover($event,tool)" >
+												<ion-icon name="share-social-outline" class="thumbIcon"></ion-icon><span>Partager</span>
+											</ion-button>
+										
 									</ion-item>
 								</ion-card-content>
 							</ion-card>

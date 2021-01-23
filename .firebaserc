@@ -7,6 +7,12 @@
       "hosting": {
         "entrepreneur-studio": [
           "entrepreneur-studio"
+        ],
+        "test": [
+          "entrepreneur-studio-test"
+        ],
+        "entrepreneur-studio-test": [
+          "test"
         ]
       }
     }

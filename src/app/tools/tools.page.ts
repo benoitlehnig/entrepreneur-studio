@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CMSService} from '../services/cms.service';
+import { UserService} from '../services/user.service';
 import {TranslateService} from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
@@ -8,7 +9,10 @@ import { AddToolComponent } from './add-tool/add-tool.component';
 import { LoginComponent } from '../landing-page/login/login.component';
 import { Platform } from '@ionic/angular';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { SharePopoverComponent } from './share-popover/share-popover.component';
+import { ActionSheetController } from '@ionic/angular';
 
+import { PopoverController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-tools',
@@ -32,14 +36,20 @@ export class ToolsPage implements OnInit {
 	public loadingOngoing:boolean=false;
 	public stageExpanded:boolean=false;
 	public categoryExpanded:boolean=false;
+	public uid=null;
+	public likedTools=[];
 
 
 
 	constructor(
 		public CMSService:CMSService,
+		public userService:UserService,
 		public translateService : TranslateService,
 		public dataSharingServiceService : DataSharingServiceService,
 		public modalController:ModalController,
+		public popoverController:PopoverController,
+		public actionSheetController: ActionSheetController,
+
 		public platform: Platform,
 		public angularFireAnalytics:AngularFireAnalytics
 		)
@@ -76,6 +86,15 @@ export class ToolsPage implements OnInit {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
 				(uid ===null)? this.isLogged = false : this.isLogged = true;
+				this.uid= uid;
+				if(this.uid !==null){
+					this.userService.getLikedTools(this.uid.uid).subscribe(
+						likedTools =>{
+							this.likedTools = likedTools;
+							console.log("likedTools", this.likedTools)
+						}
+						)
+				}
 			})
 
 		this.CMSService.getToolsNumber().pipe(first()).subscribe( (data:any)=>{
@@ -90,7 +109,7 @@ export class ToolsPage implements OnInit {
 	}
 	getTools(){
 		this.angularFireAnalytics.logEvent('tool_searched',  {search_term:this.filter.productName,
-		 search_categories: JSON.stringify(this.filter.categories), search_stages: JSON.stringify(this.filter.stages)});
+			search_categories: JSON.stringify(this.filter.categories), search_stages: JSON.stringify(this.filter.stages)});
 
 		this.loadingOngoing = true;
 		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
@@ -152,7 +171,7 @@ export class ToolsPage implements OnInit {
 		}
 		if(type ==='category'){
 			if(event.detail.checked ===true){
-					this.filter.categories.push(filter.id);
+				this.filter.categories.push(filter.id);
 			}
 			else{
 				this.filter.categories.splice(this.filter.categories.indexOf(filter.id), 1);
@@ -162,8 +181,82 @@ export class ToolsPage implements OnInit {
 		console.log("this.filter", this.filter)
 		this.getTools();
 	}
+
 	clickTool(tool){
 		this.angularFireAnalytics.logEvent('tool_clicked',  {name: tool.name});
+	}
+	like(index,tool){
+		if(this.isToolLiked(tool) ===false){
+			this.userService.likeTool(this.uid.uid,tool);
+			console.log( "this.tools[index]", this.tools[index]);
+			
+			if(this.tools[index].likes !== undefined){
+				this.tools[index].likes = Number(this.tools[index].likes) +1;
+			}
+			else{
+				this.tools[index].likes =1;
+			}
+			console.log( "this.tools[index]", this.tools[index]);
+
+
+		}
+		else{
+			this.userService.unlikeTool(this.uid.uid,tool);
+			if(this.tools[index].likes !== undefined){
+				this.tools[index].likes = Number(this.tools[index].likes) - 1;
+				if(this.tools[index].likes <0){
+					this.tools[index].likes = 0;
+				}
+			}
+			else{
+				this.tools[index].likes  =0;
+			}
+		}
+	}
+	
+	isToolLiked(tool){
+		let toolLiked=false;
+		const index = this.likedTools.findIndex((x) => x === tool.id);
+		if(index !==-1){
+			toolLiked = true;
+		}
+		return toolLiked;
+	}
+
+	async openSharePopover(ev: any,tool){
+
+		
+		if(this.platform.width() >768){
+			const popover = await this.popoverController.create({
+				component: SharePopoverComponent,
+				componentProps:{homeref:this, tool:tool,fullSCreen:false},
+				showBackdrop:true,
+				cssClass: 'sharePopoverComponent',
+				event:ev,
+
+			});
+			return await popover.present();
+			
+		}
+		else{
+			const popover = await this.modalController.create({
+				component: SharePopoverComponent,
+				componentProps:{homeref:this, tool:tool,fullSCreen:true},
+				cssClass: 'registerPopover',
+				backdropDismiss: true,
+			});
+			return await popover.present();
+		}
+		
+		
+	}
+
+	dismissOpenSharePopover(){
+		this.popoverController.dismiss();
+	}
+	dismissOpenShareModal(){
+		this.modalController.dismiss();
+
 
 	}
 }

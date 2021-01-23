@@ -1,6 +1,17 @@
 .sideMenu{
   --side-max-width:200px;
 }
+.sideSplitPaneShort{
+  --side-width:68px;
+  --background: var(--ion-color-primary);
+}
+
+
+.sideMenushort{
+  --max-width  :68px;
+  --width:68px;
+  --background: var(--ion-color-primary);
+}
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }

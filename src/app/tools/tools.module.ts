@@ -12,6 +12,7 @@ import { HeaderModule} from '../header/header.module';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AddToolComponent } from './add-tool/add-tool.component';
+import { SharePopoverComponent } from './share-popover/share-popover.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
@@ -27,7 +28,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 	ShareIconsModule,
 	ShareButtonsModule
 	],
-	declarations: [ToolsPage,AddToolComponent],
+	declarations: [ToolsPage,AddToolComponent,SharePopoverComponent],
 	exports:[TranslatePipe]
 })
 export class ToolsPageModule {}

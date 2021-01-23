@@ -72,7 +72,7 @@ export class ProjectPage implements OnInit {
 										console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
 
 										if(this.writeAccess===false && data.sharingStatus ==='private'){
-											this.router.navigate(['/landing-page']);
+											this.router.navigate(['/intl/fr']);
 										}
 										else{
 											this.initProject();		
@@ -93,7 +93,7 @@ export class ProjectPage implements OnInit {
 								console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
 
 								if(this.writeAccess===false && data.sharingStatus ==='private'){
-									this.router.navigate(['/landing-page']);
+									this.router.navigate(['/intl/fr']);
 								}
 								else{
 									this.initProject();
@@ -117,12 +117,8 @@ export class ProjectPage implements OnInit {
 					console.log("ProjectPage >>ngOnInit>> initProject >> getProject" , data);
 					this.project= data;
 					this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
-
-
 				}
 			})
-
-
 	}
 
 	checkWriteAccess(){
@@ -145,17 +141,6 @@ export class ProjectPage implements OnInit {
 		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 	}
 
-
-	changeProject(event){
-		console.log(event.target.value);
-		this.router.navigate(['project/'+event.target.value]);
-	}	
-
-	hideMenu(){
-		console.log("hideMenu")
-		this.menu.toggle();
-
-	}
 	async openPopover(type:string){
 		let modal = await this.modalController.create({
 			component: PopoverProjectSummaryComponent,

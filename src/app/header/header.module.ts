@@ -6,12 +6,13 @@ import { IonicModule } from '@ionic/angular';
 
 import {HeaderComponent} from './header.component';
 import {SolutionMenuComponent} from './solution-menu/solution-menu.component';
+import {ProductMenuComponent} from './product-menu/product-menu.component';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
 import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 
 @NgModule({
-  declarations: [HeaderComponent,SolutionMenuComponent],
+  declarations: [HeaderComponent,SolutionMenuComponent,ProductMenuComponent],
   imports: [
     CommonModule,
     TranslateModule,

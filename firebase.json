@@ -6,7 +6,7 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "hosting": {
+  "hosting": [{
     "target": "entrepreneur-studio",
     "public": "www",
     "ignore": [
@@ -21,6 +21,23 @@
       }
     ]
   },
+  {
+    "target": "test",
+    "public": "www",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+
+],
   "storage": {
     "rules": "storage.rules"
   },

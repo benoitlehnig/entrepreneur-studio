@@ -58,6 +58,10 @@ ion-thumbnail{
 .selectedPicture{
 	border:3px solid var(--ion-color-primary);
 }
+.backgroundPicturesWrapper{
+	width:100%;
+	text-align: left;
+}
 .backgroundPictures{
 	max-width:280px;
 }

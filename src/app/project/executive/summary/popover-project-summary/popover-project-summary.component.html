@@ -53,30 +53,32 @@
 
 		</ion-item>
 		<ion-item >
-			<ion-row>
-				<ion-col>
-					<ion-label position="floating"  class="colLabel">{{'PROJECT_SUMMARY.Background' | translate}} <span class="copyright">({{'PROJECT_SUMMARY.UnsplashPictures' | translate}}<a href="https://unsplash.com/" target="_blank">{{'PROJECT_SUMMARY.UnsplashLink' | translate}}</a>)</span></ion-label>
-				</ion-col>
-			</ion-row>
-			<ion-row>
-				<ion-col>
-					<ion-grid class="backgroundPictures">
-						<ion-row>
-							<ion-col>
-								
+			<ion-grid class="backgroundPicturesWrapper">
+				<ion-row>
+					<ion-col>
+						<ion-label position="floating"  class="colLabel">{{'PROJECT_SUMMARY.Background' | translate}} <span class="copyright">({{'PROJECT_SUMMARY.UnsplashPictures' | translate}}<a href="https://unsplash.com/" target="_blank">{{'PROJECT_SUMMARY.UnsplashLink' | translate}}</a>)</span></ion-label>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col>
+						<ion-grid class="backgroundPictures">
+							<ion-row>
+								<ion-col>
 
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col *ngFor="let backgroundPicture of backgroundPictures" >
-								<ion-thumbnail [ngClass]="{'selectedPicture' : backgroundPicture.id === project.theme.backgroundPictureId}">
-									<img [src]="backgroundPicture.urls.thumb" (click)="selectBackgroundPicture(backgroundPicture)"/>
-								</ion-thumbnail>
-							</ion-col>
-						</ion-row>
-					</ion-grid>	
-				</ion-col>
-			</ion-row>		
+
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col *ngFor="let backgroundPicture of backgroundPictures" >
+									<ion-thumbnail [ngClass]="{'selectedPicture' : backgroundPicture.id === project.theme.backgroundPictureId}">
+										<img [src]="backgroundPicture.urls.thumb" (click)="selectBackgroundPicture(backgroundPicture)"/>
+									</ion-thumbnail>
+								</ion-col>
+							</ion-row>
+						</ion-grid>	
+					</ion-col>
+				</ion-row>		
+			</ion-grid>
 		</ion-item>
 
 

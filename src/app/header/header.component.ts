@@ -3,11 +3,15 @@ import { PopoverController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { SignUpComponent } from '../landing-page/sign-up/sign-up.component';
 import { SolutionMenuComponent } from './solution-menu/solution-menu.component';
+import { ProductMenuComponent } from './product-menu/product-menu.component';
 import { LoginComponent } from '../landing-page/login/login.component';
 import { PartnersComponent } from '../landing-page/partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
-import { Router } from '@angular/router';
 import {QuestionPage} from '../question/question.page'
+import { Router } from '@angular/router';
+
+
+
 
 
 
@@ -27,6 +31,7 @@ export class HeaderComponent implements OnInit {
 		) { }
 
 	public isLogged:boolean = true;
+	public isTestSystem:boolean = false;
 	ngOnInit() {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
@@ -38,6 +43,11 @@ export class HeaderComponent implements OnInit {
 					this.isLogged = true;
 				}
 			})
+		console.log("snapshot",window.location.origin )
+		if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
+			this.isTestSystem = true;
+		}
+		
 	}
 
 
@@ -49,13 +59,24 @@ export class HeaderComponent implements OnInit {
 
 	scrollTo(elementId: string) {
 		let y = document.getElementById(elementId).offsetTop;
-		this.router.navigate(['/landing-page']); 
+		this.router.navigate(['/intl/fr']); 
 		this.getContent().scrollToPoint(0, y,300);
 	}
 
 	async openSolutionMenu(ev: any){
 		const popover = await this.popoverController.create({
 			component: SolutionMenuComponent,
+			componentProps:{homeref:this, isLogged:this.isLogged},
+			event:ev,
+			showBackdrop:false,
+			translucent: true
+
+		});
+		return await popover.present();
+	}
+	async openProductMenu(ev: any){
+		const popover = await this.popoverController.create({
+			component: ProductMenuComponent,
 			componentProps:{homeref:this, isLogged:this.isLogged},
 			event:ev,
 			showBackdrop:false,
@@ -110,6 +131,21 @@ export class HeaderComponent implements OnInit {
 		this.popoverController.dismiss();
 
 	}
+	dismissProductMenuPoverer(){
+		this.popoverController.dismiss();
+
+	}
+	displayRoadmap(){
+		if(this.isLogged ===true){
+			window.open('https://trello.com/b/eJa4pS6s/entrepreneur-studio-roadmap', '_blank');
+
+		}
+		else{
+			this.presentLoginPopover()
+		}
+	}
+
+	
 	async displayQuestionModal(){
 		const popover = await this.modalController.create({
 			component: QuestionPage,

@@ -1,0 +1,34 @@
+<ion-content >
+	<div class="header ion-padding" *ngIf="fullSCreen ===true">
+		<ion-item lines="none" class="closeItem">
+			<ion-icon  slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+		</ion-item>
+		<h1>Partager {{tool.name}}</h1>
+	</div>
+	<ion-list class="ion-padding">	
+		<ion-item button   shareButton="facebook" #fbBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="fbBtn.icon" size="lg"></fa-icon>Partager sur Facebook</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="twitter" #tBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="tBtn.icon" size="lg"></fa-icon>Partager sur Twitter</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="linkedin" #linkedinBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="linkedinBtn.icon" size="lg"></fa-icon>Partager sur LinkedIn</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="messenger" #messengerBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="messengerBtn.icon" size="lg"></fa-icon>Partager sur Messenger</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="whatsapp" #whatsappBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="whatsappBtn.icon" size="lg"></fa-icon>Partager sur Whatsapp</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="sms" #smsBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="smsBtn.icon" size="lg"></fa-icon>Partager par SMS</ion-label>
+		</ion-item>
+		<ion-item button   shareButton="email" #emailBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="emailBtn.icon" size="lg"></fa-icon>Partager par Email</ion-label>
+		</ion-item>
+		<ion-item button  lines="none" shareButton="copy" #copyBtn="shareButton" [url]="tool.link" size="small">
+			<ion-label><fa-icon [icon]="copyBtn.icon" size="lg"></fa-icon>Partager par SMS</ion-label>
+		</ion-item>
+	</ion-list>
+</ion-content>

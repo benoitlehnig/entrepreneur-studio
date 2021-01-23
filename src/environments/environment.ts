@@ -14,7 +14,8 @@ export const environment = {
 		appId: "1:937032942519:web:01f5878961c190bc401e32",
 		measurementId: "G-P7LLG3QHCJ"
 	},
-	cookieDomain: "localhost"
+	cookieDomain: "localhost",
+	robotFile: "robots-test.txt"
 };
 
 

@@ -49,7 +49,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     }
   },
   "content": {
-    "href": "https://entrepreneur-studio.web.app/cgu",
+    "href": "https://entrepreneur-studio.com/fr/cgu",
   },
   theme: 'edgeless',
   type: 'opt-out'
@@ -81,7 +81,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   FileUploadModule,
   NgxLinkPreviewModule,
   AngularXTimelineModule,
-
   NgcCookieConsentModule.forRoot(cookieConfig),
   TranslateModule.forRoot({
     loader: {
@@ -100,6 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   { provide: LOCALE_ID, useValue: "fr-FR" },
   TranslatePipe,
   SocialSharing,
+
 
   ],
   bootstrap: [AppComponent]

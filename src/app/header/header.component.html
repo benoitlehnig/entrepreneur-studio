@@ -1,7 +1,7 @@
-<ion-header *ngIf="isLogged === false">
+<ion-header *ngIf="isLogged === false" [ngClass]="{'testSystem' : isTestSystem ===true}">
 	<ion-toolbar>
 		<ion-title class="title">
-			<img  src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/landing-page" >
+			<img  src="assets/images/logo.svg" class="logo ion-margin-end" routerLink="/intl/fr" >
 			<span >{{'LANDINGPAGE.Title' | translate}}
 				<ion-badge class="beta  ion-hide-sm-down" (click)="displayQuestionModal()">Beta</ion-badge>
 			</span>
@@ -10,8 +10,8 @@
 			<ion-button (click)="openSolutionMenu($event)" class="ion-hide-sm-down ion-hide-md-down">
 				{{'LANDINGPAGE.Title1' | translate}}<ion-icon name="chevron-down-outline"></ion-icon>
 			</ion-button>
-			<ion-button (click)="scrollTo('content2')" class=" ion-hide-md-down  ion-hide-lg-down" >
-				{{'LANDINGPAGE.Title2' | translate}}
+			<ion-button (click)="openProductMenu($event)" class=" ion-hide-md-down  ion-hide-lg-down" >
+				{{'LANDINGPAGE.Title2' | translate}}<ion-icon name="chevron-down-outline"></ion-icon>
 			</ion-button>
 			<ion-button  (click)="presentPartnersPopover()"  class="ion-hide-lg-down">
 				{{'LANDINGPAGE.Title3' | translate}}
@@ -30,16 +30,19 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-header [translucent]="true"  *ngIf="isLogged === true">
+<ion-header [translucent]="true"  *ngIf="isLogged === true"  [ngClass]="{'testSystem': isTestSystem ===true}">
 	<ion-toolbar>
 		<ion-buttons slot="start">
 			<ion-menu-button autoHide="true" menu="mainMenu">
 			</ion-menu-button>
 		</ion-buttons>
 		<ion-title class="headerTitle title">
-			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/landing-page" ><span>{{'LANDINGPAGE.Title' | translate}}<ion-badge class="beta  ion-hide-sm-down" (click)="displayQuestionModal()">Beta</ion-badge></span>
+			<img src="assets/images/logo.svg" class="logo ion-margin-end ion-hide-sm-down"  routerLink="/intl/fr" ><span>{{'LANDINGPAGE.Title' | translate}}<ion-badge class="beta  ion-hide-sm-down" (click)="displayQuestionModal()">Beta</ion-badge></span>
 		</ion-title>
 		<ion-buttons slot="secondary" class="secondary">
+			<ion-button  (click)="displayRoadmap()"  class="ion-hide-md-down">
+				<ion-label>{{'LANDINGPAGE.ProductMenuItem2' | translate}}</ion-label>
+			</ion-button>
 			<ion-button  (click)="presentPartnersPopover()"  class="ion-hide-lg-down ion-margin-end">
 				{{'LANDINGPAGE.Title3' | translate}}
 			</ion-button>

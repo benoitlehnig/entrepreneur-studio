@@ -14,16 +14,14 @@
     </ion-title>
     <ion-title  class="headerTitle" *ngIf="accessRights.write === false">
       <div class="menu ion-margin-end">
-        <img  src="assets/images/logo.svg" class="logoES ion-margin-end" routerLink="/landing-page" *ngIf="uid ===null" >
+        <img  src="assets/images/logo.svg" class="logoES ion-margin-end" routerLink="/intl/fr" *ngIf="uid ===null" >
         <span  *ngIf="uid ===null" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
           <ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
         </span> 
       </div>
       <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end"  />
       <ion-icon   slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
-      <div>
-        <ion-text  class="projectName">{{project.summary.name}}</ion-text>
-      </div>
+      <ion-text  class="projectName">{{project.summary.name}}</ion-text>
     </ion-title>
     <ion-buttons slot="primary" *ngIf="project">
      <ion-button  [disabled]="accessRights.write === false" (click)="presentSharingStatusPopover($event)">

@@ -14,7 +14,7 @@
 			</ion-row>
 		</ion-grid>
 	</div>
-	<div class="subContent" >
+	<div class="subContent " ngsReveal >
 		
 		<div >
 			<h1 class="subContentTitle ion-padding ion-text-center headerTitle" >
@@ -52,7 +52,7 @@
 					<ion-col>
 						<div class="parent">
 							<div class="child sub2" >
-								<div class="child sub2"   [routerLink]="['/tools']">
+								<div class="child sub2"   [routerLink]="['/intl/fr/tools']">
 									<ion-button class="actionButton" fill="outline">{{'LANDINGPAGE.Icon2SubTitle' | translate}}
 									</ion-button>
 								</div>
@@ -144,7 +144,7 @@
 						<img src="assets/images/undraw_profile_6l1l.svg">
 					</ion-col>
 					<ion-col  class="ion-padding">
-						<h2>{{'LANDINGPAGE.pictureAndText1Title' | translate}}</h2>
+						<h2><span class="underline">{{'LANDINGPAGE.pictureAndText1Title' | translate}}</span></h2>
 						<p>{{'LANDINGPAGE.pictureAndText1Text' | translate}}</p>
 					</ion-col>
 				</ion-row>
@@ -152,7 +152,7 @@
 			<ion-grid class="pictureAndText">
 				<ion-row>
 					<ion-col class="ion-padding">
-						<h2>{{'LANDINGPAGE.pictureAndText2Title' | translate}}</h2>
+						<h2><span class="underline">{{'LANDINGPAGE.pictureAndText2Title' | translate}}</span></h2>
 						<p>{{'LANDINGPAGE.pictureAndText2Text' | translate}}</p>
 					</ion-col>
 					<ion-col>
@@ -166,7 +166,7 @@
 						<img src="assets/images/undraw_real_time_collaboration_c62i.svg">
 					</ion-col>
 					<ion-col  class="ion-padding">
-						<h2>{{'LANDINGPAGE.pictureAndText3Title' | translate}}</h2>
+						<h2><span class="underline">{{'LANDINGPAGE.pictureAndText3Title' | translate}}</span></h2>
 						<p>{{'LANDINGPAGE.pictureAndText3Text' | translate}}</p>
 					</ion-col>
 				</ion-row>
@@ -174,7 +174,7 @@
 			<ion-grid class="pictureAndText" >
 				<ion-row>
 					<ion-col  class="ion-padding">
-						<h2>{{'LANDINGPAGE.pictureAndText4Title' | translate}}</h2>
+						<h2><span class="underline">{{'LANDINGPAGE.pictureAndText4Title' | translate}}</span></h2>
 						<p>{{'LANDINGPAGE.pictureAndText4Text' | translate}}</p>
 					</ion-col>
 					<ion-col>
@@ -188,21 +188,38 @@
 
 	</div>
 
-	<ion-footer translucent="true">
-		<div class="bottomSection ion-text-center ion-padding" >
-			<a target="blank" href=" https://www.instagram.com/entrepreneur.studio" class="socialNetworkIcon ion-margin">
-				<ion-icon name="logo-instagram"></ion-icon>
-			</a>
-			<a target="blank" href="https://www.linkedin.com/company/entrepreneur-studio" class="socialNetworkIcon ion-margin">
-				<ion-icon name="logo-linkedin"></ion-icon>
-			</a>
-			<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
-				<ion-icon name="logo-facebook"></ion-icon>
-			</a>
+	<ion-footer translucent="false">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<div><h3>{{'LANDINGPAGE.FollowUsTitle' | translate}}</h3></div>
+					<div  class="ion-padding-top">
+						<a target="blank" href=" https://www.instagram.com/entrepreneur.studio" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-instagram"></ion-icon>
+						</a>
+							|
+						<a target="blank" href="https://www.linkedin.com/company/entrepreneur-studio" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-linkedin"></ion-icon>
+						</a>
+							| 
+						<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-facebook"></ion-icon>
+						</a>
+					</div>
+				</ion-col>
+				<ion-col>
+					<div>
+						<h3>{{'LANDINGPAGE.PracticalInformationTitle' | translate}}</h3>
+					</div>
+					<div class="ion-padding-top">
+						<a href="mailto:contact@entrepreneur-studio.com"><ion-text>{{'LANDINGPAGE.contactUs' | translate}}</ion-text></a>
+					</div>
+					<div  class="ion-padding-top">
+						<a [routerLink]="['/cgu']"><ion-text>{{'LANDINGPAGE.CGU' | translate}}</ion-text></a>
+					</div>
+				</ion-col>
 
-			<a href="mailto:contact@entrepreneur-studio.com"><h2>{{'LANDINGPAGE.contactUs' | translate}}</h2></a>
-			<a [routerLink]="['/cgu']"><h2>{{'LANDINGPAGE.CGU' | translate}}</h2></a>
-
-		</div> 		
+			</ion-row>
+		</ion-grid>
 
 	</ion-footer>

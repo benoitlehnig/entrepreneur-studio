@@ -26,3 +26,10 @@ span:after {
 		
 	}
 }
+.testSystem{
+	ion-toolbar{
+		--background:var(--ion-color-light);
+		color:var(--ion-color-light-contrast);
+
+	}
+}

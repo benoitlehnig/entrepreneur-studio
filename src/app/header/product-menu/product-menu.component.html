@@ -1,0 +1,11 @@
+<ion-content>
+	<ion-list>	
+		<ion-item button lines="none" (click)="scrollTo('content2')">
+			<ion-label>{{'LANDINGPAGE.ProductMenuItem1' | translate}}</ion-label>
+		</ion-item>
+		<ion-item button lines="none" [routerLink]="['/intl/fr',{ unknownUser:true}]">
+			<ion-label>{{'LANDINGPAGE.ProductMenuItem2' | translate}}</ion-label>
+		</ion-item>
+		
+	</ion-list>
+</ion-content>

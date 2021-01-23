@@ -34,7 +34,9 @@
                 "glob": "**/*",
                 "input": "node_modules/ionic4-auto-complete/assets/",
                 "output": "./assets/"
-              }
+              },
+              "src/manifest.json",
+              "src/robots.txt"
             ],
             "styles": [
               {
@@ -46,9 +48,9 @@
               }
             ],
             "scripts": [
-            "node_modules/cookieconsent/build/cookieconsent.min.js",
-            "src/assets/trello.js"
-          ]
+              "node_modules/cookieconsent/build/cookieconsent.min.js",
+              "src/assets/trello.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -56,6 +58,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/robots-test.txt",
+                  "with": "src/robots.txt"
                 }
               ],
               "optimization": true,
@@ -108,8 +114,9 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "styles": ["node_modules/cookieconsent/build/cookieconsent.min.css"],
-            "scripts": ["node_modules/cookieconsent/build/cookieconsent.min.js",
-            "src/assets/trello.js"],
+            "scripts": [
+              "node_modules/cookieconsent/build/cookieconsent.min.js",
+              "src/assets/trello.js"],
             "assets": [
               {
                 "glob": "favicon.ico",
@@ -120,7 +127,9 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
-              }
+              },
+              "src/manifest.json",
+              "src/robots.txt"
             ]
           },
           "configurations": {

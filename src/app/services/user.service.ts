@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from '../models/user';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators'
 
 
 @Injectable({
@@ -27,6 +28,24 @@ export class UserService {
 		console.log("setProfile: ", profile,id);
 		return this.afs.doc('users/'+id).update(profile).then(
 			data=>{console.log("setProfile: ",data)});
+	}
+	likeTool(id,tool){
+		console.log("likeTool >> ", id, tool)
+		return this.afs.collection('users/'+ id+'/toolLikes').doc(tool.id).set({like:true});
+
+	}
+	unlikeTool(id,tool){
+		console.log("unlikeTool >> ", id, tool)
+		return this.afs.collection('users/'+ id+'/toolLikes').doc(tool.id).delete();
+	}
+	getLikedTools(id){
+		return this.afs.collection('users/'+id+'/toolLikes').snapshotChanges().pipe(map(actions => {
+			console.log("getLikedTools", actions)
+			return actions.map(a => {
+				return a.payload.doc.id
+			})
+
+		}))
 	}
 
 }
