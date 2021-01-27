@@ -35,10 +35,9 @@ export class LoginComponent implements OnInit {
 	loginWithGoogle(){
 		this.authService.loginWithGoogle().then((data)=>
 		{
-			console.log(data);
 			if(data.user){
-				console.log(" user logged");
-				this.dataSharingServiceService.onBoardingStarted(false);
+				this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
+
 				
 			}
 		});
@@ -46,10 +45,8 @@ export class LoginComponent implements OnInit {
 	loginWithFacebook(){
 		this.authService.loginWithFacebook().then((data)=>
 		{
-			console.log(data);
 			if(data.user){
-				console.log(" user logged");
-				this.dataSharingServiceService.onBoardingStarted(false);
+				this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 				
 			}
 		});
@@ -57,8 +54,7 @@ export class LoginComponent implements OnInit {
 	loginWithEmail(){
 		this.authService.loginWithEmail(this.user.email, this.user.password).then((data)=>
 		{
-			console.log(data);
-			this.dataSharingServiceService.onBoardingStarted(false);
+			this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 			
 		});
 	}
@@ -78,7 +74,7 @@ export class LoginComponent implements OnInit {
 		this.navParams.get('homeref').dismissLoginPopover()
 	}
 	openSignUp(){
-		this.navParams.get('homeref').dismissLoginPopover()
+		this.navParams.get('homeref').dismissLoginPopover();
 
 		this.navParams.get('homeref').presentSignUpPopover()
 	}

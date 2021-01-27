@@ -62,7 +62,7 @@ export class SignUpComponent implements OnInit {
 
 	createUser(data){
 		if(data.user){
-			this.dataSharingServiceService.onBoardingStarted(true);
+			
 			const callable = this.functions.httpsCallable('createUser');
 			if(this.incubator ===true){
 				this.role ="incubator";
@@ -70,6 +70,7 @@ export class SignUpComponent implements OnInit {
 			else{
 				this.role ="entrepreneur";
 			}
+			this.dataSharingServiceService.onBoardingStarted({started:true, role:this.role });
 
 			console.log("data.additionalUserInfo.profile",data.additionalUserInfo.profile)
 			console.log("data.user",data.user)
@@ -77,6 +78,12 @@ export class SignUpComponent implements OnInit {
 			const obs = callable({uid:data.user.uid, profileData:data.additionalUserInfo.profile,email:data.user.email, role:this.role});
 
 			obs.subscribe(res => {
+				if(this.role ==="entrepreneur" ){
+					this.router.navigate(['entrepreneur']);
+				}
+				else if(this.role ==="incubator" ){
+					this.router.navigate(['conseil']);
+				}
 				
 
 			});

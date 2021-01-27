@@ -10,6 +10,8 @@ import { CMSService} from '../../../services/cms.service';
 import { first } from 'rxjs/operators';
 import { PopoverFeedbackComponent } from '../summary/popover-feedback/popover-feedback.component';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 
 import * as moment from 'moment';
@@ -26,21 +28,18 @@ export class TimelinePage implements OnInit {
 		public modalController: ModalController,
 		public platform: Platform,
 		public CMSService:CMSService,
-		private activatedRoute: ActivatedRoute
+		private activatedRoute: ActivatedRoute,
+		public router:Router,
 
 		) { }
 
 
 	public projectId:string="";
 	public accessRights={read: false, write:false};
-
-
 	public timeline;
 	public selectionChange:boolean=false;
-	
 	public selectedTimelineElement = null;
 	public selectedTimelineElementDelivrable = [];
-
 	public selectedTools;
 	public filter={
 		categories : [],
@@ -53,15 +52,18 @@ export class TimelinePage implements OnInit {
 	ngOnInit() {
 
 		console.log("TimelinePage ngOnInit");
-		if(this.activatedRoute.snapshot.paramMap.get('mainOrder')){
-
-			this.mainOrder = Number(this.activatedRoute.snapshot.paramMap.get('mainOrder'));
-			console.log("TimelinePage ngOnInit mainOrder", this.mainOrder );
-		}
+		this.dataSharingServiceService.getCurrentTimelineStepChanges().subscribe(
+			(currentStep)=>{
+				console.log("currentStep", currentStep )
+			}
+			)
 		this.initProject();
-		
 	}
 
+	ionViewWillEnter(){
+		console.log("TimelinePage >> ionOnViewEnter >> ngOnInit", this.router.url)
+
+	}
 
 
 	initProject(){
@@ -82,18 +84,28 @@ export class TimelinePage implements OnInit {
 						});
 						this.timeline = timeline;
 						if(this.selectedTimelineElement===null && this.platform.width() >768){
-							if(this.mainOrder !==-1){
-								console.log("this.mainOrder",this.mainOrder)
-								const index = this.timeline.findIndex(x => Number(x.static.data.mainOrder) === this.mainOrder);
-								if(index <=this.timeline.length){
-									this.elementSelected(JSON.stringify(this.timeline[index+1]));
+							this.dataSharingServiceService.getCurrentTimelineStepChanges().subscribe(
+								(currentStep)=>{
+									console.log("currentStep", currentStep )
+									this.mainOrder = Number(currentStep);
+									if(this.mainOrder !==-1){
+										const index = this.timeline.findIndex(x => Number(x.static.data.mainOrder) === this.mainOrder);
+										if(index <=this.timeline.length){
+											console.log("index",index, this.timeline.length )
+											if(index !==this.timeline.length-1 ){
+												this.elementSelected(JSON.stringify(this.timeline[index+1]));
+											}
+											else{
+												this.elementSelected(JSON.stringify(this.timeline[index]));
+											}
+										}
+									}
+									else{
+										this.elementSelected(JSON.stringify(this.timeline[1]));
+
+									}
 								}
-							}
-							else{
-								this.elementSelected(JSON.stringify(this.timeline[1]));
-
-							}
-
+								)
 						}
 					});
 				}

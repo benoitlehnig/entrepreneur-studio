@@ -47,9 +47,30 @@
 .toolsGridLayout{
 	.toolsContent{
 		min-width:300px;
+		.toolsContentHeaderWrapper{
+			position: sticky;
+			top: 0px;
+			z-index: 3;
+			background-color: #fffcfcbf;
+			.toolsContentHeader{
+				@media(min-width:610px) {
+					width: 100%;
+					max-width: 100%;
+					min-width: 100%;
 
+				}
+			}
+
+		}
+
+		ion-searchbar{
+			@media(max-width:610px) {
+				padding:0px;
+			}
+		}
 
 	}
+
 	.categories{
 		min-width:200px;
 		max-width: 300px;	
@@ -57,14 +78,17 @@
 			width:100%;
 			max-width:100%;
 
+		}
+		.filterWrapper{
+			@media(min-width:610px) {
+				position:fixed;
+				min-width:200px;
+				max-width: 300px;
+			}
 		}		
 	}
 }
-ion-searchbar{
-	@media(max-width:610px) {
-		padding:0px;
-	}
-}
+
 .filter{
 	@media(max-width:610px) {
 		margin-bottom: 	5px;
@@ -86,6 +110,7 @@ ion-searchbar{
 		overflow: 	auto;
 	}
 }
+
 .toolsNumber{
 	padding: 12px;
 	color: var(--ion-color-dark);
@@ -103,6 +128,10 @@ ion-searchbar{
 
 		color: var(--ion-color-dark);
 	}
+}
+.shareButton{
+	position:absolute;	
+	right:3px;
 }
 .gridTools{
 	margin-left: auto;
@@ -163,6 +192,41 @@ ion-searchbar{
 		}
 	}
 }
+.gridToolsListView{
+	.toolCol{
+		--width:100%;
+		min-width:100%;
+	}
+	.toolCard{
+		padding:0px;
+	}
+	.logoWrapper{
+		max-height: 100px;
+		float: left;
+		max-width: 20%;
+		margin: 12px;
+		background-size: contain;
+		background-position-y: top;
+
+	}
+	.description{
+		height:auto;
+	}
+	ion-label{
+		min-height:100px;
+		.likes{
+			font-size:12px !important;
+		}
+	}
+	ion-notes{
+		width:130px;
+		padding-right:20px;
+		border-left: 1px solid var(--ion-color-medium);
+	}
+	.shareButton{
+		position:initial;
+	}
+}
 
 .header{
 	position: fixed;
@@ -213,16 +277,12 @@ ion-searchbar{
 .share{
 	position:fixed;
 	z-index:10;
-	position:absolute;
 	right:40px;
 	top:200px;
 	width:30px;
 }
 
-.shareButton{
-	position:absolute;	
-	right:3px;
-}
+
 ion-fab-button{
 
 	@media(max-width: 800px) {
@@ -254,4 +314,36 @@ ion-fab-button{
 }
 .sharePopoverComponent{
 	--width: auto;
+}
+.toggleViewMode{
+	max-width:84px;
+	.toggleViewModeWrapper{
+		position: relative;
+		top: 14px;
+		border-radius: 4px;
+		padding-bottom: 0px;
+		height: 34px;
+		width: fit-content;
+	}
+	ion-icon{
+		font-size:24px;
+		border-radius: 4px;
+		color:var(--ion-color-medium);
+		padding:3px;
+		cursor: pointer;
+	}
+	ion-icon:hover{
+		background: var(--ion-color-primary-tint);
+		color: var(--ion-color-primary-contrast);
+
+
+	}
+	.first{
+		margin-right:5px;
+
+	}
+	.selected{
+		background:var(--ion-color-primary);
+		color: var(--ion-color-primary-contrast);
+	}
 }

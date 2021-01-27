@@ -16,41 +16,60 @@
 	<ion-grid class="toolsGridLayout">
 		<ion-row>
 			<ion-col class="categories" >
-				<div class="filter ion-margin-bottom toolsNumber ion-text-justify">
-					<span>{{numberofTools}}  {{'TOOLS.ToolsNumberText1' | translate}}</span> {{'TOOLS.ToolsNumberText2' | translate}}
-				</div>
-				<div class="filter ion-margin-bottom">
-					<div class="filterHeader ion-padding" (click)="expandStage()">
-						<ion-text >{{'TOOLS.Stages' | translate}} ({{filter.stages.length}}/{{stages.length}})</ion-text>
-						<ion-icon name="chevron-forward-outline" *ngIf="stageExpanded ===false"></ion-icon>
-						<ion-icon name="chevron-down-outline" *ngIf="stageExpanded ===true"></ion-icon>
+				<div class="filterWrapper">
+					<div class="filter ion-margin-bottom toolsNumber ion-text-justify">
+						<span>{{numberofTools}}  {{'TOOLS.ToolsNumberText1' | translate}}</span> {{'TOOLS.ToolsNumberText2' | translate}}
 					</div>
-					<ion-list *ngIf="stageExpanded ===true" class="filterContent">
-						<ion-item *ngFor="let stage of stages">
-							<ion-label>{{stage.name}}</ion-label>
-							<ion-checkbox slot="start" (ionChange)="selectFilter('stage', stage,$event)"></ion-checkbox>
-						</ion-item>
-					</ion-list>
-				</div>
-				<div class="filter ion-margin-bottom">
-					<div class="filterHeader ion-padding" (click)="expandCategory()">
-						<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{items.length}})</ion-text>
-						<ion-icon name="chevron-forward-outline" *ngIf="categoryExpanded ===false"></ion-icon>
-						<ion-icon name="chevron-down-outline" *ngIf="categoryExpanded ===true"></ion-icon>
+					<div class="filter ion-margin-bottom">
+						<div class="filterHeader ion-padding" (click)="expandStage()">
+							<ion-text >{{'TOOLS.Stages' | translate}} ({{filter.stages.length}}/{{stages.length}})</ion-text>
+							<ion-icon name="chevron-forward-outline" *ngIf="stageExpanded ===false"></ion-icon>
+							<ion-icon name="chevron-down-outline" *ngIf="stageExpanded ===true"></ion-icon>
+						</div>
+						<ion-list *ngIf="stageExpanded ===true" class="filterContent">
+							<ion-item *ngFor="let stage of stages">
+								<ion-label>{{stage.name}}</ion-label>
+								<ion-checkbox slot="start" (ionChange)="selectFilter('stage', stage,$event)"></ion-checkbox>
+							</ion-item>
+						</ion-list>
 					</div>
-					<ion-list *ngIf="categoryExpanded ===true" class="filterContent">
-						<ion-item *ngFor="let category of items">
-							<ion-label>{{category.name}}</ion-label>
-							<ion-checkbox slot="start" (ionChange)="selectFilter('category', category,$event)" ></ion-checkbox>
-						</ion-item>
-					</ion-list>
+					<div class="filter ion-margin-bottom">
+						<div class="filterHeader ion-padding" (click)="expandCategory()">
+							<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{items.length}})</ion-text>
+							<ion-icon name="chevron-forward-outline" *ngIf="categoryExpanded ===false"></ion-icon>
+							<ion-icon name="chevron-down-outline" *ngIf="categoryExpanded ===true"></ion-icon>
+						</div>
+						<ion-list *ngIf="categoryExpanded ===true" class="filterContent">
+							<ion-item *ngFor="let category of items">
+								<ion-label>{{category.name}}</ion-label>
+								<ion-checkbox slot="start" (ionChange)="selectFilter('category', category,$event)" ></ion-checkbox>
+							</ion-item>
+						</ion-list>
+					</div>
 				</div>
 
 			</ion-col>
 			<ion-col class="toolsContent" >
-				<ion-searchbar showCancelButton="focus" [(ngModel)]="filter.productName" (ionChange)="getTools()"  placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} "></ion-searchbar>
+				<div class="toolsContentHeaderWrapper" >
+					<div class="toolsContentHeader">
+						<ion-grid>
+							<ion-row>
+								<ion-col>
+									<ion-searchbar showCancelButton="focus" [(ngModel)]="filter.productName" (ionChange)="getTools()"  placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} "></ion-searchbar>
+								</ion-col>
+								<ion-col class="toggleViewMode ion-hide-md-down" >
+									<div class="toggleViewModeWrapper">
+									<ion-icon name="grid-outline" class="first" (click)="toggleViewMode('grid')" [ngClass]="{'selected': viewMode ==='grid'}"></ion-icon>
+									<ion-icon name="list-outline" (click)="toggleViewMode('list')" [ngClass]="{'selected': viewMode ==='list'}"></ion-icon>
+								</div>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
 
-				
+
+
+					</div>
+				</div>
 				<div class="ion-padding-start">
 					<ion-button class="ion-margin-start" (click)="requestAddTool()">
 						<ion-icon name="add-outline"></ion-icon>
@@ -58,7 +77,7 @@
 						<ion-text class="addTool" class="ion-hide-sm-up" (click)="requestAddTool()">{{'TOOLS.AddToolShort' | translate}} </ion-text>
 					</ion-button>
 				</div>
-				<ion-grid class="gridTools">
+				<ion-grid class="gridTools" [ngClass]="{'gridToolsListView': viewMode ==='list'}">
 					<ion-row *ngIf="loadingOngoing" >
 						<ion-col  *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10]"  size="3" class="toolCol">
 							<ion-card class="tool" >
@@ -88,32 +107,69 @@
 						</ion-col>
 					</ion-row>
 					<ion-row>
-						<ion-col  *ngFor="let tool of tools; let i = index" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
+						<ion-col  *ngFor="let tool of displayedTools; let i = index" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol">
 
-							<ion-card class="tool" >
-								
+							<ion-card class="tool"  (click)="clickTool(tool)" >
 
-								<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
-								</div>
-
+								<a [href]="tool.link" target="_blank"  [ngClass]="{'ion-hide': viewMode ==='list'}">
+									<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+									</div>
+								</a>
 								<ion-card-content class="toolCard">
 
 									<ion-item slot="start"  lines="none">
 
 										<ion-label>
-											<h1>{{tool.name}}</h1>
-											<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
+										<a  [href]="tool.link" target="_blank"  [ngClass]="{'ion-hide': viewMode ==='grid'}">
+											<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+											</div>
+										</a>
+											<h1>{{tool.name}}
+												<span class="likes" [ngClass]="{'ion-hide': viewMode ==='grid'}">
+													<ion-icon name="thumbs-up-outline" > </ion-icon>
+													<span *ngIf="tool.likes !==undefined">{{tool.likes}}</span>
+													<span *ngIf="tool.likes === undefined">0</span>
+												</span>
+											</h1>
+											<p class="ion-text-wrap ion-text-justify description">{{tool.description}}
+											</p>
 											<ion-text class="bold">{{tool.price}}</ion-text>
+											<div class="ion-justify-content-start labels" [ngClass]="{'ion-hide': viewMode ==='grid'}">
+												<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
+													<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+												</div>
+											</div>
 										</ion-label>
+										<ion-notes slot="end"  [ngClass]="{'ion-hide': viewMode ==='grid'}" class="ion-hide-md-down">
+											
+											<div>
+												<ion-button *ngIf="isToolLiked(tool) ===true && isLogged ===true" fill="outline"  (click)="like(i,tool)" class=" likeButtonliked">
+													<ion-icon name="thumbs-up-outline"  class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+												</ion-button>
+											</div>
+											<div>
+												<ion-button *ngIf="isToolLiked(tool) === false && isLogged ===true" fill="none"  (click)="like(i,tool)" class=" notLiked">
+													<ion-icon name="thumbs-up-outline" class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+												</ion-button>
+											</div>
+											<div>
+												<ion-button fill="none" class="shareButton" (click)="openSharePopover($event,tool)" >
+													<ion-icon name="share-social-outline" class="thumbIcon"></ion-icon><span>Partager</span>
+												</ion-button>
+											</div>
+											
+
+
+										</ion-notes>
 									</ion-item>
-									<ion-item>
+									<ion-item  [ngClass]="{'ion-hide': viewMode ==='list'}">
 										<div class="ion-justify-content-start labels">
 											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
 												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
 											</div>
 										</div>
 									</ion-item>
-									<ion-item >
+									<ion-item  [ngClass]="{'ion-hide': viewMode ==='list'}">
 										<ion-label class="likes">
 											<ion-icon name="thumbs-up-outline" > </ion-icon>
 											<span *ngIf="tool.likes !==undefined">{{tool.likes}}</span>
@@ -122,28 +178,34 @@
 										<ion-label >
 											<a [href]="tool.link" target="_blank"><ion-text>{{'TOOLS.LearnMore' | translate }}</ion-text></a> 
 										</ion-label>
-										
+
 									</ion-item>
-									<ion-item lines="none" (click)="clickTool(tool)">
-											<ion-button *ngIf="isToolLiked(tool) ===true && isLogged ===true" fill="outline"  (click)="like(i,tool)" class=" likeButtonliked">
-												<ion-icon name="thumbs-up-outline"  class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
-											</ion-button>
-											<ion-button *ngIf="isToolLiked(tool) === false && isLogged ===true" fill="none"  (click)="like(i,tool)" class=" notLiked">
-												<ion-icon name="thumbs-up-outline" class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
-											</ion-button>
-											<ion-button fill="none" class="shareButton" (click)="openSharePopover($event,tool)" >
-												<ion-icon name="share-social-outline" class="thumbIcon"></ion-icon><span>Partager</span>
-											</ion-button>
-										
+									<ion-item lines="none" [ngClass]="{'ion-hide': (viewMode ==='list' && width >768) }">
+										<ion-button *ngIf="isToolLiked(tool) ===true && isLogged ===true" fill="outline"  (click)="like(i,tool)" class=" likeButtonliked">
+											<ion-icon name="thumbs-up-outline"  class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+										</ion-button>
+										<ion-button *ngIf="isToolLiked(tool) === false && isLogged ===true" fill="none"  (click)="like(i,tool)" class=" notLiked">
+											<ion-icon name="thumbs-up-outline" class="thumbIcon"></ion-icon><span>{{'TOOLS.Like' | translate }}</span>
+										</ion-button>
+										<ion-button fill="none" class="shareButton" (click)="openSharePopover($event,tool)" >
+											<ion-icon name="share-social-outline" class="thumbIcon"></ion-icon><span>Partager</span>
+										</ion-button>
+
 									</ion-item>
 								</ion-card-content>
 							</ion-card>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-			</ion-col>
-		</ion-row>
-	</ion-grid>
+				<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" [disabled]="areToolsAllDisplayed()">
+					<ion-infinite-scroll-content
+					loadingSpinner="bubbles" 
+					loadingText="{{'TOOLS.LoadingModeData' | translate }}">
+				</ion-infinite-scroll-content>
+			</ion-infinite-scroll>
+		</ion-col>
+	</ion-row>
+</ion-grid>
 
 
 </ion-content>

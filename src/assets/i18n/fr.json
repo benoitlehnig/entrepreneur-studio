@@ -422,7 +422,7 @@
 			"23" :"Sondage",
 			"24" :"Marque",
 			"25" :"Nom",
-			"26" :"Developpement",
+			"26" :"Programmation",
 			"27" :"Application",
 			"28" :"Goodies",
 			"29" :"Merchandising",
@@ -463,6 +463,7 @@
 		"AddToolShort":"Ajouter un outil",
 		"Stages": "Etapes",
 		"ToolsNumberText1": "outils",
+		"LoadingModeData": "Chargement d'outils supplementaires",
 		"ToolsNumberText2": "partagés par la communauté Entrepreneur Studio",
 		"Categories": "Catégories"
 	},
@@ -489,6 +490,8 @@
 		"RoadmapText5":" vous connecter ",
 		"RoadmapText6":" ou ",
 		"RoadmapText7":" vous inscrire ",
+		"NotAvailable":"Cette section est en cours de développement. N'hésitez pas à ",
+		"NotAvailableShare":"partager vos attentes ! ",
 		"Send":"Envoyer",
 		"SuccessfullySent":"Feedback envoyés ! Merci encore :)"
 	},

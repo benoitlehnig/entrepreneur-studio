@@ -36,16 +36,17 @@ export class AuthService {
 					result=> {
 						console.log("AuthService >> user,user.uid , result, router",user, user.uid , result,this.router.url,result.claims,this.router.url.indexOf("landing") );
 						this.claims = result.claims;
-						this.userService.getUserDetails(user.uid).subscribe(
+						let userSubscription = this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
 								console.log("AuthService >> this.userService.getUserDetails", data, Date.now())
 								if(data && this.logggedIn){
-									console.log(" AuthService >> this.dataSharingServiceService.currentUid",user.uid,data.email )
+									console.log("AuthService >> this.dataSharingServiceService.currentUid",user.uid,data.email )
 									this.dataSharingServiceService.currentUid({uid: user.uid, email: data.email});
 									this.dataSharingServiceService.currentUser(data);
 									if(data.photoUrl !== user.photoURL){
 										this.updatePhotoUrl(user);
 									}
+									console.log("AuthService >> claims", this.claims)
 									if(this.claims['entrepreneur'] ===true){
 										console.log("AuthService >> result router2",result,this.router.url,result.claims,this.router.url.indexOf("/intl/") );
 										if(this.router.url.indexOf("/intl/") !== -1){
@@ -55,36 +56,52 @@ export class AuthService {
 
 											}
 											else{
+												console.log("AuthService >> navigate entrepreneur");
 												this.router.navigate(['/entrepreneur']);
 											}
 										}				
 									}
 									else if(this.claims['incubator'] ===true){
-										//this.router.navigate(['/incubator']);
+										this.router.navigate(['/conseil']);
+									}
+									else{
+
 									}
 								}
 								else if(!data && this.logggedIn){
-									this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((started) =>{
-										if(started ===true){
-											console.log("AuthService >> AuthService NO USER ONBOARDING STARTED", data, started);
-											this.router.navigate(['/entrepreneur']);
+									this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((onBoarding) =>{
+										if(onBoarding){
+											if(onBoarding.started ===true){
+												if(onBoarding.role === 'entrepreneur'){
+													this.router.navigate(['/entrepreneur']);
+												}
+												if(onBoarding.role === 'incubator'){
+													this.router.navigate(['/conseil']);
+												}
 
+											}
+											else{
+												console.log("AuthService >> AuthService NO USER  ONBOARDING STARTED", data, onBoarding.started);
+												this.dataSharingServiceService.currentUid(null);								
+												this.router.navigate(['/intl/fr',{ unknownUser:true}]); 
+											}
 										}
-										else{
-											console.log("AuthService >> AuthService NO USER  ONBOARDING STARTED", data, started);
-											this.dataSharingServiceService.currentUid(null);								
-											this.router.navigate(['/intl/fr',{ unknownUser:true}]); 
-										}
+										
 									})
 
 								}
+								else{
+									userSubscription.unsubscribe();
+								}
+
 							})
 					})
 			} else {
 				console.log("AuthService >> AuthService, user not logged in auth");
 				console.log("AuthService >> router : ", this.router.url);
 				this.dataSharingServiceService.currentUid(null);
-				this.dataSharingServiceService.onBoardingStarted(false);
+				this.dataSharingServiceService.currentUser(null);
+				this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 
 				this.logggedIn = false;
 				console.log("AuthService >> ",this.router.url.indexOf("entrepreneur")   , this.router.url.indexOf("project") );
@@ -92,7 +109,7 @@ export class AuthService {
 					console.log("AuthService >> navigate cgu");
 					this.router.navigate(['/intl/fr/cgu']);
 				}
-				else if( this.router.url.indexOf("entrepreneur") !== -1){
+				else if( this.router.url.indexOf("entrepreneur") !== -1 || this.router.url.indexOf("conseil")){
 					console.log("AuthService >> navigate landing, unknown true");
 					this.router.navigate(['/intl/fr']); 
 				}

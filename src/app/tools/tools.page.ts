@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild  } from '@angular/core';
 import { CMSService} from '../services/cms.service';
 import { UserService} from '../services/user.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -7,10 +7,12 @@ import {DataSharingServiceService} from '../services/data-sharing-service.servic
 import { ModalController } from '@ionic/angular';
 import { AddToolComponent } from './add-tool/add-tool.component';
 import { LoginComponent } from '../landing-page/login/login.component';
+import { SignUpComponent } from '../landing-page/sign-up/sign-up.component';
 import { Platform } from '@ionic/angular';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { SharePopoverComponent } from './share-popover/share-popover.component';
 import { ActionSheetController } from '@ionic/angular';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 import { PopoverController } from '@ionic/angular';
 
@@ -21,7 +23,8 @@ import { PopoverController } from '@ionic/angular';
 })
 export class ToolsPage implements OnInit {
 
-	public tools;
+	public tools = [];
+	public displayedTools=[];
 	public numberofTools:number=83;
 	public isLogged:boolean=false;
 
@@ -38,7 +41,10 @@ export class ToolsPage implements OnInit {
 	public categoryExpanded:boolean=false;
 	public uid=null;
 	public likedTools=[];
+	public width=0;
+	public viewMode:string='grid';
 
+	@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
 
 	constructor(
@@ -60,9 +66,14 @@ export class ToolsPage implements OnInit {
 	ngOnInit() {
 		console.log("ToolsPage >> ngOnInit");
 		this.getTools();
+		
+		this.width = this.platform.width();
+		console.log("width", this.width)
 		if(this.platform.width() <768){
 			this.side ="start";
+			this.viewMode = 'list';
 		}
+
 		this.translateService.get('TOOLS.CATEGORIES').subscribe(
 			data=>{
 				let arr=[];
@@ -112,17 +123,19 @@ export class ToolsPage implements OnInit {
 			search_categories: JSON.stringify(this.filter.categories), search_stages: JSON.stringify(this.filter.stages)});
 
 		this.loadingOngoing = true;
+		this.displayedTools = [];
 		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
 			data=>{
 				if(data !==null){
 					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
+					this.displayedTools = this.tools.slice(0, 20)
 					this.loadingOngoing = false;
 				}
 			});
 
 	}
 	async presentLoginPopover() {
-
+		this.angularFireAnalytics.logEvent('page_view', {page_path: '/tools/login',  page_title: 'login'});
 		const popover = await this.modalController.create({
 			component: LoginComponent,
 			componentProps:{homeref:this, reason:"ToolAccess"},
@@ -134,6 +147,22 @@ export class ToolsPage implements OnInit {
 	dismissLoginPopover(){
 		this.modalController.dismiss();
 	}
+
+
+	async presentSignUpPopover(){
+		this.angularFireAnalytics.logEvent('page_view', {page_path: '/tools/sign_up',  page_title: 'sign_up'});
+		const popover = await this.modalController.create({
+			component: SignUpComponent,
+			componentProps:{homeref:this, reason:"ToolAccess"},
+			cssClass: 'onboardingPopup',
+			backdropDismiss: true,
+		});
+		return await popover.present();
+	}
+	dismissSignUpPopover(){
+		this.modalController.dismiss();
+	}
+
 
 	async presentAddToolPopover() {
 		this.angularFireAnalytics.logEvent('page_view', {page_path: '/tools',  page_title: 'add_tool'});
@@ -159,7 +188,6 @@ export class ToolsPage implements OnInit {
 	}
 
 	selectFilter(type,filter,event){
-		console.log("selectFilter",type,filter,event )
 		if(type ==='stage'){
 			if(event.detail.checked ===true){
 				this.filter.stages.push(filter.id);
@@ -178,7 +206,6 @@ export class ToolsPage implements OnInit {
 
 			}
 		}
-		console.log("this.filter", this.filter)
 		this.getTools();
 	}
 
@@ -188,20 +215,19 @@ export class ToolsPage implements OnInit {
 	like(index,tool){
 		if(this.isToolLiked(tool) ===false){
 			this.userService.likeTool(this.uid.uid,tool);
-			console.log( "this.tools[index]", this.tools[index]);
-			
+			this.angularFireAnalytics.logEvent('tool_liked',  {name: tool.name});
+
 			if(this.tools[index].likes !== undefined){
 				this.tools[index].likes = Number(this.tools[index].likes) +1;
 			}
 			else{
 				this.tools[index].likes =1;
 			}
-			console.log( "this.tools[index]", this.tools[index]);
-
-
 		}
 		else{
 			this.userService.unlikeTool(this.uid.uid,tool);
+			this.angularFireAnalytics.logEvent('tool_unliked',  {name: tool.name});
+
 			if(this.tools[index].likes !== undefined){
 				this.tools[index].likes = Number(this.tools[index].likes) - 1;
 				if(this.tools[index].likes <0){
@@ -224,8 +250,8 @@ export class ToolsPage implements OnInit {
 	}
 
 	async openSharePopover(ev: any,tool){
+		this.angularFireAnalytics.logEvent('page_view', {page_path: '/tools/share',  page_title: 'share_tool'});
 
-		
 		if(this.platform.width() >768){
 			const popover = await this.popoverController.create({
 				component: SharePopoverComponent,
@@ -247,8 +273,6 @@ export class ToolsPage implements OnInit {
 			});
 			return await popover.present();
 		}
-		
-		
 	}
 
 	dismissOpenSharePopover(){
@@ -256,7 +280,26 @@ export class ToolsPage implements OnInit {
 	}
 	dismissOpenShareModal(){
 		this.modalController.dismiss();
+	}
+	areToolsAllDisplayed(){
+		return (this.displayedTools.length === this.tools.length);
+	}
+	loadData(event){
+		setTimeout(() => {
+			if(this.displayedTools.length <= this.tools.length){
+				event.target.disabled = false;
+				this.displayedTools = this.tools.splice(0,this.displayedTools.length+20);
+				event.target.complete();
+			}
+			else{
+				event.target.disabled = true;
+			}
+			
+		}, 500);
+	}
 
-
+	toggleViewMode(viewMode){
+		this.angularFireAnalytics.logEvent('tool_view_swapped',  {viewMode: viewMode});
+		this.viewMode = viewMode;
 	}
 }

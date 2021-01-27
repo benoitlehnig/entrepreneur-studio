@@ -11,11 +11,13 @@ export class DataSharingServiceService {
 	private uidDataSource = new BehaviorSubject(null);
 	private userDataSource = new BehaviorSubject(null);
 	private userOnBoardingStarted = new BehaviorSubject(null);
+	private currentTimelineStepSource = new BehaviorSubject(null);
 
 	private projectChanges = this.projectDataSource.asObservable();
 	private uidChanges = this.uidDataSource.asObservable();
 	private userChanges = this.userDataSource.asObservable();
 	private userOnBoardingChanges = this.userOnBoardingStarted.asObservable();
+	private currentTimelineStepChanges = this.currentTimelineStepSource.asObservable();
 
 	constructor() { }
 
@@ -44,6 +46,12 @@ export class DataSharingServiceService {
 	}
 	getUserOnBoardingChanges(){
 		return this.userOnBoardingChanges;
+	}
+	currentTimelineStep(value){
+		this.currentTimelineStepSource.next(value);
+	}
+	getCurrentTimelineStepChanges(){
+		return this.currentTimelineStepChanges;
 	}
 
 

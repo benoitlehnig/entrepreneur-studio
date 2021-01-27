@@ -8,6 +8,8 @@ import { map, switchMap } from 'rxjs/operators'
 })
 export class CMSService {
 
+	public tools;
+
 	constructor(private afs: AngularFirestore) {
 
 	}
@@ -26,69 +28,75 @@ export class CMSService {
 		console.log("retrieveToolsContent >>", filter);
 		return this.afs.collection<any>("tools").snapshotChanges().pipe(map(actions => {
 			return actions.map(a => {
-				let filterPositive = false;
 				let data = a.payload.doc.data();
-				let arr = [];  
-				if(data.labels){
-					Object.keys(data.labels).map(function(key){  
-						arr.push({'label':data.labels[key]})  
-						return arr;  
-					}); 
-				}
-				let arrStage = [];  
-				if(data.stages){
-					Object.keys(data.stages).map(function(key){  
-
-						arrStage.push({'label':data.stages[key]})  
-						return arrStage;  
-					}); 
-				}
-				//filter on lavels
-
-				data.labels=arr;
 				const id = a.payload.doc.id;
-
-				let matchedCategories = true;
-				if(filter.categories.length>0){
-					matchedCategories = false;
-					for(let i=0; i< filter.categories.length;i++){
-						if(arr.find(x => x.label == filter.categories[i]) !== undefined){
-							matchedCategories = true;
-							break;
-						}
-					}
-				}
-
-				let matchedStages = true;
-				if(filter.stages.length>0){
-					matchedStages = false;
-					for(let i=0; i< filter.stages.length;i++){
-						console.log("filter.stages", filter.stages[i])
-						if(arrStage.find(x => x.label == filter.stages[i]) !== undefined){
-							matchedStages = true;
-							break;
-						}
-					}
-				}
-				let matchedProductName = true;
-				if(filter.productName !==""){
-					matchedProductName = false;
-					if(data.name.toLowerCase().startsWith(filter.productName.toLowerCase())){
-						matchedProductName = true;
-					}
-
-				}
-				data.filtered = !(matchedCategories && matchedStages && matchedProductName);
-				
-				return { id, ...data };
+				return { id, ...this.filterTool(data,filter) };
 				
 			});
 		})
 		).pipe(
 		map(tools => {
+			
 			return  tools.filter(tool => tool.filtered === false);
 		})
 		)
+	}
+
+	filterTool(data, filter){
+		let filterPositive = false;
+		let arr = [];  
+		if(data.labels){
+			Object.keys(data.labels).map(function(key){  
+				arr.push({'label':data.labels[key]})  
+				return arr;  
+			}); 
+		}
+		let arrStage = [];  
+		if(data.stages){
+			Object.keys(data.stages).map(function(key){  
+
+				arrStage.push({'label':data.stages[key]})  
+				return arrStage;  
+			}); 
+		}
+		//filter on lavels
+
+		data.labels=arr;
+
+		let matchedCategories = true;
+		if(filter.categories.length>0){
+			matchedCategories = false;
+			for(let i=0; i< filter.categories.length;i++){
+				if(arr.find(x => x.label == filter.categories[i]) !== undefined){
+					matchedCategories = true;
+					break;
+				}
+			}
+		}
+
+		let matchedStages = true;
+		if(filter.stages.length>0){
+			matchedStages = false;
+			for(let i=0; i< filter.stages.length;i++){
+				console.log("filter.stages", filter.stages[i])
+				if(arrStage.find(x => x.label == filter.stages[i]) !== undefined){
+					matchedStages = true;
+					break;
+				}
+			}
+		}
+		let matchedProductName = true;
+		if(filter.productName !==""){
+			matchedProductName = false;
+			if(data.name.toLowerCase().startsWith(filter.productName.toLowerCase())){
+				matchedProductName = true;
+			}
+
+		}
+		data.filtered = !(matchedCategories && matchedStages && matchedProductName);
+
+		return data;
+
 	}
 	getCGU(){
 		const cguCollection = this.afs.collection<any>('CGU');

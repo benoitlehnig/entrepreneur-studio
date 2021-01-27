@@ -18,7 +18,7 @@
  import { Subscription }   from 'rxjs';
  import { ModalController } from '@ionic/angular';
  import {QuestionPage} from './question/question.page'
- import { AngularFireAnalytics } from '@angular/fire/analytics';
+ import { AngularFireAnalytics,CONFIG  } from '@angular/fire/analytics';
 
 
  @Component({
@@ -79,20 +79,28 @@
      private modalController: ModalController,
      private ccService: NgcCookieConsentService,
      public angularFireAnalytics:AngularFireAnalytics,
- 
+
      ) {
      this.initializeApp();
    }
 
    initializeApp() {
      console.log("AppComponent >> initializeApp ");
+     if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
+       const DEBUG_MODE_KEY = 'debug_mode';
+
+       this.angularFireAnalytics.updateConfig({debug_mode : true} );
+       this.angularFireAnalytics.updateConfig({DEBUG_MODE : true} );
+      
+     }
+
      this.platform.ready().then(() => {
        this.translate.setDefaultLang('fr');
        this.statusBar.styleDefault();
        this.initCookiePopup();
        this.splashScreen.hide();
 
-      
+
        
      });
 
@@ -134,9 +142,7 @@
            this.isUserLogged = false;
          }
        });
-     if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
-       this.angularFireAnalytics.logEvent('session_start', {'debug_mode':true})
-     }
+
 
 
 

@@ -1,8 +1,34 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { NgModule, } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes, } from '@angular/router';
+import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo,customClaims } from '@angular/fire/auth-guard';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['intl/fr']);
+const redirectConseilUnauthorized = () => pipe(customClaims, map(claims => claims.conseil === true ? true : ['intl/fr'] ));
+
+const isConseil = (next) =>  pipe(customClaims, map(claims => 
+{
+  if(claims.inbucator === true){
+    return true;
+  }
+  else{
+    redirectUnauthorizedTo(['intl/fr']);
+    return false;
+  }
+})
+);
+
+const isEntrepreneur= (next) =>  pipe(customClaims, map(claims =>{
+  console.log("isEntrepreneur" , claims);
+  if(claims.entrepreneur === true){
+    return  true;
+  }
+  else{
+    return  false ;
+  }
+})
+);
 
 const routes: Routes = [
 {
@@ -17,12 +43,13 @@ const routes: Routes = [
 {
   path: 'entrepreneur',
   loadChildren: () => import('./entrepreneur/entrepreneur.module').then( m => m.EntrepreneurPageModule),
-  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+  canActivate: [AngularFireAuthGuard] 
 
 },
 {
-  path: 'incubator',
-  loadChildren: () => import('./incubator/incubator.module').then( m => m.IncubatorPageModule)
+  path: 'conseil',
+  loadChildren: () => import('./conseil/conseil.module').then( m => m.ConseilPageModule),
+  canActivate: [AngularFireAuthGuard]
 },
 {
   path: 'project/:id',

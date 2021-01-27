@@ -14,7 +14,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 import * as moment from 'moment';
 
-import { first } from 'rxjs/operators';
+import { first,takeWhile} from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 
 @Component({
 	selector: 'app-entrepreneur',
@@ -31,6 +33,10 @@ export class EntrepreneurPage implements OnInit {
 	public deletePopupSubTitle:string="";
 	public deletePopupCancelButton:string="";
 	public deletePopupOKButton:string="";
+
+	public dataSharingUserChangesSub: Subscription = new Subscription();
+	public projectsDetailsbyUidSub: Subscription = new Subscription();
+
 
 	constructor(
 		public functions:AngularFireFunctions,
@@ -55,15 +61,15 @@ export class EntrepreneurPage implements OnInit {
 					this.userIds =userIds;
 				}
 			});
-		this.dataSharingServiceService.getUserChanges().subscribe(
+		this.dataSharingUserChangesSub = this.dataSharingServiceService.getUserChanges().subscribe(
 			user=>{
 				if(user){
 					
 					console.log("EntrepreneurPage ngOnInit user ",user  );
-					this.projectService.getProjectsDetailsbyUid(this.userIds.uid).subscribe(
+					this.projectsDetailsbyUidSub = this.projectService.getProjectsDetailsbyUid(this.userIds.uid).subscribe(
 						(data)=>{
 							if(data){
-								console.log("getProjectsDetailsbyUid data", data)
+								console.log("EntrepreneurPage >> getProjectsDetailsbyUid data", data)
 								this.projects = data;
 
 								this.projects = this.projects.sort((a, b) => {
@@ -73,13 +79,21 @@ export class EntrepreneurPage implements OnInit {
 
 							}
 						});
-					this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((started) =>{
-						console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges ",user, started );
-						if(started ===true || (user.onBoardingDone ===false || user.onBoardingDone === undefined)){
-							console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges >> presentOnboardingPopover",user, started );
-							this.presentOnboardingPopover(0);
+					this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((onBoarding) =>{
+						console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges ",user, onBoarding );
+						if(onBoarding){
+							if(onBoarding.started ===true || (user.onBoardingDone ===false || user.onBoardingDone === undefined)){
+								console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges >> presentOnboardingPopover",user, onBoarding );
+								this.presentOnboardingPopover(0);
+							}
 						}
+						
 					});
+				}
+				else{
+					this.dataSharingUserChangesSub.unsubscribe();
+					this.projectsDetailsbyUidSub.unsubscribe();
+					
 				}
 			});
 		this.initDeleteProject();
@@ -172,6 +186,8 @@ export class EntrepreneurPage implements OnInit {
 	}
 	ngOnDestroy() {
 		this.destroyed = true;
+		this.dataSharingUserChangesSub.unsubscribe();
+		this.projectsDetailsbyUidSub.unsubscribe();
 		console.log("ngOnDestroy InDashBoard");
 	}
 

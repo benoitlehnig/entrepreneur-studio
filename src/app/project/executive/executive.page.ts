@@ -4,11 +4,9 @@ import {DataSharingServiceService} from '../../services/data-sharing-service.ser
 import { ModalController } from '@ionic/angular';
 import { PopoverProjectSummaryComponent } from './summary/popover-project-summary/popover-project-summary.component';
 import { PopoverFeedbackComponent } from './summary/popover-feedback/popover-feedback.component';
-
 import {ProjectService} from '../../services/project.service';
-
-
-
+import { Subscription } from 'rxjs';
+		
 
 @Component({
 	selector: 'app-executive',
@@ -23,6 +21,10 @@ export class ExecutivePage implements OnInit {
 	public resources=[];
 	public accessRights={read: false, write:false};
 
+	public projectChangesSub: Subscription = new Subscription();
+	public projectTeamMembersSub: Subscription = new Subscription();
+	public resourcesSub: Subscription = new Subscription();
+
 
 	constructor(
 		private dataSharingServiceService : DataSharingServiceService,
@@ -32,31 +34,34 @@ export class ExecutivePage implements OnInit {
 		) { }
 
 	ngOnInit() {
-		console.log("ExecutivePage >> ngOnInit")
 		this.initProject()
 	}
 
+	ionViewWillEnter(){
+		
+	}
+	ngOnDestroy() {
+		this.projectChangesSub.unsubscribe();
+		this.projectTeamMembersSub.unsubscribe();
+		this.resourcesSub.unsubscribe();
+
+	}
+
 	initProject(){
-		this.dataSharingServiceService.getProjectChanges().subscribe(
+		this.projectChangesSub = this.dataSharingServiceService.getProjectChanges().subscribe(
 			(data)=>{
 				if(data !==null){
 					this.project= data.data;
 					this.projectId	= data.id;
 					this.accessRights = data.accessRights;
-					console.log("ExecutivePage >> initProject this.project", this.project)
-
-					this.projectService.getProjectTeamMembers(this.projectId).subscribe(
+					this.projectTeamMembersSub = this.projectService.getProjectTeamMembers(this.projectId).subscribe(
 						teamMembers =>{
-							console.log("teamMembers ::", teamMembers)
 							this.teamMembers = teamMembers;
 						})
-					this.projectService.getResources(this.projectId).subscribe(
+					this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
 						resources=>{
-							console.log("ExecutivePage >> initProject getResources", resources)
 							this.resources = resources;
 						})
-					
-
 				}
 			})
 

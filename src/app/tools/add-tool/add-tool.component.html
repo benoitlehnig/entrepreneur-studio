@@ -14,35 +14,46 @@
 		</ion-item>
 		<ion-item>
 			<ion-label color="primary" position="floating">{{'ADDTOOL.Description' | translate}}</ion-label>
-			<ion-input [(ngModel)] ="tool.description"  ></ion-input>
+			<ion-textarea [(ngModel)] ="tool.description"  rows="3"></ion-textarea>
 		</ion-item>
 		<ion-item>
 			<ion-label color="primary" position="floating">{{'ADDTOOL.Link' | translate}}</ion-label>
 			<ion-input [(ngModel)] ="tool.link"  ></ion-input>
 		</ion-item>
-		
-			<ng-select multiple="true" 
-			class="ion-margin ngselect"
-			[items]="categories"
-			bindLabel="name"
-			bindValue="id"
-			placeholder="Categories" 
+		<div class="filter ion-margin-bottom">
+			<div class="filterHeader ion-padding" >
+				<ion-text >{{'TOOLS.Stages' | translate}} ({{stages.length}})</ion-text>
+			</div>
+			<ion-list  class="filterContent">
+				<ion-item *ngFor="let stage of stages">
+					<ion-label>{{stage.name}}</ion-label>
+					<ion-checkbox slot="start" (ionChange)="selectFilter('stage', stage,$event)"></ion-checkbox>
+				</ion-item>
+			</ion-list>
+		</div>
+		<div class="filter ion-margin-bottom">
+			<div class="filterHeader ion-padding">
+				<ion-text >{{'TOOLS.Categories' | translate}}  ({{categories.length}})</ion-text>
 
-			[(ngModel)]="tool.categories"
-			 ></ng-select>
-	
-			<ng-select multiple="true" 
-			class="ion-margin ngselect"
-			[items]="stages"
-			bindLabel="name"
-			bindValue="id"
-			placeholder="Phase" 
+			</div>
+			<ion-list  class="filterContent">
+				<ion-grid>
+					<ion-row>
+						<ion-col *ngFor="let category of categories">
+						<ion-item lines="none">
+							<ion-label class="ion-text-wrap">{{category.name}}</ion-label>
+							<ion-checkbox slot="start" (ionChange)="selectFilter('category', category,$event)" ></ion-checkbox>
+						</ion-item>
+					</ion-col>
 
-			[(ngModel)]="tool.stages"
-			>
-		</ng-select>
-	<div class="ion-margin-top ion-margin-bottom ion-text-center">
-		<ion-button color="primary" (click)="send()">{{'ADDTOOL.Send' | translate}}</ion-button>
+				</ion-row>
+			</ion-grid>
+
+		</ion-list>
 	</div>
+
+<div class="ion-margin-top ion-margin-bottom ion-text-center">
+	<ion-button color="primary" (click)="send()">{{'ADDTOOL.Send' | translate}}</ion-button>
+</div>
 </div>
 </ion-content>

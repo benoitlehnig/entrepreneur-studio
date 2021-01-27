@@ -7,7 +7,7 @@
 					<ion-col *ngFor="let timelineStatElement of timelineStat; let last = last;" class="ion-margin ion-padding" [ngClass]="{'done': timelineStatElement.status === 'done',
 						'ongoing': timelineStatElement.status === 'ongoing',
 						'todo': timelineStatElement.status === 'todo'}" 
-						 [routerLink]="['/project/'+projectId+ '/details/executive/tabs/timeline', {mainOrder:timelineStatElement.mainOrder}] ">
+						(click)="timelineClicked(timelineStatElement)">
 						<ion-icon [name]="timelineStatElement.icon" ></ion-icon>
 						<ion-badge>{{timelineStatElement.completedElements}}/{{timelineStatElement.totalElements}} </ion-badge>
 						<h1>{{timelineStatElement.title}}</h1>

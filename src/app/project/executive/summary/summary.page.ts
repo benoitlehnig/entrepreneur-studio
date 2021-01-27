@@ -7,8 +7,11 @@ import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popove
 import { PopoverSocialNetworkComponent } from './popover-social-network/popover-social-network.component';
 import * as moment from 'moment';
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
-		
+
+
+
 
 
 @Component({
@@ -39,7 +42,7 @@ export class SummaryPage implements OnInit {
 		public projectService:ProjectService,
 		public modalController: ModalController,
 		public platform: Platform,
-
+		public router:Router,
 		) { 
 		
 	}
@@ -179,6 +182,11 @@ export class SummaryPage implements OnInit {
 
 	dismiss(){
 		this.modalController.dismiss();
+	}
+
+	timelineClicked(timelineStatElement){
+		this.router.navigate(['/project/'+this.projectId+ '/details/executive/tabs/timeline']);
+		this.dataSharingServiceService.currentTimelineStep(timelineStatElement.mainOrder);
 	}
 
 

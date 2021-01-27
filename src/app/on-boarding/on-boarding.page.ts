@@ -206,7 +206,7 @@ export class OnBoardingPage implements OnInit {
 	async startNewProject(){
 
 		this.userService.setOnboardingDone(this.userIds.uid);
-		this.dataSharingServiceService.onBoardingStarted(false);
+		this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 		this.navParams.get('homeref').startNewProjectOnBoarding(this.project, this.teamMembers);
 
 	}
@@ -218,7 +218,7 @@ export class OnBoardingPage implements OnInit {
 	}
 
 	dismiss(){
-		this.dataSharingServiceService.onBoardingStarted(false);
+		this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 		this.navParams.get('homeref').dismiss()
 	}
 
