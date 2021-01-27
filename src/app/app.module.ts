@@ -21,7 +21,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService  } from '@angular/fire/analytics';
+import { AngularFireAnalyticsModule,ScreenTrackingService,UserTrackingService,DEBUG_MODE  } from '@angular/fire/analytics';
 
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -62,6 +62,14 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+export function debugmode(){
+  if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
+      return true;
+     }
+     else{
+       return false;
+     }
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -97,6 +105,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   UserTrackingService,
   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   { provide: LOCALE_ID, useValue: "fr-FR" },
+  {provide: DEBUG_MODE, useValue: debugmode()},
   TranslatePipe,
   SocialSharing,
 

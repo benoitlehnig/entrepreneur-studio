@@ -86,14 +86,7 @@
 
    initializeApp() {
      console.log("AppComponent >> initializeApp ");
-     if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
-       const DEBUG_MODE_KEY = 'debug_mode';
-
-       this.angularFireAnalytics.updateConfig({debug_mode : true} );
-       this.angularFireAnalytics.updateConfig({DEBUG_MODE : true} );
-      
-     }
-
+     
      this.platform.ready().then(() => {
        this.translate.setDefaultLang('fr');
        this.statusBar.styleDefault();
