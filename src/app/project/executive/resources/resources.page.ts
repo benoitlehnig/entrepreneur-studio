@@ -8,6 +8,10 @@ import { first } from 'rxjs/operators';
 import {ProjectService} from '../../../services/project.service';
 import { ModalController } from '@ionic/angular';
 import {ResourcePopoverComponent} from './resource-popover/resource-popover.component'
+import { ToastController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
 	selector: 'app-resources',
@@ -26,6 +30,8 @@ export class ResourcesPage implements OnInit {
 		public dataSharingServiceService: DataSharingServiceService,
 		public projectService: ProjectService,
 		public modalController: ModalController,
+		public toastController: ToastController,
+		private activatedRoute: ActivatedRoute,
 
 
 		) { }
@@ -37,7 +43,17 @@ export class ResourcesPage implements OnInit {
 	
 
 	ngOnInit() {
-		this.initResources()
+		this.initResources();
+		this.activatedRoute.queryParams.subscribe( 
+			params =>{
+				console.log("ProjectPage ngOnInit queryParams," , params);
+				if(params['installApp']){
+					this.successfullAppInstall(params['installApp']);
+
+				}
+			});
+
+
 	}
 
 
@@ -133,9 +149,23 @@ export class ResourcesPage implements OnInit {
 		const popover = await this.modalController.create({
 			component: ResourcePopoverComponent,
 			cssClass: 'popover',
-			componentProps: {homeref:this, resource:resource},
+			componentProps: {homeref:this, resource:resource, projectId:this.projectId},
 
 		});
 		return await popover.present();
 	}
+	successfullAppInstall(app){
+		this.presentToastAppInstalled(app);
+	}
+
+	async presentToastAppInstalled(app) {
+		const toast = await this.toastController.create({
+			message: app+' has been well installed',
+			duration: 2000,
+			position: 'top' 
+		});
+		toast.present();
+	}
+
+
 }

@@ -66,7 +66,7 @@ export class SummaryPage implements OnInit {
 					this.projectId	= data.id
 					this.accessRights = data.accessRights;
 					if(data.data !==null){
-						console.log("initProject dataSharingServiceService", data);
+						console.log("SummaryPage initProject dataSharingServiceService", data);
 						this.project= data.data;
 						if(this.project.theme){
 							this.backgroundPicture = this.project.theme.backgroundPictureUrl;

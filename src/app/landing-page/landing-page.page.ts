@@ -28,7 +28,7 @@ export class LandingPagePage implements OnInit {
 	ngOnInit() {
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
-				if(uid ===null){
+				if(uid ===null || uid===-1){
 					this.isLogged = false
 				}
 				else{

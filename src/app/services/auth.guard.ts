@@ -32,10 +32,12 @@ export class AuthGuard implements CanActivate {
 						return true
 					}
 					else {
+						console.log("canActivate", )
 						this.router.navigate(['/fr/intl'])
 						return true
 					}
 				} else {
+					console.log("canActivate", )
 					this.router.navigate(['/fr/intl'])
 					return false
 				}

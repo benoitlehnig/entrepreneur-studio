@@ -18,6 +18,7 @@ import { first,takeWhile} from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 
+
 @Component({
 	selector: 'app-entrepreneur',
 	templateUrl: './entrepreneur.page.html',
@@ -34,6 +35,7 @@ export class EntrepreneurPage implements OnInit {
 	public deletePopupCancelButton:string="";
 	public deletePopupOKButton:string="";
 
+	public uidChangesSub: Subscription = new Subscription();
 	public dataSharingUserChangesSub: Subscription = new Subscription();
 	public projectsDetailsbyUidSub: Subscription = new Subscription();
 
@@ -54,9 +56,9 @@ export class EntrepreneurPage implements OnInit {
 	ngOnInit() {
 		console.log("EntrepreneurPage >> ngOnInit " );
 
-		this.dataSharingServiceService.getUidChanges().subscribe(
+		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			userIds=>{
-				if(userIds){
+				if(userIds !==-1 && userIds !==null){
 					console.log("EntrepreneurPage ngOnInit this.userIds", userIds);
 					this.userIds =userIds;
 				}
@@ -186,6 +188,7 @@ export class EntrepreneurPage implements OnInit {
 	}
 	ngOnDestroy() {
 		this.destroyed = true;
+		this.uidChangesSub.unsubscribe();
 		this.dataSharingUserChangesSub.unsubscribe();
 		this.projectsDetailsbyUidSub.unsubscribe();
 		console.log("ngOnDestroy InDashBoard");

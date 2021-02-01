@@ -55,6 +55,10 @@ export class AuthService {
 												//this.router.navigate(['/intl/fr/tools']);
 
 											}
+											else if(this.router.url.indexOf("/project/") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
 											else{
 												console.log("AuthService >> navigate entrepreneur");
 												this.router.navigate(['/entrepreneur']);
@@ -86,9 +90,7 @@ export class AuthService {
 												this.router.navigate(['/intl/fr',{ unknownUser:true}]); 
 											}
 										}
-										
 									})
-
 								}
 								else{
 									userSubscription.unsubscribe();
@@ -99,7 +101,7 @@ export class AuthService {
 			} else {
 				console.log("AuthService >> AuthService, user not logged in auth");
 				console.log("AuthService >> router : ", this.router.url);
-				this.dataSharingServiceService.currentUid(null);
+				this.dataSharingServiceService.currentUid(-1);
 				this.dataSharingServiceService.currentUser(null);
 				this.dataSharingServiceService.onBoardingStarted({started:false, role:null});
 
@@ -109,7 +111,7 @@ export class AuthService {
 					console.log("AuthService >> navigate cgu");
 					this.router.navigate(['/intl/fr/cgu']);
 				}
-				else if( this.router.url.indexOf("entrepreneur") !== -1 || this.router.url.indexOf("conseil")){
+				else if( this.router.url.indexOf("entrepreneur") !== -1 || this.router.url.indexOf("conseil")!== -1){
 					console.log("AuthService >> navigate landing, unknown true");
 					this.router.navigate(['/intl/fr']); 
 				}

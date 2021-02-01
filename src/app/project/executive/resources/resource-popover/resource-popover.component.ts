@@ -15,6 +15,7 @@ import { IonSlides } from '@ionic/angular';
 export class ResourcePopoverComponent implements OnInit {
 
 	@Input("homeref") value;
+	@Input("projectId") projectId;
 	@ViewChild('slides') slides: IonSlides;
 	@Input() resource;
 
@@ -27,7 +28,9 @@ export class ResourcePopoverComponent implements OnInit {
 		source:"",
 		title: "",
 		imgUrl: "",
-		link: ""
+		link: "",
+		labels:"",
+		installationSteps:"",
 	}
 	public filter={
 		categories : [],
@@ -48,6 +51,8 @@ export class ResourcePopoverComponent implements OnInit {
 
 	public selectedButton:string="application";
 
+	public slackButtonHref= "https://slack.com/oauth/v2/authorize?client_id=1226163065714.1534441424722&scope=incoming-webhook,commands&redirect_uri=https://us-central1-entrepeneur-studio.cloudfunctions.net/slackOauthRedirect&state="
+
 	constructor(
 		public navParams: NavParams,
 		public CMSService:CMSService,
@@ -66,6 +71,9 @@ export class ResourcePopoverComponent implements OnInit {
 				}
 
 			})
+
+		this.slackButtonHref = this.slackButtonHref+ this.projectId+"&user_scope="
+
 
 	}
 	updateList(){
@@ -109,14 +117,14 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 
 	updateResource(){
-		this.resource.CMSId = this.selectedApplication.id;
-		this.resource.name = this.selectedApplication.name;
-		this.resource.source =  "EntrepreneurStudio";
-		this.resource.title  = this.selectedApplication.name;
-		this.resource.pictureUrl  =  this.selectedApplication.imgUrl;
+			this.resource.CMSId = this.selectedApplication.id;
+			this.resource.name = this.selectedApplication.name;
+			this.resource.source =  "EntrepreneurStudio";
+			this.resource.title  = this.selectedApplication.name;
+			this.resource.pictureUrl  =  this.selectedApplication.imgUrl;
 
-	
-			this.resource.url  =  this.checkURL(this.selectedApplicationUrl);
+
+		this.resource.url  =  this.checkURL(this.selectedApplicationUrl);
 		let requestedResource ={id: this.resource.id, data:this.resource}
 		this.navParams.get('homeref').updateResource(requestedResource);
 		this.dismiss();
@@ -140,6 +148,11 @@ export class ResourcePopoverComponent implements OnInit {
 		if(this.selectedButton ==='link'){
 			this.selectApplication('other');
 		}
+	}
+
+	addApplicationSlack(){
+		
+
 	}
 
 	

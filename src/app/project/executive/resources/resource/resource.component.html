@@ -1,17 +1,33 @@
-<ion-item  *ngIf="resource.data" (mouseover)="isMouseOvered=true" (mouseout)="isMouseOvered=false" >
-	<ion-avatar slot="start" *ngIf="inEdition ===false">
-		<img *ngIf="resource.data.pictureUrl" [src]="resource.data.pictureUrl" class="logo"/>
-		<ion-icon color="primary" class="noPicture" name="square-outline" *ngIf="!resource.data.pictureUrl || resource.data.pictureUrl ===''"></ion-icon>
-	</ion-avatar>
-	<ion-label  >
-		<div *ngIf="inEdition ===false && resource.id!==null" >
+<ion-card *ngIf="resource.data" (mouseover)="isMouseOvered=true" (mouseout)="isMouseOvered=false" >
+	<ion-card-content class="ion-text-center ">
+		<div>
 			<a   [href]="resource.data.url" target="blank" >
-				{{resource.data.url}} <ion-icon *ngIf="isMouseOvered===true" name="log-out-outline" class="linkIcon" ></ion-icon>
+				<img class="logo" [src]="resource.data.pictureUrl"  *ngIf="resource.data.pictureUrl && resource.data.pictureUrl !==''"/>
 			</a>
 		</div>
-	</ion-label>
-	<ion-note color="primary"  slot="end">
-		<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()" *ngIf="accessRights.write === true"></ion-icon>
-	</ion-note>
 
-</ion-item>
+		<div class="noPictureWrapper" *ngIf="!resource.data.pictureUrl || resource.data.pictureUrl ===''">
+			<a   [href]="resource.data.url" target="blank" >
+				<ion-icon color="primary" class="noPicture" name="open-outline"></ion-icon>
+			</a>
+		</div>
+		<a   [href]="resource.data.url" target="blank" >
+			{{resource.data.url}}
+		</a>
+
+	</ion-card-content>
+
+	<div class="cardfooter ion-padding-start">
+		<ion-item  lines="none">
+			<ion-label slot="start"  *ngIf="resource.data.name ==='Slack'">
+				<ion-icon name="checkmark-outline" color="success"></ion-icon>
+				Installee
+			</ion-label>
+			<ion-note slot="end">
+				<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()" *ngIf="accessRights.write === true"></ion-icon>
+			</ion-note>
+		</ion-item>
+	</div>
+</ion-card>
+
+

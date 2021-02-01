@@ -14,8 +14,8 @@
     </ion-title>
     <ion-title  class="headerTitle" *ngIf="accessRights.write === false">
       <div class="menu ion-margin-end">
-        <img  src="assets/images/logo.svg" class="logoES ion-margin-end" routerLink="/intl/fr" *ngIf="uid ===null" >
-        <span  *ngIf="uid ===null" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
+        <img  src="assets/images/logo.svg" class="logoES ion-margin-end" routerLink="/intl/fr" *ngIf="uid ===null || uid ===-1" [routerLink]="['/intl/fr']">
+        <span  *ngIf="uid ===null ||  uid ===-1" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
           <ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
         </span> 
       </div>
@@ -32,7 +32,7 @@
 
     </ion-button>
   </ion-buttons>
-  <app-user-avatar slot="end" *ngIf="uid !==null"></app-user-avatar>
+  <app-user-avatar slot="end" *ngIf="uid !==null && uid !==-1"></app-user-avatar>
 
 </ion-toolbar>
 </ion-header>     

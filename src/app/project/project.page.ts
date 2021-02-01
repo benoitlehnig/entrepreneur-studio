@@ -7,6 +7,7 @@ import {AuthService} from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+
 import {TranslateService} from '@ngx-translate/core';
 import { ModalController } from '@ionic/angular';
 import { first } from 'rxjs/operators';
@@ -14,9 +15,13 @@ import { first } from 'rxjs/operators';
 import { PopoverController } from '@ionic/angular';
 
 import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
-
-
 import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
+
+import { Subscription } from 'rxjs';
+
+import { AngularFireFunctions } from '@angular/fire/functions';
+
+
 
 @Component({
 	selector: 'app-project',
@@ -32,6 +37,10 @@ export class ProjectPage implements OnInit {
 	public projectsIdsbyUid=[];
 	public uid=null;
 
+	public uidChangesSub: Subscription = new Subscription();
+	public projectsIdsbyUidSub: Subscription = new Subscription();
+	public projectSub: Subscription = new Subscription();
+
 	constructor(
 		public projectService:ProjectService,
 		private activatedRoute: ActivatedRoute,
@@ -43,75 +52,54 @@ export class ProjectPage implements OnInit {
 		public translateService: TranslateService,
 		public modalController:ModalController,
 		public popoverController: PopoverController,
+		public functions:AngularFireFunctions,
+
 
 		) {
 
 
-		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');		
-		this.initProject();
+
 	}
 
 	ngOnInit() {
+		
 		console.log("ProjectPage ngOnInit" );
-		this.dataSharingServiceService.getUidChanges().subscribe(
+		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');
+		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			(uid) =>{
 				console.log("ProjectPage uid", uid );
 				this.uid=uid; 
-				if(uid){
-					this.projectService.getProjectsIdsbyUid(uid.uid,this.projectId).subscribe(
-						response => {
-							console.log("ProjectPage >>ngOnInit>> getProjectsIdsbyUid response", response);
-							this.projectsIdsbyUid= response;
-							this.projectService.getProject(this.projectId).pipe(first()).subscribe(
-								(data)=>{
-									if(data){
-										if(!this.project.sharingStatus){
-											this.project.sharingStatus = "private";
-										}
-										this.checkWriteAccess();
-										console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
+				if(uid ===null){
 
-										if(this.writeAccess===false && data.sharingStatus ==='private'){
-											this.router.navigate(['/intl/fr']);
-										}
-										else{
-											this.initProject();		
-										}
-									}
-								})
-						})
 				}
 				else{
-
-					this.projectService.getProject(this.projectId).pipe(first()).subscribe(
-						(data)=>{
-							if(data){
-								if(!this.project.sharingStatus){
-									this.project.sharingStatus = "private";
-								}
-								this.checkWriteAccess();
-								console.log("ProjectPage >>ngOnInit>> initProject >> getProject, writeAccess, navigate" ,this.project, this.writeAccess , data.sharingStatus);
-
-								if(this.writeAccess===false && data.sharingStatus ==='private'){
-									this.router.navigate(['/intl/fr']);
-								}
-								else{
-									this.initProject();
-								}
-							}
-						})
+					const callable = this.functions.httpsCallable('getProjectAccess');
+					const obs = callable({projectId: this.projectId});
+					obs.subscribe(res => {
+						console.log("getProjectAccess", res);
+						this.accessRights = res;
+						console.log(this.accessRights);
+						if(this.accessRights.read === false){
+							console.log("this.accessRights.read", this.accessRights.read);
+							this.router.navigate(['/intl/fr']);
+						}
+						else{
+							this.initProject();
+						}
+					});		
 				}
-			})
-		
-
+			});
 	}
 
-
+	ngOnDestroy(){
+		console.log("ProjectPage >> ngOnDestroy")
+		this.uidChangesSub.unsubscribe();
+		this.projectsIdsbyUidSub.unsubscribe();
+		this.projectSub.unsubscribe();
+	}
 
 	initProject(){
-		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');	
-		console.log("ProjectPage initProject", this.projectId  )
-		this.projectService.getProject(this.projectId).pipe(first()).subscribe(
+		this.projectSub = this.projectService.getProject(this.projectId).pipe(first()).subscribe(
 			(data)=>{
 				if(data){
 					console.log("ProjectPage >>ngOnInit>> initProject >> getProject" , data);
@@ -121,25 +109,6 @@ export class ProjectPage implements OnInit {
 			})
 	}
 
-	checkWriteAccess(){
-		if(this.projectsIdsbyUid === undefined ){
-			this.writeAccess=false;
-		}
-		else if(this.projectsIdsbyUid.length === 0 ){
-			this.writeAccess=false;
-		}
-		else{
-			this.writeAccess=true;
-		}
-		if(this.writeAccess===false && this.project.sharingStatus ==='public'){
-			this.accessRights.read=true;
-		}
-		if(this.writeAccess===true){
-			this.accessRights.read=true;
-			this.accessRights.write=true;
-		}
-		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
-	}
 
 	async openPopover(type:string){
 		let modal = await this.modalController.create({
@@ -181,6 +150,7 @@ export class ProjectPage implements OnInit {
 		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 	}
 
-
+	
+	
 
 }

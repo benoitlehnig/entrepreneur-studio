@@ -22,6 +22,8 @@ export class DataSharingServiceService {
 	constructor() { }
 
 	currentProject(project){
+		console.log("currentProject", project);
+
 		this.projectDataSource.next(project);
 	}
 	getProjectChanges(){

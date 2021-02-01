@@ -48,6 +48,7 @@
     "ng2-file-upload": "^1.4.0",
     "ng2-tooltip-directive": "^2.9.22",
     "ngx-chips": "^2.1.0",
+    "ngx-cookie-service": "^11.0.2",
     "ngx-cookieconsent": "^2.2.3",
     "ngx-link-preview": "^1.1.6",
     "ngx-scrollreveal": "^3.0.0",

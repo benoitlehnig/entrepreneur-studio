@@ -1,21 +1,24 @@
-.logo{
-	max-width: 100px;
-	max-height:40px;
-}
+////
 
-.clickableIcon{
-	color:var(--ion-color-primary);
-	cursor:pointer;
-	@media(min-width: 600px) {
-		font-size:24px;
+.cardfooter{
+	border-top: 1px solid var(--ion-color-light);
+}
+.noPictureWrapper{
+	text-align: center;
+	width: 100%;
+	height: 80px;
+	.noPicture{
+		font-size:60px;
+
 	}
 }
-.noPicture{
-	width: 100%;
-	height: 100%;
-}
-.linkIcon{
-	margin-left:5px;
-	color:var(--ion-color-primary);
 
+ion-card-content{
+	height:160px;
+}
+
+
+.logo{
+	max-width: 100%;
+    height: 80px;
 }

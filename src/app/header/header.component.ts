@@ -9,10 +9,7 @@ import { PartnersComponent } from '../landing-page/partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
 import {QuestionPage} from '../question/question.page'
 import { Router } from '@angular/router';
-
-
-
-
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -32,25 +29,30 @@ export class HeaderComponent implements OnInit {
 
 	public isLogged:boolean = true;
 	public isTestSystem:boolean = false;
+
+	public uidChangesSub: Subscription = new Subscription();
+
+
 	ngOnInit() {
-		this.dataSharingServiceService.getUidChanges().subscribe(
+		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
 				console.log("HeaderComponent >> ngOnInit", uid)
-				if(uid ===null){
+				if(uid ===null || uid===-1){
 					this.isLogged = false
 				}
 				else{
 					this.isLogged = true;
 				}
 			})
-		console.log("snapshot",window.location.origin )
 		if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
 			this.isTestSystem = true;
 		}
 		
 	}
 
-
+	ngOnDestroy(){
+		this.uidChangesSub.unsubscribe();
+	}
 
 
 	getContent() {

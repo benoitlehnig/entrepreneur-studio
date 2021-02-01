@@ -29,24 +29,24 @@
 	background: var(--ion-color-light);
 }
 .tool{
-		cursor: pointer;
-	}
+	cursor: pointer;
+}
 .tool:hover{
-		background: var(--ion-color-light);
-		cursor: pointer;
-	}
+	background: var(--ion-color-light);
+	cursor: pointer;
+}
 .slides{
-		height:calc(100% - 180px);
+	height:calc(100% - 180px);
 }
 .wrapper{
 	position:absolute;	
 	top:0px;
 }
 .gridsWrapper{
-    position: relative;
-    top: 100px;
-    overflow: auto;
-    height: inherit;
+	position: relative;
+	top: 100px;
+	overflow: auto;
+	height: inherit;
 }
 .gridTools{
 	max-width:1500px;
@@ -119,4 +119,43 @@
 
 .wrapper{
 	width:100%;
+	height: 100%;
+}
+.installation{
+	padding:30px;
+	height:100%;
+	overflow: auto;
+	ion-grid{
+		
+		height:100%
+	}
+	.installationAppGeneral{
+		min-width:200px;
+		margin-top:30px;
+		max-width:350px;
+		.logoWrapper{
+
+			background-image: url(https://d34u8crftukxnk.cloudfront.net/slackpress/prod/sites/6/2019-01_BrandRefresh_slack-brand-refresh_header-1.png);
+			width: 100px;
+			height: 100px;
+			margin-left:auto;
+			margin-right:auto;
+			background-size: cover;
+		}
+
+	}
+	.label{
+		color: var(--ion-color-primary);
+		border: 1px solid var(--ion-color-primary);
+		border-radius: 4px;
+		background-color:   var(--ion-color-primary-contrast);
+		max-width: none;
+		font-size: 12px;
+		padding: 12px;
+	}
+	.installationSteps{
+
+		text-align: justify;
+
+	}
 }

@@ -36,7 +36,7 @@ export class ConseilPage implements OnInit {
 
 		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			userIds=>{
-				if(userIds){
+				if(userIds !==null &&  userIds !==-1){
 					console.log("ConseilPage ngOnInit this.userIds", userIds);
 					this.userIds =userIds;
 					console.log("this.authService.getClaims()",this.authService.getClaims());

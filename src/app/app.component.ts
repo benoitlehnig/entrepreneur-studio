@@ -119,8 +119,10 @@
      this.dataSharingServiceService.getUidChanges().subscribe(
        userIds=>{
          if(userIds){
-           console.log("AppComponent >> ngOnInit >> this.userIds", userIds);
-           this.userIds =userIds;
+           if(userIds !==-1){
+             console.log("AppComponent >> ngOnInit >> this.userIds", userIds);
+             this.userIds =userIds;
+           }
          }
        });
 
