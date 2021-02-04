@@ -74,6 +74,8 @@ export class AuthService {
 								}
 								else if(!data && this.logggedIn){
 									this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((onBoarding) =>{
+										console.log("getUserOnBoardingChanges", onBoarding);
+
 										if(onBoarding){
 											if(onBoarding.started ===true){
 												if(onBoarding.role === 'entrepreneur'){

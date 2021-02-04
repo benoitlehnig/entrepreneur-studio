@@ -18,6 +18,8 @@
  import { Subscription }   from 'rxjs';
  import { ModalController } from '@ionic/angular';
  import {QuestionPage} from './question/question.page'
+ import { PopoverFeedbackComponent } from './project/executive/summary/popover-feedback/popover-feedback.component';
+
  import { AngularFireAnalytics,CONFIG  } from '@angular/fire/analytics';
 
 
@@ -51,7 +53,9 @@
    public projectRoute:boolean = false;
    public project:any=null;
    public userIds:any;
-
+   public projectId:string;
+   public teamMembers=[];
+   public resources=[];
 
    private popupOpenSubscription: Subscription;
    private popupCloseSubscription: Subscription;
@@ -60,6 +64,8 @@
    private revokeChoiceSubscription: Subscription;
    private noCookieLawSubscription: Subscription;
 
+   public projectTeamMembersSub: Subscription = new Subscription();
+   public resourcesSub: Subscription = new Subscription();
 
 
    constructor(
@@ -104,8 +110,18 @@
        (data)=>{
          if(data !==null){
            this.project = data;
+           this.projectId = data.id;
+           this.projectTeamMembersSub = this.projectService.getProjectTeamMembers(this.projectId).subscribe(
+             teamMembers =>{
+               this.teamMembers = teamMembers;
+             })
+           this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
+             resources=>{
+               this.resources = resources;
+             })
          }
        })
+
 
      this.router.events.subscribe(data=>{
        this.projectRoute = (this.router.url.indexOf("/project/") !==-1);
@@ -150,6 +166,8 @@
      this.statusChangeSubscription.unsubscribe();
      this.revokeChoiceSubscription.unsubscribe();
      this.noCookieLawSubscription.unsubscribe();
+     this.projectTeamMembersSub.unsubscribe();
+     this.resourcesSub.unsubscribe();
    }
 
    initDeleteProject(){
@@ -250,6 +268,29 @@
 
    dismiss(){
      this.modalController.dismiss();
+   }
+
+   isSelectedTab(title){
+     if(this.router.url.indexOf("details/"+title) !==-1){
+       return true
+     }
+     else{
+       return false
+     }
+   }
+
+   navigate(page){
+
+     this.router.navigate(['/project/'+this.project.id+ '/details/'+page]);
+   }
+   async openFeedbackPopover(type:string){
+     let modal = await this.modalController.create({
+       component: PopoverFeedbackComponent,
+       cssClass: 'my-custom-class',
+       componentProps: {homeref:this, type:type },
+     });
+
+     return await modal.present();
    }
 
  }

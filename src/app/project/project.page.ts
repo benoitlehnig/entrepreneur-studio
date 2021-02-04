@@ -7,12 +7,14 @@ import {AuthService} from '../services/auth.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { PopoverFeedbackComponent } from './executive/summary/popover-feedback/popover-feedback.component';
 
 import {TranslateService} from '@ngx-translate/core';
 import { ModalController } from '@ionic/angular';
 import { first } from 'rxjs/operators';
 
 import { PopoverController } from '@ionic/angular';
+import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
 
 import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
 import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
@@ -20,7 +22,6 @@ import { PopoverProjectSummaryComponent } from './executive/summary/popover-proj
 import { Subscription } from 'rxjs';
 
 import { AngularFireFunctions } from '@angular/fire/functions';
-
 
 
 @Component({
@@ -35,12 +36,28 @@ export class ProjectPage implements OnInit {
 	public writeAccess:boolean=false;
 	public accessRights={read: false, write:false};
 	public projectsIdsbyUid=[];
-	public uid=null;
+	public userIds:any={uid:null};
+	public expandedMenu:boolean=false;
+	public teamMembers=[];
+	public resources=[];
+
+	public deletePopupTitle:string="";
+	public deletePopupSubTitle:string="";
+	public deletePopupCancelButton:string="";
+	public deletePopupOKButton:string="";
+
+	public tooltipOptions={
+		'show-delay': 500,
+		'max-width' : 350
+	}
+
 
 	public uidChangesSub: Subscription = new Subscription();
 	public projectsIdsbyUidSub: Subscription = new Subscription();
 	public projectSub: Subscription = new Subscription();
-
+	public projectTeamMembersSub: Subscription = new Subscription();
+	public resourcesSub: Subscription = new Subscription();
+	
 	constructor(
 		public projectService:ProjectService,
 		private activatedRoute: ActivatedRoute,
@@ -52,9 +69,7 @@ export class ProjectPage implements OnInit {
 		public translateService: TranslateService,
 		public modalController:ModalController,
 		public popoverController: PopoverController,
-		public functions:AngularFireFunctions,
-
-
+		public functions:AngularFireFunctions,		
 		) {
 
 
@@ -68,11 +83,11 @@ export class ProjectPage implements OnInit {
 		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			(uid) =>{
 				console.log("ProjectPage uid", uid );
-				this.uid=uid; 
 				if(uid ===null){
-
+					this.userIds.uid="";
 				}
 				else{
+					this.userIds=uid; 
 					const callable = this.functions.httpsCallable('getProjectAccess');
 					const obs = callable({projectId: this.projectId});
 					obs.subscribe(res => {
@@ -89,6 +104,7 @@ export class ProjectPage implements OnInit {
 					});		
 				}
 			});
+		this.initDeleteProject();
 	}
 
 	ngOnDestroy(){
@@ -96,6 +112,18 @@ export class ProjectPage implements OnInit {
 		this.uidChangesSub.unsubscribe();
 		this.projectsIdsbyUidSub.unsubscribe();
 		this.projectSub.unsubscribe();
+	}
+
+	initDeleteProject(){
+		this.translateService.get(['PROJECT.DeletePopupTitle','PROJECT.DeletePopupSubTitle', 'PROJECT.DeletePopupCancelButton', 'PROJECT.DeletePopupOKButton'])
+		.pipe(first()).subscribe(
+			value => {
+
+				this.deletePopupTitle = value['PROJECT.DeletePopupTitle'];
+				this.deletePopupSubTitle = value['PROJECT.DeletePopupSubTitle']
+				this.deletePopupCancelButton = value['PROJECT.DeletePopupCancelButton' ];
+				this.deletePopupOKButton = value['PROJECT.DeletePopupOKButton' ];
+			});
 	}
 
 	initProject(){
@@ -106,6 +134,14 @@ export class ProjectPage implements OnInit {
 					this.project= data;
 					this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 				}
+			})
+		this.projectTeamMembersSub = this.projectService.getProjectTeamMembers(this.projectId).subscribe(
+			teamMembers =>{
+				this.teamMembers = teamMembers;
+			})
+		this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
+			resources=>{
+				this.resources = resources;
 			})
 	}
 
@@ -150,7 +186,73 @@ export class ProjectPage implements OnInit {
 		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 	}
 
-	
-	
 
+	expandMenu(){
+		this.expandedMenu = !this.expandedMenu;
+	}
+
+	navigate(page){
+		console.log("click");
+		this.router.navigate(['/project/'+this.projectId+ '/details/'+page]);
+	}
+	isSelectedTab(title){
+		if(this.router.url.indexOf("details/"+title) !==-1){
+			return true
+		}
+		else{
+			return false
+		}
+		console.log("this.router.url",this.router.url);
+	}
+	async openFeedbackPopover(type:string){
+		let modal = await this.modalController.create({
+			component: PopoverFeedbackComponent,
+			cssClass: 'my-custom-class',
+			componentProps: {homeref:this, type:type },
+		});
+
+		return await modal.present();
+	}
+
+	async requestRemoveProject(){
+
+		const alert = await this.alertController.create({
+			cssClass: 'my-custom-class',
+			header: this.deletePopupTitle,
+			message: this.deletePopupSubTitle,
+			buttons: [
+			{
+				text: this.deletePopupCancelButton,
+				role: 'cancel',
+				cssClass: 'primary',
+				handler: (blah) => {
+				}
+			}, {
+				text: this.deletePopupOKButton,
+				handler: () => {
+					this.removeProject()
+				}
+			}
+			]
+		});
+
+		await alert.present();
+	}
+	removeProject(){
+		this.projectService.removeProject(this.projectId).then(
+			data=>{
+				this.router.navigate(['entrepreneur/']);
+			})
+	}
+
+	async presentMenuPopup(ev: any) {
+		const popover = await this.popoverController.create({
+			component: MenuPopoverComponent,
+			componentProps: {homeref:this},
+			event: ev,
+			translucent: true
+		});
+		return await popover.present();
+	}
+	
 }

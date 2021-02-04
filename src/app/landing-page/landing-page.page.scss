@@ -215,11 +215,11 @@ span:after {
 
 .iconsRowWrapper{
 	background-repeat: no-repeat;
-    background-size: 100% 15em;
-    background-position: 0 100%;
-    transition: background-size 0.25s ease-in;
-    background-image: linear-gradient(to right, var(--ion-color-primary-tint) 0%, var(--ion-color-secondary));
-    padding-bottom: 29px;
+	background-size: 100% 15em;
+	background-position: 0 100%;
+	transition: background-size 0.25s ease-in;
+	background-image: linear-gradient(to right, var(--ion-color-primary-tint) 0%, var(--ion-color-secondary));
+	padding-bottom: 29px;
 }
 .iconsRow{
 	width: 100%;
@@ -453,4 +453,85 @@ ion-footer {
 	ion-col{
 		min-width:300px;
 	}
+}
+
+.figures{
+	margin-top:50px;
+	margin-bottom:50px;
+	text-align: center;
+	padding-top:50px;
+	padding-bottom:100px;
+	color:var(--ion-color-primary-contrast);
+	background-image: linear-gradient(to right, var(--ion-color-primary-tint) 0%, var(--ion-color-secondary));
+	ion-grid{
+		max-width: 1000px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.value{
+		font-weight: 	bold;
+		font-size:60px;
+		@media(max-width: 1000px) {
+			font-size:40px;
+
+		}
+		@media(max-width: 768px) {
+			font-size:30px;
+
+		}
+	}
+	.description{
+		margin-bottom: 	20px;
+	}
+	a{
+		color:var(--ion-color-primary-contrast);
+
+	}
+	h1{
+		margin-bottom:30px;
+	}
+}
+
+.animated-delay-1 {
+    animation-delay: 1s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-delay: 1s;
+}
+.animated-delay-1-5 {
+    animation-delay: 1.5s;
+    -webkit-animation-delay: 1.5s;
+    -moz-animation-delay:1.5s;
+    -o-animation-delay: 1.5s;
+}
+
+.animated-delay-2 {
+    animation-delay: 2s;
+    -webkit-animation-delay: 2s;
+    -moz-animation-delay: 2s;
+    -o-animation-delay: 2s;
+}
+.animated-delay-2-5 {
+    animation-delay: 2.5s;
+    -webkit-animation-delay: 2.5s;
+    -moz-animation-delay: 2.5s;
+    -o-animation-delay: 2.5s;
+}
+.animated-delay-3 {
+    animation-delay: 3s;
+    -webkit-animation-delay: 3s;
+    -moz-animation-delay: 3s;
+    -o-animation-delay: 3s;
+}
+.animated-delay-5 {
+    animation-delay: 5s;
+    -webkit-animation-delay: 5s;
+    -moz-animation-delay: 5s;
+    -o-animation-delay: 5s;
+}
+.animated {
+    visibility: visible !important;
+}
+.hide-on-init {
+    visibility: hidden;
 }

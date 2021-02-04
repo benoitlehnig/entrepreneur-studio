@@ -64,6 +64,9 @@
 	left: 134px;
 	height: 100%;
 	background: var(--ion-color-primary);
+	@media(max-width: 768px) {
+		left: 94px;
+	}
 }
 
 .timelineContent{

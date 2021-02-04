@@ -29,6 +29,7 @@ export class EntrepreneurPage implements OnInit {
 	public projects;
 	public loading;
 	public destroyed=false;
+	public onBoardingPopoverDisplayed=false;
 	public userIds:any;
 	public deletePopupTitle:string="";
 	public deletePopupSubTitle:string="";
@@ -67,7 +68,7 @@ export class EntrepreneurPage implements OnInit {
 			user=>{
 				if(user){
 					
-					console.log("EntrepreneurPage ngOnInit user ",user  );
+					console.log("EntrepreneurPage ngOnInit user changes",user  );
 					this.projectsDetailsbyUidSub = this.projectService.getProjectsDetailsbyUid(this.userIds.uid).subscribe(
 						(data)=>{
 							if(data){
@@ -84,10 +85,13 @@ export class EntrepreneurPage implements OnInit {
 					this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((onBoarding) =>{
 						console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges ",user, onBoarding );
 						if(onBoarding){
-							if(onBoarding.started ===true || (user.onBoardingDone ===false || user.onBoardingDone === undefined)){
+							if(this.onBoardingPopoverDisplayed ===false && (onBoarding.started ===true || (user.onBoardingDone ===false || user.onBoardingDone === undefined))){
 								console.log("EntrepreneurPage >> ngOnInit>>  user getUserOnBoardingChanges >> presentOnboardingPopover",user, onBoarding );
 								this.presentOnboardingPopover(0);
 							}
+						}
+						else if(user.onBoardingDone === false || !user.onBoardingDone ){
+							this.presentOnboardingPopover(0);
 						}
 						
 					});
@@ -111,6 +115,7 @@ export class EntrepreneurPage implements OnInit {
 	}
 	async startNewProjectOnBoarding(project:any, teamMembers:any){
 		this.modalController.dismiss();
+		this.onBoardingPopoverDisplayed =false;
 		this.createProject(project,teamMembers);
 	}
 
@@ -177,7 +182,7 @@ export class EntrepreneurPage implements OnInit {
 	}
 
 	async presentOnboardingPopover(step) {
-
+		this.onBoardingPopoverDisplayed= true;
 		const popover = await this.modalController.create({
 			component: OnBoardingPage,
 			cssClass: 'popover',

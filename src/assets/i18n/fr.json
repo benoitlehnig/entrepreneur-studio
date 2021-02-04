@@ -148,13 +148,21 @@
 		"Public":"Public",
 		"Private":"Privé",
 		"PrivateSubLabel":"Seuls les membres de ce projet peuvent consulter et modifier ce projet.",
-		"PublicSubLabel":"Tout le monde peut consulter ce projet. Seuls les membres du projet peuvent le modifier."
-
+		"PublicSubLabel":"Tout le monde peut consulter ce projet. Seuls les membres du projet peuvent le modifier.",
+		"DashboardMenuTooltip":"Les informations essentielles de votre projet et votre business canvas",
+		"TimelineMenuTooltip":"Les differentes étapes pour le developement de votre proejt",
+		"TeamMenuTooltip":"La gestion votre équipe",
+		"ApplicationMenuTooltip":"Les differentes applications pour votre projet",
+		"FinancesMenuTooltip":"Les informations relatives au financement de votre projet",
+		"OtherMenuTooltip":"Il manque quelque chose ? Soumettez-vos idées !"
 	},
 	"EXECUTIVE":{
 		"Dashboard": "Tableau de bord",
 		"Timeline": "Timeline",
-		"Team": "Equipe"
+		"Team": "Equipe",
+		"Application": "Application",
+		"Finances": "Finances",
+		"Other": "Autre"
 	},
 	"CGU":{
 		"Title": "Conditions générales du service Entrepreneur Studio",
@@ -561,7 +569,8 @@
 		"AddResourceFreeLink":"Ajouter un lien vers une application non référencée ou un site utile pour votre projet",
 		"AddResourceUrlText": "Entrer le lien vers votre application",
 		"AddResourceOKButton": "Ajouter",
-		"AddResourceUrlTextPlaceholder": "Votre lien"
+		"AddResourceUrlTextPlaceholder": "Votre lien",
+		"Installed": "Installée"
 	},
 	"ADDTOOL":{ 
 		"Title": "Ajouter un nouvel outil",

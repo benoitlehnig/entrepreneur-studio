@@ -36,13 +36,15 @@
                 "output": "./assets/"
               },
               "src/manifest.json",
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/assets/sitemap.xml",
             ],
             "styles": [
               {
                 "input": "src/theme/variables.scss"
               },
               "node_modules/cookieconsent/build/cookieconsent.min.css",
+              "node_modules/animate.css/animate.min.css",
               {
                 "input": "src/global.scss"
               }
@@ -113,9 +115,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": ["node_modules/cookieconsent/build/cookieconsent.min.css"],
+            "styles": ["node_modules/cookieconsent/build/cookieconsent.min.css","node_modules/animate.css/animate.min.css",],
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js",
+
               "src/assets/trello.js"],
             "assets": [
               {
@@ -129,7 +132,8 @@
                 "output": "/assets"
               },
               "src/manifest.json",
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/assets/sitemap.xml",
             ]
           },
           "configurations": {

@@ -137,6 +137,17 @@ export class ProjectService {
 		})
 		);
 	}
+	getComments(id){
+		return this.afs.collection('projects').doc(id).collection('comments').snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data();
+				const id = a.payload.doc.id;
+				return {id:id, data:data };
+			});
+		})
+		);
+
+	}
 
 	setSharingStatus(id,status){
 		console.log("Update project >> setSharingStatus ");

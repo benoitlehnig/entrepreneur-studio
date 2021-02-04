@@ -8,8 +8,7 @@ import { PopoverSocialNetworkComponent } from './popover-social-network/popover-
 import * as moment from 'moment';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-
+import {CommentsComponent} from '../comments/comments.component';
 
 
 
@@ -189,5 +188,11 @@ export class SummaryPage implements OnInit {
 		this.dataSharingServiceService.currentTimelineStep(timelineStatElement.mainOrder);
 	}
 
-
+	async presentCommentsPopover() {
+		const popover = await this.modalController.create({
+			component: CommentsComponent,
+			componentProps: {homeref:this, projectId:this.projectId},
+		});
+		return await popover.present();
+	}
 }

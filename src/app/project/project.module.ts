@@ -12,6 +12,9 @@ import { ProjectPage } from './project.page';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
+import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
+
 
 @NgModule({
   imports: [
@@ -21,9 +24,10 @@ import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-st
     TranslateModule,
     HeaderModule,
     ProjectPageRoutingModule,
-    UserAvatarModule
+    UserAvatarModule,
+    TooltipModule
 
   ],
-  declarations: [ProjectPage,SharingStatusPopoverComponent]
+  declarations: [ProjectPage,SharingStatusPopoverComponent,MenuPopoverComponent]
 })
 export class ProjectPageModule {}

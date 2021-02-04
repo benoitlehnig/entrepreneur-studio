@@ -21,7 +21,7 @@
 		<ion-item  lines="none">
 			<ion-label slot="start"  *ngIf="resource.data.name ==='Slack'">
 				<ion-icon name="checkmark-outline" color="success"></ion-icon>
-				Installee
+				{{'RESOURCES.Installed' | translate}}
 			</ion-label>
 			<ion-note slot="end">
 				<ion-icon class="clickableIcon" name="trash-outline" (click)="deleteResource()" *ngIf="accessRights.write === true"></ion-icon>

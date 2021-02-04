@@ -12,7 +12,6 @@ import { ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 
-
 @Component({
 	selector: 'app-resources',
 	templateUrl: './resources.page.html',

@@ -9,7 +9,7 @@
 					<ion-text class="ion-text-right"><p class="freeAccess ">{{'LANDINGPAGE.FreeStart' | translate}}</p></ion-text>
 				</ion-col>
 				<ion-col class="screenCapture">
-					<img src="assets/images/appScreens.gif">
+					<img src="assets/images/appScreens.gif" class="animate__animated animate__fadeInRight">
 				</ion-col>
 			</ion-row>
 		</ion-grid>
@@ -24,6 +24,43 @@
 				<span class="underline">{{'LANDINGPAGE.subContentTitle1Text4' | translate}}</span>
 				<span>{{'LANDINGPAGE.subContentTitle1Text5' | translate}}</span>
 			</h1>
+		</div>
+		<div class="figures " >
+			<h1>Entrepreneur-Studio en quelques chiffres</h1>
+			<ion-grid>
+				<ion-row>
+					<ion-col >
+						<div  class="animate__animated hide-on-init  animated-delay-1" animateOnScroll  animationName="animated animate__backInUp" offset="600">
+							<div class="value">30+</div>
+							<div class="description">Entrepreneurs inscrits </div>
+						</div>
+					</ion-col>
+					<ion-col   >
+						<div  class="animate__animated hide-on-init  animated-delay-1-5" animateOnScroll  animationName="animated animate__backInUp" offset="600">
+							<div class="value">10+</div>
+							<div class="description">Conseillers inscrits </div>
+						</div>
+					</ion-col>
+					<ion-col >
+						<div  class="animate__animated hide-on-init  animated-delay-2" animateOnScroll  animationName="animated animate__backInUp" offset="600">
+							<div class="value">103+</div>
+							<div class="description">Projets crées </div>
+						</div>
+					</ion-col>
+					<ion-col  >
+						<div  class="animate__animated hide-on-init  animated-delay-2-5" animateOnScroll  animationName="animated animate__backInUp" offset="600">
+							<div class="value">1 500+</div>
+							<div class="description">Membres de la communaute <a href="">Entrepreneur-Studio</a></div>
+						</div>
+					</ion-col>
+					<ion-col  >
+						<div  class="animate__animated hide-on-init  animated-delay-3" animateOnScroll  animationName="animated animate__backInUp" offset="600">
+							<div class="value">110+</div>
+							<div class="description">Outils references dans <a href="">La boite a outils</a></div>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
 		</div>
 
 		<div>
@@ -83,7 +120,7 @@
 			<ion-grid class="iconsRow" id="content1">
 				<ion-row>
 					<ion-col  >
-						<ion-card>
+						<ion-card   >
 							<ion-card-content>
 								<ion-icon name="lock-closed-outline"></ion-icon>
 								<h2>{{'LANDINGPAGE.Icon1Title' | translate}}</h2>
@@ -94,8 +131,8 @@
 					</ion-col>
 					<ion-col  >
 
-						<ion-card>
-							<ion-card-content>
+						<ion-card  >
+							<ion-card-content >
 								<ion-icon name="cloud-outline"></ion-icon>
 								<h2>{{'LANDINGPAGE.Icon2Title' | translate}}</h2>
 								<p>{{'LANDINGPAGE.Icon2Text' | translate}}</p>
@@ -103,7 +140,7 @@
 						</ion-card>
 					</ion-col>
 					<ion-col  >
-						<ion-card>
+						<ion-card  >
 							<ion-card-content>
 								<ion-icon name="people-outline"></ion-icon>
 								<h2>{{'LANDINGPAGE.Icon3Title' | translate}}</h2>
@@ -112,7 +149,7 @@
 						</ion-card>
 					</ion-col>
 					<ion-col >
-						<ion-card>
+						<ion-card  >
 							<ion-card-content>
 								<ion-icon name="phone-portrait-outline"></ion-icon>
 								<h2>{{'LANDINGPAGE.Icon4Title' | translate}}</h2>
@@ -121,7 +158,7 @@
 						</ion-card>
 					</ion-col>
 					<ion-col >
-						<ion-card>
+						<ion-card >
 							<ion-card-content>
 								<ion-icon name="construct-outline"></ion-icon>
 								<h2>{{'LANDINGPAGE.Icon5Title' | translate}}</h2>
@@ -135,7 +172,7 @@
 				<ion-button size="large" color="light" fill="outline" class=""  (click)="presentSignUpPopover()">{{'LANDINGPAGE.StartNow' | translate}}</ion-button>
 			</div>
 		</div>
-		
+
 		<div class="subContent greyBackground"  id="content2">
 			<h1 class="ion-padding ion-text-center subContentTitle " >{{'LANDINGPAGE.Content2Title' | translate}}</h1>
 			<ion-grid class="pictureAndText"  >
@@ -197,11 +234,11 @@
 						<a target="blank" href=" https://www.instagram.com/entrepreneur.studio" class="socialNetworkIcon ion-margin">
 							<ion-icon name="logo-instagram"></ion-icon>
 						</a>
-							|
+						|
 						<a target="blank" href="https://www.linkedin.com/company/entrepreneur-studio" class="socialNetworkIcon ion-margin">
 							<ion-icon name="logo-linkedin"></ion-icon>
 						</a>
-							| 
+						| 
 						<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
 							<ion-icon name="logo-facebook"></ion-icon>
 						</a>

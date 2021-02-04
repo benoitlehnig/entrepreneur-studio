@@ -79,10 +79,10 @@ export class SignUpComponent implements OnInit {
 
 			obs.subscribe(res => {
 				if(this.role ==="entrepreneur" ){
-					this.router.navigate(['entrepreneur']);
+					//this.router.navigate(['entrepreneur']);
 				}
 				else if(this.role ==="incubator" ){
-					this.router.navigate(['conseil']);
+				//	this.router.navigate(['conseil']);
 				}
 				
 

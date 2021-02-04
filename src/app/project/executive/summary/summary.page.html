@@ -1,158 +1,166 @@
 <ion-content  class="defaultStyle" [ngClass]="{
 'customStyle' :  project.theme !== null}" [style.--background]="'url(' + backgroundPicture + ') no-repeat center center / cover var(--ion-color-primary)'  ">
-	<ion-card>
-		<div class="timeline">
+<ion-item class="screenTitle" lines="none">
+	<ion-label >
+		<h2> Mon Tableau de bord</h2>
+	</ion-label>
+	<ion-note slot="end">
+		<ion-icon name="chatbubbles-outline" (click)="presentCommentsPopover()"></ion-icon>
+	</ion-note>
+</ion-item>
+<ion-card>
+	<div class="timeline">
+		<ion-grid>
+			<ion-row>
+				<ion-col *ngFor="let timelineStatElement of timelineStat; let last = last;" class="ion-margin ion-padding" [ngClass]="{'done': timelineStatElement.status === 'done',
+				'ongoing': timelineStatElement.status === 'ongoing',
+				'todo': timelineStatElement.status === 'todo'}" 
+				(click)="timelineClicked(timelineStatElement)">
+				<ion-icon [name]="timelineStatElement.icon" ></ion-icon>
+				<ion-badge>{{timelineStatElement.completedElements}}/{{timelineStatElement.totalElements}} </ion-badge>
+				<h1>{{timelineStatElement.title}}</h1>
+				<ion-icon class="move ion-hide-sm-down" name="caret-forward-outline" *ngIf="!last"></ion-icon>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</div>
+<ion-card-content class="projectCard">
+	<ion-list>
+		<ion-item lines="none">
+			<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}
+				<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectElevatorPitchTooltip' | translate }}"></ion-icon>
+			</ion-text>
+			<ion-item class="input"  *ngIf="accessRights.write !== false">
+				<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()" rows="3"></ion-textarea>
+			</ion-item>
+			<ion-item class="input"  *ngIf="accessRights.write === false">
+				<ion-text class="ion-text-justify ion-padding-top ion-padding-bottom">{{project.summary.elevatorPitch}}</ion-text>
+			</ion-item>
+
+		</ion-item>
+		<ion-item lines="none" class="ion-margin-top">
+			<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}
+				<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectWebsiteUrlTooltip' | translate }}"></ion-icon>
+			</ion-text>
+			<ion-item class="input">
+				<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="{{'PROJECT_SUMMARY.ProjectWebsiteUrlPlaceholder' | translate }}" [readonly]="accessRights.write === false" (ionChange)="updateProject()"></ion-input>
+			</ion-item>
+		</ion-item>
+		<ion-item lines="none" class="ion-margin-top">
+			<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}
+				<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectSocialNetworksTooltip' | translate }}"></ion-icon>
+			</ion-text>
+		</ion-item>
+		<ion-item lines="none">
 			<ion-grid>
 				<ion-row>
-					<ion-col *ngFor="let timelineStatElement of timelineStat; let last = last;" class="ion-margin ion-padding" [ngClass]="{'done': timelineStatElement.status === 'done',
-						'ongoing': timelineStatElement.status === 'ongoing',
-						'todo': timelineStatElement.status === 'todo'}" 
-						(click)="timelineClicked(timelineStatElement)">
-						<ion-icon [name]="timelineStatElement.icon" ></ion-icon>
-						<ion-badge>{{timelineStatElement.completedElements}}/{{timelineStatElement.totalElements}} </ion-badge>
-						<h1>{{timelineStatElement.title}}</h1>
-						<ion-icon class="move ion-hide-sm-down" name="caret-forward-outline" *ngIf="!last"></ion-icon>
+					<ion-col *ngFor="let socialNetwork of socialNetworks">
+						<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks !== undefined && project.summary.socialNetworks[socialNetwork.type] !== undefined && project.summary.socialNetworks[socialNetwork.type].link !== null ">
+							<a href="{{project.summary.socialNetworks[socialNetwork.type].link}}" target="_blank" class="link"><ion-icon name="link-outline"></ion-icon></a>
+							<div class="icon ion-text-center " (click)="requestAddPage(socialNetwork.type,'update')" >
+								<ion-icon name="logo-{{socialNetwork.type}}" class="filled" ></ion-icon>			
+							</div>
+							<div class="actions">
+							</div>
+						</div>
+						<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks === undefined  ||project.summary.socialNetworks[socialNetwork.type] === undefined  || project.summary.socialNetworks[socialNetwork.type].link === null" (click)="requestAddPage(socialNetwork.type,'add')" >
+							<div class="icon ion-text-center">
+								<ion-icon name="logo-{{socialNetwork.type}}" class="notFilled"></ion-icon>
+							</div>
+						</div>
 					</ion-col>
 				</ion-row>
 			</ion-grid>
-		</div>
-		<ion-card-content class="projectCard">
-			<ion-list>
-				<ion-item lines="none">
-					<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectElevatorPitch' | translate }}
-							<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectElevatorPitchTooltip' | translate }}"></ion-icon>
-					</ion-text>
-					<ion-item class="input"  *ngIf="accessRights.write !== false">
-						<ion-textarea class="ion-text-justify  " [(ngModel)]="project.summary.elevatorPitch" placeholder="{{'PROJECT_SUMMARY.ProjectElevatorPitchPlaceholder' | translate }}" (ionChange)="updateProject()" rows="3"></ion-textarea>
-					</ion-item>
-					<ion-item class="input"  *ngIf="accessRights.write === false">
-						<ion-text class="ion-text-justify ion-padding-top ion-padding-bottom">{{project.summary.elevatorPitch}}</ion-text>
-					</ion-item>
-					
-				</ion-item>
-				<ion-item lines="none" class="ion-margin-top">
-					<ion-text position="floating" class="ion-hide-sm-down labelTop" >{{'PROJECT_SUMMARY.ProjectWebsiteUrl' | translate }}
-						<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectWebsiteUrlTooltip' | translate }}"></ion-icon>
-					</ion-text>
-					<ion-item class="input">
-						<ion-input type="text" name="websiteUrl" class="ion-text-justify  " [(ngModel)]="project.summary.websiteUrl" placeholder="{{'PROJECT_SUMMARY.ProjectWebsiteUrlPlaceholder' | translate }}" [readonly]="accessRights.write === false" (ionChange)="updateProject()"></ion-input>
-					</ion-item>
-				</ion-item>
-				<ion-item lines="none" class="ion-margin-top">
-					<ion-text class="ion-margin-end " >{{'PROJECT_SUMMARY.ProjectSocialNetworks' | translate }}
-						<ion-icon class="iconColor" name="help-circle-outline"  tooltip="{{'PROJECT_SUMMARY.ProjectSocialNetworksTooltip' | translate }}"></ion-icon>
-					</ion-text>
-				</ion-item>
-				<ion-item lines="none">
-					<ion-grid>
-						<ion-row>
-							<ion-col *ngFor="let socialNetwork of socialNetworks">
-								<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks !== undefined && project.summary.socialNetworks[socialNetwork.type] !== undefined && project.summary.socialNetworks[socialNetwork.type].link !== null ">
-									<a href="{{project.summary.socialNetworks[socialNetwork.type].link}}" target="_blank" class="link"><ion-icon name="link-outline"></ion-icon></a>
-									<div class="icon ion-text-center " (click)="requestAddPage(socialNetwork.type,'update')" >
-										<ion-icon name="logo-{{socialNetwork.type}}" class="filled" ></ion-icon>			
-									</div>
-									<div class="actions">
-									</div>
-								</div>
-								<div class="socialNetwork ion-padding ion-text-center" *ngIf="project.summary.socialNetworks === undefined  ||project.summary.socialNetworks[socialNetwork.type] === undefined  || project.summary.socialNetworks[socialNetwork.type].link === null" (click)="requestAddPage(socialNetwork.type,'add')" >
-									<div class="icon ion-text-center">
-										<ion-icon name="logo-{{socialNetwork.type}}" class="notFilled"></ion-icon>
-									</div>
-								</div>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
 
-				</ion-item>
+		</ion-item>
 
-			</ion-list>
-		</ion-card-content>
-	</ion-card>
+	</ion-list>
+</ion-card-content>
+</ion-card>
 
 
-	<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }} <ion-icon name="help-circle-outline" class="iconColor"  tooltip="{{'PROJECT_SUMMARY.BusinessCanvasTitleTooltip' | translate }}"></ion-icon></h2>
-	<ion-card *ngIf="project.summary">
-		<ion-card-content class="projectCard">
-			<ion-grid>
-				<ion-row >
-					<ion-col >
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Problem" 
-						[elementData]="project.businessCanvas.problem" 
-						[accessRights]="accessRights" elementStyle="smallerCell"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell"
-						 elementType="ExistingAlternatives" 
-						 [elementData]="project.businessCanvas.existingAlternatives"
-						 [accessRights]="accessRights"
-						  elementStyle="smallerCell"></app-business-canvas-element>
-					</ion-col>
-					<ion-col >
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Solution" 
-						[elementData]="project.businessCanvas.solution" 
-						[accessRights]="accessRights"
-						elementStyle="smallerCell"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyMetrics" 
-						[elementData]="project.businessCanvas.keyMetrics"
-						[accessRights]="accessRights"
-						 elementStyle="smallerCell"></app-business-canvas-element>
-					</ion-col>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UniqueValueProposition" 
-						[elementData]="project.businessCanvas.usp"
-						[accessRights]="accessRights"
-						elementStyle="highCell"></app-business-canvas-element>
-					</ion-col>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UnfairAdvantage" 
-						[elementData]="project.businessCanvas.unfairAdvantage"
-						[accessRights]="accessRights"
-						elementStyle="smallerCell" ></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Channels" 
-						[elementData]="project.businessCanvas.channels"
-						[accessRights]="accessRights"
-						elementStyle="smallerCell"></app-business-canvas-element>
-					</ion-col>
-					<ion-col  >
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CustomerSegmentation" 
-						[elementData]="project.businessCanvas.customerSegmentation"
-						[accessRights]="accessRights"
-						elementStyle="smallerCell"></app-business-canvas-element>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="EarlyAdopters" 
-						[elementData]="project.businessCanvas.earlyAdopters" 
-						[accessRights]="accessRights"
-						elementStyle="smallerCell"></app-business-canvas-element>
-					</ion-col>
-				</ion-row>
-				<ion-row>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CostStructure" elementStyle="smallerCell" 
-						[elementData]="project.businessCanvas.costStructure"
-						[accessRights]="accessRights"></app-business-canvas-element>	
-					</ion-col>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="RevenueStreams" elementStyle="smallerCell" 
-						[elementData]="project.businessCanvas.revenueStreams"
-						[accessRights]="accessRights"></app-business-canvas-element>
-					</ion-col>
-				</ion-row>
-				<ion-row>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyActivities" elementStyle="smallerCell" 
-						[elementData]="project.businessCanvas.keyActivities"
-						[accessRights]="accessRights"></app-business-canvas-element>
-					</ion-col>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyResources" elementStyle="smallerCell" 
-						[elementData]="project.businessCanvas.keyResources"
-						[accessRights]="accessRights"></app-business-canvas-element>
-					</ion-col>
-					<ion-col>
-						<app-business-canvas-element (changed)="elementUpdated($event)" elementType="KeyPartners" elementStyle="smallerCell" 
-						[elementData]="project.businessCanvas.keyPartners"
-						[accessRights]="accessRights"></app-business-canvas-element>
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-		</ion-card-content>
-	</ion-card>
+<h2 class="ion-padding-start">{{'PROJECT_SUMMARY.BusinessCanvasTitle' | translate }} <ion-icon name="help-circle-outline" class="iconColor"  tooltip="{{'PROJECT_SUMMARY.BusinessCanvasTitleTooltip' | translate }}"></ion-icon></h2>
+<ion-card *ngIf="project.summary">
+	<ion-card-content class="projectCard">
+		<ion-grid>
+			<ion-row >
+				<ion-col >
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Problem" 
+					[elementData]="project.businessCanvas.problem" 
+					[accessRights]="accessRights" elementStyle="smallerCell"></app-business-canvas-element>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell"
+					elementType="ExistingAlternatives" 
+					[elementData]="project.businessCanvas.existingAlternatives"
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+				</ion-col>
+				<ion-col >
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Solution" 
+					[elementData]="project.businessCanvas.solution" 
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyMetrics" 
+					[elementData]="project.businessCanvas.keyMetrics"
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+				</ion-col>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UniqueValueProposition" 
+					[elementData]="project.businessCanvas.usp"
+					[accessRights]="accessRights"
+					elementStyle="highCell"></app-business-canvas-element>
+				</ion-col>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="UnfairAdvantage" 
+					[elementData]="project.businessCanvas.unfairAdvantage"
+					[accessRights]="accessRights"
+					elementStyle="smallerCell" ></app-business-canvas-element>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="Channels" 
+					[elementData]="project.businessCanvas.channels"
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+				</ion-col>
+				<ion-col  >
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CustomerSegmentation" 
+					[elementData]="project.businessCanvas.customerSegmentation"
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="EarlyAdopters" 
+					[elementData]="project.businessCanvas.earlyAdopters" 
+					[accessRights]="accessRights"
+					elementStyle="smallerCell"></app-business-canvas-element>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="CostStructure" elementStyle="smallerCell" 
+					[elementData]="project.businessCanvas.costStructure"
+					[accessRights]="accessRights"></app-business-canvas-element>	
+				</ion-col>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="RevenueStreams" elementStyle="smallerCell" 
+					[elementData]="project.businessCanvas.revenueStreams"
+					[accessRights]="accessRights"></app-business-canvas-element>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyActivities" elementStyle="smallerCell" 
+					[elementData]="project.businessCanvas.keyActivities"
+					[accessRights]="accessRights"></app-business-canvas-element>
+				</ion-col>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" class="smallerCell" elementType="KeyResources" elementStyle="smallerCell" 
+					[elementData]="project.businessCanvas.keyResources"
+					[accessRights]="accessRights"></app-business-canvas-element>
+				</ion-col>
+				<ion-col>
+					<app-business-canvas-element (changed)="elementUpdated($event)" elementType="KeyPartners" elementStyle="smallerCell" 
+					[elementData]="project.businessCanvas.keyPartners"
+					[accessRights]="accessRights"></app-business-canvas-element>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-card-content>
+</ion-card>
 </ion-content>

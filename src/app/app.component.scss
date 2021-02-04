@@ -131,3 +131,7 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.menuSeparator{
+  border-bottom:  2px solid  var(--ion-color-primary);
+}

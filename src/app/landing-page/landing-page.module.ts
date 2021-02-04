@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { HeaderModule } from '../header/header.module';
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import { HeaderModule } from '../header/header.module';
     IonicModule,
     TranslateModule,
     LandingPagePageRoutingModule,
-    HeaderModule
+    HeaderModule,
+    AnimateOnScrollModule.forRoot()
   ],
   declarations: [LandingPagePage,SignUpComponent,LoginComponent,PartnersComponent,TimelineComponent],
   exports:[TranslatePipe]
