@@ -5,10 +5,15 @@ import {UserService} from '../../../services/user.service';
 import {Project} from '../../../models/project';
 import {User} from '../../../models/user';
 import {SendInvitationComponent} from './send-invitation/send-invitation.component';
+import {FindSkillsPopoverComponent} from './find-skills-popover/find-skills-popover.component';
+import {SkillSearchesPopoverComponent} from './skill-searches-popover/skill-searches-popover.component';
+
 import { first } from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+
 
 @Component({
 	selector: 'app-team',
@@ -27,8 +32,22 @@ export class TeamPage implements OnInit {
 	public customAlertOptions: any = {
 		cssClass: 'selectAlertClass',
 	};
+	public tooltipOptions={
+		'show-delay': 500,
+		'max-width' : 350
+	}
 
 	public teamMembers=[];
+	public projectProfiles=[];
+	public skillSearches =[]
+
+	public uidChangesSub: Subscription = new Subscription();
+	public projectsIdsbyUidSub: Subscription = new Subscription();
+	public projectSub: Subscription = new Subscription();
+	public projectTeamMembersSub: Subscription = new Subscription();
+	public skillSearchersSub: Subscription = new Subscription();
+
+
 	constructor(
 		public dataSharingServiceService:DataSharingServiceService,
 		public userService:UserService,
@@ -42,7 +61,7 @@ export class TeamPage implements OnInit {
 		console.log("TeamPage ionViewWillEnter")
 
 		this.initProject();
-		this.dataSharingServiceService.getUidChanges().pipe(first()).subscribe(
+		this.uidChangesSub = this.dataSharingServiceService.getUidChanges().subscribe(
 			userIds=>{
 				if(userIds){
 					this.uid =userIds.uid;
@@ -65,38 +84,68 @@ export class TeamPage implements OnInit {
 	ngOnInit() {
 		console.log("TeamPage ngOnInit")
 	}
+	ngOnDestroy(){
+		this.projectSub.unsubscribe();
+		this.projectTeamMembersSub.unsubscribe();
+		this.skillSearchersSub.unsubscribe();
+	}
 
 	
 
-	initProject(){
-		this.dataSharingServiceService.getProjectChanges().subscribe(
+	async initProject(){
+		this.projectSub = this.dataSharingServiceService.getProjectChanges().subscribe(
 			(data)=>{
-
 				if(data !==null){
 					console.log("initProject dataSharingServiceService", data);
 					this.project= data.data;
 					this.projectId	= data.id;
 					this.accessRights = data.accessRights;
-					if(this.teamMembers.length ===0){
-						this.projectService.getProjectTeamMembers(this.projectId).subscribe(
-							data=>{
-								if(this.teamMembers.length !== data.length){
-									this.teamMembers = data;
-									for(let i=0;i<this.teamMembers.length;i++){
-										this.userService.getUserDetails(this.teamMembers[i].uid).pipe(first()).subscribe(
+					this.skillSearchersSub = this.projectService.getSkillSearchers(this.projectId).subscribe(
+						skillSearches =>{
+							this.skillSearches = skillSearches;
+						})
+					this.projectTeamMembersSub = this.projectService.getProjectTeamMembers(this.projectId).subscribe(
+						async data=>{
+							if(this.teamMembers.length !== data.length){
+								this.teamMembers = data;
+								for(let i=0;i<this.teamMembers.length;i++){
+									
+									if(this.teamMembers[i].profile === undefined || this.teamMembers[i].profile === null){
+										let  userService = await this.userService.getUserDetails(this.teamMembers[i].uid).pipe(first()).subscribe(
 											data=>{
 												if(data){
 													console.log("this.userService.getUserDetails" ,data)
 													this.teamMembers[i].profile = data;
+													userService.unsubscribe();
+
 												}
 											})
 									}
+
 								}
-								
-							})
-					}
+							}
+							this.projectProfiles = [];
+							for(let i=0;i<this.teamMembers.length;i++){
+								for(let j=0;j<this.teamMembers[i].projectProfile.length;j++){
+									if(this.projectProfiles.indexOf((this.teamMembers[i].projectProfile[j]) !==-1)){
+										this.projectProfiles.push(this.teamMembers[i].projectProfile[j]);
+
+									}
+								}
+							}
+							
+
+
+						})
+					this.projectSub.unsubscribe();
 				}
-			})		
+
+			});
+		
+
+		
+
+
 	}
 	async requestNewMember(){
 		let modal = await this.modalController.create({
@@ -105,7 +154,7 @@ export class TeamPage implements OnInit {
 			componentProps: {homeref:this, projectId:this.projectId, teamMembers:this.teamMembers, project:this.project},
 		});
 
-		
+
 		modal.onWillDismiss()
 		return await modal.present();
 	}
@@ -128,6 +177,37 @@ export class TeamPage implements OnInit {
 			return arr;  
 		});
 		return arr 
+	}
+
+	async requestFindSkills(){
+		let modal = await this.modalController.create({
+			component: FindSkillsPopoverComponent,
+			cssClass: 'popover',
+			componentProps: {homeref:this, projectId:this.projectId},
+		});
+
+
+		modal.onWillDismiss()
+		return await modal.present();
+	}
+
+	dismissFindSkillsPopover(){
+		this.modalController.dismiss();
+	}
+
+	async displaySkillSearches(){
+		let modal = await this.modalController.create({
+			component: SkillSearchesPopoverComponent,
+			cssClass: 'popover',
+			componentProps: {homeref:this, projectId:this.projectId},
+		});
+
+
+		modal.onWillDismiss()
+		return await modal.present();
+	}
+	dismissSkillSearchesPopover(){
+		this.modalController.dismiss();
 	}
 
 

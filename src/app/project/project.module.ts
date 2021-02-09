@@ -13,6 +13,8 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
 import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
+import { CommentsComponent } from './executive/comments/comments.component';
+
 import { TooltipModule } from 'ng2-tooltip-directive';
 
 
@@ -25,9 +27,10 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     HeaderModule,
     ProjectPageRoutingModule,
     UserAvatarModule,
-    TooltipModule
+    TooltipModule,
+
 
   ],
-  declarations: [ProjectPage,SharingStatusPopoverComponent,MenuPopoverComponent]
+  declarations: [ProjectPage,SharingStatusPopoverComponent,MenuPopoverComponent,CommentsComponent]
 })
 export class ProjectPageModule {}

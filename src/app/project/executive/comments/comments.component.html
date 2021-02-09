@@ -3,18 +3,28 @@
 		<ion-item lines="none"  class="closeItem">
 			<ion-icon  slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
 		</ion-item>
-		<h1 class="ion-text-center">Comments</h1>
 	</div>
 	<div>
 		<ion-list>
 			<ion-item  lines="none" *ngFor="let comment of comments" >
-				<ion-avatar slot="start">				
+				<ion-avatar slot="start">
+					<img src="./assets/images/Slack_Mark.svg"	*ngIf="comment.data.source ==='slack'">	
+					
 				</ion-avatar>
 				<ion-label>
-					<h2><span class="userName">{{comment.data.createdBy}}</span> <span class="ion-margin-start">{{comment.data.createdAt |  date:'longDate'}}</span></h2>
+					<h2><span class="userName">{{comment.data.createdBy}}</span> <span class="ion-margin-start creationDate" [innerHTML]="getFromNowTime(comment.data.createdAt)"></span></h2>
 					<p>{{comment.data.text}}</p>
 				</ion-label>
 			</ion-item>
 		</ion-list>
 	</div>
+	<div class="footer">
+		<ion-item class="commentForm">
+		<ion-textarea [(ngModel)]="newCommentText"></ion-textarea>
+		<ion-button class="sendButton" (click)="addComment()">
+			<ion-icon name="send-outline" ></ion-icon>
+		</ion-button>
+	</ion-item>
+	</div>
+
 </ion-content>

@@ -38,12 +38,11 @@
 	padding:0px;
 }
 .teamMemberAdd{
-	cursor: pointer;
-	padding-top: 50px;
+	@media(max-width: 670px) {
+		min-height:auto;
+	}
 }
-.teamMemberAdd:hover{
-	background-color: var(--ion-color-light-tint);
-}
+
 .my-custom-class{
 	--min-width:343px;
 	--max-width:none;
@@ -54,11 +53,32 @@
 .wave{
 	position:absolute;
 	width: 100%;
-    height: 100%;
-    background: url('/assets/images/undraw_real_time_collaboration_c62i.svg');
+	height: 100%;
+	background: url('/assets/images/undraw_real_time_collaboration_c62i.svg');
 	background-repeat:no-repeat;
 	background-position:bottom; 
 	background-size: 59% 30%;
-    background-position-x: left;
+	background-position-x: left;
 }
 
+.separator{
+	border-bottom: 1px solid  var(--ion-color-light);
+	height:30px;
+	margin-bottom:30px;
+}
+
+.screenTitle{
+	--background:#00000033;
+	color:var(--ion-color-primary-contrast);
+	p{
+		color:var(--ion-color-primary-contrast);
+
+	}
+}
+.skillSearchNumber{
+	ion-text{
+		color:var(--ion-color-primary);
+		text-decoration: underline;
+		cursor: pointer;
+	}
+}

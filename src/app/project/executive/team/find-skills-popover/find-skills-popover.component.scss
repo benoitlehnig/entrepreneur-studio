@@ -1,0 +1,52 @@
+.welcomePicture{
+	width:50%
+}
+.title{
+	 color: var(--ion-color-primary-shade);
+}
+.pointer{
+	cursor:pointer
+}
+
+
+.profileTypes {
+	ion-item:hover{
+		color: var(--ion-color-primary);
+		cursor: pointer;
+		ion-icon{
+			color: var(--ion-color-primary);
+		}
+
+	}
+}
+ion-slide{
+	min-height: 	500px;
+}
+.optionEScontact{
+	background: var(--ion-color-light);
+	border-radius: 	4px;
+	ion-item{
+		--background: var(--ion-color-light);
+	}
+	img{
+		width:100px;
+		@media(max-width: 670px) {
+			width:40px;
+		}
+	}
+}
+.bold{
+	font-weight:bold;		
+}
+.projectProfilesGrid{
+	max-width: 500px;
+	text-align: left;
+	margin-inline: inherit;
+	ion-col{
+		min-width: 200px;
+		padding: 0px;
+		ion-label{
+			font-size:12px;
+		}
+	}
+}

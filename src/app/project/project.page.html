@@ -76,6 +76,12 @@
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.Other' | translate }}</ion-text></ion-label>
 </ion-item>
 <div class="separator"></div>
+<ion-item lines="none"  tooltip="{{'PROJECT.OtherMenuTooltip' | translate }}"  [options]="tooltipOptions"  (click)="toggleCommentsPanel()">
+  <ion-icon name="chatbubbles-outline" ></ion-icon>
+   <ion-badge>{{comments.length}}</ion-badge>
+  <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start withBadge"><ion-text >Commentaires</ion-text></ion-label>
+</ion-item>
+<div class="separator"></div>
 <ion-item lines="none" (click)="requestRemoveProject()" *ngIf="project.ownerUid === userIds.uid">
   <ion-icon name="trash-outline"></ion-icon>
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >Delete</ion-text></ion-label>
@@ -88,6 +94,9 @@
 </ion-col>
 <ion-col class="shadowContent">
   <ion-router-outlet id="project-content"></ion-router-outlet>
+</ion-col>
+<ion-col [ngClass]="{'ion-hide' : commentsPanelDisplayed ===false}" class="commentsCol">
+  <app-comments [projectId]="projectId" [userIds]="userIds"></app-comments>
 </ion-col>
 </ion-row>
 </ion-grid>

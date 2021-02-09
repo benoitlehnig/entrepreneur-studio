@@ -74,7 +74,7 @@ export class AuthService {
 								}
 								else if(!data && this.logggedIn){
 									this.dataSharingServiceService.getUserOnBoardingChanges().pipe(first()).subscribe((onBoarding) =>{
-										console.log("getUserOnBoardingChanges", onBoarding);
+										console.log("AuthService getUserOnBoardingChanges", onBoarding);
 
 										if(onBoarding){
 											if(onBoarding.started ===true){
@@ -91,6 +91,9 @@ export class AuthService {
 												this.dataSharingServiceService.currentUid(null);								
 												this.router.navigate(['/intl/fr',{ unknownUser:true}]); 
 											}
+										}
+										else{
+
 										}
 									})
 								}

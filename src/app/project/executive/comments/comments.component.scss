@@ -1,6 +1,25 @@
 .userName{
 	font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 150px;
+    display: inline-block;
 }
 .creationDate{
-	font-style: smaller;
+	font-size: 12px;
+}
+.footer{
+	position: absolute;
+    bottom: 65px;
+    width: 100%;
+}
+.commentForm{
+	--background: var(--ion-color-light);
+    border-radius: 4px;
+    margin: 3px;
+}
+.sendButton{
+	position: relative;
+    top: 16px;
 }

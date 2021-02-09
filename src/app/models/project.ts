@@ -98,3 +98,21 @@ export class TimelineElement {
 	type:string="";
 	stage:string="";
 }
+
+export class SkillSearch{
+	type:string="";
+	creationDate:Date;
+	skills:Array<string>=[];
+	systemDNotificationRequest:boolean=false;
+	freeText:string="";
+
+}
+
+export class Comment{
+	createdAt: Date;
+	createdBy: string;
+	source:string;
+	uid:string;
+	status: string;
+	text: string;
+}

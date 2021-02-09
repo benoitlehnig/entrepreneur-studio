@@ -148,6 +148,9 @@ export class ProjectService {
 		);
 
 	}
+	addComment(id,comment){
+		return this.afs.collection('projects').doc(id).collection('comments').add(comment);
+	}
 
 	setSharingStatus(id,status){
 		console.log("Update project >> setSharingStatus ");
@@ -223,6 +226,60 @@ export class ProjectService {
 
 		return this.afs.collection('projects').doc(id).collection('timeline').doc(timelineElement.timelineElement.id).set(timelineElement.timelineElement.data);
 
+	}
+
+	getSkillSearchers(id){
+		return this.afs.collection('projects').doc(id).collection('skillSearches').snapshotChanges()
+		.pipe(
+			switchMap(skillSearches  => {
+				const skillSearchesReturned = skillSearches.map(skillSearch =>{
+					const data = skillSearch.payload.doc.data();
+					const id = skillSearch.payload.doc.id;
+					return {id:id, data:data };;
+				}
+				)
+				return combineLatest(
+					of(skillSearchesReturned),
+					combineLatest(
+						skillSearchesReturned.map((skillSearch:any) =>{
+							return  this.afs.collection('projects').doc(id).collection('skillSearches').doc(skillSearch.id).collection('responses').snapshotChanges().pipe(
+								map(responses => {
+									return responses.map( response =>{
+										const responseData = response.payload.doc.data();
+										const responseId = response.payload.doc.id;
+										return {skillSearchId:skillSearch.id, responseId: responseId, data:responseData};}  )
+								})
+								
+								
+								)
+						})
+						) as any,
+					)  as any
+			}),
+			map(([skillSearches, responses]) => {
+				return skillSearches.map(skillSearch  => {
+					return {
+						...skillSearch, 
+						responses: responses.find(a => {
+							if(a.length>0){
+								return a[0].skillSearchId === skillSearch.id
+							}
+							else {
+								return false
+							}
+						})} 
+					})
+			})
+			);
+	}
+
+	saveSkillSearch(id,skillSearch){
+		skillSearch.creationDate = moment().format();
+		console.log("Update project >> saveSkillSearch", id, skillSearch);
+		return this.afs.collection('projects').doc(id).collection('skillSearches').add(JSON.parse( JSON.stringify(skillSearch)));
+	}
+	deleteSkillSearch(projectId,skillSearchId){
+		return this.afs.collection('projects').doc(projectId).collection('skillSearches').doc(skillSearchId).delete();
 	}
 
 }

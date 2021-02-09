@@ -20,6 +20,7 @@ import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-st
 import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
 
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AngularFireFunctions } from '@angular/fire/functions';
 
@@ -51,13 +52,16 @@ export class ProjectPage implements OnInit {
 		'max-width' : 350
 	}
 
+	public commentsPanelDisplayed:boolean = false;
+	public comments= [];
 
 	public uidChangesSub: Subscription = new Subscription();
 	public projectsIdsbyUidSub: Subscription = new Subscription();
 	public projectSub: Subscription = new Subscription();
 	public projectTeamMembersSub: Subscription = new Subscription();
 	public resourcesSub: Subscription = new Subscription();
-	
+	public commentsSub: Subscription = new Subscription();
+
 	constructor(
 		public projectService:ProjectService,
 		private activatedRoute: ActivatedRoute,
@@ -70,6 +74,7 @@ export class ProjectPage implements OnInit {
 		public modalController:ModalController,
 		public popoverController: PopoverController,
 		public functions:AngularFireFunctions,		
+		private cookieService: CookieService
 		) {
 
 
@@ -104,6 +109,14 @@ export class ProjectPage implements OnInit {
 					});		
 				}
 			});
+		if(this.cookieService.check('commentsPanelDisplayed')){
+			if(this.cookieService.get('commentsPanelDisplayed') ==='true'){
+				this.commentsPanelDisplayed = true;
+			}
+			else{
+				this.commentsPanelDisplayed = false;
+			}
+		}
 		this.initDeleteProject();
 	}
 
@@ -112,6 +125,8 @@ export class ProjectPage implements OnInit {
 		this.uidChangesSub.unsubscribe();
 		this.projectsIdsbyUidSub.unsubscribe();
 		this.projectSub.unsubscribe();
+		this.commentsSub.unsubscribe();
+
 	}
 
 	initDeleteProject(){
@@ -143,6 +158,11 @@ export class ProjectPage implements OnInit {
 			resources=>{
 				this.resources = resources;
 			})
+		this.commentsSub = this.projectService.getComments(this.projectId).subscribe(
+			data=> {
+				this.comments = data;
+			})
+
 	}
 
 
@@ -254,5 +274,21 @@ export class ProjectPage implements OnInit {
 		});
 		return await popover.present();
 	}
+	dismissMenuPopover(){
+		this.popoverController.dismiss();
+	}
+
+	toggleCommentsPanel(){
+		this.commentsPanelDisplayed = !this.commentsPanelDisplayed;
+		if(this.commentsPanelDisplayed === true){
+			this.cookieService.set( 'commentsPanelDisplayed', 'true' );
+
+		}
+		else{
+			this.cookieService.set( 'commentsPanelDisplayed', 'false' );
+
+		}
+	}
+
 	
 }

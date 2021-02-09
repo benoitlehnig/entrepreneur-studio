@@ -150,7 +150,7 @@
 		"PrivateSubLabel":"Seuls les membres de ce projet peuvent consulter et modifier ce projet.",
 		"PublicSubLabel":"Tout le monde peut consulter ce projet. Seuls les membres du projet peuvent le modifier.",
 		"DashboardMenuTooltip":"Les informations essentielles de votre projet et votre business canvas",
-		"TimelineMenuTooltip":"Les differentes étapes pour le developement de votre proejt",
+		"TimelineMenuTooltip":"Les differentes étapes pour le developement de votre projet",
 		"TeamMenuTooltip":"La gestion votre équipe",
 		"ApplicationMenuTooltip":"Les differentes applications pour votre projet",
 		"FinancesMenuTooltip":"Les informations relatives au financement de votre projet",
@@ -540,18 +540,52 @@
 			"commercial": "Commercial",
 			"expert": "Expert",
 			"administrative": "Administratif",
-			"financial": "Financier"
+			"financial": "Financier",
+			"experience": "Expérience"		
+		},
+		"SkillSearchList":{
+			"Title": "Vos recherches",
+			"Remove": "Supprimer",
+			"RemoveTooltip": "Supprimer cette recherche",
+			"Answers": "réponse(s)"
+		},
+		"SkillSearchRoles":{
+			"associate": "Associé",
+			"partner": "Partenaire",
+			"contributor": "Contributeur"
+		},
+		"FindSkill":{
+			"Title": "Rechercher des nouvelles compétences",
+			"SubTitle1": "Quel profile recherchez-vous ?",
+			"ProfileAssociate": "Je cherche un associé",
+			"ProfilePartner": "Je cherche un partenaire",
+			"ProfileContributor": "Je cherche un collaborateur",
+			"SubTitle2": "Quelles sont les competences que vous recherchez ?",
+			"SubTitle2Partner": "Précisez votre recherche de partenaire",
+			"SubTitle2Contributor": "Précisez votre recherche de contributeur",
+			"MoreDetails": "Donnez plus de détails à votre recherche",
+			"ESNetwork": "Béneficiez du reseau d'Entrepreneur-Studio" ,
+			"ESNetworkSubTitle": "Faites connaitre votre recherche sur le Slack d'Entrepreneur-Studio, et contactez les personnes interessées" ,
+			"ESNetworkSlack": "Envoyer votre recherche sur le Slack d'Entrepreneur-Studio"
 		},
 		"ErrorMemberAlreadyExists": "Le membre fait déjà parti de votre équipe",
 		"ErrorFormatEmail": "Le format de l'addresse email n'est pas correct.",
-		"SendInviteText": "Envoyer une invitation a rejoindre le projet pour les autres associes ou conseils",
+		"SendInviteText": "Inviter un collaborateur",
 		"SendInviteRequestTextButton": "Ajouter un membre",
 		"Email": "Email",
 		"Remove": "Enlever",
 		"AddMemberTitle": "Ajouter un nouveau membre ! ",
-		"AddMemberSubTitle": "Veuillez entrer son email et une invitation a rejoindre le projet lui sera envoyee",
-		"SendRequestButton": "Envoyez l'invitation "
-
+		"AddMemberSubTitle": "Veuillez entrer son email et une invitation à rejoindre le projet lui sera envoyée",
+		"SendRequestButton": "Envoyez l'invitation ",
+		"AddTeamMembertext1":"Vous êtes ",
+		"AddTeamMembertextAlone":"seul ",
+		"AddTeamMembertext2":"à travailler sur le projet",
+		"AddTeamMembertext3":" avec les compétences suivantes :",
+		"SearchSkillsTooltip":"Utliser le reseau d'Entrepreneur-Studio pour attirer les talents dont vous avez besoin",
+		"SearchSkills":"Rechercher des competences",
+		"SearchSkilledSaved": "recherche(s) définies",
+		"SendInviteTooltip":"Envoyer une invitation par email à un collaborateur pour qu'il rejoigne le projet",
+		"SendInviteText":"Inviter un collaborateur"
 	},
 	"RESOURCES":{
 		"AddResource": "Ajouter un lien vers une application",

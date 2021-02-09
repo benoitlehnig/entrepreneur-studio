@@ -29,7 +29,16 @@ const isEntrepreneur= (next) =>  pipe(customClaims, map(claims =>{
   }
 })
 );
-
+const isAdmin= (next) =>  pipe(customClaims, map(claims =>{
+  console.log("isAdmin" , claims);
+  if(claims.admin === true){
+    return  true;
+  }
+  else{
+    return  false ;
+  }
+})
+);
 const routes: Routes = [
 {
   path: '',

@@ -1,0 +1,27 @@
+<ion-content class="ion-padding">
+	<ion-item lines="none">
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
+	<ion-text class="ion-text-center ion-padding title"><h1>{{'TEAM.SkillSearchList.Title' | translate}}</h1></ion-text>
+
+	<ion-item *ngFor="let skillSearch of skillSearches">
+		<ion-label>
+			<h1> {{'TEAM.SkillSearchRoles.'+ skillSearch.data.type | translate }}</h1>
+			<h2>{{skillSearch.data.creationDate |  date:'longDate'}}</h2>
+			<p><span *ngFor="let skill of skillSearch.data.skills"> {{'TEAM.ProjectProfiles.'+skill | translate }} </span></p>
+			<p>{{skillSearch.data.freeText}}</p>
+			<div *ngIf="skillSearch.responses"  class="responses" [tooltip]="getTooltip(skillSearch.responses)" [options]="tooltipOptions" ><a href="https://app.slack.com/client/T016N4T1XM0/C01L4CDNWA2/thread/" target="_blank">{{skillSearch.responses.length}} {{'TEAM.SkillSearchList.Answers' | translate }}</a></div>
+		</ion-label>
+		<div slot="end" >
+			<ion-button fill="outline"><ion-icon name="trash" class=" remove"  (click)="deleteSkillSearch(skillSearch.id)"  tooltip="{{'TEAM.SkillSearchList.RemoveTooltip' | translate }}" [options]="tooltipOptions"></ion-icon>Supprimer</ion-button>
+			
+		</div>
+	</ion-item>
+	
+</ion-content>
+<ion-footer class="ion-text-center" lines="none">
+	<ion-button class="ion-text-wrap " tooltip="{{'TEAM.SearchSkillsTooltip' | translate }}" [options]="tooltipOptions" (click)="requestFindSkills()" >
+		<ion-icon name="search-outline"  class="ion-margin-end"></ion-icon>
+		<ion-text class="ion-text-wrap" >{{'TEAM.SearchSkills' | translate }}</ion-text>
+	</ion-button>
+</ion-footer>

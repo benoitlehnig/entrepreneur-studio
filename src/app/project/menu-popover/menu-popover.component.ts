@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
+import { NavParams} from '@ionic/angular';
+
+
+
+
 
 @Component({
 	selector: 'app-menu-popover',
@@ -7,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPopoverComponent implements OnInit {
 
-
+	@Input("homeref") value;
 	public pages = [
 
 	{
@@ -21,8 +26,17 @@ export class MenuPopoverComponent implements OnInit {
 		icon: 'construct'
 	},
 	];
-	constructor() { }
+	constructor(
+		public navParams: NavParams,
+
+
+		) { }
 
 	ngOnInit() {}
+
+	dismiss(){
+		this.navParams.get('homeref').dismissMenuPopover()
+
+	}
 
 }

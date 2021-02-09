@@ -1,0 +1,75 @@
+<ion-content class="ion-padding">
+	<ion-item lines="none">
+		<ion-icon color="primary" slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+	</ion-item>
+	<ion-text class="ion-text-center ion-padding title"  [ngClass]="{'ion-hide' : this.skillSearch.type !== ''}"><h1>{{'TEAM.FindSkill.Title' | translate}}</h1></ion-text>
+
+	<div [ngClass]="{'ion-hide' : this.skillSearch.type !== ''}">
+
+		<h1>{{'TEAM.FindSkill.SubTitle1' | translate}}</h1>
+		<ion-list  class="profileTypes">
+			<ion-item (click)="selectProfileType('associate')" >
+				<ion-icon name="arrow-forward-outline"></ion-icon>
+				<ion-label>{{'TEAM.FindSkill.ProfileAssociate' | translate}}</ion-label>
+			</ion-item>
+
+			<ion-item  (click)="selectProfileType('partner')" >
+				<ion-icon name="arrow-forward-outline"></ion-icon>
+				<ion-label>{{'TEAM.FindSkill.ProfilePartner' | translate}}</ion-label>
+			</ion-item>
+			<ion-item  (click)="selectProfileType('contributor')" >
+				<ion-icon name="arrow-forward-outline"></ion-icon>
+				<ion-label>{{'TEAM.FindSkill.ProfileContributor' | translate}}</ion-label>
+			</ion-item>
+		</ion-list>
+	</div>
+	
+
+	<div  [ngClass]="{'ion-hide' : (this.skillSearch.type !== 'associate' && this.skillSearch.type !== 'partner' && this.skillSearch.type !== 'contributor')}">
+		<div  [ngClass]="{'ion-hide' : this.skillSearch.type !== 'associate'}">
+			<h1>{{'TEAM.FindSkill.SubTitle2' | translate}}</h1>
+			<ion-grid class="projectProfilesGrid">
+				<ion-row>
+					<ion-col  *ngFor="let item of projectProfilesItems">
+						<ion-item  lines="none" (ionChange)="updateSkillSearch(item.index,$event)">
+							<ion-label>{{item.text}}</ion-label>
+							<ion-checkbox slot="start"></ion-checkbox>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</div>
+		<div  [ngClass]="{'ion-hide' : this.skillSearch.type !== 'partner'}">
+			<h1>{{'TEAM.FindSkill.SubTitle2Partner' | translate}}</h1>
+		</div>
+		<div  [ngClass]="{'ion-hide' : this.skillSearch.type !== 'contributor'}">
+			<h1>{{'TEAM.FindSkill.SubTitle2Contributor' | translate}}</h1>
+		</div>
+		<div>
+			<ion-item>
+				<ion-label position="floating">{{'TEAM.FindSkill.MoreDetails' | translate}} </ion-label>
+				<ion-textarea [(ngModel)]="skillSearch.freeText"></ion-textarea>
+			</ion-item>
+		</div>
+		<div class="optionEScontact ion-padding ion-margin-top">
+			<p class="bold ion-text-left">{{'TEAM.FindSkill.ESNetwork' | translate}}</p>
+			<ion-item  lines="none">
+				<img  slot="start" src="assets/images/Slack_301x123.png">
+				<ion-label class="ion-text-wrap">
+					<p>{{'TEAM.FindSkill.ESNetworkSubTitle' | translate}}</p>
+				</ion-label>
+			</ion-item>
+			<ion-item  lines="none">
+				<ion-label class="ion-text-wrap">{{'TEAM.FindSkill.ESNetworkSlack' | translate}}</ion-label>
+				<ion-checkbox slot="start" [(ngModel)]="skillSearch.systemDNotificationRequest"></ion-checkbox>
+			</ion-item>
+		</div>
+		<div class="ion-text-center ion-margin-top">
+			<ion-button (click)="saveSkillSearch()">
+				<ion-text>Sauvegarder</ion-text>
+			</ion-button>
+		</div>
+
+	</div>
+
+</ion-content>

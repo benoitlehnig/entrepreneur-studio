@@ -11,7 +11,6 @@ import { PopoverBusinessCanvasComponent } from './popover-business-canvas/popove
 import { BusinessCanvasElementComponent } from './business-canvas-element/business-canvas-element.component';
 import { PopoverSocialNetworkComponent } from './popover-social-network/popover-social-network.component';
 import { PopoverBusinessCanvasElementComponent } from './popover-business-canvas-element/popover-business-canvas-element.component';
-import { CommentsComponent } from '../comments/comments.component';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { SummaryPage } from './summary.page';
@@ -30,6 +29,6 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 	],
-	declarations: [SummaryPage,PopoverProjectSummaryComponent,CommentsComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent,PopoverSocialNetworkComponent]
+	declarations: [SummaryPage,PopoverProjectSummaryComponent,PopoverBusinessCanvasComponent,BusinessCanvasElementComponent,PopoverBusinessCanvasElementComponent,PopoverSocialNetworkComponent]
 })
 export class SummaryPageModule {}

@@ -1,2 +1,2 @@
 User-agent: * Disallow: /
-Sitemap: http://example.com/sitemap_location.xml
+Sitemap: http://entrepreneur-studio.com/assets/sitemap.xml

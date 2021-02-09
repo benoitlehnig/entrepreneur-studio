@@ -8,7 +8,11 @@ import { TeamPageRoutingModule } from './team-routing.module';
 
 import { TeamPage } from './team.page';
 import {SendInvitationComponent} from './send-invitation/send-invitation.component';
+import {FindSkillsPopoverComponent} from './find-skills-popover/find-skills-popover.component';
+import {SkillSearchesPopoverComponent} from './skill-searches-popover/skill-searches-popover.component';
 import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
+import { TooltipModule } from 'ng2-tooltip-directive';
+
 
 @NgModule({
   imports: [
@@ -16,8 +20,9 @@ import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     TeamPageRoutingModule,
-    TranslateModule
+    TranslateModule,
+    TooltipModule
   ],
-  declarations: [TeamPage,SendInvitationComponent]
+  declarations: [TeamPage,SendInvitationComponent,FindSkillsPopoverComponent,SkillSearchesPopoverComponent]
 })
 export class TeamPageModule {}
