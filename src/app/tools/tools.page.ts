@@ -78,7 +78,7 @@ export class ToolsPage implements OnInit {
 			data=>{
 				let arr=[];
 				Object.keys(data).map(function(key){  
-					arr.push({id: key, name:data[key]})  
+					arr.push({id: Number(key)+1, name:data[key]})  
 					return arr;  
 				}); 
 				arr= arr.sort((n1,n2) => n1.name.localeCompare(n2.name));

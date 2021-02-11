@@ -1,30 +1,33 @@
 <ion-content>
 	<div class="topPart">
 		<ion-item lines="none"  class="closeItem">
-			<ion-icon  slot="end" name="close-outline" class="pointer" (click)="dismiss()"></ion-icon>
+			<ion-label>Commentaires</ion-label>
+			<ion-icon  slot="end" name="close-outline" class="pointer" (click)="dismissCommentsPopover()"></ion-icon>
 		</ion-item>
 	</div>
-	<div>
+	<div  class="fullHeight">
 		<ion-list>
-			<ion-item  lines="none" *ngFor="let comment of comments" >
-				<ion-avatar slot="start">
-					<img src="./assets/images/Slack_Mark.svg"	*ngIf="comment.data.source ==='slack'">	
-					
+			<ion-item class="comment" lines="none" *ngFor="let comment of comments" [ngClass]="{'resolved': comment.data.status ==='resolved','important': comment.data.status ==='important' } " >
+				<ion-thumbnail slot="start"	*ngIf="comment.data.source ==='slack'" >
+					<img src="./assets/images/Slack_Mark.svg">	
+						
+				</ion-thumbnail>
+				<ion-avatar *ngIf="comment.data.source ==='ES' && comment.userProfile" slot="start">
+					<img [src]="comment.userProfile.profile.photoUrl"	>
 				</ion-avatar>
 				<ion-label>
 					<h2><span class="userName">{{comment.data.createdBy}}</span> <span class="ion-margin-start creationDate" [innerHTML]="getFromNowTime(comment.data.createdAt)"></span></h2>
-					<p>{{comment.data.text}}</p>
+					<p class="ion-text-nowrap"  tooltip="{{comment.data.text}}"  >{{comment.data.text}}</p>
 				</ion-label>
+				<ion-icon slot="end" class="commentPopoverIcon" name="ellipsis-vertical-outline" (click)="presentCommentPopover($event, comment.id)"></ion-icon>
 			</ion-item>
 		</ion-list>
 	</div>
 	<div class="footer">
 		<ion-item class="commentForm">
-		<ion-textarea [(ngModel)]="newCommentText"></ion-textarea>
-		<ion-button class="sendButton" (click)="addComment()">
-			<ion-icon name="send-outline" ></ion-icon>
-		</ion-button>
-	</ion-item>
+			<ion-textarea [(ngModel)]="newCommentText" placeholder="Votre commentaire"></ion-textarea>
+			<ion-icon name="send-outline" class="sendButton"  (click)="addComment()"></ion-icon>
+		</ion-item>
 	</div>
 
 </ion-content>

@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'add-tool-popover',
     loadChildren: () => import('./tool/add-tool-popover/add-tool-popover.module').then( m => m.AddToolPopoverPageModule)
+  },
+  {
+    path: 'tool',
+    loadChildren: () => import('./tool/tool.module').then( m => m.ToolPageModule)
   }
 ];
 

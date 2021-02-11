@@ -1,0 +1,86 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>tool : {{tool.name}}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Name' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.name" name="name"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.BrandName' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.brandName" name="brandName" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Description' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.description" name="description"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.ImgUrl' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.imgUrl" name="imgUrl"></ion-input>
+		<img [src]="tool.imgUrl" class="logoPreview"> 
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">Link</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.link" name="link"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">price</ion-label>
+		<ion-input type="text"  [(ngModel)] ="tool.price" name="price"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'TOOL.Labels' | translate}}</ion-label>
+		<span *ngFor="let label of labels">{{label}}</span>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">Installation Steps</ion-label>
+		<ion-textarea rows ="5" [(ngModel)] ="tool.installationSteps" name="installationSteps"></ion-textarea>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">Installation description</ion-label>
+		<ion-textarea rows ="5" [(ngModel)] ="tool.installationDescription" name="installationDescription"></ion-textarea>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">Likes</ion-label>
+		<ion-input [(ngModel)] ="tool.likes" name="likes"></ion-input>
+	</ion-item>
+	<ion-list  class="filterContent">
+				<ion-label color="primary" position="floating">Categories</ion-label>
+
+		<ion-grid>
+			<ion-row>
+				<ion-col *ngFor="let category of categories">
+					<ion-item lines="none">
+						<ion-label class="ion-text-wrap">{{category.name}}</ion-label>
+						<ion-checkbox slot="start" [(ngModel)]="tool.labels[category.id]"></ion-checkbox>
+					</ion-item>
+				</ion-col>
+
+			</ion-row>
+		</ion-grid>
+
+	</ion-list>
+	<ion-list  class="filterContent">
+		<ion-label color="primary" position="floating">Stages</ion-label>
+
+		<ion-grid>
+			<ion-row>
+				<ion-col *ngFor="let stage of stages">
+					<ion-item lines="none">
+						<ion-label class="ion-text-wrap">{{stage.name}}</ion-label>
+						<ion-checkbox slot="start" [(ngModel)]="tool.stages[stage.id]" ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+
+			</ion-row>
+		</ion-grid>
+
+	</ion-list>
+
+	<ion-button class="ion-margin" (click)="save()"><ion-icon name="add-outline" ></ion-icon>Save</ion-button>
+	<ion-button class="ion-margin" (click)="requestDelete()"><ion-icon name="trash-outline" *ngIf="mode ==='update'"></ion-icon>Delete</ion-button>
+
+</ion-content>

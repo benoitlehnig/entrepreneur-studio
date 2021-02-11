@@ -44,10 +44,22 @@
 						<ion-icon name="briefcase-outline" class="disabledIcon"></ion-icon>
 						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Finances' | translate }}</ion-text></ion-label>
 					</ion-item>
+					<ion-item lines="none"  (click)="openCommentsPopover()"  *ngIf="accessRights.write === true"  >
+						<ion-icon name="chatbubbles-outline" ></ion-icon>
+						<ion-badge>{{comments.length}}</ion-badge>
+						<ion-label  class="ion-margin-start withBadge"><ion-text >{{'EXECUTIVE.Comments' | translate }}</ion-text></ion-label>
+					</ion-item>
+					<ion-item lines="none"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true" >
+						<ion-icon name="logo-slack"></ion-icon>
+						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Slack' | translate }}</ion-text></ion-label>
+					</ion-item>
+
 					<ion-item lines="none"  (click)="openFeedbackPopover('other')">
 						<ion-icon name="ellipsis-horizontal-circle" ></ion-icon>
 						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Other' | translate }}</ion-text></ion-label>
 					</ion-item>
+					<div class="separator"  ></div>
+					
 				</ion-list>
 				<ion-item lines="none" class="removeButton fullWidth" *ngIf="projectRoute === true && project !== null && userIds">
 					<ion-button expand="block" fill="outline" color="danger" class="fullWidth" (click)="requestRemoveProject()" *ngIf="project.data.ownerUid === userIds.uid">{{'PROJECT.Remove' | translate }}</ion-button>

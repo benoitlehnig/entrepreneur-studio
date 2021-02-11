@@ -31,6 +31,7 @@ export class ResourcePopoverComponent implements OnInit {
 		link: "",
 		labels:"",
 		installationSteps:"",
+		installationDescription:""
 	}
 	public filter={
 		categories : [],
@@ -50,6 +51,7 @@ export class ResourcePopoverComponent implements OnInit {
 	public selectedApplicationUrl:string="";
 
 	public selectedButton:string="application";
+	public selectedAppButton:string="description";
 
 	public slackButtonHref= "https://slack.com/oauth/v2/authorize?client_id=1226163065714.1534441424722&scope=incoming-webhook,commands&redirect_uri=https://us-central1-entrepeneur-studio.cloudfunctions.net/slackOauthRedirect&state="
 
@@ -143,11 +145,14 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 
 	segmentChanged(event){
-		console.log("resource,", event);
 		this.selectedButton = event.detail.value;
 		if(this.selectedButton ==='link'){
 			this.selectApplication('other');
 		}
+	}
+	segmentAppChanged(event){
+		this.selectedAppButton = event.detail.value;
+	
 	}
 
 	addApplicationSlack(){

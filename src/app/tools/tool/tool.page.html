@@ -1,8 +1,10 @@
 <ion-card>
-	<div class="ion-text-center"><img [src]="tool.imgUrl" /></div>
   <ion-card-header>
-    <ion-card-title>{{tool.name}} 
-    <ion-icon name="pencil-outline" *ngIf="mode === 'admin'"></ion-icon>
+   
+    <ion-card-title>
+      <ion-thumbnail sloat="start">
+      <img [src]="tool.imgUrl" />
+    </ion-thumbnail>{{tool.name}} 
     </ion-card-title>
     <ion-card-subtitle>{{tool.brandName}}</ion-card-subtitle>
 

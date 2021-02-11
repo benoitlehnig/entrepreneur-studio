@@ -22,8 +22,5 @@ export class AddToolPopoverPage implements OnInit {
 		console.log(this.labels)
 	}
 
-	addTool(){
-
-		this.navParams.get('homeref').addTool(this.tool);
-	}
+	
 }

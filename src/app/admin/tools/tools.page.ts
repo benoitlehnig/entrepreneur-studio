@@ -42,7 +42,7 @@ export class ToolsPage implements OnInit {
 
 	ionViewWillEnter(){
 		this.toolService.getTools().subscribe(data=>{
-			console.log(data);
+			console.log("getTools",data);
 			this.tools= data;
 		})
 	}
@@ -63,9 +63,6 @@ export class ToolsPage implements OnInit {
 
 	}
 
-	addTool(tool){
-		this.toolService.addTool(tool);
-		this.modalController.dismiss();
-	}
+	
 
 }

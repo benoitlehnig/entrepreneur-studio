@@ -48,4 +48,15 @@ export class UserService {
 		}))
 	}
 
+	getUsers(){
+		return this.afs.collection<User>('users').snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data();
+				const id = a.payload.doc.id;
+				return { id, ...data };
+			});
+		})
+		);
+	}
+
 }

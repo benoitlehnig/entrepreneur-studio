@@ -13,8 +13,13 @@ export class AdminPage implements OnInit {
 	{
 		title: 'tools',
 		url: 'tools',
-		icon: 'hammer'
-	}
+		icon: 'apps'
+	},
+	{
+		title: 'users',
+		url: 'users',
+		icon: 'people'
+	},
 	];
 	public selectedIndex=0;
 

@@ -77,7 +77,7 @@ const routes: Routes = [
 {
   path: 'admin',
   loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
-  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: isAdmin }
 },
 {
   path: 'intl/:lang/tools',

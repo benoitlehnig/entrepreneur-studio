@@ -1,0 +1,14 @@
+<ion-content>
+	<ion-list>
+		<ion-item *ngFor="let user of users">
+			<ion-label slot="start">
+				<h1>{{user.email}} <ion-badge>{{user.role}}</ion-badge></h1>
+				<p>{{user.firstName}} {{user.lastName}}</p>
+			</ion-label>
+			<ion-button slot="end" (click)="setAdmin(user.id, user.role)">
+				set as admin
+			</ion-button>
+		</ion-item>
+	</ion-list>
+
+</ion-content>

@@ -8,6 +8,8 @@ import {StorageService} from '../../../../services/storage.service';
 import {AutoCompleteOptions} from 'ionic4-auto-complete';
 import { FileUploader } from 'ng2-file-upload';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
+
 
 
 @Component({
@@ -40,9 +42,11 @@ export class PopoverProjectSummaryComponent implements OnInit {
 		public navParams : NavParams,
 		public storageService : StorageService,
 		private functions: AngularFireFunctions,
+		public angularFireAnalytics:AngularFireAnalytics
 
 
 		) {
+		this.angularFireAnalytics.setCurrentScreen("project_summary_popover");
 		this.providerDomains = new AutocompleteService('domains'); 
 
 		this.uploader = new FileUploader({

@@ -4,8 +4,12 @@ export class Tool {
 	public imgUrl:string=""
 	public description:string=""
 	public labels:Array<string> =[];
-	public stages;
+	public stages:Array<string> =[];
 	public categories;
 	public link;
+	public price:string="";
+	public installationSteps:string="";
+	public installationDescription:string="";
+	public likes:string="";
 
 }

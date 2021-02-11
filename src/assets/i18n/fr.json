@@ -154,6 +154,8 @@
 		"TeamMenuTooltip":"La gestion votre équipe",
 		"ApplicationMenuTooltip":"Les differentes applications pour votre projet",
 		"FinancesMenuTooltip":"Les informations relatives au financement de votre projet",
+		"CommentsMenuTooltip":"Afficher les commentaires ",
+		"SlackMenuTooltip":"Ouvrir Slack",
 		"OtherMenuTooltip":"Il manque quelque chose ? Soumettez-vos idées !"
 	},
 	"EXECUTIVE":{
@@ -162,6 +164,8 @@
 		"Team": "Equipe",
 		"Application": "Application",
 		"Finances": "Finances",
+		"Comments": "Commentaires",
+		"Slack": "Slack",
 		"Other": "Autre"
 	},
 	"CGU":{
@@ -541,7 +545,7 @@
 			"expert": "Expert",
 			"administrative": "Administratif",
 			"financial": "Financier",
-			"experience": "Expérience"		
+			"experience": "Expérience"
 		},
 		"SkillSearchList":{
 			"Title": "Vos recherches",
@@ -562,15 +566,18 @@
 			"ProfileContributor": "Je cherche un collaborateur",
 			"SubTitle2": "Quelles sont les competences que vous recherchez ?",
 			"SubTitle2Partner": "Précisez votre recherche de partenaire",
-			"SubTitle2Contributor": "Précisez votre recherche de contributeur",
+			"SubTitle2Contributor": "Précisez votre recherche de collaborateur",
 			"MoreDetails": "Donnez plus de détails à votre recherche",
 			"ESNetwork": "Béneficiez du reseau d'Entrepreneur-Studio" ,
 			"ESNetworkSubTitle": "Faites connaitre votre recherche sur le Slack d'Entrepreneur-Studio, et contactez les personnes interessées" ,
-			"ESNetworkSlack": "Envoyer votre recherche sur le Slack d'Entrepreneur-Studio"
+			"ESNetworkSlack": "Envoyer votre recherche sur le Slack d'Entrepreneur-Studio",
+			"Freetextassociate": "Quel type d'associé recherchez-vous ? Expérience, profile, lieux,...",
+			"Freetextpartner": "Quel type de partenaire recherchez-vous ? Fournisseur, conseil, investisseur, autre,...",
+			"Freetextcontributor": "Quel type de collaborateur recherchez-vous ? Quel serait sont statut : Freelance, stagiaire ou employé..."
 		},
 		"ErrorMemberAlreadyExists": "Le membre fait déjà parti de votre équipe",
 		"ErrorFormatEmail": "Le format de l'addresse email n'est pas correct.",
-		"SendInviteText": "Inviter un collaborateur",
+		"SendInviteText": "Ajouter un nouveau membre",
 		"SendInviteRequestTextButton": "Ajouter un membre",
 		"Email": "Email",
 		"Remove": "Enlever",
@@ -585,7 +592,7 @@
 		"SearchSkills":"Rechercher des competences",
 		"SearchSkilledSaved": "recherche(s) définies",
 		"SendInviteTooltip":"Envoyer une invitation par email à un collaborateur pour qu'il rejoigne le projet",
-		"SendInviteText":"Inviter un collaborateur"
+		"SendInviteText":"Ajouter un nouveau membre"
 	},
 	"RESOURCES":{
 		"AddResource": "Ajouter un lien vers une application",
@@ -626,5 +633,15 @@
 		"ItemDelivrable": "Délivrables",
 		"ItemResources": "Resources",
 		"ItemApplications": "Outils"
+	},
+	"COMMENTS": {
+		"Title": "Commentaires",
+		"Menu":{
+			"Resolve":"Résoudre",
+			"MarkImportant":"Marquer important",
+			"Remove":"Supprimer"
+		}
+		
 	}
+
 }

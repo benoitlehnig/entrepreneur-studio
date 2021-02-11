@@ -1,25 +1,67 @@
 .userName{
 	font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 150px;
-    display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 150px;
+	display: inline-block;
 }
 .creationDate{
-	font-size: 12px;
+	font-size: 10px;
 }
 .footer{
 	position: absolute;
-    bottom: 65px;
-    width: 100%;
+	bottom: 16px;
+	width: 100%;
 }
 .commentForm{
 	--background: var(--ion-color-light);
-    border-radius: 4px;
-    margin: 3px;
+	border-radius: 4px;
+	margin: 3px;
 }
 .sendButton{
 	position: relative;
-    top: 16px;
+	top: 16px;
+	--color:var(--ion-color-primary);
+	cursor:pointer;
+}
+.sendButton:hover{
+	color:var(--ion-color-primary-tint);
+}
+.comment{
+	border: 1px solid var(--ion-color-light);
+	border-radius: 4px;
+	--inner-padding-bottom: 0px;
+	--inner-padding-end:0px;
+	margin-top: 2px;
+}
+
+.resolved{
+	color: var(--ion-color-success);
+	font-size:smaller;
+}
+.important{
+	color: var(--ion-color-danger);
+	font-size:smaller;
+}
+.commentPopoverIcon{
+	cursor: pointer;
+		color:var(--ion-color-primary);
+}
+.pointer{
+	cursor: pointer;
+}
+.commentPopoverIcon:hover{
+	color:var(--ion-color-primary-tint);
+}
+.fullHeight{
+	height: calc(100% - 147px);
+	overflow-y: scroll;
+}
+ion-thumbnail, ion-avatar{
+	width: 36px;
+	height: 36px;
+    margin: 0px;
+    position: relative;
+    left: -10px;
 }

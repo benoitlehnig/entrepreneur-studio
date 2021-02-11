@@ -26,11 +26,21 @@ export class ToolService {
 		);
 	}
 
-	addTool(tool:Tool){
-		console.log("addTool",tool)
-		return this.toolRef.add(JSON.parse( JSON.stringify(tool)));
+	
+
+	getTool(id){
+		return this.afs.doc<Tool>('tools/' +id).valueChanges()
 	}
 
+	save(id,tool){
+		return this.afs.doc<Tool>('tools/'+id).update(tool);
+	}
+	add(tool){
+		return this.afs.collection<Tool>('tools').add(tool);
+	}
+	delete(id){
+		return this.afs.doc<Tool>('tools/'+id).delete();
+	}
 	
 	
 

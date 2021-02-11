@@ -138,7 +138,7 @@ export class ProjectService {
 		);
 	}
 	getComments(id){
-		return this.afs.collection('projects').doc(id).collection('comments').snapshotChanges().pipe(map(actions => {
+		return this.afs.collection('projects').doc(id).collection('comments',ref => ref.orderBy('createdAt','asc')).snapshotChanges().pipe(map(actions => {
 			return actions.map(a => {
 				const data = a.payload.doc.data();
 				const id = a.payload.doc.id;
@@ -148,10 +148,56 @@ export class ProjectService {
 		);
 
 	}
+	getCommentsWithUserInfo(id){
+		return this.afs.collection('projects').doc(id).collection('comments',ref => ref.orderBy('createdAt','asc')).snapshotChanges()
+		.pipe(
+			switchMap(comments => {
+
+				const uids = uniq(comments.map(comment => {
+					const commentPayload = comment.payload.doc.data();
+					if(commentPayload.uid!==undefined || commentPayload.uid!="")
+						{ return commentPayload.uid}
+				} ))
+				let comments_ = comments.map((comment) =>{
+								const data = comment.payload.doc.data();
+								const id = comment.payload.doc.id;
+								return {id:id, data:data };
+						});
+				return combineLatest(
+					of(
+						comments_
+						),
+					combineLatest(
+						uids.map(uid =>{
+							return this.afs.doc('users/'+uid).valueChanges().pipe(
+								map(userProfile => {
+									console.log("userProfile ",userProfile)
+									return {profile: userProfile, uid:uid}})
+								)
+						})
+						)  as any,
+					)  as any
+			}),
+			map(([comments, userProfiles]) => {
+				return comments.map(comment => {
+					return {
+						...comment,
+						userProfile: userProfiles.find((a:any) => a.uid === comment.data.uid)
+					}
+				})
+			})
+			)
+
+	}
 	addComment(id,comment){
 		return this.afs.collection('projects').doc(id).collection('comments').add(comment);
 	}
-
+	setCommentStatus(id, commentId,status){
+		return this.afs.collection('projects').doc(id).collection('comments').doc(commentId).update({status: status});
+	}
+	deleteComment(id,commentId){
+		return this.afs.collection('projects').doc(id).collection('comments').doc(commentId).delete();
+	}
 	setSharingStatus(id,status){
 		console.log("Update project >> setSharingStatus ");
 
@@ -203,9 +249,8 @@ export class ProjectService {
 						timelineElements.map(timelineElement =>{
 							return this.afs.doc<Project>('timeline/' +timelineElement.data.id).valueChanges().pipe(
 								map(timelineElement2 => {
-									console.log("timelineElement timelineElement: ",timelineElement2);
 									return {timelineElementId: timelineElement.data.id, data:timelineElement2};}  )
-								
+
 								)
 						})
 						) as any,
@@ -249,8 +294,8 @@ export class ProjectService {
 										const responseId = response.payload.doc.id;
 										return {skillSearchId:skillSearch.id, responseId: responseId, data:responseData};}  )
 								})
-								
-								
+
+
 								)
 						})
 						) as any,

@@ -14,8 +14,12 @@ import {UserAvatarModule} from '../user-avatar/user-avatar.module';
 import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
 import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
 import { CommentsComponent } from './executive/comments/comments.component';
+import { CommentPopoverComponent } from './executive/comments/comment-popover/comment-popover.component';
 
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { NavParams} from '@ionic/angular';
+
+
 
 
 @NgModule({
@@ -31,6 +35,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 
 
   ],
-  declarations: [ProjectPage,SharingStatusPopoverComponent,MenuPopoverComponent,CommentsComponent]
+  providers:[NavParams],
+
+  declarations: [ProjectPage,SharingStatusPopoverComponent,MenuPopoverComponent,CommentsComponent,CommentPopoverComponent]
 })
 export class ProjectPageModule {}

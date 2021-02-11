@@ -12,6 +12,8 @@
  import {ActivatedRoute} from '@angular/router';
  import {MenuController} from '@ionic/angular';
  import { first } from 'rxjs/operators';
+ import { AngularFireFunctions } from '@angular/fire/functions';
+
 
  import { Router,NavigationEnd   } from '@angular/router';
  import { NgcCookieConsentService } from 'ngx-cookieconsent';
@@ -19,6 +21,7 @@
  import { ModalController } from '@ionic/angular';
  import {QuestionPage} from './question/question.page'
  import { PopoverFeedbackComponent } from './project/executive/summary/popover-feedback/popover-feedback.component';
+ import { CommentsComponent } from './project/executive/comments/comments.component';
 
  import { AngularFireAnalytics,CONFIG  } from '@angular/fire/analytics';
 
@@ -54,8 +57,15 @@
    public project:any=null;
    public userIds:any;
    public projectId:string;
+   public accessRights={read: false, write:false};
+
    public teamMembers=[];
    public resources=[];
+   public comments= [];
+
+   public isSlackInstalled:boolean=false;
+   public slackUrl:string="";
+
 
    private popupOpenSubscription: Subscription;
    private popupCloseSubscription: Subscription;
@@ -66,6 +76,7 @@
 
    public projectTeamMembersSub: Subscription = new Subscription();
    public resourcesSub: Subscription = new Subscription();
+   public commentsSub: Subscription = new Subscription();
 
 
    constructor(
@@ -85,6 +96,8 @@
      private modalController: ModalController,
      private ccService: NgcCookieConsentService,
      public angularFireAnalytics:AngularFireAnalytics,
+     public functions:AngularFireFunctions,    
+
 
      ) {
      this.initializeApp();
@@ -118,6 +131,22 @@
            this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
              resources=>{
                this.resources = resources;
+               this.resources.forEach((resource:any)=>{
+                 if(resource.data.name==="Slack"){
+                   this.isSlackInstalled = true;
+                   this.slackUrl = resource.data.url;
+                 }
+               })
+             })
+           const callable = this.functions.httpsCallable('getProjectAccess');
+           const obs = callable({projectId: this.projectId});
+           obs.subscribe(res => {
+             console.log("getProjectAccess", res);
+             this.accessRights = res;
+           });  
+           this.commentsSub = this.projectService.getComments(this.projectId).subscribe(
+             data=> {
+               this.comments = data;
              })
          }
        })
@@ -292,5 +321,21 @@
 
      return await modal.present();
    }
+
+   async openCommentsPopover(){
+     let modal = await this.modalController.create({
+       component: CommentsComponent,
+       cssClass: 'my-custom-class',
+       componentProps: {homeref:this, projectId: this.projectId, userIds: this.userIds,origin:"mainMenu" },
+     });
+
+     return await modal.present();
+   }
+
+   dismissCommentsPopover(){
+     console.log("dismissCommentsPopover")
+     this.modalController.dismiss();
+   }
+
 
  }

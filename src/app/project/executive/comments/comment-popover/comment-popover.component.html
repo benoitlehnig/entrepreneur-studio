@@ -1,0 +1,14 @@
+<ion-list>
+	<ion-item (click)="resolve()">
+		<ion-icon name="checkmark-outline" class="ion-margin-end"></ion-icon>	
+		<ion-label>{{'COMMENTS.Menu.Resolve' | translate }}</ion-label>
+	</ion-item>
+	<ion-item (click)="markAsImportant()" >
+		<ion-icon name="alert-circle-outline" class="ion-margin-end"></ion-icon>
+		<ion-label>{{'COMMENTS.Menu.MarkImportant' | translate }}</ion-label>
+	</ion-item>
+	<ion-item (click)="delete()" lines="none" class="ion-margin-end">
+		<ion-icon name="trash"></ion-icon>
+		<ion-label>{{'COMMENTS.Menu.Remove' | translate }}</ion-label>
+	</ion-item>
+</ion-list>

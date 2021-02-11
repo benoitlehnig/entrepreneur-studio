@@ -113,8 +113,6 @@ ion-item:hover{
   box-shadow: -3px -1px 10px 3px rgb(36 15 15 / 41%);
   z-index: 4;
   .separator{ 
-    margin-top:12px;
-    margin-bottom:12px;
     border-bottom:1px solid var(--ion-color-primary);
   }
   .expandButton{
@@ -168,4 +166,12 @@ ion-footer{
 
 .commentsCol{
   max-width:350px;
+  min-width:300px;
+  opacity: 1;
+}
+.commentsColHidden{
+  max-width: 0px;
+  min-width: 0px;
+  display:none;
+
 }

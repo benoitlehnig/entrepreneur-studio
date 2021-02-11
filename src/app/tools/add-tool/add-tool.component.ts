@@ -89,7 +89,7 @@ export class AddToolComponent implements OnInit {
 
 			}
 		}
-		this.tool.stages = JSON.stringify(this.toolStages);
+		this.tool.stages = this.toolStages;
 		this.tool.categories = JSON.stringify(this.toolCategories);
 
 		console.log("selectFilter",this.tool)

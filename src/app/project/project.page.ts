@@ -23,6 +23,8 @@ import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
+
 
 
 @Component({
@@ -41,6 +43,9 @@ export class ProjectPage implements OnInit {
 	public expandedMenu:boolean=false;
 	public teamMembers=[];
 	public resources=[];
+
+	public isSlackInstalled:boolean=false;
+	public slackUrl:string="";
 
 	public deletePopupTitle:string="";
 	public deletePopupSubTitle:string="";
@@ -74,7 +79,9 @@ export class ProjectPage implements OnInit {
 		public modalController:ModalController,
 		public popoverController: PopoverController,
 		public functions:AngularFireFunctions,		
-		private cookieService: CookieService
+		private cookieService: CookieService,
+		public angularFireAnalytics:AngularFireAnalytics
+
 		) {
 
 
@@ -156,7 +163,15 @@ export class ProjectPage implements OnInit {
 			})
 		this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
 			resources=>{
+				console.log("resourcesSub",resources)
 				this.resources = resources;
+				this.resources.forEach((resource:any)=>{
+					if(resource.data.name==="Slack"){
+						this.isSlackInstalled = true;
+						this.slackUrl = resource.data.url;
+
+					}
+				})
 			})
 		this.commentsSub = this.projectService.getComments(this.projectId).subscribe(
 			data=> {
@@ -201,6 +216,7 @@ export class ProjectPage implements OnInit {
 	}
 
 	updateStatus(status){
+		this.angularFireAnalytics.logEvent('project_sharing_status_update',  {projectId:this.projectId, status:status});
 		this.dismissSharingStatusPopover();
 		this.project.sharingStatus = status;
 		this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
@@ -235,6 +251,7 @@ export class ProjectPage implements OnInit {
 	}
 
 	async requestRemoveProject(){
+		this.angularFireAnalytics.logEvent('project_removal_request',  {projectId:this.projectId});
 
 		const alert = await this.alertController.create({
 			cssClass: 'my-custom-class',
@@ -279,6 +296,8 @@ export class ProjectPage implements OnInit {
 	}
 
 	toggleCommentsPanel(){
+		this.angularFireAnalytics.logEvent('project_comments_display',  {projectId:this.projectId});
+
 		this.commentsPanelDisplayed = !this.commentsPanelDisplayed;
 		if(this.commentsPanelDisplayed === true){
 			this.cookieService.set( 'commentsPanelDisplayed', 'true' );
@@ -288,6 +307,9 @@ export class ProjectPage implements OnInit {
 			this.cookieService.set( 'commentsPanelDisplayed', 'false' );
 
 		}
+	}
+	closeCommentsPanel(ev){
+		this.toggleCommentsPanel();
 	}
 
 	

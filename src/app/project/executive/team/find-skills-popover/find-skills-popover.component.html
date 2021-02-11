@@ -48,7 +48,7 @@
 		<div>
 			<ion-item>
 				<ion-label position="floating">{{'TEAM.FindSkill.MoreDetails' | translate}} </ion-label>
-				<ion-textarea [(ngModel)]="skillSearch.freeText"></ion-textarea>
+				<ion-textarea [(ngModel)]="skillSearch.freeText" placeholder="{{'TEAM.FindSkill.Freetext'+skillSearch.type  | translate}}"></ion-textarea>
 			</ion-item>
 		</div>
 		<div class="optionEScontact ion-padding ion-margin-top">
