@@ -1,4 +1,4 @@
-<ion-content  class="defaultStyle" [ngClass]="{
+<ion-content *ngIf="projectInit === true" class="defaultStyle" [ngClass]="{
 'customStyle' :  project.theme !== null}" [style.--background]="'url(' + backgroundPicture + ') no-repeat center center / cover var(--ion-color-primary)'  ">
 <ion-item class="screenTitle" lines="none">
 	<ion-label >

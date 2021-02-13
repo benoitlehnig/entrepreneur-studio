@@ -13,6 +13,7 @@ export class Project {
 	public theme:Theme;
 	public lastUpdateDateTime:Date;
 	public creationDateTime:Date;
+	public commentsNumber:number=0;
 }
 
 export class Summary {

@@ -22,6 +22,7 @@ export class SummaryPage implements OnInit {
 
 	public project:Project = new Project();
 	public projectId:string="";
+	public projectInit:boolean = false;
 	public backgroundPicture:string="";
 	public accessRights={read: false, write:false};
 
@@ -62,6 +63,7 @@ export class SummaryPage implements OnInit {
 		this.dataSharingServiceService.getProjectChanges().subscribe(
 			(data)=>{
 				if(data !==null){
+					this.projectInit = true;
 					this.projectId	= data.id
 					this.accessRights = data.accessRights;
 					if(data.data !==null){

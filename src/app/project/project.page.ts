@@ -35,6 +35,8 @@ import { AngularFireAnalytics } from '@angular/fire/analytics';
 export class ProjectPage implements OnInit {
 
 	public project:Project= new Project();
+	public projectInit:boolean=false;
+
 	public projectId:string="";
 	public writeAccess:boolean=false;
 	public accessRights={read: false, write:false};
@@ -58,14 +60,12 @@ export class ProjectPage implements OnInit {
 	}
 
 	public commentsPanelDisplayed:boolean = false;
-	public comments= [];
 
 	public uidChangesSub: Subscription = new Subscription();
 	public projectsIdsbyUidSub: Subscription = new Subscription();
 	public projectSub: Subscription = new Subscription();
 	public projectTeamMembersSub: Subscription = new Subscription();
 	public resourcesSub: Subscription = new Subscription();
-	public commentsSub: Subscription = new Subscription();
 
 	constructor(
 		public projectService:ProjectService,
@@ -132,7 +132,6 @@ export class ProjectPage implements OnInit {
 		this.uidChangesSub.unsubscribe();
 		this.projectsIdsbyUidSub.unsubscribe();
 		this.projectSub.unsubscribe();
-		this.commentsSub.unsubscribe();
 
 	}
 
@@ -149,12 +148,17 @@ export class ProjectPage implements OnInit {
 	}
 
 	initProject(){
-		this.projectSub = this.projectService.getProject(this.projectId).pipe(first()).subscribe(
+		this.projectSub = this.projectService.getProject(this.projectId).subscribe(
 			(data)=>{
 				if(data){
+					if(this.projectInit ===false){
+
+						this.project= data;
+						this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
+						this.projectInit = true;
+					}
+					this.project.commentsNumber = data.commentsNumber;
 					console.log("ProjectPage >>ngOnInit>> initProject >> getProject" , data);
-					this.project= data;
-					this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 				}
 			})
 		this.projectTeamMembersSub = this.projectService.getProjectTeamMembers(this.projectId).subscribe(
@@ -173,11 +177,6 @@ export class ProjectPage implements OnInit {
 					}
 				})
 			})
-		this.commentsSub = this.projectService.getComments(this.projectId).subscribe(
-			data=> {
-				this.comments = data;
-			})
-
 	}
 
 

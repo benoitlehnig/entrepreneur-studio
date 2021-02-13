@@ -57,11 +57,12 @@
    public project:any=null;
    public userIds:any;
    public projectId:string;
+   public projectInit:boolean=false;
+
    public accessRights={read: false, write:false};
 
    public teamMembers=[];
    public resources=[];
-   public comments= [];
 
    public isSlackInstalled:boolean=false;
    public slackUrl:string="";
@@ -76,7 +77,6 @@
 
    public projectTeamMembersSub: Subscription = new Subscription();
    public resourcesSub: Subscription = new Subscription();
-   public commentsSub: Subscription = new Subscription();
 
 
    constructor(
@@ -144,11 +144,9 @@
              console.log("getProjectAccess", res);
              this.accessRights = res;
            });  
-           this.commentsSub = this.projectService.getComments(this.projectId).subscribe(
-             data=> {
-               this.comments = data;
-             })
          }
+         
+         
        })
 
 

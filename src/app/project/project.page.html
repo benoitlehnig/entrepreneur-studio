@@ -78,7 +78,7 @@
 <div class="separator"  *ngIf="accessRights.write === true" ></div>
 <ion-item lines="none"  tooltip="{{'PROJECT.CommentsMenuTooltip' | translate }}"  [options]="tooltipOptions"  (click)="toggleCommentsPanel()"  *ngIf="accessRights.write === true" >
   <ion-icon name="flag-outline" ></ion-icon>
-  <ion-badge>{{comments.length}}</ion-badge>
+  <ion-badge *ngIf="project.commentsNumber !==undefined">{{project.commentsNumber}}</ion-badge>
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start withBadge"><ion-text >{{'EXECUTIVE.Comments' | translate }}</ion-text></ion-label>
 </ion-item>
 <div class="separator"></div>
@@ -101,7 +101,7 @@
 <ion-col [ngClass]="{'commentsColHidden' : commentsPanelDisplayed ===false}" class="commentsCol"  *ngIf="accessRights.write === true" >
   <app-comments [projectId]="projectId" [userIds]="userIds" (closed)="closeCommentsPanel($event)"></app-comments>
 </ion-col>
-<ion-col class="shadowContent">
+<ion-col class="shadowContent" *ngIf="projectInit ===true">
   <ion-router-outlet id="project-content"></ion-router-outlet>
 </ion-col>
 

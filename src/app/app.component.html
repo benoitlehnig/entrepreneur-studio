@@ -46,7 +46,7 @@
 					</ion-item>
 					<ion-item lines="none"  (click)="openCommentsPopover()"  *ngIf="accessRights.write === true"  >
 						<ion-icon name="chatbubbles-outline" ></ion-icon>
-						<ion-badge>{{comments.length}}</ion-badge>
+						<ion-badge  *ngIf="project.data.commentsNumber !==undefined">{{project.data.commentsNumber}}</ion-badge>
 						<ion-label  class="ion-margin-start withBadge"><ion-text >{{'EXECUTIVE.Comments' | translate }}</ion-text></ion-label>
 					</ion-item>
 					<ion-item lines="none"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true" >
