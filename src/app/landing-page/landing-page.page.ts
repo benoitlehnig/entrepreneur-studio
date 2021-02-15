@@ -6,6 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { PartnersComponent } from './partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
 import { ActivatedRoute } from '@angular/router';
+import {CMSService} from '../services/cms.service';
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+
 
 @Component({
 	selector: 'app-landing-page',
@@ -16,6 +20,8 @@ export class LandingPagePage implements OnInit {
 
 	public isLogged:boolean = false;
 	public unknownUser:boolean = false;
+	public systemDParamSub: Subscription = new Subscription();
+	public systemDSlackChannel:string="";
 
 	
 	constructor(
@@ -23,6 +29,8 @@ export class LandingPagePage implements OnInit {
 		public modalController:ModalController,
 		public dataSharingServiceService:DataSharingServiceService,
 		public activatedRoute: ActivatedRoute,
+		public CMSService:CMSService,
+
 		) { }
 
 	ngOnInit() {
@@ -35,6 +43,10 @@ export class LandingPagePage implements OnInit {
 					this.isLogged = true;
 				}
 			})
+		this.systemDParamSub = this.CMSService.getSystemDParams().pipe(first()).subscribe(
+			(systemDparams:any)=>{
+				this.systemDSlackChannel = systemDparams.systemDChannel;
+			}) 
 		this.activatedRoute.params.subscribe(params => {
 			console.log("params",params)
 			if(params['unknownUser'] === 'true'){
@@ -44,6 +56,10 @@ export class LandingPagePage implements OnInit {
 				this.presentSignUpPopover();
 			}
 		});
+	}
+	ngOnDestroy(){
+		this.systemDParamSub.unsubscribe();
+
 	}
 
 	getContent() {

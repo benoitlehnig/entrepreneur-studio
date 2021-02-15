@@ -77,8 +77,8 @@
 		"TimelineStep8LineBottomText3" :"Croissance",
 		"TimelineStep9IconText" :"Croissance",
 		"FollowUsTitle":"Nous suivre",
-		"PracticalInformationTitle" :"Informations pratiques"
-
+		"PracticalInformationTitle" :"Informations pratiques",
+		"SlackCommunity" :"Découvrez la communauté Slack"
 	},
 	"cookie": {
 		"header": "Des cookies sont utilisés sur ce site",

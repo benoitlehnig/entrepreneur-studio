@@ -155,25 +155,29 @@ export class ProjectService {
 
 				const uids = uniq(comments.map(comment => {
 					const commentPayload = comment.payload.doc.data();
-					if(commentPayload.uid!==undefined || commentPayload.uid!="")
+					if(commentPayload.uid!==undefined && commentPayload.uid!="")
 						{ return commentPayload.uid}
 				} ))
 				let comments_ = comments.map((comment) =>{
-								const data = comment.payload.doc.data();
-								const id = comment.payload.doc.id;
-								return {id:id, data:data };
-						});
+					const data = comment.payload.doc.data();
+					const id = comment.payload.doc.id;
+					return {id:id, data:data };
+				});
 				return combineLatest(
 					of(
 						comments_
 						),
 					combineLatest(
 						uids.map(uid =>{
+							
 							return this.afs.doc('users/'+uid).valueChanges().pipe(
 								map(userProfile => {
 									console.log("userProfile ",userProfile)
 									return {profile: userProfile, uid:uid}})
-								)
+								)	
+							
+							
+							
 						})
 						)  as any,
 					)  as any

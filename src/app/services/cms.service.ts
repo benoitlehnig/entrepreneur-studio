@@ -110,6 +110,11 @@ export class CMSService {
 	}
 	getToolsNumber(){
 		return this.afs.doc('ApplicationParameters/tools').valueChanges();
+	}
+
+	getSystemDParams(){
+		return this.afs.doc('ApplicationParameters/systemD').valueChanges();
+
 
 	}
 

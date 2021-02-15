@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ProjectService} from '../../../../services/project.service';
+import {CMSService} from '../../../../services/cms.service';
 import { NavParams} from '@ionic/angular';
 
 import { Subscription } from 'rxjs';
@@ -19,6 +20,8 @@ export class SkillSearchesPopoverComponent implements OnInit {
 
 	public skillSearches =[]
 	public skillSearchersSub: Subscription = new Subscription();
+	public systemDParamSub: Subscription = new Subscription();
+	public systemDSlackChannel=""
 
 	public tooltipOptions={
 		'show-delay': 500,
@@ -27,6 +30,7 @@ export class SkillSearchesPopoverComponent implements OnInit {
 
 	constructor(
 		public projectService:ProjectService,
+		public CMSService:CMSService,
 		public navParams : NavParams,
 
 		) { 
@@ -38,12 +42,17 @@ export class SkillSearchesPopoverComponent implements OnInit {
 				console.log("getSkillSearchers", skillSearches);
 				this.skillSearches = skillSearches;
 			})
+		this.systemDParamSub = this.CMSService.getSystemDParams().subscribe(
+			(systemDparams:any)=>{
+				this.systemDSlackChannel = systemDparams.systemDChannel;
+			}) 
 	}
 
 	
 	ngOnDestroy(){
 		
 		this.skillSearchersSub.unsubscribe();
+		this.systemDParamSub.unsubscribe();
 	}
 
 	deleteSkillSearch(skillSearchId){

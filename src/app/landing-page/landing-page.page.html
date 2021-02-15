@@ -110,6 +110,9 @@
 							</div>
 							<div>
 								<p class="ion-text-justify">{{'LANDINGPAGE.Icon3SubText' | translate}}</p>
+								<ion-button class="ion-text-wrap" fill="outline" target="_black" [href]="systemDSlackChannel">
+									<ion-icon name="logo-slack" class="ion-margin-end"></ion-icon> {{'LANDINGPAGE.SlackCommunity' | translate}}
+								</ion-button>
 							</div>
 						</a>
 					</ion-col>
@@ -241,6 +244,10 @@
 						| 
 						<a target="blank" href="https://www.facebook.com/entrepreneurstudiocom" class="socialNetworkIcon ion-margin">
 							<ion-icon name="logo-facebook"></ion-icon>
+						</a>
+						| 
+						<a target="blank" [href]="systemDSlackChannel" class="socialNetworkIcon ion-margin">
+							<ion-icon name="logo-slack"></ion-icon>
 						</a>
 					</div>
 				</ion-col>

@@ -10,7 +10,7 @@
 			<h2>{{skillSearch.data.creationDate |  date:'longDate'}}</h2>
 			<p><span *ngFor="let skill of skillSearch.data.skills"> {{'TEAM.ProjectProfiles.'+skill | translate }} </span></p>
 			<p>{{skillSearch.data.freeText}}</p>
-			<div *ngIf="skillSearch.responses"  class="responses" [tooltip]="getTooltip(skillSearch.responses)" [options]="tooltipOptions" ><a href="https://app.slack.com/client/T016N4T1XM0/C01L4CDNWA2/thread/" target="_blank">{{skillSearch.responses.length}} {{'TEAM.SkillSearchList.Answers' | translate }}</a></div>
+			<div *ngIf="skillSearch.responses"  class="responses" [tooltip]="getTooltip(skillSearch.responses)" [options]="tooltipOptions" ><a [href]="systemDSlackChannel" target="_blank">{{skillSearch.responses.length}} {{'TEAM.SkillSearchList.Answers' | translate }}</a></div>
 		</ion-label>
 		<div slot="end" >
 			<ion-button fill="outline"><ion-icon name="trash" class=" remove"  (click)="deleteSkillSearch(skillSearch.id)"  tooltip="{{'TEAM.SkillSearchList.RemoveTooltip' | translate }}" [options]="tooltipOptions"></ion-icon>Supprimer</ion-button>
