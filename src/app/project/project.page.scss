@@ -1,5 +1,3 @@
-
-
 .removeButton{
   position:absolute;
   bottom:12px;
@@ -13,31 +11,42 @@
 .headerTitle .logo {
   max-width: 100px;
   width:auto;
-  max-height: 56px;
+  max-height: 36px;
   display: inline-block;
   vertical-align: middle;
 }
 .menu{
-	display: inline-block;
+  width: fit-content;
+  padding: 4px;
+  cursor:pointer;
+  ion-icon{
+    position: relative;
+    top: 4px;
+    margin-left: 12px;
+  }
+}
+.menu:hover{
+  width: fit-content;
+  background:   var(--ion-color-light);
+  border-radius: 4px;
 
 }
+
+
 .logoES{
-	width:100px;
-	display: inline-block;
-	vertical-align:middle;
-	@media(max-width: 800px) {
-		width:50px;
-		left:0px;
-	}
+  width:100px;
+  display: inline-block;
+  vertical-align:middle;
+  @media(max-width: 800px) {
+    width:50px;
+    left:0px;
+  }
 }
 .projectName{
   @media(max-width: 400px) {
     font-size: small;
   }
 
-}
-.projectName:hover{
-  background:   var(--ion-color-light);
 }
 
 ion-grid{
@@ -65,85 +74,85 @@ ion-grid{
       font-size:1.7em;
     }
     ion-badge{
-     --background: var(--ion-color-warning);
-     --color: var(--ion-color-warning-contrast);
-     z-index: 3;
-     height: 14px;
-     font-size: 9px;
-     position: relative;
-     top: -10px;
-     left: -4px;
+      --background: var(--ion-color-warning);
+      --color: var(--ion-color-warning-contrast);
+      z-index: 3;
+      height: 14px;
+      font-size: 9px;
+      position: relative;
+      top: -10px;
+      left: -4px;
 
-   }
-   ion-text{
-    font-size:13px;
-  }
-  .withBadge{
-    margin-left: 5px;
-  }
-}
-ion-item:hover{
- --background:   var(--ion-color-primary-tint);
- background-color:   var(--ion-color-primary-tint);
- cursor:pointer;
-}
-.tint{
-  --background: var(--ion-color-primary-shade);
-
-}
-.firstItem{
-
-}
-.selected{
-  color: var(--ion-color-warning-tint);
-  --background: var(--ion-color-primary);
-  ion-icon{
-    color: var(--ion-color-warning-tint);
-  }
-}
-.leftMenu{
-  color: var(--ion-color-primary-contrast);
-  padding: 0px;
-  text-align: center; 
-  font-size: 23px;
-  max-width:50px;
-  width:50px;
-  background:   var(--ion-color-primary-shade);
-  transition: max-width ease 0.6s;
-  box-shadow: -3px -1px 10px 3px rgb(36 15 15 / 41%);
-  z-index: 4;
-  .separator{ 
-    border-bottom:1px solid var(--ion-color-primary);
-  }
-  .expandButton{
-    cursor:  pointer;
-  }
-
-  .disabledIcon{
-    color:var(--ion-color-primary-tint);
+    }
+    ion-text{
+      font-size:13px;
+    }
+    .withBadge{
+      margin-left: 5px;
+    }
   }
   ion-item:hover{
-   .disabledIcon{
-    color:var(--ion-color-primary-contrast);
+    --background:   var(--ion-color-primary-tint);
+    background-color:   var(--ion-color-primary-tint);
+    cursor:pointer;
   }
-}
+  .tint{
+    --background: var(--ion-color-primary-shade);
 
-}
+  }
+  .firstItem{
 
-.expanded{
- max-width:250px;
- width:250px;
- box-shadow: 4px -1px 11px 0px rgb(36 15 15 / 41%);
- z-index:4;
+  }
+  .selected{
+    color: var(--ion-color-warning-tint);
+    --background: var(--ion-color-primary);
+    ion-icon{
+      color: var(--ion-color-warning-tint);
+    }
+  }
+  .leftMenu{
+    color: var(--ion-color-primary-contrast);
+    padding: 0px;
+    text-align: center; 
+    font-size: 23px;
+    max-width:50px;
+    width:50px;
+    background:   var(--ion-color-primary-shade);
+    transition: max-width ease 0.6s;
+    box-shadow: -3px -1px 10px 3px rgb(36 15 15 / 41%);
+    z-index: 4;
+    .separator{ 
+      border-bottom:1px solid var(--ion-color-primary);
+    }
+    .expandButton{
+      cursor:  pointer;
+    }
 
-}
-ion-footer{
-  position:absolute;
-  bottom:0px;
-  text-align: left;
-  padding-left:12px;
+    .disabledIcon{
+      color:var(--ion-color-primary-tint);
+    }
+    ion-item:hover{
+      .disabledIcon{
+        color:var(--ion-color-primary-contrast);
+      }
+    }
 
-}
+  }
+
+  .expanded{
+    max-width:250px;
+    width:250px;
+    box-shadow: 4px -1px 11px 0px rgb(36 15 15 / 41%);
+    z-index:4;
+
+  }
+  ion-footer{
+    position:absolute;
+    bottom:0px;
+    text-align: left;
+    padding-left:12px;
+
+  }
 
 }
 .trash{
@@ -173,5 +182,8 @@ ion-footer{
   max-width: 0px;
   min-width: 0px;
   display:none;
+}
 
+.imgAppIcon{
+  width: 26px;
 }

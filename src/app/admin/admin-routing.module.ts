@@ -8,29 +8,39 @@ const routes: Routes = [
   path: '',
   component: AdminPage,
   children:
-  [ {
+  [ 
+  {
+    path: '',
+    redirectTo: 'tools',
+    pathMatch: 'full',
+  },
+  {
     path: 'tools',
     children: [
     {
       path: '',
       loadChildren: () => import('./tools/tools.module').then( m => m.ToolsPageModule)
-    },
-    ]},
+    }
+    ]
+  },
+  {
+    path: 'users',
+    children: [
     {
-      path: 'users',
-      children: [
-      {
-        path: '',
-        loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
-      }
-      ]
-   
+      path: '',
+      loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
+    }
+    ]
   }
-  ]
-}];
+  ],
 
-  @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-  })
-  export class AdminPageRoutingModule {}
+}
+
+]
+
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AdminPageRoutingModule {}

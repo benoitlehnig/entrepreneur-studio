@@ -1,0 +1,59 @@
+h2{
+	font-size:13px;
+	font-weight: bold;
+}
+.driveIcon{
+	max-width: 	50px;
+}
+.file{
+	min-width: 226px;
+	max-width: 300px;
+	border: 1px solid var(--ion-color-medium-tint);
+	border-radius: 6px;
+	.thumbnail{
+		background: var(--ion-color-light-tint);
+		border-radius: 6px 6px 0px 0px;
+		height: 100px;
+		overflow: hidden;
+		img{
+			
+			margin: 6% 7% 0 7%;
+			box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%);
+			width: 86%;
+			text-align: center
+		}
+	}
+	.description{
+		border-top: 1px solid var(--ion-color-medium-tint);
+		padding:var(--ion-padding, 16px);
+		.iconLink{
+			height:16px;
+			width:16px;
+		}
+	}
+	.lastModified{
+		font-size: 	0.8em;
+		color:var(--ion-color-medium-tint);
+	}
+}
+.file:hover{
+	background:var(--ion-color-light-tint);	
+	cursor: pointer;	
+}
+.folder{
+	max-width:300px;
+	border: 1px solid var(--ion-color-medium-tint);
+	border-radius: 6px;
+	padding:var(--ion-padding, 10px);
+}
+.folder:hover{
+	background:var(--ion-color-light-tint);		
+	cursor: pointer;
+}
+.noFile{
+	border: 1px solid var(--ion-color-medium-tint);	;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 5px;
+    color: var(--ion-color-medium-tint);	
+}

@@ -11,10 +11,10 @@
   </ion-header>
   <ion-content>
   	<ion-split-pane contentId="admin-content"  class="sideMenu" menuId="mainMenu2">
-  		<ion-menu contentId="admin-content" type="push" side="start" >
+  		<ion-menu contentId="admin-content" side="start" >
   			<ion-content>
   				<ion-list >
-  					<ion-item *ngFor="let p of pages; let i = index"  [routerLink]="[p.url]" lines="none" >
+  					<ion-item *ngFor="let p of pages; let i = index" (click)="redirectTo(p.url)" lines="none" >
   						<ion-icon color="primary" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
   						<ion-label> {{p.title}}</ion-label>
   					</ion-item>		

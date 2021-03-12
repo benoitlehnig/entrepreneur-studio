@@ -1,54 +1,64 @@
+
 <ion-header [translucent]="true" >
   <ion-toolbar>
     <ion-buttons slot="start" class="ion-hide-sm-up">
       <ion-menu-button autoHide="true" >
       </ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="start" class="ion-hide-sm-down" *ngIf="userIds.uid !==null && userIds !==-1">
-      <ion-button  slot="start" class="menuIcon" (click)="presentMenuPopup($event)">
-       <ion-icon name="menu-outline" ></ion-icon>
-     </ion-button>
-   </ion-buttons>
+    <ion-title  class="headerTitle" *ngIf="projectInit === false" mode="md">
+      <ion-skeleton-text animated style="width: 48%"> </ion-skeleton-text>
+    </ion-title>
 
-   <ion-title  class="headerTitle" *ngIf="accessRights.write === true" mode="md"> 
-    <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end cursor"  (click)="openPopover('projectSummary')"/>
-    <ion-icon class="cursor" slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" (click)="openPopover('projectSummary')"></ion-icon>
-    <ion-text  class="cursor projectName" (click)="openPopover('projectSummary')">{{project.summary.name}}</ion-text>
-    <ion-icon class="ion-margin-start  cursor ion-hide-sm-down" name="pencil-outline"  (click)="openPopover('projectSummary')"></ion-icon>
-  </ion-title>
-  <ion-title  class="headerTitle" *ngIf="accessRights.write === false">
-    <div class="menu ion-margin-end">
-      <img  src="assets/images/logo.svg" class="logoES ion-margin-end  ion-hide-sm-down" routerLink="/intl/fr" *ngIf="userIds.uid ===null || userIds ===-1" [routerLink]="['/intl/fr']">
-      <span  *ngIf="userIds.uid ===null ||  userIds ===-1" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
-        <ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
-      </span> 
-    </div>
-    <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end"  />
-    <ion-icon   slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
-    <ion-text  class="projectName">{{project.summary.name}}</ion-text>
-  </ion-title>
-  <ion-buttons slot="primary" *ngIf="project">
-   <ion-button  [disabled]="accessRights.write === false" (click)="presentSharingStatusPopover($event)">
-    <ion-icon class="ion-margin-end cursor"  name="lock-closed-outline" *ngIf="project.sharingStatus ==='private'" class="ion-hide-md-down"></ion-icon>
-    <ion-icon class="ion-margin-end cursor"  name="globe-outline" *ngIf="project.sharingStatus ==='public'" class="ion-hide-md-down"></ion-icon>
-    <ion-text class="ion-hide-m-down" *ngIf="project.sharingStatus ==='private'">{{'PROJECT.Private'  | translate}}  </ion-text>
-    <ion-text class="ion-hide-sm-down" *ngIf="project.sharingStatus ==='public'">{{'PROJECT.Public'  | translate}}  </ion-text>
+    <ion-title  class="headerTitle ion-hide-sm-down" *ngIf="accessRights.write === true && projectInit ===true" mode="md"> 
+      <div class="menu"  (click)="presentMenuPopup($event)">
+        <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end cursor" />
+        <ion-icon class="cursor" slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
+        <ion-text  class="cursor projectName"  >{{project.summary.name}}</ion-text>
+        <ion-icon name="chevron-down-outline" ></ion-icon>
+      </div>
+    </ion-title>
+    <ion-title  class="headerTitle ion-hide-sm-up" *ngIf="accessRights.write === true && projectInit ===true" mode="md"> 
+      <div >
+        <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end " />
+        <ion-icon class="" slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
+        <ion-text  class=" projectName"  >{{project.summary.name}}</ion-text>
+      </div>
+    </ion-title>
+    <ion-title  class="headerTitle" *ngIf="accessRights.write === false && projectInit ===true">
+      <div class="menu ion-margin-end">
+        <img  src="assets/images/logo.svg" class="logoES ion-margin-end  ion-hide-sm-down" routerLink="/intl/fr" *ngIf="userIds.uid ===null || userIds ===-1" [routerLink]="['/intl/fr']">
+        <span  *ngIf="userIds.uid ===null ||  userIds ===-1" class="ion-hide-sm-down" >{{'LANDINGPAGE.Title' | translate}}
+          <ion-badge class="beta  ion-hide-sm-down">Beta</ion-badge>
+        </span> 
+      </div>
+      <img  [src]="project.summary.logoUrl" *ngIf="project.summary.logoUrl !==''" class=" logo ion-margin-end"  />
+      <ion-icon   slot="start" name="cube-outline" *ngIf="project.summary.logoUrl ===''" ></ion-icon>
+      <ion-text  class="projectName">{{project.summary.name}}</ion-text>
+    </ion-title>
+    <ion-buttons slot="primary" *ngIf="project && projectInit === true" >
+     <ion-button  [disabled]="accessRights.write === false" (click)="presentSharingStatusPopover($event)">
+      <ion-icon class="ion-margin-end cursor"  name="lock-closed-outline" *ngIf="project.sharingStatus ==='private'" class="ion-hide-md-down"></ion-icon>
+      <ion-icon class="ion-margin-end cursor"  name="globe-outline" *ngIf="project.sharingStatus ==='public'" class="ion-hide-md-down"></ion-icon>
+      <ion-text class="ion-hide-m-down" *ngIf="project.sharingStatus ==='private'">{{'PROJECT.Private'  | translate}}  </ion-text>
+      <ion-text class="ion-hide-sm-down" *ngIf="project.sharingStatus ==='public'">{{'PROJECT.Public'  | translate}}  </ion-text>
 
-  </ion-button>
-</ion-buttons>
-<app-user-avatar slot="end" *ngIf="userIds.uid !==null && userIds !==-1"></app-user-avatar>
+    </ion-button>
+  </ion-buttons>
+  <app-user-avatar slot="end" *ngIf="userIds.uid !==null && userIds !==-1"></app-user-avatar>
 
 </ion-toolbar>
 </ion-header>     
 <ion-content>
+  <ion-progress-bar type="indeterminate" *ngIf="projectInit === false" ></ion-progress-bar>
   <ion-grid>
     <ion-row>
       <ion-col class="leftMenu ion-hide-sm-down" [ngClass]="{'expanded': expandedMenu ===true} ">
-
         <ion-item  [ngClass]="{'selected': isSelectedTab('summary') ===true} " class="tint firstItem item selected" lines="none" 
         tooltip="{{'PROJECT.DashboardMenuTooltip' | translate }}" [options]="tooltipOptions"  (click)="navigate('summary')" >
         <ion-icon name="speedometer-outline"></ion-icon>
-        <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.Dashboard' | translate }}</ion-text></ion-label>
+        <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start">
+          <ion-text >{{'EXECUTIVE.Dashboard' | translate }}</ion-text>
+        </ion-label>
       </ion-item>
 
       <ion-item lines="none" [ngClass]="{'selected': isSelectedTab('timeline') ===true} "
@@ -75,22 +85,28 @@
   <ion-icon name="ellipsis-horizontal-circle" ></ion-icon>
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.Other' | translate }}</ion-text></ion-label>
 </ion-item>
-<div class="separator"  *ngIf="accessRights.write === true" ></div>
 <ion-item lines="none"  tooltip="{{'PROJECT.CommentsMenuTooltip' | translate }}"  [options]="tooltipOptions"  (click)="toggleCommentsPanel()"  *ngIf="accessRights.write === true" >
   <ion-icon name="flag-outline" ></ion-icon>
   <ion-badge *ngIf="project.commentsNumber !==undefined">{{project.commentsNumber}}</ion-badge>
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start withBadge"><ion-text >{{'EXECUTIVE.Comments' | translate }}</ion-text></ion-label>
+</ion-item>
+<ion-item lines="none"  [ngClass]="{'selected': isSelectedTab('settings') ===true} " *ngIf="accessRights.write === true" (click)="navigate('settings')" tooltip="{{'PROJECT.SettingsMenuTooltip' | translate }}"  [options]="tooltipOptions" >
+  <ion-icon name="settings-outline"></ion-icon>
+  <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} "  class="ion-margin-start"><ion-text >{{'EXECUTIVE.Settings' | translate }}</ion-text></ion-label>
 </ion-item>
 <div class="separator"></div>
 <ion-item lines="none"  tooltip="{{'PROJECT.SlackMenuTooltip' | translate }}"  [options]="tooltipOptions"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true" >
   <ion-icon name="logo-slack"></ion-icon>
   <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.Slack' | translate }}</ion-text></ion-label>
 </ion-item>
-
+<ion-item lines="none"  tooltip="{{'PROJECT.GoogleDriveMenuTooltip' | translate }}"  [options]="tooltipOptions"  *ngIf="isGoogleDriveInstalled ===true" [ngClass]="{'selected': isSelectedTab('drive') ===true} "  (click)="navigate('drive')">
+  <ion-img src="/assets/images/driveIcon.png" class="imgAppIcon"></ion-img>
+  <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.GoogleDrive' | translate }}</ion-text></ion-label>
+</ion-item>
 <div class="separator"></div>
 <ion-item lines="none" (click)="requestRemoveProject()" *ngIf="project.ownerUid === userIds.uid">
   <ion-icon name="trash-outline"></ion-icon>
-  <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >Delete</ion-text></ion-label>
+  <ion-label [ngClass]="{'ion-hide': expandedMenu ===false} " class="ion-margin-start"><ion-text >{{'EXECUTIVE.Delete' | translate }}</ion-text></ion-label>
 </ion-item>
 <ion-footer>
 
@@ -101,8 +117,8 @@
 <ion-col [ngClass]="{'commentsColHidden' : commentsPanelDisplayed ===false}" class="commentsCol"  *ngIf="accessRights.write === true" >
   <app-comments [projectId]="projectId" [userIds]="userIds" (closed)="closeCommentsPanel($event)"></app-comments>
 </ion-col>
-<ion-col class="shadowContent" *ngIf="projectInit ===true">
-  <ion-router-outlet id="project-content"></ion-router-outlet>
+<ion-col class="shadowContent" >
+  <ion-router-outlet id="project-content" *ngIf="projectInit ===true"></ion-router-outlet>
 </ion-col>
 
 </ion-row>

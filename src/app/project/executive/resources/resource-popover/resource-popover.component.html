@@ -91,7 +91,42 @@
 								<div *ngIf="selectedAppButton === 'installation'">
 									<p class="installationSteps ion-padding" [innerHTML]="selectedApplication.installationDescription"></p>
 								</div>
-								<a [href]="slackButtonHref" (click)="addApplicationSlack()"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+								<a [href]="slackButtonHref" ><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcSet="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				</div>
+				<div *ngIf="selectedApplication.name ==='Google Drive'" class="installation">
+					<ion-grid >
+						<ion-row>
+							<ion-col class="installationAppGeneral">
+								<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + selectedApplication.imgUrl + ')'}">
+								</div>
+								<h1>Categories</h1>
+								<div class="ion-justify-content-start labels">
+
+									<div  *ngFor="let label of selectedApplication.labels " class="ion-align-self-start label">
+										<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+									</div>
+								</div>
+							</ion-col>
+							<ion-col>
+								<ion-segment (ionChange)="segmentAppChanged($event)" value="description">
+									<ion-segment-button value="description">
+										<ion-label >Description</ion-label>
+									</ion-segment-button>
+									<ion-segment-button value="installation">
+										<ion-label>Installation</ion-label>
+									</ion-segment-button>
+								</ion-segment>
+								<div *ngIf="selectedAppButton === 'description'">
+									<p class="installationSteps ion-padding" [innerHTML]="selectedApplication.installationSteps"></p>
+								</div>
+								<div *ngIf="selectedAppButton === 'installation'">
+									<p class="installationSteps ion-padding" [innerHTML]="selectedApplication.installationDescription"></p>
+								</div>
+								<a [href]="driveButtonHref">{{'RESOURCES.DRIVE.AddGoogleDrive' | translate}}</a>
 
 							</ion-col>
 						</ion-row>

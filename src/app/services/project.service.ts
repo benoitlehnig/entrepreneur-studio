@@ -331,4 +331,8 @@ export class ProjectService {
 		return this.afs.collection('projects').doc(projectId).collection('skillSearches').doc(skillSearchId).delete();
 	}
 
+	getGoogleDriveSettings(projectId){
+		return this.afs.collection('installations/drive/'+projectId).doc("settings").valueChanges()
+	}
+
 }

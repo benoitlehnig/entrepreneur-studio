@@ -47,7 +47,9 @@ export class ProjectPage implements OnInit {
 	public resources=[];
 
 	public isSlackInstalled:boolean=false;
-	public slackUrl:string="";
+	public slackUrl:string;
+
+	public isGoogleDriveInstalled:boolean=false;
 
 	public deletePopupTitle:string="";
 	public deletePopupSubTitle:string="";
@@ -154,10 +156,11 @@ export class ProjectPage implements OnInit {
 					if(this.projectInit ===false){
 
 						this.project= data;
-						this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
 						this.projectInit = true;
 					}
 					this.project.commentsNumber = data.commentsNumber;
+					this.dataSharingServiceService.currentProject({id:this.projectId, data: this.project, accessRights:this.accessRights});
+
 					console.log("ProjectPage >>ngOnInit>> initProject >> getProject" , data);
 				}
 			})
@@ -167,13 +170,14 @@ export class ProjectPage implements OnInit {
 			})
 		this.resourcesSub = this.projectService.getResources(this.projectId).subscribe(
 			resources=>{
-				console.log("resourcesSub",resources)
 				this.resources = resources;
 				this.resources.forEach((resource:any)=>{
-					if(resource.data.name==="Slack"){
+					if(resource.data.CMSId==="kghp8sg4pq6zhnelpgw"){
 						this.isSlackInstalled = true;
 						this.slackUrl = resource.data.url;
-
+					}
+					if(resource.data.CMSId==="kgazdvl3cgb1hl7cxoo"){
+						this.isGoogleDriveInstalled = true;
 					}
 				})
 			})
@@ -227,17 +231,16 @@ export class ProjectPage implements OnInit {
 	}
 
 	navigate(page){
-		console.log("click");
-		this.router.navigate(['/project/'+this.projectId+ '/details/'+page]);
+		console.log("click", page);
+		this.router.navigate(['/project/'+this.projectId+ '/'+page]);
 	}
 	isSelectedTab(title){
-		if(this.router.url.indexOf("details/"+title) !==-1){
+		if(this.router.url.indexOf(title) !==-1){
 			return true
 		}
 		else{
 			return false
 		}
-		console.log("this.router.url",this.router.url);
 	}
 	async openFeedbackPopover(type:string){
 		let modal = await this.modalController.create({
@@ -286,6 +289,7 @@ export class ProjectPage implements OnInit {
 			component: MenuPopoverComponent,
 			componentProps: {homeref:this},
 			event: ev,
+			cssClass:"projectMenu",
 			translucent: true
 		});
 		return await popover.present();

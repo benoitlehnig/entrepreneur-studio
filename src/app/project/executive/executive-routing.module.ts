@@ -80,7 +80,15 @@ const routes: Routes = [
   {
     path: 'timeline',
     loadChildren: () => import('./timeline/timeline.module').then( m => m.TimelinePageModule)
+  },  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'drive',
+    loadChildren: () => import('./drive/drive.module').then( m => m.DrivePageModule)
   }
+
 ];
 
 @NgModule({

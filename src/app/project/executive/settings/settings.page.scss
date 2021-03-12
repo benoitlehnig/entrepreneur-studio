@@ -1,0 +1,106 @@
+.general{
+	.mainCol{
+		min-width: 	300px;
+	}
+}
+
+ion-card{
+	@media(max-width: 768px) {
+		margin-left: 	0px;
+		margin-right: 	0px;
+	}
+}
+ion-card-content{
+	@media(max-width: 768px) {
+		margin-left: 	0px;
+		margin-right: 	0px;
+		padding-left: 	0px;
+		padding-right: 	0px;
+	}
+}
+.projectLogoLabel{
+	max-width:100px;
+}
+.child{
+	display:none;
+	transition: border 0.3s ease-in-out;
+	transition-duration: 0.15s;
+	width:100%;
+	height:auto;
+	text-align:center;
+	cursor: pointer;
+}
+.logo{
+	max-height:100px;
+	cursor: pointer;
+
+}
+.parent:hover{
+	.child{
+		display: block;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.54);
+		cursor: pointer;
+		padding:30px;
+
+	}
+}
+.uploadFileWrap{
+	border: 2px dashed var(--ion-color-medium);
+	transition: border 0.3s ease-in-out;
+	transition-duration: 0.15s;
+	width:100%;
+	height:auto;
+	text-align:center;
+	cursor: pointer;
+}
+
+.noPicture{
+	--background:var(--ion-color-light);
+	color:var(--ion-color-light-contrast);
+	border-radius:4px;
+	width:100%;
+	border:1px dashed  	var(--ion-color-medium);
+	height:100px;
+	label{
+
+	}
+}
+ion-thumbnail{
+	cursor: pointer;
+}
+.selectedPicture{
+	border:3px solid var(--ion-color-primary);
+}
+.backgroundPicturesWrapper{
+	width:100%;
+	text-align: left;
+}
+.backgroundPictures{
+	max-width:280px;
+}
+.copyright{
+	font-size:smaller;
+}
+.subLabel{
+	font-size: x-small;
+	text-transform: initial;
+}
+
+ion-segment-button.md{
+	--background-checked: var(--ion-color-primary)!important;
+	--color-checked: var(--ion-color-primary-contrast);
+}
+
+.domain{
+	font-size: smaller;
+	min-width: 200px;
+	max-width: 	300px;
+	ion-item{
+		font-size: smaller;
+	}
+}

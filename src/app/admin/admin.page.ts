@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+
 
 @Component({
 	selector: 'app-admin',
@@ -12,18 +15,20 @@ export class AdminPage implements OnInit {
 
 	{
 		title: 'tools',
-		url: 'tools',
+		url: 'admin/tools',
 		icon: 'apps'
 	},
 	{
 		title: 'users',
-		url: 'users',
+		url: 'admin/users',
 		icon: 'people'
 	},
 	];
 	public selectedIndex=0;
 
-	constructor() { }
+	constructor(
+		public router:Router,
+		) { }
 
 	ngOnInit() {
 	}
@@ -32,6 +37,11 @@ export class AdminPage implements OnInit {
 		if (path !== undefined) {
 			this.selectedIndex = this.pages.findIndex(page => page.url.toLowerCase() === path.toLowerCase().split("/")[1]);
 		}
+	}
+	redirectTo(url){
+		console.log("redirectTo", url);
+		this.router.navigate([url]);
+
 	}
 
 }

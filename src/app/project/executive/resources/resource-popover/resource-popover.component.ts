@@ -3,6 +3,8 @@ import { NavParams} from '@ionic/angular';
 import { CMSService} from '../../../../services/cms.service';
 import { first } from 'rxjs/operators';
 import {Resource} from '../../../../models/project';
+import { AngularFireFunctions } from '@angular/fire/functions';
+
 
 import { IonSlides } from '@ionic/angular';
 
@@ -53,11 +55,15 @@ export class ResourcePopoverComponent implements OnInit {
 	public selectedButton:string="application";
 	public selectedAppButton:string="description";
 
+	//SLACK
 	public slackButtonHref= "https://slack.com/oauth/v2/authorize?client_id=1226163065714.1534441424722&scope=incoming-webhook,commands&redirect_uri=https://us-central1-entrepeneur-studio.cloudfunctions.net/slackOauthRedirect&state="
+	//drive
+	public driveButtonHref= "";
 
 	constructor(
 		public navParams: NavParams,
 		public CMSService:CMSService,
+		private functions: AngularFireFunctions,
 
 		) { }
 
@@ -75,7 +81,7 @@ export class ResourcePopoverComponent implements OnInit {
 			})
 
 		this.slackButtonHref = this.slackButtonHref+ this.projectId+"&user_scope="
-
+		this.getDriveUrl();
 
 	}
 	updateList(){
@@ -119,11 +125,11 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 
 	updateResource(){
-			this.resource.CMSId = this.selectedApplication.id;
-			this.resource.name = this.selectedApplication.name;
-			this.resource.source =  "EntrepreneurStudio";
-			this.resource.title  = this.selectedApplication.name;
-			this.resource.pictureUrl  =  this.selectedApplication.imgUrl;
+		this.resource.CMSId = this.selectedApplication.id;
+		this.resource.name = this.selectedApplication.name;
+		this.resource.source =  "EntrepreneurStudio";
+		this.resource.title  = this.selectedApplication.name;
+		this.resource.pictureUrl  =  this.selectedApplication.imgUrl;
 
 
 		this.resource.url  =  this.checkURL(this.selectedApplicationUrl);
@@ -152,14 +158,19 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 	segmentAppChanged(event){
 		this.selectedAppButton = event.detail.value;
-	
-	}
-
-	addApplicationSlack(){
-		
 
 	}
 
 	
+	getDriveUrl(){
+		const callable = this.functions.httpsCallable('getGoogleDriveAuthenticationUrl');
+		const obs = callable({projectId:this.projectId});
+		obs.subscribe(async res => {
+			console.log("drive test", res)
+			this.driveButtonHref = res;
+		});
+	}
+
+
 }
 

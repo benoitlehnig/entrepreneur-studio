@@ -67,7 +67,7 @@ export class CMSService {
 		if(filter.categories.length>0){
 			matchedCategories = false;
 			for(let i=0; i< filter.categories.length;i++){
-				if(arr.find(x => x.label == filter.categories[i]) !== undefined){
+				if(arr.find(x => Number(x.label) == Number(filter.categories[i])-1) !== undefined){
 					matchedCategories = true;
 					break;
 				}

@@ -156,7 +156,22 @@
 		"FinancesMenuTooltip":"Les informations relatives au financement de votre projet",
 		"CommentsMenuTooltip":"Afficher les commentaires ",
 		"SlackMenuTooltip":"Ouvrir Slack",
-		"OtherMenuTooltip":"Il manque quelque chose ? Soumettez-vos idées !"
+		"GoogleDriveMenuTooltip":"Accédez à votre Google Drive",
+		"SettingsMenuTooltip":"Les paramètres de votre project",
+		"OtherMenuTooltip":"Il manque quelque chose ? Soumettez-vos idées !",
+		"Menu":{
+			"GarageAccessTitle": "Le Garage",
+			"GarageAccessText": "Retrouvez vos différents projets",
+			"ToolBoxAccessTitle": "La Boite à Outils",
+			"ToolBoxAccessText": "Parcourez la liste des outils partagés par la communauté Entrepreneur Studio ",
+			"SystemDAccessTitle": "Le Système D",
+			"SystemDAccessText": "Accedez à la communauté Entrepreneur-Studio",
+			"SystemDAccessFB": "Groupe Facebook",
+			"SystemDAccessSlack": "Slack Community"
+		}
+	},
+	"SETTINGS":{
+		"UpdateSuccessfull": "Les paramètres ont bien été sauvegardés"
 	},
 	"EXECUTIVE":{
 		"Dashboard": "Tableau de bord",
@@ -166,6 +181,9 @@
 		"Finances": "Finances",
 		"Comments": "Commentaires",
 		"Slack": "Slack",
+		"GoogleDrive": "Google Drive",
+		"Settings": "Réglages",
+		"Delete": "Supprimer",
 		"Other": "Autre"
 	},
 	"CGU":{
@@ -592,7 +610,9 @@
 		"SearchSkills":"Rechercher des competences",
 		"SearchSkilledSaved": "recherche(s) définies",
 		"SendInviteTooltip":"Envoyer une invitation par email à un collaborateur pour qu'il rejoigne le projet",
-		"SendInviteText":"Ajouter un nouveau membre"
+		"SendInviteText":"Ajouter un nouveau membre",
+		"Title":"Mon Equipe",
+		"SubTitle":"Une équipe compétente et complémentaire maximise les chances de réussites de votre projet"
 	},
 	"RESOURCES":{
 		"AddResource": "Ajouter un lien vers une application",
@@ -607,11 +627,20 @@
 		"AddResource": "Ajouter un nouveau lien vers une application",
 		"AddResourceGuidanteText": "Centralisez ici les liens vers les applications ou les sites utiles à votre projet ",
 		"AddResourceUrlPlaceholder": "par exemple: https://trello.com/b/UNrbWWxV/mvp-entrepreneur-studio",
-		"AddResourceFreeLink":"Ajouter un lien vers une application non référencée ou un site utile pour votre projet",
-		"AddResourceUrlText": "Entrer le lien vers votre application",
+		"AddResourceFreeLink":"Ajoutez un lien vers une application non référencée ou un site utile pour votre projet",
+		"AddResourceUrlText": "Entrez le lien vers votre application",
 		"AddResourceOKButton": "Ajouter",
 		"AddResourceUrlTextPlaceholder": "Votre lien",
-		"Installed": "Installée"
+		"Installed": "Installée",
+		"DRIVE":{
+			"Title":"Le Google Drive de votre projet",
+			"SubTitle":"Retrouvez tous les documents de votre projet ici et directement sur",
+			"Folders":"Dossiers",
+			"Files":"Fichiers",
+			"LastFileModificationTime": "Dernière modification :",
+			"NoFile": "Aucun fichier présent",
+			"AddGoogleDrive": "Connectez Google Drive"
+		}
 	},
 	"ADDTOOL":{ 
 		"Title": "Ajouter un nouvel outil",
@@ -642,6 +671,23 @@
 			"Remove":"Supprimer"
 		}
 		
+	},
+	"ADMIN":{
+		"TOOL":{
+			"Name": "Nom",
+			"BrandName": "Nom de l'editeur",
+			"Description": "Description",
+			"ImgUrl": "Url de l'image",
+			"Link": "Lien vers la page de l'outil",
+			"Price": "Prix",
+			"InstallationSteps": "Etapes d'installation (integration dans ES)",
+			"InstallationDescription": "Description de l'integration de l'application à Entrepreneur-Studio",
+			"LikesNumber": "Nombre de like(s)",
+			"Categories": "Catégories",
+			"Stages": "Etapes",
+			"Save": "Sauvergarder",
+			"Delete": "Supprimer"
+		}
 	}
 
 }

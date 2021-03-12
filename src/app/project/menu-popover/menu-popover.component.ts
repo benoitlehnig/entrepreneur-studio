@@ -1,6 +1,8 @@
 import { Component, OnInit,Input} from '@angular/core';
 import { NavParams} from '@ionic/angular';
-
+import {CMSService} from '../../services/cms.service';
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 
 
@@ -13,26 +15,28 @@ import { NavParams} from '@ionic/angular';
 export class MenuPopoverComponent implements OnInit {
 
 	@Input("homeref") value;
-	public pages = [
+	public systemDParamSub: Subscription = new Subscription();
+	public systemDSlackChannel:string="";
 
-	{
-		title: 'Le Garage',
-		url: '/entrepreneur',
-		icon: 'layers'
-	},
-	{
-		title: 'La Boite à Outils',
-		url: 'intl/fr/tools',
-		icon: 'construct'
-	},
-	];
+	
 	constructor(
 		public navParams: NavParams,
+		public CMSService: CMSService,
+		) { 
 
+		
+	}
 
-		) { }
+	ngOnInit() {
+		this.systemDParamSub = this.CMSService.getSystemDParams().pipe(first()).subscribe(
+			(systemDparams:any)=>{
+				this.systemDSlackChannel = systemDparams.systemDChannel;
+			}) 
+	}
 
-	ngOnInit() {}
+	ngOnDestroy(){
+		this.systemDParamSub.unsubscribe();
+	}
 
 	dismiss(){
 		this.navParams.get('homeref').dismissMenuPopover()

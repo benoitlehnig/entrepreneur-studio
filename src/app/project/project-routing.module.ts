@@ -5,10 +5,16 @@ import { ProjectPage } from './project.page';
 
 const routes: Routes = [
 {
-  path: 'details',
+  path: ':id',
   component: ProjectPage,
   children:
-  [ {
+  [ 
+  {
+    path: "",
+    redirectTo: "summary",
+    pathMatch: "full"
+  },
+  {
     path: 'executive',
     children: [
     {
@@ -52,30 +58,32 @@ const routes: Routes = [
       loadChildren: () => import('./executive/resources/resources.module').then( m => m.ResourcesPageModule)
     }
     ]
+  },
+  {
+    path: 'settings',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./executive/settings/settings.module').then( m => m.SettingsPageModule)
+    }
+    ]
+  },
+  {
+    path: 'drive',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./executive/drive/drive.module').then( m => m.DrivePageModule)
+    }
+    ]
   }
   ]
 },
 {
-  path: '',
-  redirectTo: 'details/summary',
+  path: ':id/',
+  redirectTo: ':id/summary',
   pathMatch: 'full'
 }
-,{
-  path: 'summary',
-  loadChildren: () => import('./executive/summary/summary.module').then( m => m.SummaryPageModule)
-},
-{
-  path: 'timeline',
-  loadChildren: () => import('./executive/timeline/timeline.module').then( m => m.TimelinePageModule)
-},
-{
-  path: 'team',
-  loadChildren: () => import('./executive/team/team.module').then( m => m.TeamPageModule)
-},
-{
-  path: 'resources',
-  loadChildren: () => import('./executive/resources/resources.module').then( m => m.ResourcesPageModule)
-},
 ];
 
 @NgModule({

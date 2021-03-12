@@ -1,0 +1,54 @@
+<ion-content class="ion-padding">
+	<ion-item class="screenTitle" lines="none">
+		<ion-thumbnail slot="start">
+			<img src="/assets/images/driveIcon.png"/>
+		</ion-thumbnail>
+		<ion-label >
+			<h2>{{'RESOURCES.DRIVE.Title' | translate }}</h2>
+			<p>{{'RESOURCES.DRIVE.SubTitle' | translate }} <a [href]="'https://drive.google.com/drive/folders/'+driveFolderId" target="_blank" >Google Drive </a></p>
+		</ion-label>
+
+	</ion-item>
+	<div *ngIf="driveFolders.length >0">
+
+
+		<h2>{{'RESOURCES.DRIVE.Folders' | translate }}</h2>
+		<ion-grid>
+			<ion-row>
+				<ion-col *ngFor="let file of driveFolders" (click)="navigateTo(file.webViewLink)">
+
+					<div class="folder">
+						<ion-icon name="folder-outline"  class="ion-margin-end"></ion-icon>
+						<ion-text>{{file.name}}</ion-text>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<h2>{{'RESOURCES.DRIVE.Files' | translate }}</h2>
+	<div class="noFile" *ngIf="driveFiles.length === 0">
+		<ion-text>{{'RESOURCES.DRIVE.NoFile' | translate }}</ion-text>
+	</div>
+	<ion-grid *ngIf="driveFiles.length > 0">
+		<ion-row>
+			<ion-col *ngFor="let file of driveFiles" (click)="navigateTo(file.webViewLink)">
+				
+				<div class="file">
+					<div class="thumbnail">
+						<img [src]="file.thumbnailLink" />
+					</div>
+					<div class="description">
+						<div>
+							<img [src]="file.iconLink" class="iconLink ion-margin-end"/>
+							<ion-text>{{file.name}}</ion-text>
+						</div>
+						<div class="lastModified">
+							<ion-text>{{'RESOURCES.DRIVE.LastFileModificationTime' | translate }} {{file.modifiedTime | date:'shortDate'}}</ion-text>
+						</div>
+					</div>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

@@ -16,7 +16,7 @@
           </ion-card-content>
           <ion-row class="cardfooter ion-padding-start">
             <ion-col>
-              <a  [routerLink]="['/project/vn8vuMTBmNHBl377mRcl']" >{{'ENTREPENEUR.SeeAstarterProject' | translate}} </a>
+              <a  [routerLink]="['/project/vn8vuMTBmNHBl377mRcl/summary']" >{{'ENTREPENEUR.SeeAstarterProject' | translate}} </a>
             </ion-col>
           </ion-row>
         </ion-card>
@@ -24,7 +24,7 @@
 
       <ion-col  sizeLg="4" sizeMd="4" sizeXs="6" *ngFor="let project of projects">
         <ion-card class="cardProject" >
-          <ion-card-content class="ion-text-center  cardProjectContent" [routerLink]="['/project/'+project.projectId]">
+          <ion-card-content class="ion-text-center  cardProjectContent" [routerLink]="['/project/'+project.projectId+'/summary']">
             <img [src]="project.data.summary.logoUrl" *ngIf="project.data.summary.logoUrl !==''" class="ion-margin-end ion-padding projectLogo" />
             <ion-icon name="cube-outline" *ngIf="project.data.summary.logoUrl ===''"  class="ion-margin-end defaultLogo" ></ion-icon>
             <h2>{{project.data.summary.name}}</h2>
