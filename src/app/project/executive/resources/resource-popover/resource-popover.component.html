@@ -5,7 +5,7 @@
 		</ion-item>
 		<h1 class="ion-text-center">{{'RESOURCES.AddResourcePopoverTitle' | translate}}</h1>
 	</div>
-	<ion-segment (ionChange)="segmentChanged($event)" value="application">
+	<ion-segment (ionChange)="segmentChanged($event)" value="application" *ngIf="activeIndex ===0">
 		<ion-segment-button value="application">
 			<ion-label class="ion-hide-md-down">{{'RESOURCES.AddResourcePopoverTabApplication' | translate}}</ion-label>
 			<ion-label class="ion-hide-md-up">{{'RESOURCES.AddResourcePopoverTabApplicationShort' | translate}}</ion-label>
@@ -13,21 +13,22 @@
 		<ion-segment-button value="link">
 			<ion-label class="ion-hide-md-down">{{'RESOURCES.AddResourcePopoverTabLink' | translate}}</ion-label>
 			<ion-label class="ion-hide-md-up">{{'RESOURCES.AddResourcePopoverTabLinkShort' | translate}}</ion-label>
-
 		</ion-segment-button>
 	</ion-segment>
-	<ion-slides  #slides pager="true" [options]="slideOpts" class="slides"(ionSlideWillChange)="updateStep()" *ngIf="selectedButton ==='application'">
-		<ion-slide  >
+	
+	<div *ngIf="selectedButton ==='application'">
+		<div class="step1 ion-padding" *ngIf="activeIndex ===0" >
 
 			<div class="filter ion-padding ion-text-left">
 				<ion-item  lines ="none" >
 					<ion-input type="text" placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} " class="productNameInput ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="filter.productName" (ionInput)="updateList()"> </ion-input>
 				</ion-item>
 			</div>
-			<div class="gridsWrapper">
+			<div *ngIf="nativelyIntegratedApplicationNumber > 0">
+				<h2>{{'RESOURCES.NativelyIntegratedApplications' | translate}} </h2>
 				<ion-grid class="gridTools"  *ngIf="activeIndex ===0" >
 					<ion-row>
-						<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true} " size="3" class="toolCol" (click)="selectApplication(tool)">
+						<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.nativeIntegrationAvailable !== true  } " size="3" class="toolCol" (click)="selectApplication(tool)">
 
 							<ion-card class="tool" >
 
@@ -35,9 +36,7 @@
 								</div>
 
 								<ion-card-content class="toolCard">
-
 									<ion-item slot="start"  lines="none">
-
 										<ion-label>
 											<h1>{{tool.name}}</h1>
 											<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
@@ -57,10 +56,48 @@
 					</ion-row>
 				</ion-grid>
 			</div>
-		</ion-slide>
-		
-		<ion-slide  >
+			<div class="gridsWrapper" *ngIf="tools.length>0">
+				<h2>{{'RESOURCES.NotNativelyIntegratedApplications' | translate}}</h2>
 
+				<ion-grid class="gridTools"  *ngIf="activeIndex ===0" >
+					<ion-row>
+						<ion-col  *ngFor="let tool of tools" [ngClass]="{'ion-hide': tool.filtered ===true || tool.nativeIntegrationAvailable === true } " size="3" class="toolCol" (click)="selectApplication(tool)">
+
+							<ion-card class="tool" >
+
+								<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+								</div>
+
+								<ion-card-content class="toolCard">
+									<ion-item slot="start"  lines="none">
+										<ion-label>
+											<h1>{{tool.name}}</h1>
+											<p class="ion-text-wrap ion-text-justify description">{{tool.description}}</p>
+											<ion-text class="bold">{{tool.price}}</ion-text>
+										</ion-label>
+									</ion-item>
+									<ion-item>
+										<div class="ion-justify-content-start labels">
+											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
+												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+											</div>
+										</div>
+									</ion-item>
+								</ion-card-content>
+							</ion-card>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</div>
+		</div>
+		
+		<div class="step2  ion-padding"  *ngIf="activeIndex ===1">
+			<div  *ngIf="activeIndex ===1">
+				<ion-item lines="none">
+					<ion-icon slot="start" name="chevron-back-circle-outline" class="backButton" (click)="updateStep('backward')"></ion-icon>
+					<ion-label><h1>{{selectedApplication.name }}</h1></ion-label>
+				</ion-item>
+			</div>
 			<div class="wrapper ion-text-center">
 				<div *ngIf="selectedApplication.name ==='Slack'" class="installation">
 					<ion-grid >
@@ -126,14 +163,16 @@
 								<div *ngIf="selectedAppButton === 'installation'">
 									<p class="installationSteps ion-padding" [innerHTML]="selectedApplication.installationDescription"></p>
 								</div>
-								<a [href]="driveButtonHref">{{'RESOURCES.DRIVE.AddGoogleDrive' | translate}}</a>
+								<ion-button [href]="driveButtonHref">
+									<ion-img src="/assets/images/driveIcon.png" class="googleDriveIcon ion-margin-end"></ion-img>
+								{{'RESOURCES.DRIVE.AddGoogleDrive' | translate}}</ion-button>
 
 							</ion-col>
 						</ion-row>
 					</ion-grid>
 				</div>
 
-				<div *ngIf="selectedApplication.name !=='Slack'">
+				<div *ngIf="selectedApplication.nativeIntegrationAvailable !==true">
 					<p class="informationBox ion-padding ion-text-left ion-margin">{{'RESOURCES.AddResourceUrlText' | translate}} {{selectedApplication.name}} </p>
 					<ion-item >
 						<ion-input type="url" [placeholder]="selectedApplication.link" class="ion-padding-start" clearInput="true" value="clear me" [(ngModel)]="selectedApplicationUrl"> </ion-input>
@@ -142,8 +181,8 @@
 				</div>
 
 			</div>
-		</ion-slide>
-	</ion-slides>
+		</div>
+	</div>
 
 	<div class="ion-text-center"  *ngIf="selectedButton ==='link'">
 

@@ -11,5 +11,6 @@ export class Tool {
 	public installationSteps:string="";
 	public installationDescription:string="";
 	public likes:string="";
+	public nativeIntegrationAvailable:boolean=false;
 
 }

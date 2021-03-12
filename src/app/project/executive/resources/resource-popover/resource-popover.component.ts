@@ -6,7 +6,6 @@ import {Resource} from '../../../../models/project';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
 
-import { IonSlides } from '@ionic/angular';
 
 
 @Component({
@@ -18,7 +17,6 @@ export class ResourcePopoverComponent implements OnInit {
 
 	@Input("homeref") value;
 	@Input("projectId") projectId;
-	@ViewChild('slides') slides: IonSlides;
 	@Input() resource;
 
 	public tools;
@@ -33,21 +31,16 @@ export class ResourcePopoverComponent implements OnInit {
 		link: "",
 		labels:"",
 		installationSteps:"",
-		installationDescription:""
+		installationDescription:"",
+		nativeIntegrationAvailable:false
 	}
 	public filter={
 		categories : [],
 		stages:[],
 		productName:""
 	}
-	public slideOpts = {
-		initialSlide: 0,
-		allowTouchMove:false,
-		speed: 400,
-		pagination: { el: '.swiper-pagination', type: 'bullets', clickable: true},
-		clicks:{slideToClickedSlide: false},
-		
-	};
+	public nativelyIntegratedApplicationNumber=0;
+	
 	public activeIndex=0;
 
 	public selectedApplicationUrl:string="";
@@ -68,37 +61,27 @@ export class ResourcePopoverComponent implements OnInit {
 		) { }
 
 	ngOnInit() {
-
-
-		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
-			data=>{
-				console.log("CMSService", data)
-				if(data !==null){
-					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
-
-				}
-
-			})
-
+		this.updateList();
 		this.slackButtonHref = this.slackButtonHref+ this.projectId+"&user_scope="
 		this.getDriveUrl();
 
 	}
 	updateList(){
-		console.log(this.filter.categories);
-		console.log("this.filter changed",this.filter);
 		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
 			data=>{
-				console.log("CMSService", data)
-				this.tools = data;
+				this.nativelyIntegratedApplicationNumber = 0;
 				if(data !==null){
 					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
+					for(let i =0; i< this.tools.length;i++){
+						if(this.tools[i].nativeIntegrationAvailable === true){
+							this.nativelyIntegratedApplicationNumber  = this.nativelyIntegratedApplicationNumber +1 ;
+						}
+					}
 				}
 			})
 	}
 
 	selectApplication(application){
-		console.log("selectApplication", application);
 		if(application === 'other'){
 			this.selectedApplication.CMSId = null;
 			this.selectedApplication.id = null;
@@ -111,17 +94,16 @@ export class ResourcePopoverComponent implements OnInit {
 			this.selectedApplication = application;
 			this.selectedApplicationUrl = application.link;
 		}
-		
-
-		this.slides.slideNext();
+		this.updateStep('forward');
 	}
-	updateStep(){
-		this.slides.getActiveIndex().then(data=>{
-			this.activeIndex = data;
-			console.log("this.activeIndex",this.activeIndex)
-		});
 
-
+	updateStep(direction:string){
+		if(direction ==='forward'){
+			this.activeIndex =1
+		}
+		else{
+			this.activeIndex =0
+		}
 	}
 
 	updateResource(){
@@ -158,7 +140,6 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 	segmentAppChanged(event){
 		this.selectedAppButton = event.detail.value;
-
 	}
 
 	
@@ -166,7 +147,6 @@ export class ResourcePopoverComponent implements OnInit {
 		const callable = this.functions.httpsCallable('getGoogleDriveAuthenticationUrl');
 		const obs = callable({projectId:this.projectId});
 		obs.subscribe(async res => {
-			console.log("drive test", res)
 			this.driveButtonHref = res;
 		});
 	}

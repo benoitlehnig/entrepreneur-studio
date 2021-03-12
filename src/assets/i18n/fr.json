@@ -632,6 +632,8 @@
 		"AddResourceOKButton": "Ajouter",
 		"AddResourceUrlTextPlaceholder": "Votre lien",
 		"Installed": "Installée",
+		"NativelyIntegratedApplications": "Les applications nativement integrées",
+		"NotNativelyIntegratedApplications": "Les autres applications",
 		"DRIVE":{
 			"Title":"Le Google Drive de votre projet",
 			"SubTitle":"Retrouvez tous les documents de votre projet ici et directement sur",
@@ -685,6 +687,7 @@
 			"LikesNumber": "Nombre de like(s)",
 			"Categories": "Catégories",
 			"Stages": "Etapes",
+			"NativeIntegrationAvailable": "Integration native disponible",
 			"Save": "Sauvergarder",
 			"Delete": "Supprimer"
 		}
