@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import {Tool} from '../../models/tool';
 import {ToolService} from '../../services/tool.service';
-
+import { Subscription } from 'rxjs';
 
 import {AddToolPopoverPage} from './tool/add-tool-popover/add-tool-popover.page'
 
@@ -17,23 +16,24 @@ export class ToolsPage implements OnInit {
 	@Input("homeref") value;
 
 	items = [
-    {id: 1, name: 'Python'},
-    {id: 2, name: 'Node Js'},
-    {id: 3, name: 'Java'},
-    {id: 4, name: 'PHP', disabled: true},
-    {id: 5, name: 'Django'},
-    {id: 6, name: 'Angular'},
-    {id: 7, name: 'Vue'},
-    {id: 8, name: 'ReactJs'},
-  ];
-  selected = [
-    {id: 2, name: 'Node Js'},
-    {id: 8, name: 'ReactJs'}
-  ];
+	{id: 1, name: 'Python'},
+	{id: 2, name: 'Node Js'},
+	{id: 3, name: 'Java'},
+	{id: 4, name: 'PHP', disabled: true},
+	{id: 5, name: 'Django'},
+	{id: 6, name: 'Angular'},
+	{id: 7, name: 'Vue'},
+	{id: 8, name: 'ReactJs'},
+	];
+	selected = [
+	{id: 2, name: 'Node Js'},
+	{id: 8, name: 'ReactJs'}
+	];
+	
+	public toolsChangesSub: Subscription = new Subscription();
 
 
 	constructor(
-		public modalController: ModalController,
 		public toolService: ToolService,
 		) { }
 
@@ -41,27 +41,17 @@ export class ToolsPage implements OnInit {
 	}
 
 	ionViewWillEnter(){
-		this.toolService.getTools().subscribe(data=>{
+		this.toolsChangesSub = this.toolService.getTools().subscribe(data=>{
 			console.log("getTools",data);
 			this.tools= data;
 		})
 	}
 
-	requestAddTool(){
-		console.log("requestAddTool");
-		this.openPopover();
+	ngOnDestroy(){
+		this.toolsChangesSub.unsubscribe();
 	}
 
-	async openPopover(){
-		let modal = await this.modalController.create({
-			component: AddToolPopoverPage,
-			cssClass: 'my-custom-class',
-			componentProps: {homeref:this},
-		});
-		
-		return await modal.present();
-
-	}
+	
 
 	
 

@@ -35,13 +35,13 @@
 					</div>
 					<div class="filter ion-margin-bottom">
 						<div class="filterHeader ion-padding" (click)="expandCategory()">
-							<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{items.length}})</ion-text>
+							<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{categories.length}})</ion-text>
 							<ion-icon name="chevron-forward-outline" *ngIf="categoryExpanded ===false"></ion-icon>
 							<ion-icon name="chevron-down-outline" *ngIf="categoryExpanded ===true"></ion-icon>
 						</div>
 						<ion-list *ngIf="categoryExpanded ===true" class="filterContent">
-							<ion-item *ngFor="let category of items">
-								<ion-label>{{category.name}}</ion-label>
+							<ion-item *ngFor="let category of categories">
+								<ion-label>{{category.labelFrench}}</ion-label>
 								<ion-checkbox slot="start" (ionChange)="selectFilter('category', category,$event)" ></ion-checkbox>
 							</ion-item>
 						</ion-list>
@@ -136,7 +136,9 @@
 											<ion-text class="bold">{{tool.price}}</ion-text>
 											<div class="ion-justify-content-start labels" [ngClass]="{'ion-hide': viewMode ==='grid'}">
 												<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
-													<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+
+													<ion-text class="ion-text-uppercase">{{getCategoryLabel(label.label)}}  </ion-text>
+													
 												</div>
 											</div>
 										</ion-label>
@@ -165,7 +167,7 @@
 									<ion-item  [ngClass]="{'ion-hide': viewMode ==='list'}">
 										<div class="ion-justify-content-start labels">
 											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
-												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+												<ion-text class="ion-text-uppercase">{{getCategoryLabel(label.label)}}  </ion-text>
 											</div>
 										</div>
 									</ion-item>

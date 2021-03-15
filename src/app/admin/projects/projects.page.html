@@ -1,0 +1,17 @@
+
+<ion-content class="ion-padding">
+	<ion-item *ngFor="let project of projects">
+		<ion-label>
+			<h1>
+				<ion-text class="ion-margin-end projectId ">{{project.id}}</ion-text>
+				<ion-text class="ion-margin-end ">{{project.data.summary.name}}</ion-text>
+			</h1>
+			<p>
+				<ion-text class="ion-margin-end" [ngClass]="{'deleted': project.data.status ==='deleted'} " >{{project.data.status}}</ion-text>
+				<ion-text>{{project.data.ownerUid}}</ion-text>
+			</p>
+		</ion-label>
+		
+		<ion-icon slot="end" name="trash-outline" (click)="deleteProject(project.id)"> </ion-icon>
+	</ion-item>
+</ion-content>

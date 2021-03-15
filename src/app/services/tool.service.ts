@@ -42,6 +42,28 @@ export class ToolService {
 		return this.afs.doc<Tool>('tools/'+id).delete();
 	}
 	
-	
+
+	getCategories(){
+		return this.afs.collection('ApplicationParameters/tools/categories').snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data() as any;
+				const id = a.payload.doc.id;
+				return { id, ...data };
+
+			});
+		})
+		);
+	}
+
+	addCategory(category,newCategoryId){
+		console.log("newCategoryId", newCategoryId)
+		return this.afs.doc('ApplicationParameters/tools/categories/'+newCategoryId).set(category);
+	}
+	deleteCategory(id){
+		return this.afs.collection<any>('ApplicationParameters/tools/categories').doc(id).delete();
+	}
+	updateCategory(categoryId,category){
+		return this.afs.collection<any>('ApplicationParameters/tools/categories').doc(categoryId).set(category);
+	}
 
 }

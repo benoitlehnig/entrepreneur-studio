@@ -25,38 +25,38 @@
 				<span>{{'LANDINGPAGE.subContentTitle1Text5' | translate}}</span>
 			</h1>
 		</div>
-		<div class="figures ion-hide" >
-			<h1>Entrepreneur-Studio en quelques chiffres</h1>
+		<div class="figures " *ngIf="isTestSystem ===true">
+			<h1>{{'LANDINGPAGE.STATISTICS.Title' | translate}}</h1>
 			<ion-grid>
 				<ion-row>
 					<ion-col >
 						<div  class="animate__animated hide-on-init  animated-delay-1" animateOnScroll  animationName="animated animate__backInUp" offset="600">
-							<div class="value">30+</div>
-							<div class="description">Entrepreneurs inscrits </div>
+							<div class="value">{{statistics.entrepreneurUsersCount}}+</div>
+							<div class="description">{{'LANDINGPAGE.STATISTICS.EntrepreneurUsersCount' | translate}} </div>
 						</div>
 					</ion-col>
 					<ion-col   >
 						<div  class="animate__animated hide-on-init  animated-delay-1-5" animateOnScroll  animationName="animated animate__backInUp" offset="600">
-							<div class="value">10+</div>
-							<div class="description">Conseillers inscrits </div>
+							<div class="value">{{statistics.conseilUsersCount}}+</div>
+							<div class="description">{{'LANDINGPAGE.STATISTICS.ConseilUsersCount'| translate }}</div>
 						</div>
 					</ion-col>
 					<ion-col >
 						<div  class="animate__animated hide-on-init  animated-delay-2" animateOnScroll  animationName="animated animate__backInUp" offset="600">
-							<div class="value">103+</div>
-							<div class="description">Projets crées </div>
+							<div class="value">{{statistics.projectsCount}}+</div>
+							<div class="description">{{'LANDINGPAGE.STATISTICS.ProjetsCount' | translate}} </div>
 						</div>
 					</ion-col>
 					<ion-col  >
 						<div  class="animate__animated hide-on-init  animated-delay-2-5" animateOnScroll  animationName="animated animate__backInUp" offset="600">
-							<div class="value">1 500+</div>
-							<div class="description">Membres de la communaute <a href="">Entrepreneur-Studio</a></div>
+							<div class="value">{{statistics.communityMembersCount}}+</div>
+							<div class="description">{{'LANDINGPAGE.STATISTICS.MembersCount' | translate}}</div>
 						</div>
 					</ion-col>
 					<ion-col  >
 						<div  class="animate__animated hide-on-init  animated-delay-3" animateOnScroll  animationName="animated animate__backInUp" offset="600">
-							<div class="value">110+</div>
-							<div class="description">Outils references dans <a href="">La boite a outils</a></div>
+							<div class="value">{{statistics.toolsCount}}+</div>
+							<div class="description">{{'LANDINGPAGE.STATISTICS.ToolsCount' | translate}} <a [routerLink]="['/intl/fr/tools']">{{'LANDINGPAGE.STATISTICS.ToolsCountLink' | translate}}</a></div>
 						</div>
 					</ion-col>
 				</ion-row>

@@ -7,6 +7,7 @@ import { PartnersComponent } from './partners/partners.component';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
 import { ActivatedRoute } from '@angular/router';
 import {CMSService} from '../services/cms.service';
+import {Statistics} from '../models/Statistics';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -21,7 +22,11 @@ export class LandingPagePage implements OnInit {
 	public isLogged:boolean = false;
 	public unknownUser:boolean = false;
 	public systemDParamSub: Subscription = new Subscription();
+	public statisticsSub: Subscription = new Subscription();
 	public systemDSlackChannel:string="";
+	public statistics: Statistics= new Statistics();
+	public isTestSystem:boolean = false;
+
 
 	
 	constructor(
@@ -34,6 +39,9 @@ export class LandingPagePage implements OnInit {
 		) { }
 
 	ngOnInit() {
+		if(window.location.origin.indexOf("localhost") !==-1 || window.location.origin.indexOf("entrepreneur-studio-test")!==-1 ){
+			this.isTestSystem = true;
+		}
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
 				if(uid ===null || uid===-1){
@@ -47,6 +55,11 @@ export class LandingPagePage implements OnInit {
 			(systemDparams:any)=>{
 				this.systemDSlackChannel = systemDparams.systemDChannel;
 			}) 
+
+		this.statisticsSub = this.CMSService.getStatistics().pipe(first()).subscribe(
+			(systemDparams:any)=>{
+				this.statistics = systemDparams;
+			}) 
 		this.activatedRoute.params.subscribe(params => {
 			console.log("params",params)
 			if(params['unknownUser'] === 'true'){
@@ -59,6 +72,7 @@ export class LandingPagePage implements OnInit {
 	}
 	ngOnDestroy(){
 		this.systemDParamSub.unsubscribe();
+		this.statisticsSub.unsubscribe();
 
 	}
 

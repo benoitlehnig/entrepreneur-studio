@@ -14,8 +14,8 @@
   		<ion-menu contentId="admin-content" side="start" >
   			<ion-content>
   				<ion-list >
-  					<ion-item *ngFor="let p of pages; let i = index" (click)="redirectTo(p.url)" lines="none" >
-  						<ion-icon color="primary" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+  					<ion-item *ngFor="let p of pages; let i = index" (click)="redirectTo(p.url)" lines="none"  [ngClass]="{'selected': isSelectedTab(p.url) ===true} ">
+  						<ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
   						<ion-label> {{p.title}}</ion-label>
   					</ion-item>		
   				</ion-list>

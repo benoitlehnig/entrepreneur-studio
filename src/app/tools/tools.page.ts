@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild  } from '@angular/core';
 import { CMSService} from '../services/cms.service';
 import { UserService} from '../services/user.service';
+import { ToolService} from '../services/tool.service';
 import {TranslateService} from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import {DataSharingServiceService} from '../services/data-sharing-service.service';
@@ -13,8 +14,8 @@ import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { SharePopoverComponent } from './share-popover/share-popover.component';
 import { ActionSheetController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
-
 import { PopoverController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-tools',
@@ -29,6 +30,7 @@ export class ToolsPage implements OnInit {
 	public isLogged:boolean=false;
 
 	public items = [];
+	public categories = [];
 	public filter={
 		categories : [],
 		stages:[],
@@ -43,12 +45,17 @@ export class ToolsPage implements OnInit {
 	public likedTools=[];
 	public width=0;
 	public viewMode:string='grid';
+	
+	public categoriesChangesSub: Subscription = new Subscription();
+
+
 
 	@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
 
 	constructor(
 		public CMSService:CMSService,
+		public toolService:ToolService,
 		public userService:UserService,
 		public translateService : TranslateService,
 		public dataSharingServiceService : DataSharingServiceService,
@@ -63,7 +70,7 @@ export class ToolsPage implements OnInit {
 		console.log("ToolsPage >> constructor");
 	}
 
-	ngOnInit() {
+	async ngOnInit() {
 		console.log("ToolsPage >> ngOnInit");
 		this.getTools();
 		
@@ -74,16 +81,14 @@ export class ToolsPage implements OnInit {
 			this.viewMode = 'list';
 		}
 
-		this.translateService.get('TOOLS.CATEGORIES').subscribe(
-			data=>{
-				let arr=[];
-				Object.keys(data).map(function(key){  
-					arr.push({id: Number(key)+1, name:data[key]})  
-					return arr;  
-				}); 
-				arr= arr.sort((n1,n2) => n1.name.localeCompare(n2.name));
-				this.items = arr;
-			})
+		this.categoriesChangesSub = await this.toolService.getCategories().subscribe(
+			data =>{
+				console.log("categories", data)
+				this.categories = data;
+				this.categories = this.categories.sort((n1,n2) => n1.labelFrench.localeCompare(n2.labelFrench));
+			}
+			);
+
 		this.translateService.get('TOOLS.STAGES').subscribe(
 			data=>{
 				let arr=[];
@@ -108,9 +113,13 @@ export class ToolsPage implements OnInit {
 				}
 			})
 
-		this.CMSService.getToolsNumber().pipe(first()).subscribe( (data:any)=>{
-			this.numberofTools = data.number;
+		this.CMSService.getStatistics().pipe(first()).subscribe( (data:any)=>{
+			this.numberofTools = data.toolsCount;
 		})
+	}
+
+	ngOnDestroy(){
+		this.categoriesChangesSub.unsubscribe();
 	}
 	
 
@@ -130,6 +139,7 @@ export class ToolsPage implements OnInit {
 					this.tools = data.sort((n1,n2) => n1.name.localeCompare(n2.name));
 					this.displayedTools = this.tools.slice(0, 20)
 					this.loadingOngoing = false;
+					console.log("retrieveToolsContent",this.tools);
 				}
 			});
 
@@ -301,5 +311,14 @@ export class ToolsPage implements OnInit {
 	toggleViewMode(viewMode){
 		this.angularFireAnalytics.logEvent('tool_view_swapped',  {viewMode: viewMode});
 		this.viewMode = viewMode;
+	}
+
+	getCategoryLabel(id){
+		const categoryLabels:any = this.categories.filter(
+			function(data){ return data.id == id }
+			)
+		if(categoryLabels.length>0){
+			return categoryLabels[0].labelFrench
+		}
 	}
 }

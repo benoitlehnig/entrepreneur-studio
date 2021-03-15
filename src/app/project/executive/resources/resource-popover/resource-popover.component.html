@@ -46,7 +46,7 @@
 									<ion-item>
 										<div class="ion-justify-content-start labels">
 											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
-												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+												<ion-text class="ion-text-uppercase">{{getCategoryLabel(label.label)}}  </ion-text>
 											</div>
 										</div>
 									</ion-item>
@@ -79,7 +79,7 @@
 									<ion-item>
 										<div class="ion-justify-content-start labels">
 											<div  *ngFor="let label of tool.labels " class="ion-align-self-start label">
-												<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+												<ion-text class="ion-text-uppercase">{{categories[label.label].labelFrench}}</ion-text>
 											</div>
 										</div>
 									</ion-item>
@@ -144,7 +144,7 @@
 								<div class="ion-justify-content-start labels">
 
 									<div  *ngFor="let label of selectedApplication.labels " class="ion-align-self-start label">
-										<ion-text class="ion-text-uppercase">{{'TOOLS.CATEGORIES.'+label.label | translate}}  </ion-text>
+										<ion-text class="ion-text-uppercase">{{getCategoryLabel(label.label)}  </ion-text>
 									</div>
 								</div>
 							</ion-col>

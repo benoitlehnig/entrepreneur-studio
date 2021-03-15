@@ -78,7 +78,16 @@
 		"TimelineStep9IconText" :"Croissance",
 		"FollowUsTitle":"Nous suivre",
 		"PracticalInformationTitle" :"Informations pratiques",
-		"SlackCommunity" :"Découvrez la communauté Slack"
+		"SlackCommunity" :"Découvrez la communauté Slack",
+		"STATISTICS":{
+			"Title": "Entrepreneur Studio en quelques chiffres",
+			"EntrepreneurUsersCount": "Entrepreneurs",
+			"ConseilUsersCount": "Conseillers",
+			"ProjetsCount": "Projets",
+			"MembersCount": "Membres de la communauté",
+			"ToolsCount": "Outils référencés dans ",
+			"ToolsCountLink": "la boite à outils"
+		}
 	},
 	"cookie": {
 		"header": "Des cookies sont utilisés sur ce site",
@@ -690,6 +699,10 @@
 			"NativeIntegrationAvailable": "Integration native disponible",
 			"Save": "Sauvergarder",
 			"Delete": "Supprimer"
+		},
+		"CATEGORIES":{
+			"AddCategoryTitle": "Ajouter une nouvelle categorie", 
+			"AddCategory": "Ajouter"
 		}
 	}
 

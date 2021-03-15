@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+
 
 
 
@@ -23,6 +25,11 @@ export class ToolPage implements OnInit {
 	public stages = [];
 
 	public mode="update";
+
+	public categoriesChangesSub: Subscription = new Subscription();
+	public toolsChangesSub: Subscription = new Subscription();
+
+
 	constructor(
 		public toolService: ToolService,
 		private activatedRoute: ActivatedRoute,
@@ -42,21 +49,19 @@ export class ToolPage implements OnInit {
 		}
 		else{
 			this.toolId = this.activatedRoute.snapshot.paramMap.get('id');
-			this.toolService.getTool(this.toolId).subscribe(data=>{
+			this.toolsChangesSub = this.toolService.getTool(this.toolId).subscribe(data=>{
 				console.log("getTools",data);
 				this.tool= data;
 			})
 		}
+		this.categoriesChangesSub = this.toolService.getCategories().subscribe(
+			data =>{
+				console.log("categories", data)
+				this.categories = data;
+			}
+		);
 		
-		this.translateService.get('TOOLS.CATEGORIES').subscribe(
-			data=>{
-				let arr=[];
-				Object.keys(data).map(function(key){  
-					arr.push({id: key, name:data[key]})  
-					return arr;  
-				}); 
-				this.categories = arr;
-			})
+		
 		this.translateService.get('TOOLS.STAGES').subscribe(
 			data=>{
 				console.log("STAGES" , data);
@@ -67,6 +72,10 @@ export class ToolPage implements OnInit {
 				}); 
 				this.stages = arr;
 			})
+	}
+	ngOnDestroy(){
+		this.toolsChangesSub.unsubscribe();
+		this.categoriesChangesSub.unsubscribe();
 	}
 
 	save(){

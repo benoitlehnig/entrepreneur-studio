@@ -4,6 +4,8 @@ import { CMSService} from '../../../../services/cms.service';
 import { first } from 'rxjs/operators';
 import {Resource} from '../../../../models/project';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { ToolService} from  '../../../../services/tool.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -48,15 +50,21 @@ export class ResourcePopoverComponent implements OnInit {
 	public selectedButton:string="application";
 	public selectedAppButton:string="description";
 
+	public categories=[]
+
 	//SLACK
 	public slackButtonHref= "https://slack.com/oauth/v2/authorize?client_id=1226163065714.1534441424722&scope=incoming-webhook,commands&redirect_uri=https://us-central1-entrepeneur-studio.cloudfunctions.net/slackOauthRedirect&state="
 	//drive
 	public driveButtonHref= "";
 
+	public categoriesChangesSub: Subscription = new Subscription();
+
+
 	constructor(
 		public navParams: NavParams,
 		public CMSService:CMSService,
 		private functions: AngularFireFunctions,
+		private toolService: ToolService,
 
 		) { }
 
@@ -64,7 +72,18 @@ export class ResourcePopoverComponent implements OnInit {
 		this.updateList();
 		this.slackButtonHref = this.slackButtonHref+ this.projectId+"&user_scope="
 		this.getDriveUrl();
+		this.categoriesChangesSub = this.toolService.getCategories().subscribe(
+			data =>{
+				console.log("categories", data)
+				this.categories = data;
+				this.categories = this.categories.sort((n1,n2) => n1.labelFrench.localeCompare(n2.labelFrench));
+			}
+			);
 
+	}
+
+	ngOnDestroy(){
+		this.categoriesChangesSub.unsubscribe();
 	}
 	updateList(){
 		this.CMSService.retrieveToolsContent(this.filter).pipe(first()).subscribe(
@@ -150,7 +169,14 @@ export class ResourcePopoverComponent implements OnInit {
 			this.driveButtonHref = res;
 		});
 	}
-
+	getCategoryLabel(id){
+		const categoryLabels:any = this.categories.filter(
+			function(data){ return data.id == id }
+			)
+		if(categoryLabels.length>0){
+			return categoryLabels[0].labelFrench
+		}
+	}
 
 }
 

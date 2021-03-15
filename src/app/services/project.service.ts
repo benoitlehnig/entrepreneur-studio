@@ -23,6 +23,16 @@ export class ProjectService {
 	{ }
 
 
+	getProjects(){
+		return this.afs.collection('projects').snapshotChanges().pipe(map(actions => {
+			return actions.map(a => {
+				const data = a.payload.doc.data();
+				const id = a.payload.doc.id;
+				return { id, data };
+			});
+		}));
+
+	}
 	getProjectsIdsbyUid(uid:string,projectId){
 		console.log("getProjectsIdsbyUid", uid, projectId)
 		return this.afs.collection<any>('users/'+uid+'/projects', ref => ref.where('projectId', '==', projectId)).valueChanges();
@@ -91,6 +101,17 @@ export class ProjectService {
 		console.log("Update project >> removeProject", id)
 		return this.afs.collection('projects').doc(id).update({status: "deleted"})
 	}
+	deleteProject(id:string){
+		console.log("delete project >> removeProject", id);
+		this.getProjectTeamMembers(id).subscribe(teamMembers =>{
+			for(let i = 0;i<teamMembers.length;i++){
+				console.log("delete Project teamMembers", id, teamMembers[i]);
+				this.removeTeamMember(id, teamMembers[i])
+			}
+		});
+		return this.afs.collection('projects').doc(id).delete();
+	}
+
 
 	getProjectTeamMembers(id){
 		return this.afs.collection('projects').doc(id).collection('teamMembers').snapshotChanges().pipe(map(actions => {

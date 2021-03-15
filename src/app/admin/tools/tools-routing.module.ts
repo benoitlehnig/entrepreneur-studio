@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'tool',
     loadChildren: () => import('./tool/tool.module').then( m => m.ToolPageModule)
   }
+
 ];
 
 @NgModule({

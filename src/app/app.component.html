@@ -53,11 +53,14 @@
 						<ion-icon name="settings-outline"></ion-icon>
 						<ion-label  class="ion-margin-start"><ion-text >{{'EXECUTIVE.Settings' | translate }}</ion-text></ion-label>
 					</ion-item>
-					<ion-item lines="none"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true" >
+					<ion-item lines="none"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true && accessRights.write === true" >
 						<ion-icon name="logo-slack"></ion-icon>
 						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Slack' | translate }}</ion-text></ion-label>
 					</ion-item>
-
+					<ion-item lines="none"   *ngIf="isGoogleDriveInstalled ===true && accessRights.write === true"  (click)="navigate('drive')">
+						<ion-img src="/assets/images/driveIcon.png" class="imgAppIcon"></ion-img>
+						<ion-label  class="ion-margin-start"><ion-text >{{'EXECUTIVE.GoogleDrive' | translate }}</ion-text></ion-label>
+					</ion-item>
 					<ion-item lines="none"  (click)="openFeedbackPopover('other')">
 						<ion-icon name="ellipsis-horizontal-circle" ></ion-icon>
 						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Other' | translate }}</ion-text></ion-label>

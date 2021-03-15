@@ -67,6 +67,8 @@
    public isSlackInstalled:boolean=false;
    public slackUrl:string="";
 
+   public isGoogleDriveInstalled:boolean=false;
+
 
    private popupOpenSubscription: Subscription;
    private popupCloseSubscription: Subscription;
@@ -132,9 +134,12 @@
              resources=>{
                this.resources = resources;
                this.resources.forEach((resource:any)=>{
-                 if(resource.data.name==="Slack"){
+                 if(resource.data.CMSId==="kghp8sg4pq6zhnelpgw"){
                    this.isSlackInstalled = true;
                    this.slackUrl = resource.data.url;
+                 }
+                 if(resource.data.CMSId==="kgazdvl3cgb1hl7cxoo"){
+                   this.isGoogleDriveInstalled = true;
                  }
                })
              })

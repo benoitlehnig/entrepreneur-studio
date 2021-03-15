@@ -31,10 +31,29 @@ const routes: Routes = [
       loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
     }
     ]
+  },
+  {
+    path: 'categories',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+    }
+    ]
+  },
+  {
+    path: 'projects',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./projects/projects.module').then( m => m.ProjectsPageModule)
+    }
+    ]
   }
-  ],
+  ]
 
 }
+
 
 ]
 

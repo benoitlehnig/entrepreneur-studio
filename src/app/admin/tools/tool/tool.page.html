@@ -2,7 +2,7 @@
 	<ion-toolbar>
 		<ion-title>{{tool.name}}</ion-title>
 		<ion-buttons slot="end" >
-			<ion-button class="ion-margin" (click)="save()"><ion-icon name="add-outline" ></ion-icon>{{'ADMIN.TOOL.Save' | translate}}</ion-button>
+			<ion-button class="ion-margin" (click)="save()"><ion-icon name="save-outline"></ion-icon>{{'ADMIN.TOOL.Save' | translate}}</ion-button>
 			<ion-button class="ion-margin" (click)="requestDelete()"><ion-icon name="trash-outline" *ngIf="mode ==='update'"></ion-icon>{{'ADMIN.TOOL.Delete' | translate}}</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
@@ -54,7 +54,7 @@
 			<ion-row>
 				<ion-col *ngFor="let category of categories">
 					<ion-item lines="none">
-						<ion-label class="ion-text-wrap">{{category.name}}</ion-label>
+						<ion-label class="ion-text-wrap">{{category.labelFrench}}</ion-label>
 						<ion-checkbox slot="start" [(ngModel)]="tool.labels[category.id]"></ion-checkbox>
 					</ion-item>
 				</ion-col>

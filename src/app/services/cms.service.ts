@@ -59,7 +59,7 @@ export class CMSService {
 				return arrStage;  
 			}); 
 		}
-		//filter on lavels
+		//filter on categories
 
 		data.labels=arr;
 
@@ -67,7 +67,7 @@ export class CMSService {
 		if(filter.categories.length>0){
 			matchedCategories = false;
 			for(let i=0; i< filter.categories.length;i++){
-				if(arr.find(x => Number(x.label) == Number(filter.categories[i])-1) !== undefined){
+				if(arr.find(x => Number(x.label) == Number(filter.categories[i])) !== undefined){
 					matchedCategories = true;
 					break;
 				}
@@ -78,7 +78,6 @@ export class CMSService {
 		if(filter.stages.length>0){
 			matchedStages = false;
 			for(let i=0; i< filter.stages.length;i++){
-				console.log("filter.stages", filter.stages[i])
 				if(arrStage.find(x => x.label == filter.stages[i]) !== undefined){
 					matchedStages = true;
 					break;
@@ -108,14 +107,14 @@ export class CMSService {
 				return { id, ...data };
 			})))
 	}
-	getToolsNumber(){
-		return this.afs.doc('ApplicationParameters/tools').valueChanges();
-	}
 
 	getSystemDParams(){
 		return this.afs.doc('ApplicationParameters/systemD').valueChanges();
 
+	}
 
+	getStatistics(){
+		return this.afs.doc('ApplicationParameters/statistics').valueChanges();
 	}
 
 }

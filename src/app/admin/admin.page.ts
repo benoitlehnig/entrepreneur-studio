@@ -14,13 +14,23 @@ export class AdminPage implements OnInit {
 	public pages = [
 
 	{
-		title: 'tools',
+		title: 'Tools',
 		url: 'admin/tools',
 		icon: 'apps'
 	},
 	{
-		title: 'users',
+		title: 'Categories',
+		url: 'admin/categories',
+		icon: 'bookmark'
+	},
+	{
+		title: 'Users',
 		url: 'admin/users',
+		icon: 'people'
+	},
+	{
+		title: 'Projects',
+		url: 'admin/projects',
 		icon: 'people'
 	},
 	];
@@ -39,9 +49,16 @@ export class AdminPage implements OnInit {
 		}
 	}
 	redirectTo(url){
-		console.log("redirectTo", url);
 		this.router.navigate([url]);
 
+	}
+	isSelectedTab(url){
+		if(this.router.url.indexOf(url.toLowerCase()) !==-1){
+			return true
+		}
+		else{
+			return false
+		}
 	}
 
 }
