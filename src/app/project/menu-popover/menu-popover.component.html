@@ -1,37 +1,56 @@
-	 <ion-list >
-	 	<ion-item routerDirection="root" routerLink="entrepreneur"  detail="false" (click)="dismiss()">
-	 		<ion-icon color="primary" slot="start" name='layers-outline'></ion-icon>
-	 		<ion-label> 
-	 			<h3>{{'PROJECT.Menu.GarageAccessTitle' | translate}}</h3>
-	 			<p>{{'PROJECT.Menu.GarageAccessText' | translate}}</p>
-	 		</ion-label>
-	 	</ion-item>	
-	 	<ion-item routerDirection="root" routerLink="['intl/fr/tools']"  detail="false" (click)="dismiss()">
-	 		<ion-icon color="primary" slot="start" name="construct-outline"></ion-icon>
-	 		<ion-label> 
-	 			<h3>{{'PROJECT.Menu.ToolBoxAccessTitle' | translate}}</h3>
-	 			<p>{{'PROJECT.Menu.ToolBoxAccessText' | translate}}</p>
-	 		</ion-label>
-	 	</ion-item>
-	 	<ion-item lines="none" detail="false">
-	 		<ion-icon color="primary" slot="start" ios="chatbubbles-outline" md="people-circle-sharp"></ion-icon>
-	 		<ion-label>
-	 			<h3>{{'PROJECT.Menu.SystemDAccessTitle' | translate}}</h3>
-	 			<p>{{'PROJECT.Menu.SystemDAccessText' | translate}}</p>
-	 			<div>
-	 				<a  class="ion-margin-end" href="https://www.facebook.com/groups/entrepreneurstudio" target="_blank" >
-	 					<ion-icon name="logo-facebook"></ion-icon>
-	 					{{'PROJECT.Menu.SystemDAccessFB' | translate}}
-	 				</a>
-	 				<a  [href]="systemDSlackChannel" target="_blank" >
-	 					<ion-icon name="logo-slack"></ion-icon>
-	 					{{'PROJECT.Menu.SystemDAccessSlack' | translate}}
-	 				</a>
-	 			</div>
-	 		</ion-label>
-	 	</ion-item>	
-	 </ion-list> 
+	<ion-grid>
+		<ion-row>
+			<ion-col class="projectMenu">
+				<h1>{{project.summary.name}}</h1>
+				<ion-item (click)="navigate('settings')" lines="none">
+					<ion-icon color="primary" slot="start" name='settings-outline'></ion-icon>
+					<ion-label> 
+						<h3>Parametres</h3>
+						<p>Changer les parametres de votre projet</p>
+					</ion-label>
+				</ion-item>
+			</ion-col>
+
+			<ion-col class="ESMenu">
+				<ion-list >
+				<h1>Entrepreneur Studio</h1>
+
+					<ion-item routerDirection="root" routerLink="entrepreneur"  detail="false" (click)="dismiss()" >
+						<ion-icon color="primary" slot="start" name='layers-outline'></ion-icon>
+						<ion-label> 
+							<h3>{{'PROJECT.Menu.GarageAccessTitle' | translate}}</h3>
+							<p>{{'PROJECT.Menu.GarageAccessText' | translate}}</p>
+						</ion-label>
+					</ion-item>	
+					<ion-item routerDirection="root" routerLink="['intl/fr/tools']"  detail="false" (click)="dismiss()">
+						<ion-icon color="primary" slot="start" name="construct-outline"></ion-icon>
+						<ion-label> 
+							<h3>{{'PROJECT.Menu.ToolBoxAccessTitle' | translate}}</h3>
+							<p>{{'PROJECT.Menu.ToolBoxAccessText' | translate}}</p>
+						</ion-label>
+					</ion-item>
+					<ion-item lines="none" detail="false">
+						<ion-icon color="primary" slot="start" ios="chatbubbles-outline" md="people-circle-sharp"></ion-icon>
+						<ion-label>
+							<h3>{{'PROJECT.Menu.SystemDAccessTitle' | translate}}</h3>
+							<p>{{'PROJECT.Menu.SystemDAccessText' | translate}}</p>
+							<div>
+								<a  class="ion-margin-end" href="https://www.facebook.com/groups/entrepreneurstudio" target="_blank" >
+									<ion-icon name="logo-facebook"></ion-icon>
+									{{'PROJECT.Menu.SystemDAccessFB' | translate}}
+								</a>
+								<a  [href]="systemDSlackChannel" target="_blank" >
+									<ion-icon name="logo-slack"></ion-icon>
+									{{'PROJECT.Menu.SystemDAccessSlack' | translate}}
+								</a>
+							</div>
+						</ion-label>
+					</ion-item>	
+				</ion-list> 
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 
 
-	 
 

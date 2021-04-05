@@ -3,6 +3,7 @@ import {DataSharingServiceService} from '../../../services/data-sharing-service.
 import { Subscription } from 'rxjs';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import {ProjectService} from '../../../services/project.service';
+import { first } from 'rxjs/operators';
 
 
 
@@ -20,6 +21,7 @@ export class DrivePage implements OnInit {
 	public driveFolderId:string="";
 	public driveFiles=[];
 	public driveFolders=[];
+	public currentFolder = null;
 
 	constructor(
 		public dataSharingServiceService: DataSharingServiceService,
@@ -28,14 +30,17 @@ export class DrivePage implements OnInit {
 
 		) { }
 
-	ngOnInit() {
-		this.projectSub = this.dataSharingServiceService.getProjectChanges().subscribe(
+	ngOnInit() {}
+
+	ionViewWillEnter(){
+
+		this.projectSub = this.dataSharingServiceService.getProjectChanges().pipe(first()).subscribe(
 			(data)=>{
 				if(data !==null){
 					console.log("DrivePage dataSharingServiceService", data);
 					this.projectId	= data.id;
 					this.getFolderId();
-					this.initDrive()
+					this.initDrive(null)
 				}
 				else{
 					//todo
@@ -44,15 +49,23 @@ export class DrivePage implements OnInit {
 	}
 
 
-	ngOnDestroy(){
+	ionViewWillLeave(){
 		this.projectSub.unsubscribe();
 	}
 
-	initDrive(){
+	initDrive(folderId){
 		this.driveFolders = [];
 		this.driveFiles = [];
 		const callable = this.functions.httpsCallable('driveListFiles');
-		const obs = callable({projectId:this.projectId});
+		let obs = callable({projectId:this.projectId});
+
+		if(folderId!==null){
+				obs = callable({projectId:this.projectId,folderId:folderId });
+
+		}
+		else{
+			this.currentFolder =null;
+		}
 		obs.subscribe(async res => {
 			console.log("driveListFiles ", res)
 			for(let i=0;i<res.length;i++){
@@ -65,7 +78,6 @@ export class DrivePage implements OnInit {
 			}
 		});
 
-
 	}
 
 	getFolderId(){
@@ -76,7 +88,13 @@ export class DrivePage implements OnInit {
 	}
 	navigateTo(url){
 		window.open(url);
+	}
 
+	navigateToFolder(file){
+		this.currentFolder = file;
+		console.log("navigateToFolder", file);
+		this.initDrive(file.id)
+	
 	}
 
 }

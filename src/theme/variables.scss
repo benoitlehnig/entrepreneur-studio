@@ -301,7 +301,12 @@ ion-auto-complete ul{
   --width: auto;
 }
 .projectMenu {
-  --width: 600px;
+  --min-width: 480px;
+  --width: 100%;
+   @media(min-width: 700px) {
+    --max-width:  800px;
+  }
+
 
   .popover-content{
     top: 0px!important;

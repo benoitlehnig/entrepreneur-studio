@@ -33,6 +33,16 @@ export class AdminPage implements OnInit {
 		url: 'admin/projects',
 		icon: 'people'
 	},
+	{
+		title: 'Statistics',
+		url: 'admin/statistics',
+		icon: 'stats-chart'
+	},
+	{
+		title: 'Conseil',
+		url: 'admin/conseil',
+		icon: 'people-circle'
+	},
 	];
 	public selectedIndex=0;
 

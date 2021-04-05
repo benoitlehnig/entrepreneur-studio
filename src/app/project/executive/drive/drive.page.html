@@ -9,15 +9,25 @@
 		</ion-label>
 
 	</ion-item>
+	<div  >
+		<h1>
+			<ion-icon name="home-outline" class="ion-margin-end" (click)="initDrive(null)"></ion-icon> <ion-text>Votre Drive</ion-text>
+
+			<span *ngIf="currentFolder !==null" >
+				<ion-icon name="chevron-forward-outline"></ion-icon>
+				<ion-text>{{currentFolder.name}}</ion-text>
+			</span>
+		</h1>
+	</div>
 	<div *ngIf="driveFolders.length >0">
 
 
 		<h2>{{'RESOURCES.DRIVE.Folders' | translate }}</h2>
 		<ion-grid>
 			<ion-row>
-				<ion-col *ngFor="let file of driveFolders" (click)="navigateTo(file.webViewLink)">
+				<ion-col *ngFor="let file of driveFolders" (click)="navigateToFolder(file)">
 
-					<div class="folder">
+					<div class="folder" >
 						<ion-icon name="folder-outline"  class="ion-margin-end"></ion-icon>
 						<ion-text>{{file.name}}</ion-text>
 					</div>

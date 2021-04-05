@@ -116,5 +116,8 @@ export class CMSService {
 	getStatistics(){
 		return this.afs.doc('ApplicationParameters/statistics').valueChanges();
 	}
+	saveStatistics(data){
+		return this.afs.doc('ApplicationParameters/statistics').set(data);
+	}
 
 }

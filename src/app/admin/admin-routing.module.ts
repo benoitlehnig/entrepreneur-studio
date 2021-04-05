@@ -49,10 +49,29 @@ const routes: Routes = [
       loadChildren: () => import('./projects/projects.module').then( m => m.ProjectsPageModule)
     }
     ]
+  },
+  {
+    path: 'statistics',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
+    }
+    ]
+  },
+  {
+    path: 'conseil',
+    children: [
+    {
+      path: '',
+      loadChildren: () => import('./conseil/conseil.module').then( m => m.ConseilPageModule)
+    }
+    ]
   }
   ]
 
 }
+
 
 
 ]

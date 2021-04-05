@@ -1,0 +1,41 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Statistics</ion-title>
+		<ion-buttons slot="secondary" >
+			<ion-button (click)="save()">Sauvegarder</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item >
+		<ion-label>
+			Community Members count
+		</ion-label>
+		<ion-input [(ngModel)]="statistics.communityMembersCount"></ion-input>
+	</ion-item>
+	<ion-item >
+		<ion-label>
+			Conseils User count
+		</ion-label>
+		<ion-input [(ngModel)]="statistics.conseilUsersCount"></ion-input>
+	</ion-item>
+	<ion-item >
+		<ion-label>
+			Entrepreneur Users Count
+		</ion-label>
+		<ion-input [(ngModel)]="statistics.entrepreneurUsersCount"></ion-input>
+	</ion-item>
+	<ion-item >
+		<ion-label>
+			Projects count
+		</ion-label>
+		<ion-input [(ngModel)]="statistics.projectsCount"></ion-input>
+	</ion-item>
+	<ion-item >
+		<ion-label>
+			Tools Count
+		</ion-label>
+		<ion-input [(ngModel)]="statistics.toolsCount"></ion-input>
+	</ion-item>
+</ion-content>

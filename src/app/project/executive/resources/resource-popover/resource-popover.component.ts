@@ -19,7 +19,7 @@ export class ResourcePopoverComponent implements OnInit {
 
 	@Input("homeref") value;
 	@Input("projectId") projectId;
-	@Input() resource;
+	@Input("resource") resource;
 
 	public tools;
 	public labelAttribute:string="name";
@@ -72,6 +72,14 @@ export class ResourcePopoverComponent implements OnInit {
 		this.updateList();
 		this.slackButtonHref = this.slackButtonHref+ this.projectId+"&user_scope="
 		this.getDriveUrl();
+		if(this.resource){
+			console.log("resource", this.resource);
+			this.toolService.getTool(this.resource.id).subscribe(
+				data =>{
+					this.selectApplication(data);
+				}
+				);
+		}
 		this.categoriesChangesSub = this.toolService.getCategories().subscribe(
 			data =>{
 				console.log("categories", data)
@@ -101,6 +109,7 @@ export class ResourcePopoverComponent implements OnInit {
 	}
 
 	selectApplication(application){
+		console.log("selectApplication", application)
 		if(application === 'other'){
 			this.selectedApplication.CMSId = null;
 			this.selectedApplication.id = null;

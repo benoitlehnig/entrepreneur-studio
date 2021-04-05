@@ -165,6 +165,8 @@
 		"FinancesMenuTooltip":"Les informations relatives au financement de votre projet",
 		"CommentsMenuTooltip":"Afficher les commentaires ",
 		"SlackMenuTooltip":"Ouvrir Slack",
+		"SlackMenuToInstallTooltip":"Installer l'extension Slack",
+		"GoogleDriveToInstallMenuTooltip":"Installer l'extension Drive",
 		"GoogleDriveMenuTooltip":"Accédez à votre Google Drive",
 		"SettingsMenuTooltip":"Les paramètres de votre project",
 		"OtherMenuTooltip":"Il manque quelque chose ? Soumettez-vos idées !",
@@ -172,7 +174,7 @@
 			"GarageAccessTitle": "Le Garage",
 			"GarageAccessText": "Retrouvez vos différents projets",
 			"ToolBoxAccessTitle": "La Boite à Outils",
-			"ToolBoxAccessText": "Parcourez la liste des outils partagés par la communauté Entrepreneur Studio ",
+			"ToolBoxAccessText": "Parcourez la liste des outils de la communauté",
 			"SystemDAccessTitle": "Le Système D",
 			"SystemDAccessText": "Accedez à la communauté Entrepreneur-Studio",
 			"SystemDAccessFB": "Groupe Facebook",
@@ -190,7 +192,10 @@
 		"Finances": "Finances",
 		"Comments": "Commentaires",
 		"Slack": "Slack",
+		"SlackToInstall":"Installer l'extension Slack",
 		"GoogleDrive": "Google Drive",
+		"GoogleDriveToInstall":"Installer l'extension Google Drive",
+
 		"Settings": "Réglages",
 		"Delete": "Supprimer",
 		"Other": "Autre"

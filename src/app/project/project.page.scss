@@ -90,6 +90,7 @@ ion-grid{
     .withBadge{
       margin-left: 5px;
     }
+    
   }
   ion-item:hover{
     --background:   var(--ion-color-primary-tint);
@@ -125,6 +126,7 @@ ion-grid{
       border-bottom:1px solid var(--ion-color-primary);
     }
     .expandButton{
+      margin-top:16px;
       cursor:  pointer;
     }
 
@@ -149,9 +151,6 @@ ion-grid{
   ion-footer{
     position:absolute;
     bottom:0px;
-    text-align: left;
-    padding-left:12px;
-
   }
 
 }
@@ -187,7 +186,9 @@ ion-grid{
 .imgAppIcon{
   width: 26px;
 }
-
+.appToInstall{
+  filter:sepia(84%) opacity(0.6)
+}
 .homePageLink{
   display: inline-block;
   padding-right:12px ;

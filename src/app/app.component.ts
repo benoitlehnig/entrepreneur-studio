@@ -313,7 +313,7 @@
 
    navigate(page){
 
-     this.router.navigate(['/project/'+this.project.id+ '/details/'+page]);
+     this.router.navigate(['/project/'+this.project.id+ '/'+page]);
    }
    async openFeedbackPopover(type:string){
      let modal = await this.modalController.create({

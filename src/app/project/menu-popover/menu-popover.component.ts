@@ -3,6 +3,7 @@ import { NavParams} from '@ionic/angular';
 import {CMSService} from '../../services/cms.service';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 
@@ -15,6 +16,8 @@ import { first } from 'rxjs/operators';
 export class MenuPopoverComponent implements OnInit {
 
 	@Input("homeref") value;
+	@Input("project") project;
+	@Input("projectId") projectId;
 	public systemDParamSub: Subscription = new Subscription();
 	public systemDSlackChannel:string="";
 
@@ -22,25 +25,33 @@ export class MenuPopoverComponent implements OnInit {
 	constructor(
 		public navParams: NavParams,
 		public CMSService: CMSService,
+		public router: Router,
 		) { 
 
 		
 	}
 
-	ngOnInit() {
+	ngOnInit() {}
+
+	ionViewWillEnter(){
+
 		this.systemDParamSub = this.CMSService.getSystemDParams().pipe(first()).subscribe(
 			(systemDparams:any)=>{
 				this.systemDSlackChannel = systemDparams.systemDChannel;
 			}) 
 	}
 
-	ngOnDestroy(){
+	ionViewWillLeave(){
 		this.systemDParamSub.unsubscribe();
 	}
 
 	dismiss(){
 		this.navParams.get('homeref').dismissMenuPopover()
-
+	}
+	navigate(page){
+		console.log("click", page);
+		this.dismiss();
+		this.router.navigate(['/project/'+this.projectId+ '/'+page]);
 	}
 
 }

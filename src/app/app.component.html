@@ -13,7 +13,12 @@
 					</ion-item>	
 				</ion-list> 
 				<div class="menuSeparator ion-hide-sm-up "></div>
+
 				<ion-list class="ion-hide-sm-up "  *ngIf="projectRoute === true && project !== null" >
+					<ion-item lines="none"  [ngClass]="{'selected': isSelectedTab('settings') ===true} " *ngIf="accessRights.write === true" (click)="navigate('settings')" >
+						<ion-icon name="settings-outline"></ion-icon>
+						<ion-label  class="ion-margin-start"><ion-text >{{'EXECUTIVE.Settings' | translate }}</ion-text></ion-label>
+					</ion-item>
 					<ion-item  [ngClass]="{'selected': isSelectedTab('summary') ===true}" lines="none" (click)="navigate('summary')" >
 						<ion-icon name="speedometer-outline"></ion-icon>
 						<ion-label class="ion-margin-start">
@@ -40,19 +45,13 @@
 							<ion-text >{{'EXECUTIVE.Application' | translate }}</ion-text>
 						</ion-label>
 					</ion-item>
-					<ion-item lines="none"   (click)="openFeedbackPopover('finance')">
-						<ion-icon name="briefcase-outline" class="disabledIcon"></ion-icon>
-						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Finances' | translate }}</ion-text></ion-label>
-					</ion-item>
+					
 					<ion-item lines="none"  (click)="openCommentsPopover()"  *ngIf="accessRights.write === true"  >
 						<ion-icon name="chatbubbles-outline" ></ion-icon>
 						<ion-badge  *ngIf="project.data.commentsNumber !==undefined">{{project.data.commentsNumber}}</ion-badge>
 						<ion-label  class="ion-margin-start withBadge"><ion-text >{{'EXECUTIVE.Comments' | translate }}</ion-text></ion-label>
 					</ion-item>
-					<ion-item lines="none"  [ngClass]="{'selected': isSelectedTab('settings') ===true} " *ngIf="accessRights.write === true" (click)="navigate('settings')" >
-						<ion-icon name="settings-outline"></ion-icon>
-						<ion-label  class="ion-margin-start"><ion-text >{{'EXECUTIVE.Settings' | translate }}</ion-text></ion-label>
-					</ion-item>
+					
 					<ion-item lines="none"  target="_blank" [href]="slackUrl"  *ngIf="isSlackInstalled ===true && accessRights.write === true" >
 						<ion-icon name="logo-slack"></ion-icon>
 						<ion-label class="ion-margin-start"><ion-text >{{'EXECUTIVE.Slack' | translate }}</ion-text></ion-label>

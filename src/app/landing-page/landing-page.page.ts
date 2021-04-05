@@ -10,6 +10,8 @@ import {CMSService} from '../services/cms.service';
 import {Statistics} from '../models/Statistics';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { AngularFireFunctions } from '@angular/fire/functions';
+
 
 
 @Component({
@@ -35,6 +37,8 @@ export class LandingPagePage implements OnInit {
 		public dataSharingServiceService:DataSharingServiceService,
 		public activatedRoute: ActivatedRoute,
 		public CMSService:CMSService,
+		private functions: AngularFireFunctions,
+
 
 		) { }
 
@@ -69,6 +73,16 @@ export class LandingPagePage implements OnInit {
 				this.presentSignUpPopover();
 			}
 		});
+
+		const callable = this.functions.httpsCallable('retrievePosts');
+		let obs = callable({});
+
+
+		obs.subscribe(async res => {
+			console.log("wordpress,", res)
+		});
+
+
 	}
 	ngOnDestroy(){
 		this.systemDParamSub.unsubscribe();

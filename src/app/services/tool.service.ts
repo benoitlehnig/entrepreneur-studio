@@ -29,7 +29,12 @@ export class ToolService {
 	
 
 	getTool(id){
-		return this.afs.doc<Tool>('tools/' +id).valueChanges()
+		return this.afs.doc<Tool>('tools/' +id).snapshotChanges().pipe(map(tool => { 
+				const data = tool.payload.data() as Tool;
+				const id = tool.payload.id;
+				return { id, ...data };
+		})
+		);
 	}
 
 	save(id,tool){

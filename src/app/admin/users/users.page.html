@@ -1,8 +1,9 @@
 <ion-content>
 	<ion-list>
 		<ion-item *ngFor="let user of users">
-			<ion-label slot="start">
+			<ion-label >
 				<h1>{{user.email}} <ion-badge>{{user.role}}</ion-badge></h1>
+				<p>Creation Date : {{user.creationDateTime | date:'shortDate'}}</p>
 				<p>{{user.firstName}} {{user.lastName}}</p>
 			</ion-label>
 			<ion-button slot="end" (click)="setAdmin(user.id, user.role)">

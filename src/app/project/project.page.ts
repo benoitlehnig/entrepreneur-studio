@@ -1,29 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import {Project} from '../models/project';
-import {ProjectService} from '../services/project.service';
-import {DataSharingServiceService} from '../services/data-sharing-service.service';
-import { ActivatedRoute } from '@angular/router';
-import {AuthService} from '../services/auth.service';
-import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
-import { PopoverFeedbackComponent } from './executive/summary/popover-feedback/popover-feedback.component';
-
-import {TranslateService} from '@ngx-translate/core';
-import { ModalController } from '@ionic/angular';
-import { first } from 'rxjs/operators';
-
-import { PopoverController } from '@ionic/angular';
-import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
-
-import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
-import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
 
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+
+import { first } from 'rxjs/operators';
+
+
+import {Project} from '../models/project';
+import {Resource} from '../models/project';
+
+import {ProjectService} from '../services/project.service';
+import {DataSharingServiceService} from '../services/data-sharing-service.service';
+import {AuthService} from '../services/auth.service';
+
+import { PopoverFeedbackComponent } from './executive/summary/popover-feedback/popover-feedback.component';
+import {ResourcePopoverComponent} from './executive/resources/resource-popover/resource-popover.component'
+
+
+import {MenuPopoverComponent} from './menu-popover/menu-popover.component';
+
+import {SharingStatusPopoverComponent} from './sharing-status-popover/sharing-status-popover.component';
+import { PopoverProjectSummaryComponent } from './executive/summary/popover-project-summary/popover-project-summary.component';
 
 
 
@@ -90,7 +97,9 @@ export class ProjectPage implements OnInit {
 
 	}
 
-	ngOnInit() {
+	ngOnInit() {}
+
+	ionViewWillEnter(){
 		
 		console.log("ProjectPage ngOnInit" );
 		this.projectId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -129,8 +138,8 @@ export class ProjectPage implements OnInit {
 		this.initDeleteProject();
 	}
 
-	ngOnDestroy(){
-		console.log("ProjectPage >> ngOnDestroy")
+	ionViewWillLeave(){
+		console.log("ProjectPage >> ionViewWillLeave")
 		this.uidChangesSub.unsubscribe();
 		this.projectsIdsbyUidSub.unsubscribe();
 		this.projectSub.unsubscribe();
@@ -287,7 +296,7 @@ export class ProjectPage implements OnInit {
 	async presentMenuPopup(ev: any) {
 		const popover = await this.popoverController.create({
 			component: MenuPopoverComponent,
-			componentProps: {homeref:this},
+			componentProps: {homeref:this, projectId:this.projectId,project:this.project},
 			event: ev,
 			cssClass:"projectMenu",
 			translucent: true
@@ -310,6 +319,20 @@ export class ProjectPage implements OnInit {
 			this.cookieService.set( 'commentsPanelDisplayed', 'false' );
 
 		}
+	}
+	addApplication(appid:string){
+		let resource = {id:appid,data:new Resource()};
+		this.presentResourcePopoverComponent(resource)
+	}
+	async presentResourcePopoverComponent(resource) {
+
+		const popover = await this.modalController.create({
+			component: ResourcePopoverComponent,
+			cssClass: 'popover',
+			componentProps: {homeref:this, resource:resource, projectId:this.projectId},
+
+		});
+		return await popover.present();
 	}
 	closeCommentsPanel(ev){
 		this.toggleCommentsPanel();

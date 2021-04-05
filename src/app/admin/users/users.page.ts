@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user.service';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-users',
@@ -16,6 +17,8 @@ export class UsersPage implements OnInit {
 		) { }
 
 	public users=[];
+
+	public currentDateTime= moment().format();
 
 	ngOnInit() 
 	{
