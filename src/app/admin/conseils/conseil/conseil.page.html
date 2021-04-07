@@ -1,0 +1,54 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>{{conseil.name}}</ion-title>
+		<ion-buttons slot="end" >
+			<ion-button class="ion-margin" (click)="save()"><ion-icon name="save-outline"></ion-icon>{{'ADMIN.CONSEIL.Save' | translate}}</ion-button>
+			<ion-button class="ion-margin" (click)="requestDelete()"><ion-icon name="trash-outline" *ngIf="mode ==='update'"></ion-icon>{{'ADMIN.CONSEIL.Delete' | translate}}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Type' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.type" name="type"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Name' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.name" name="name"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Description' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.description" name="description"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.WebLinkUrl' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.webLinkUrl" name="webLinkUrl" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Street_number' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.street_number" name="street_number" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Street_address' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.street_address" name="street_address" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Region' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.region" name="region" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.City' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.city" name="city" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Postal_code' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.postal_code" name="postal_code" ></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Country' | translate}}</ion-label>
+		<ion-input type="text"  [(ngModel)] ="conseil.country" name="country" ></ion-input>
+	</ion-item>
+
+</ion-content>

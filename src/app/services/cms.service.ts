@@ -120,4 +120,9 @@ export class CMSService {
 		return this.afs.doc('ApplicationParameters/statistics').set(data);
 	}
 
+	getConseils(){
+		return this.afs.doc('conseils').valueChanges();
+
+	}
+
 }

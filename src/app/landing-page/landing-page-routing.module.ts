@@ -8,7 +8,11 @@ const routes: Routes = [
   {
     path: '',
     component: LandingPagePage
+  },  {
+    path: 'conseil',
+    loadChildren: () => import('./conseil/conseil.module').then( m => m.ConseilPageModule)
   }
+
 ];
 
 @NgModule({

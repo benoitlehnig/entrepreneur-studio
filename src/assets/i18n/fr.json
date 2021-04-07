@@ -705,6 +705,20 @@
 			"Save": "Sauvergarder",
 			"Delete": "Supprimer"
 		},
+		"CONSEIL":{
+			"Save": "Sauvergarder",
+			"Delete": "Supprimer",
+			"Type":"Type",
+			"Name":"Nom",
+			"Description":"Description",
+			"WebLinkUrl":"Lien vers page web",
+			"Street_number":"Numero de rue",
+			"Street_address":"Rue",
+			"Region":"Region",
+			"City":"Ville",
+			"Postal_code":"Code postal",
+			"Country":"Pays"
+		},
 		"CATEGORIES":{
 			"AddCategoryTitle": "Ajouter une nouvelle categorie", 
 			"AddCategory": "Ajouter"

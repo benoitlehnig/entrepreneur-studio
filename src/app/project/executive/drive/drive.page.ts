@@ -34,7 +34,7 @@ export class DrivePage implements OnInit {
 
 	ionViewWillEnter(){
 
-		this.projectSub = this.dataSharingServiceService.getProjectChanges().pipe(first()).subscribe(
+		this.projectSub = this.dataSharingServiceService.getProjectChanges().pipe(first()		).subscribe(
 			(data)=>{
 				if(data !==null){
 					console.log("DrivePage dataSharingServiceService", data);

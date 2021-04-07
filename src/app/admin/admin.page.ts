@@ -40,7 +40,7 @@ export class AdminPage implements OnInit {
 	},
 	{
 		title: 'Conseil',
-		url: 'admin/conseil',
+		url: 'admin/conseils',
 		icon: 'people-circle'
 	},
 	];

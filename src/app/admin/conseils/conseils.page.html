@@ -1,0 +1,14 @@
+<ion-content>
+
+	<ion-button fill="outline" class="ion-margin" [routerLink]="['conseil',{mode:'add'}]"><ion-icon name="add-outline" ></ion-icon>Ajouter un conseil</ion-button>
+	<ion-list>
+		<ion-item *ngFor="let conseil of conseils"  [routerLink]="['conseil/'+conseil.id]">
+			<ion-label>
+				<h1>{{conseil.name}}</h1>
+				<h2>{{conseil.description}}</h2>
+				<ion-badge class="ion-margin-end" color="secondary">{{conseil.type}}</ion-badge><ion-badge>{{conseil.city}}</ion-badge>
+			</ion-label>
+		</ion-item>
+	</ion-list>
+
+</ion-content>

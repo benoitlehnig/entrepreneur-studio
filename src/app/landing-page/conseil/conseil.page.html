@@ -1,0 +1,35 @@
+<app-header></app-header>
+
+
+<ion-content>
+	<ion-grid class="conseilGridLayout">
+		<ion-row>
+			<ion-col class="leftMenu" >
+				<div class="filterWrapper">
+					<div class="filter ion-margin-bottom conseilNumber ion-text-justify">
+						<span>{{numberofConseils}}  {{'TOOLS.ToolsNumberText1' | translate}}</span> {{'TOOLS.ToolsNumberText2' | translate}}
+					</div>					
+				</div>
+
+			</ion-col>
+			<ion-col class="conseilContent" >
+				<div class="conseilContentHeaderWrapper" >
+					<ion-searchbar showCancelButton="focus" [(ngModel)]="filter.name" (ionChange)="getConseils()"  placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} "></ion-searchbar>
+				</div>
+				<ion-list>
+					<ion-item *ngFor="let conseil of conseils" target="_blank" [href]="conseil.webLinkUrl"  [ngClass]="{'': 
+					conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) > -1 ,'ion-hide': conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) === -1 }">
+						<ion-label>
+							<h1>{{conseil.name}}</h1>
+							<h2>{{conseil.description}}</h2>
+							<ion-badge class="ion-margin-end" color="secondary">{{conseil.type}}</ion-badge><ion-badge>{{conseil.city}}</ion-badge>
+						</ion-label>
+					</ion-item>
+				</ion-list>
+				
+				
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	
+</ion-content>

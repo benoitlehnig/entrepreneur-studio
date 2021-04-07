@@ -60,17 +60,18 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'conseil',
+    path: 'conseils',
     children: [
     {
       path: '',
-      loadChildren: () => import('./conseil/conseil.module').then( m => m.ConseilPageModule)
+      loadChildren: () => import('./conseils/conseils.module').then( m => m.ConseilsPageModule)
     }
     ]
   }
   ]
 
 }
+
 
 
 

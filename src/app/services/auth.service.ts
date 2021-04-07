@@ -55,6 +55,10 @@ export class AuthService {
 												//this.router.navigate(['/intl/fr/tools']);
 
 											}
+											if(this.router.url.indexOf("/intl/fr/conseil") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
 											else if(this.router.url.indexOf("/project/") !==-1){
 												//this.router.navigate(['/intl/fr/tools']);
 

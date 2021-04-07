@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ConseilPageRoutingModule } from './conseil-routing.module';
+import {TranslateModule,TranslatePipe} from '@ngx-translate/core';
 
 import { ConseilPage } from './conseil.page';
 
@@ -13,6 +14,7 @@ import { ConseilPage } from './conseil.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     ConseilPageRoutingModule
   ],
   declarations: [ConseilPage]
