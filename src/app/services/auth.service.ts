@@ -39,6 +39,15 @@ export class AuthService {
 						let userSubscription = this.userService.getUserDetails(user.uid).subscribe(
 							data=>{
 								console.log("AuthService >> this.userService.getUserDetails", data, Date.now())
+								/*if(user.uid ==='sdO5vKP3vsRb8Z06nWOhEV13Vr73'){
+									const callable = this.functions.httpsCallable('setAdmin');
+									const obs = callable({uid: user.uid , role:'entrepreneur'});
+									obs.subscribe(res => {
+										console.log("getProjectAccess", res);
+									});	
+
+								}*/
+								
 								if(data && this.logggedIn){
 									console.log("AuthService >> this.dataSharingServiceService.currentUid",user.uid,data.email )
 									this.dataSharingServiceService.currentUid({uid: user.uid, email: data.email});
@@ -70,7 +79,25 @@ export class AuthService {
 										}				
 									}
 									else if(this.claims['incubator'] ===true){
-										this.router.navigate(['/conseil']);
+										if(this.router.url.indexOf("/intl/") !== -1){
+											console.log("AuthService >> navigate entrepreneur");
+											if(this.router.url.indexOf("/intl/fr/tools") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
+											if(this.router.url.indexOf("/intl/fr/conseil") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
+											else if(this.router.url.indexOf("/project/") !==-1){
+												//this.router.navigate(['/intl/fr/tools']);
+
+											}
+											else{
+												console.log("AuthService >> navigate entrepreneur");
+												this.router.navigate(['/conseil']);
+											}
+										}
 									}
 									else{
 
@@ -132,73 +159,73 @@ export class AuthService {
 			}
 		}); 
 
-	}
+}
 
-	loginWithGoogle() {
-		return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
-			return result;
-		});
-	}
+loginWithGoogle() {
+	return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
+		return result;
+	});
+}
 
-	loginWithFacebook() {
-		return this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider).then((result) => {
-			return result;
-		});
-	}
+loginWithFacebook() {
+	return this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider).then((result) => {
+		return result;
+	});
+}
 
-	loginWithGitHub() {
-		return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider).then((result) => {
-			return result;
-		});
-	}
+loginWithGitHub() {
+	return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider).then((result) => {
+		return result;
+	});
+}
 
 
-	logout() {
-		this.afAuth.signOut();
-	}
-	getUserDetails() {
-		return this.afAuth.user
-	}
-	getClaims(){
-		return this.claims;
-	}
+logout() {
+	this.afAuth.signOut();
+}
+getUserDetails() {
+	return this.afAuth.user
+}
+getClaims(){
+	return this.claims;
+}
 
-	signUpEmail(email, password) {
-		return this.afAuth.createUserWithEmailAndPassword(email, password)
-		.then((result) => {
-			console.log(result.user);
-			return result;
-		}).catch((error) => {
-			window.alert(error.message)
-		})
-	}
-	loginWithEmail(email,password) {
-		return this.afAuth.signInWithEmailAndPassword(email,password).then((result) => {
-			return result;
-		}).catch(function(error) {
-			// Handle Errors here.
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			window.alert(errorMessage)
-		});;
-	}
-	resetPassword(email: string) {
-		return this.afAuth.sendPasswordResetEmail(email)
-		.then(() => console.log("email sent"))
-		.catch((error) => console.log(error))
-	}
+signUpEmail(email, password) {
+	return this.afAuth.createUserWithEmailAndPassword(email, password)
+	.then((result) => {
+		console.log(result.user);
+		return result;
+	}).catch((error) => {
+		window.alert(error.message)
+	})
+}
+loginWithEmail(email,password) {
+	return this.afAuth.signInWithEmailAndPassword(email,password).then((result) => {
+		return result;
+	}).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		window.alert(errorMessage)
+	});;
+}
+resetPassword(email: string) {
+	return this.afAuth.sendPasswordResetEmail(email)
+	.then(() => console.log("email sent"))
+	.catch((error) => console.log(error))
+}
 
-	updatePhotoUrl(user){
-		console.log("updatePhotoUrl", user.uid,user.photoURL);
-		const callable = this.functions.httpsCallable('updateUserPhotoUrl');
-		const obs = callable({uid:user.uid, photoUrl:user.photoURL});
+updatePhotoUrl(user){
+	console.log("updatePhotoUrl", user.uid,user.photoURL);
+	const callable = this.functions.httpsCallable('updateUserPhotoUrl');
+	const obs = callable({uid:user.uid, photoUrl:user.photoURL});
 
-		obs.subscribe(res => {
-			console.log("photoURL", "done");
-		});
-	}
+	obs.subscribe(res => {
+		console.log("photoURL", "done");
+	});
+}
 
-	
+
 
 
 }

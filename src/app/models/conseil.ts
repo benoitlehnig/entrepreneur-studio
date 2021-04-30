@@ -9,4 +9,7 @@ export class Conseil {
 	region:string="";
 	country:string="";
 	postal_code :string="";
+	googleAddress :string="";
+	isPublic :boolean=false;
+	public creationDateTime:Date;
 }

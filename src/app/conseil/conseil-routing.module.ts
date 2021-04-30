@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ConseilPage
+  },  {
+    path: 'referencing',
+    loadChildren: () => import('./referencing/referencing.module').then( m => m.ReferencingPageModule)
   }
+
 ];
 
 @NgModule({

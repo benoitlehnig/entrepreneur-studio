@@ -101,7 +101,7 @@ export class ToolsPage implements OnInit {
 			})
 		this.dataSharingServiceService.getUidChanges().subscribe(
 			uid=>{
-				(uid ===null)? this.isLogged = false : this.isLogged = true;
+				(uid ===-1)? this.isLogged = false : this.isLogged = true;
 				this.uid= uid;
 				if(this.uid !==null){
 					this.userService.getLikedTools(this.uid.uid).subscribe(
@@ -124,6 +124,7 @@ export class ToolsPage implements OnInit {
 	
 
 	requestAddTool(){
+		console.log("requestAddTool", this.isLogged);
 		(this.isLogged ===true)? this.presentAddToolPopover() : this.presentLoginPopover();
 
 	}

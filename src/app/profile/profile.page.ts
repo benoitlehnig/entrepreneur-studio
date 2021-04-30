@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../services/user.service';
-import {AuthService} from '../services/auth.service';
 import { Router } from '@angular/router';
-import {User} from '../models/user';
 import { ToastController } from '@ionic/angular';
 import {TranslateService} from '@ngx-translate/core';
-import { AppConstants } from '../app-constants';
-import {FeedbackService} from '../services/feedback.service';
+import { Subscription } from 'rxjs';
 
+import {User} from '../models/user';
+import { AppConstants } from '../app-constants';
+import {UserService} from '../services/user.service';
+import {AuthService} from '../services/auth.service';
+import {FeedbackService} from '../services/feedback.service';
 
 @Component({
 	selector: 'app-profile',
@@ -20,6 +21,9 @@ export class ProfilePage implements OnInit {
 	public profileUpdatedText:string="";
 	public profileRemovalRequestText:string="";
 	public emailPattern = this.appConstants.emailPattern;
+
+	public userChangesSub: Subscription = new Subscription();
+	public userDetailsChangesSub: Subscription = new Subscription();
 	
 	constructor(
 		public userService:UserService,
@@ -36,31 +40,30 @@ export class ProfilePage implements OnInit {
 	}
 
 	ionViewWillEnter(){
-		this.authService.getUserDetails().subscribe(
+		this.userChangesSub = this.authService.getUserDetails().subscribe(
 			data => {
 				if(data){
 					this.userIds= data;
-					this.userService.getUserDetails(this.userIds.uid).subscribe(
-						data2=>{
-							if(data2){
-								this.user=data2
+					this.userDetailsChangesSub = this.userService.getUserDetails(this.userIds.uid).subscribe(
+						user=>{
+							if(user){
+								this.user=user
 							}
 						})
 				}
 			});
-		this.translateService.get('PROFILE.UpdateSuccessful').subscribe(
+		this.translateService.get(['PROFILE.UpdateSuccessful','PROFILE.ProfileRemovalRequestText']).subscribe(
 			value => {
 				if(value){
-					this.profileUpdatedText = value;
+					this.profileUpdatedText = value['PROFILE.UpdateSuccessful'];
+					this.profileRemovalRequestText = value['PROFILE.ProfileRemovalRequestText'];
 				}
 			})
-		this.translateService.get('PROFILE.ProfileRemovalRequestText').subscribe(
-			value => {
-				if(value){
-					this.profileRemovalRequestText = value;
-				}
-			})
+	}
 
+	ionViewWillLeave(){
+		this.userChangesSub.unsubscribe();
+		this.userDetailsChangesSub.unsubscribe();
 	}
 	async save(){
 		this.userService.setProfile(this.userIds.uid, this.user).then(

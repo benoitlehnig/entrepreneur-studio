@@ -6,10 +6,10 @@
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 			<path fill="#3880ff" fill-opacity="1" d="M0,192L40,192C80,192,160,192,240,192C320,192,400,192,480,208C560,224,640,256,720,245.3C800,235,880,181,960,144C1040,107,1120,85,1200,112C1280,139,1360,213,1400,250.7L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
 		</div>
-		<div class="ongoingText">
-			<ion-item lines="none">
+		<div class="ongoingText" >
+			<ion-item lines="none" *ngIf="projects.length ===0">
 				<ion-icon name="information-circle-outline" size="large" class="ion-margin-end" slot="start"></ion-icon>
-				<ion-label>{{'FEEDBACK.NotAvailable' | translate}} <a (click)="openFeedbackPopover('conseil')">{{'FEEDBACK.NotAvailableShare' | translate}}</a> </ion-label>
+				<ion-label class="ion-text-wrap">{{'CONSEILPORTAL.NoProject' | translate}}</ion-label>
 			</ion-item>
 		</div>
 		<ion-grid class="projectList">

@@ -5,16 +5,16 @@ import {Conseil} from '../../models/conseil'
 import {ConseilService} from '../../services/conseil.service'
 
 @Component({
-  selector: 'app-conseils',
-  templateUrl: './conseils.page.html',
-  styleUrls: ['./conseils.page.scss'],
+	selector: 'app-conseils',
+	templateUrl: './conseils.page.html',
+	styleUrls: ['./conseils.page.scss'],
 })
 export class ConseilsPage implements OnInit {
 
-  	
-  	public conseils=[];
+	
+	public conseils=[];
 
-  	public conseilChangesSub: Subscription = new Subscription();
+	public conseilChangesSub: Subscription = new Subscription();
 
 	
 	constructor(
@@ -28,10 +28,11 @@ export class ConseilsPage implements OnInit {
 		this.conseilChangesSub = this.conseilService.getConseils().subscribe(
 			conseils =>{
 				this.conseils = conseils;
+				console.log("this.conseils", this.conseils)
+
 			})
 	}
 
-	
 
 	ionViewWillLeave(){
 		this.conseilChangesSub.unsubscribe();

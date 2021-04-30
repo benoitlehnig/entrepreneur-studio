@@ -31,7 +31,7 @@ export class AdminPage implements OnInit {
 	{
 		title: 'Projects',
 		url: 'admin/projects',
-		icon: 'people'
+		icon: 'newspaper'
 	},
 	{
 		title: 'Statistics',

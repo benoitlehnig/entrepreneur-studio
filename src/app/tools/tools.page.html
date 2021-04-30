@@ -22,7 +22,10 @@
 					</div>
 					<div class="filter ion-margin-bottom">
 						<div class="filterHeader ion-padding" (click)="expandStage()">
-							<ion-text >{{'TOOLS.Stages' | translate}} ({{filter.stages.length}}/{{stages.length}})</ion-text>
+							<ion-text >{{'TOOLS.Stages' | translate}}
+								<span *ngIf="filter.stages.length > 0"> ({{filter.stages.length}}/{{stages.length}})</span> 
+								<span *ngIf="filter.stages.length === 0">({{stages.length}})</span>
+							</ion-text>
 							<ion-icon name="chevron-forward-outline" *ngIf="stageExpanded ===false"></ion-icon>
 							<ion-icon name="chevron-down-outline" *ngIf="stageExpanded ===true"></ion-icon>
 						</div>
@@ -35,7 +38,10 @@
 					</div>
 					<div class="filter ion-margin-bottom">
 						<div class="filterHeader ion-padding" (click)="expandCategory()">
-							<ion-text >{{'TOOLS.Categories' | translate}}  ({{filter.categories.length}}/{{categories.length}})</ion-text>
+							<ion-text >{{'TOOLS.Categories' | translate}}
+								<span *ngIf="filter.categories.length > 0"> ({{filter.categories.length}}/{{categories.length}})</span> 
+								<span *ngIf="filter.categories.length === 0">({{categories.length}})</span>
+							</ion-text>
 							<ion-icon name="chevron-forward-outline" *ngIf="categoryExpanded ===false"></ion-icon>
 							<ion-icon name="chevron-down-outline" *ngIf="categoryExpanded ===true"></ion-icon>
 						</div>
@@ -59,9 +65,9 @@
 								</ion-col>
 								<ion-col class="toggleViewMode ion-hide-md-down" >
 									<div class="toggleViewModeWrapper">
-									<ion-icon name="grid-outline" class="first" (click)="toggleViewMode('grid')" [ngClass]="{'selected': viewMode ==='grid'}"></ion-icon>
-									<ion-icon name="list-outline" (click)="toggleViewMode('list')" [ngClass]="{'selected': viewMode ==='list'}"></ion-icon>
-								</div>
+										<ion-icon name="grid-outline" class="first" (click)="toggleViewMode('grid')" [ngClass]="{'selected': viewMode ==='grid'}"></ion-icon>
+										<ion-icon name="list-outline" (click)="toggleViewMode('list')" [ngClass]="{'selected': viewMode ==='list'}"></ion-icon>
+									</div>
 								</ion-col>
 							</ion-row>
 						</ion-grid>
@@ -73,8 +79,8 @@
 				<div class="ion-padding-start">
 					<ion-button class="ion-margin-start" (click)="requestAddTool()">
 						<ion-icon name="add-outline"></ion-icon>
-						<ion-text class="addTool" class="ion-hide-sm-down" (click)="requestAddTool()" >{{'TOOLS.AddToolLong' | translate}} </ion-text>
-						<ion-text class="addTool" class="ion-hide-sm-up" (click)="requestAddTool()">{{'TOOLS.AddToolShort' | translate}} </ion-text>
+						<ion-text class="addTool" class="ion-hide-sm-down"  >{{'TOOLS.AddToolLong' | translate}} </ion-text>
+						<ion-text class="addTool" class="ion-hide-sm-up" >{{'TOOLS.AddToolShort' | translate}} </ion-text>
 					</ion-button>
 				</div>
 				<ion-grid class="gridTools" [ngClass]="{'gridToolsListView': viewMode ==='list'}">
@@ -120,10 +126,10 @@
 									<ion-item slot="start"  lines="none">
 
 										<ion-label>
-										<a  [href]="tool.link" target="_blank"  [ngClass]="{'ion-hide': viewMode ==='grid'}">
-											<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
-											</div>
-										</a>
+											<a  [href]="tool.link" target="_blank"  [ngClass]="{'ion-hide': viewMode ==='grid'}">
+												<div class="logoWrapper"  [ngStyle]="{'background-image': 'url(' + tool.imgUrl + ')'}">
+												</div>
+											</a>
 											<h1>{{tool.name}}
 												<span class="likes" [ngClass]="{'ion-hide': viewMode ==='grid'}">
 													<ion-icon name="thumbs-up-outline" > </ion-icon>

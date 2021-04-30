@@ -74,13 +74,13 @@ export class LandingPagePage implements OnInit {
 			}
 		});
 
-		const callable = this.functions.httpsCallable('retrievePosts');
+		/*const callable = this.functions.httpsCallable('retrievePosts');
 		let obs = callable({});
 
 
 		obs.subscribe(async res => {
 			console.log("wordpress,", res)
-		});
+		});*/
 
 
 	}

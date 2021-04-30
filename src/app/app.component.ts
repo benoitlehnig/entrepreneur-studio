@@ -41,12 +41,17 @@
    {
      title: 'Le Garage',
      url: '/entrepreneur',
-     icon: 'layers'
+     icon: 'layers',
    },
    {
      title: 'La Boite à Outils',
      url: 'intl/fr/tools',
-     icon: 'construct'
+     icon: 'construct',
+   },
+   {
+     title: 'Les Conseils',
+     url: 'intl/fr/conseil',
+     icon: 'glasses'
    },
    ];
    public deletePopupTitle:string="";
@@ -56,6 +61,7 @@
    public projectRoute:boolean = false;
    public project:any=null;
    public userIds:any;
+   public claims:any;
    public projectId:string;
    public projectInit:boolean=false;
 
@@ -158,8 +164,6 @@
      this.router.events.subscribe(data=>{
        this.projectRoute = (this.router.url.indexOf("/project/") !==-1);
 
-
-
        this.selectTabNavigation();
        this.initDeleteProject();
      })
@@ -178,8 +182,11 @@
        data =>{
          if(data){
            this.user = data;
-           console.log("AppComponent >> ngOnInit >> lastSignInTime : ", data.metadata.lastSignInTime)
            this.isUserLogged =true;
+           this.claims = this.authService.getClaims();
+           if(this.claims.entrepreneur === false && this.claims.incubator ===true){
+             this.pages[0].url ="/conseil"
+           }
          }
          else{
            this.isUserLogged = false;

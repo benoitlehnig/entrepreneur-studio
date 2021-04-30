@@ -45,6 +45,8 @@
 		"Icon2SubText": "Les meilleurs outils et applications du moment disponibles en un seul endroit, classés par catégories",
 		"Icon3SubTitle": "Le système D",
 		"Icon3SubText": "Le forum d’entraide et de bons plans des entrepreneurs",
+		"Icon4SubTitle": "Les conseils",
+		"Icon4SubText": "La liste des incubateurs, des aides et autres acteurs du conseil aux entrepreneurs",
 		"contactUs": "Contactez-nous",
 		"SystemDAccess": "Accèdez au Systeme D",
 		"ToolBoxAccess": "Accèdez à la boite à outils",
@@ -81,12 +83,11 @@
 		"SlackCommunity" :"Découvrez la communauté Slack",
 		"STATISTICS":{
 			"Title": "Entrepreneur Studio en quelques chiffres",
-			"EntrepreneurUsersCount": "Entrepreneurs",
-			"ConseilUsersCount": "Conseillers",
-			"ProjetsCount": "Projets",
+			"EntrepreneurUsersCount": "Entrepreneurs actifs",
+			"ConseilUsersCount": "Parteneraires conseil" ,
+			"ProjetsCount": "Projets créés",
 			"MembersCount": "Membres de la communauté",
-			"ToolsCount": "Outils référencés dans ",
-			"ToolsCountLink": "la boite à outils"
+			"ToolsCount": "Outils référencés"
 		}
 	},
 	"cookie": {
@@ -135,11 +136,13 @@
 		"LoginWithEmail": "ou bien utilisez votre email",
 		"NoAccountText": "Vous n'avez pas encore de compte ? ",
 		"NoAccountTextLink": "Créez votre compte ici",
-		"ToolAccess": "Il faut être identifié pour pouvoir ajouter un outil. "
+		"ToolAccess": "Il faut être identifié pour pouvoir ajouter un outil. ",
+		"ConseilAccess": "Seuls les utilisateurs 'Conseil' authentifiés peuvent référencer leurs activités au sein d'Entrepreneur Studio"
 	},
 	"COMMON":{
 		"Logout": "Se déconnecter" ,
 		"Profile": "Profil",
+		"Referencing": "Référencement",
 		"MyProjects": "Mes projets",
 		"ToolBox": "La boite à outils",
 		"AppTitle": "Entrepreneur Studio",
@@ -175,10 +178,14 @@
 			"GarageAccessText": "Retrouvez vos différents projets",
 			"ToolBoxAccessTitle": "La Boite à Outils",
 			"ToolBoxAccessText": "Parcourez la liste des outils de la communauté",
+			"ConseilAccessTitle": "Les Conseils",
+			"ConseilAccessText": "Retrouvez les acteurs du conseil",
 			"SystemDAccessTitle": "Le Système D",
 			"SystemDAccessText": "Accedez à la communauté Entrepreneur-Studio",
 			"SystemDAccessFB": "Groupe Facebook",
-			"SystemDAccessSlack": "Slack Community"
+			"SystemDAccessSlack": "Slack Community",
+			"ParametersTitle": "Paramètres",
+			"ParametersText": "Changer les paramètres de votre projet" 
 		}
 	},
 	"SETTINGS":{
@@ -510,6 +517,34 @@
 		"LoadingModeData": "Chargement d'outils supplementaires",
 		"ToolsNumberText2": "partagés par la communauté Entrepreneur Studio",
 		"Categories": "Catégories"
+	},
+	"CONSEILREFERENCE":{
+		"Title":"Référencement au sein d'Entrepreneur Studio",
+		"Instructions":"Référencez vos services de conseil et rendez-les visibles par les entrepreneurs d'Entrepreneur-Studio au sein de la page ",
+		"ConseilPage":"Conseil",
+		"Visibility":"Mes informations sont visibles dans la page",
+		"Name":"Nom de votre société",
+		"Type":"Type de services (seulement incubateur pour le moment)",
+		"Description":"Description des services proposés (maximum 200 caractères)",
+		"WebLinkUrl":"Lien vers votre page web",
+		"Address":"Addresse de votre société",
+		"AddressSearch":"Entrez l'addresse",
+		"Save":"Mettre à jour"
+	},
+	"CONSEIL":{
+		"ConseilNumberText1": "incubateurs",
+		"ConseilNumberText2": "pour accélerer votre projet",
+		"City": "Ville",
+		"Region": "Région",
+		"TYPES":{
+			"incubator":"Incubateur"
+		},
+		"AddToolLong":"Ajoutez votre société de conseil",
+		"AddToolShort":"Ajoutez votre société de conseil"
+	},
+	"CONSEILPORTAL":{
+		"NoProject": "Vous n'êtes pas encore membre d'équipe de projet. Faites-vous inviter et retrouvez sur cette page l'ensemble de vos projets.",
+		"ReferencingNotActive": "Vos activités de conseil ne sont pas encore référencées dans Entrepreneur-Studio."
 	},
 	"FEEDBACK":{
 		"Title": "Version BETA",

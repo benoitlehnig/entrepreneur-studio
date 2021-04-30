@@ -71,6 +71,11 @@ const routes: Routes = [
   canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
 },
 {
+  path: 'referencing',
+  loadChildren: () => import('./conseil/referencing/referencing.module').then( m => m.ReferencingPageModule),
+  canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }
+},
+{
   path: 'on-boarding',
   loadChildren: () => import('./on-boarding/on-boarding.module').then( m => m.OnBoardingPageModule)
 },

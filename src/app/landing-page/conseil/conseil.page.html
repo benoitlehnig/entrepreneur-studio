@@ -7,18 +7,56 @@
 			<ion-col class="leftMenu" >
 				<div class="filterWrapper">
 					<div class="filter ion-margin-bottom conseilNumber ion-text-justify">
-						<span>{{numberofConseils}}  {{'TOOLS.ToolsNumberText1' | translate}}</span> {{'TOOLS.ToolsNumberText2' | translate}}
-					</div>					
+						<span>{{numberofConseils}}  {{'CONSEIL.ConseilNumberText1' | translate}}</span> {{'CONSEIL.ConseilNumberText2' | translate}}
+					</div>	
+					<div class="filter ion-margin-bottom">
+						<div class="filterHeader ion-padding" (click)="expandFilter('city')">
+							<ion-text >{{'CONSEIL.City' | translate}}
+							<span *ngIf="filter.cities.length >0">({{filter.cities.length}}/{{cities.length}})</span> 
+							<span *ngIf="filter.cities.length ===0">({{cities.length}})</span>
+						</ion-text>
+							<ion-icon name="chevron-forward-outline" *ngIf="cityExpanded ===false"></ion-icon>
+							<ion-icon name="chevron-down-outline" *ngIf="cityExpanded ===true"></ion-icon>
+						</div>
+						<ion-list *ngIf="cityExpanded ===true" class="filterContent">
+							<ion-item *ngFor="let city of cities">
+								<ion-label>{{city.name}} ({{city.count}})</ion-label>
+								<ion-checkbox slot="start" (ionChange)="selectFilter('city', city,$event)"></ion-checkbox>
+							</ion-item>
+						</ion-list>
+					</div>		
+					<div class="filter ion-margin-bottom">
+						<div class="filterHeader ion-padding" (click)="expandFilter('region')">
+							<ion-text >{{'CONSEIL.Region' | translate}}
+							<span *ngIf="filter.regions.length >0">({{filter.regions.length}}/{{regions.length}})</span> 
+							<span *ngIf="filter.regions.length ===0">({{regions.length}})</span>
+						</ion-text>
+							<ion-icon name="chevron-forward-outline" *ngIf="regionExpanded ===false"></ion-icon>
+							<ion-icon name="chevron-down-outline" *ngIf="regionExpanded ===true"></ion-icon>
+						</div>
+						<ion-list *ngIf="regionExpanded ===true" class="filterContent">
+							<ion-item *ngFor="let region of regions">
+								<ion-label>{{region.name}} ({{region.count}})</ion-label>
+								<ion-checkbox slot="start" (ionChange)="selectFilter('region', region,$event)"></ion-checkbox>
+							</ion-item>
+						</ion-list>
+					</div>				
 				</div>
-
 			</ion-col>
 			<ion-col class="conseilContent" >
 				<div class="conseilContentHeaderWrapper" >
 					<ion-searchbar showCancelButton="focus" [(ngModel)]="filter.name" (ionChange)="getConseils()"  placeholder="{{'TOOLS.ProductNamePlaceholder' | translate}} "></ion-searchbar>
 				</div>
+				<div class="ion-padding-start">
+					<ion-button class="ion-margin-start" (click)="requestAddConseil()">
+						<ion-icon name="add-outline"></ion-icon>
+						<ion-text class="addTool" class="ion-hide-sm-down"  >{{'CONSEIL.AddToolLong' | translate}} </ion-text>
+						<ion-text class="addTool" class="ion-hide-sm-up" >{{'CONSEIL.AddToolShort' | translate}} </ion-text>
+					</ion-button>
+				</div>
 				<ion-list>
 					<ion-item *ngFor="let conseil of conseils" target="_blank" [href]="conseil.webLinkUrl"  [ngClass]="{'': 
-					conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) > -1 ,'ion-hide': conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) === -1 }">
+					conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) > -1 || conseil.hidden ===false ,'ion-hide': conseil.name.toLowerCase().indexOf(filter.name.toLowerCase()) === -1 || conseil.hidden ===true}">
 						<ion-label>
 							<h1>{{conseil.name}}</h1>
 							<h2>{{conseil.description}}</h2>

@@ -1,0 +1,27 @@
+.ongoingText{
+    color: var(--ion-color-primary);
+    margin-left: 12px;
+    margin-right: 12px;
+    z-index: 3;
+    ion-item{
+       border-radius: 4px;
+       --background: var(--ion-color-primary);
+       --color: var(--ion-color-primary-contrast);
+   }
+   ion-icon{
+       color: var(--ion-color-primary-contrast);
+   }
+   a{
+       color: var(--ion-color-primary-contrast);
+       text-decoration: underline;
+       cursor:pointer;
+   }
+}
+ion-list-header{
+    color: var(--ion-color-primary);
+}
+.disabled{
+    ion-list-header{
+        opacity:0.5;
+    }
+}

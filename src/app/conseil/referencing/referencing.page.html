@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<ion-content>
+	<h1 class="ion-padding">{{'CONSEILREFERENCE.Title' | translate}}</h1>
+	<div class="ongoingText">
+		<ion-item lines="none">
+			<ion-icon name="information-circle-outline" size="large" class="ion-margin-end" slot="start"></ion-icon>
+			<ion-label class="ion-text-wrap">{{'CONSEILREFERENCE.Instructions' | translate}} <a href="/intl/fr/conseil" target="_blank">{{'CONSEILREFERENCE.ConseilPage' | translate}}</a> </ion-label>
+		</ion-item>
+	</div>
+	<ion-item lines="none">
+		<ion-label>{{'CONSEILREFERENCE.Visibility' | translate}} <a href="/intl/fr/conseil" target="_blank">{{'CONSEILREFERENCE.ConseilPage' | translate}}</a></ion-label>
+		<ion-checkbox slot="start" [(ngModel)]="conseil.isPublic"></ion-checkbox>
+	</ion-item>
+	<ion-card class="conseil" >
+		<ion-card-content>
+			<ion-item [disabled]="conseil.isPublic !== true" required>
+				<ion-label color="primary" position="floating">{{'CONSEILREFERENCE.Name' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input type="text"  [(ngModel)] ="conseil.name" name="name"></ion-input>
+			</ion-item>
+			<ion-radio-group [(ngModel)] ="conseil.type" [ngClass]="{disabled: conseil.isPublic !== true}">
+				<ion-list-header>
+					<ion-label>{{'CONSEILREFERENCE.Type' | translate}}</ion-label>
+				</ion-list-header>
+				<ion-item *ngFor="let conseilType of conseilTypes" [disabled]="conseil.isPublic !== true" lines="none">
+					<ion-label>{{conseilType.text}}</ion-label>
+					<ion-radio slot="start" [value]="conseilType.index"></ion-radio>
+				</ion-item>
+			</ion-radio-group>
+
+			<ion-item [disabled]="conseil.isPublic !== true" required>
+				<ion-label color="primary" position="floating">{{'CONSEILREFERENCE.Description' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input type="text" maxlength="200" [(ngModel)] ="conseil.description" name="description"></ion-input>
+			</ion-item>
+			<ion-item [disabled]="conseil.isPublic !== true" required>
+				<ion-label color="primary" position="floating">{{'CONSEILREFERENCE.WebLinkUrl' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input type="text"  [(ngModel)] ="conseil.webLinkUrl" name="webLinkUrl" ></ion-input>
+			</ion-item>
+			<ion-item [disabled]="conseil.isPublic !== true">
+				<ion-label position="stacked">{{'CONSEILREFERENCE.Address' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+				<ion-input [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="{{'CONSEILREFERENCE.AddressSearch' | translate}}" required></ion-input>
+				<ion-list [hidden]="autocompleteItems.length == 0" class="autocomplete">
+					<ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)" lines="none">
+						{{ item.description }}
+					</ion-item>
+				</ion-list>
+			</ion-item>
+			
+		</ion-card-content>
+	</ion-card>
+	<div class="ion-text-center ion-margin">
+		<ion-button  color="primary"  (click)="save()">{{'CONSEILREFERENCE.Save' | translate}}</ion-button>
+	</div>
+
+
+
+</ion-content>

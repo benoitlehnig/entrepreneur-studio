@@ -48,9 +48,7 @@
 
 				}
 			}
-
 		}
-
 		ion-searchbar{
 			@media(max-width:610px) {
 				padding:0px;
@@ -58,5 +56,26 @@
 		}
 
 	}
+}
 
+.filter{
+	@media(max-width:610px) {
+		margin-bottom: 	5px;
+	}
+	.filterHeader{
+		color: var(--ion-color-primary-contrast);
+		background-color: var(--ion-color-primary);
+		width:100%;
+		cursor:pointer;
+		ion-icon{
+			text-align: right;
+			position: absolute;
+			right: 18px;
+			font-size: 	20px;
+		}
+	}
+	.filterContent{
+		max-height: 500px;
+		overflow: 	auto;
+	}
 }

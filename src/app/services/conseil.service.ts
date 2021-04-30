@@ -18,13 +18,25 @@ export class ConseilService {
 	getConseils(){
 		return this.conseilRef.snapshotChanges().pipe(map(conseils => {
 			return conseils.map(a => {
-				const data = a.payload.doc.data() as Conseil;
 				const id = a.payload.doc.id;
-				return { id, ...data };
-			});
+				if(a.payload.doc.data().name !== undefined){
+					const data = a.payload.doc.data() as Conseil;
+					return { id, ...data };
+				}
+				else{
+					console.log("conseilRef",a.payload.doc.id, a.payload.doc.data() )
+					return { id, ... new Conseil() };
+
+				}
+			}).
+			filter(this.isPublic);
 		})
 		);
 	}
+
+	isPublic(element, index, array) { 
+		return (element.isPublic === true || element.isPublic === undefined); 
+	} 
 	getConseil(id){
 		return this.afs.doc<Conseil>('conseils/' +id).snapshotChanges().pipe(map(conseil => { 
 			const data = conseil.payload.data() as Conseil;

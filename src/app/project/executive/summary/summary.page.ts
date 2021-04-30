@@ -186,7 +186,7 @@ export class SummaryPage implements OnInit {
 	}
 
 	timelineClicked(timelineStatElement){
-		this.router.navigate(['/project/'+this.projectId+ '/details/executive/tabs/timeline']);
+		this.router.navigate(['/project/'+this.projectId+ '/timeline']);
 		this.dataSharingServiceService.currentTimelineStep(timelineStatElement.mainOrder);
 	}
 

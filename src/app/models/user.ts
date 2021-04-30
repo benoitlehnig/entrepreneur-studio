@@ -9,6 +9,7 @@ export class User {
 	photoUrl:string="";
 	projects;
 	linkedInUrl:string="";
+	conseilCMSID:string;
 }
 
 export class Profile{

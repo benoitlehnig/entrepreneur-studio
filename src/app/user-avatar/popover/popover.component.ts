@@ -1,11 +1,16 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NavParams} from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import {QuestionPage} from '../../question/question.page';
+import { Subscription } from 'rxjs';
 
 import { PartnersComponent } from '../../landing-page/partners/partners.component';
+
+
+import {User} from '../../models/user';
+import {AuthService} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
 
 
 @Component({
@@ -21,19 +26,49 @@ export class PopoverComponent implements OnInit {
 		public router:Router,
 		public navParams:NavParams,
 		private modalController: ModalController,
+		public userService:UserService,
+
 		) { }
 
 	@Input("homeref") value;
 	
+	public user:User = new User();
+	public userChangesSub: Subscription = new Subscription();
+	public userDetailsChangesSub: Subscription = new Subscription();
+
 	
 	ngOnInit() {}
+
+	ionViewWillEnter(){
+		this.userChangesSub = this.authService.getUserDetails().subscribe(
+			data => {
+				if(data){
+					this.userDetailsChangesSub = this.userService.getUserDetails(data.uid).subscribe(
+						user=>{
+							if(user){
+								this.user=user;
+							}
+						})
+				}
+			});
+	}
+	
+	ionViewWillLeave(){
+		this.userChangesSub.unsubscribe();
+		this.userDetailsChangesSub.unsubscribe();
+	}
 
 	logout(){
 		this.authService.logout()
 	}
 
-	navigateToProfile(){
-		this.router.navigate(['/profile']);
+	navigateTo(page){
+		if(page ==='referencing'){
+			this.router.navigate(['/referencing']);
+		}
+		if(page ==='profile'){
+			this.router.navigate(['/profile']);
+		}
 		this.navParams.get('homeref').dismissPopover();
 	}
 

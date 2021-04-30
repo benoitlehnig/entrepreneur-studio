@@ -1,6 +1,27 @@
-.projectMenu{
+.projectMenuCol{
+	min-width: 300px;
+	max-width: 360px;
+}
+.ESMenuCol{
 	min-width: 300px;
 }
-.ESMenu{
-	min-width: 300px;
+h1{
+	color: var(--ion-color-primary);
+	margin-left: 16px;
+}
+.separatorCol{
+	max-width: 3px;
+	background: var(--ion-color-primary);
+	padding: 0px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 3px;
+}
+
+.projectMenuCol{
+	ion-item:hover{
+		cursor: pointer;
+		background: var(--ion-color-light);
+
+	}
 }
