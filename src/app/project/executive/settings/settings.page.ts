@@ -1,18 +1,21 @@
 import { Component, OnInit,Input } from '@angular/core';
+import {AutoCompleteOptions} from 'ionic4-auto-complete';
+import { FileUploader } from 'ng2-file-upload';
+import { AngularFireFunctions } from '@angular/fire/functions';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
+import {TranslateService} from '@ngx-translate/core';
+import { ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+import {ProjectService} from '../../../services/project.service';
 import {DataSharingServiceService} from '../../../services/data-sharing-service.service';
 import {Project} from '../../../models/project';
 import {Theme} from '../../../models/project';
 import {AutocompleteService} from '../../../services/autocomplete.service';
 import {StorageService} from '../../../services/storage.service';
-import {AutoCompleteOptions} from 'ionic4-auto-complete';
-import { FileUploader } from 'ng2-file-upload';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { AngularFireAnalytics } from '@angular/fire/analytics';
-import {ProjectService} from '../../../services/project.service';
-import {TranslateService} from '@ngx-translate/core';
-import { ToastController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
-
 
 
 @Component({
@@ -45,6 +48,11 @@ export class SettingsPage implements OnInit {
 	public fileToUpload: File;
 	public maxFileSize = 300 * 300;  
 
+	public deletePopupTitle:string="";
+	public deletePopupSubTitle:string="";
+	public deletePopupCancelButton:string="";
+	public deletePopupOKButton:string="";
+
 	public projectSub: Subscription = new Subscription();
 
 	constructor(
@@ -55,11 +63,12 @@ export class SettingsPage implements OnInit {
 		public projectService:ProjectService,
 		public translateService:TranslateService,
 		public toastController: ToastController,
-
-
+		public alertController: AlertController,
+		public router: Router,
 		) { }
 
 	ngOnInit() {
+		this.initDeleteProject();
 		this.translateService.get('ONBOARDINGPAGE.DomainItems').subscribe(
 			value => {
 				if(value){
@@ -68,7 +77,7 @@ export class SettingsPage implements OnInit {
 			});
 		this.translateService.get('SETTINGS.UpdateSuccessfull').subscribe(
 			value => {
-					this.updateSuccessfullText = value;
+				this.updateSuccessfullText = value;
 				
 			})
 		this.projectSub = this.dataSharingServiceService.getProjectChanges().subscribe(
@@ -123,6 +132,50 @@ export class SettingsPage implements OnInit {
 			this.backgroundPictures = res.photo.results;
 		});
 	}
+
+	initDeleteProject(){
+		this.translateService.get(['PROJECT.DeletePopupTitle','PROJECT.DeletePopupSubTitle', 'PROJECT.DeletePopupCancelButton', 'PROJECT.DeletePopupOKButton'])
+		.pipe(first()).subscribe(
+			value => {
+
+				this.deletePopupTitle = value['PROJECT.DeletePopupTitle'];
+				this.deletePopupSubTitle = value['PROJECT.DeletePopupSubTitle']
+				this.deletePopupCancelButton = value['PROJECT.DeletePopupCancelButton' ];
+				this.deletePopupOKButton = value['PROJECT.DeletePopupOKButton' ];
+			});
+	}
+	async requestRemoveProject(){
+		this.angularFireAnalytics.logEvent('project_removal_request',  {projectId:this.projectId});
+
+		const alert = await this.alertController.create({
+			cssClass: 'my-custom-class',
+			header: this.deletePopupTitle,
+			message: this.deletePopupSubTitle,
+			buttons: [
+			{
+				text: this.deletePopupCancelButton,
+				role: 'cancel',
+				cssClass: 'primary',
+				handler: (blah) => {
+				}
+			}, {
+				text: this.deletePopupOKButton,
+				handler: () => {
+					this.removeProject()
+				}
+			}
+			]
+		});
+
+		await alert.present();
+	}
+	removeProject(){
+		this.projectService.removeProject(this.projectId).then(
+			data=>{
+				this.router.navigate(['entrepreneur/']);
+			})
+	}
+
 	ngOnDestroy(){
 		this.projectSub.unsubscribe();
 	}

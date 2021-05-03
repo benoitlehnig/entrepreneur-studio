@@ -5,10 +5,15 @@
 		max-height: 100px;
 	}
 }
+
 .title{
-	margin-top:0px;
-	color: var(--ion-color-primary-shade);
+margin-top:0px;
 }
+h2{
+color: var(--ion-color-primary-shade);
+
+}
+
 .skipThisStep{
 	text-decoration: underline;
 	font-size: 0.8em;
@@ -33,17 +38,7 @@
 	width:30px;
 	cursor: pointer;
 }
-.teamMemberCol{
-	max-width: 400px;
-}
-.teamMember{
-	min-width:300px;
-	max-width:400px;
-	@media(max-width: 800px) {
-		min-width:0px;
 
-	}
-}
 .select{
 	@media(max-width: 800px) {
 		min-width:100%;
@@ -54,20 +49,32 @@
 
 }
 .listDomain{
-	max-height: 300px;
-	@media(max-width: 800px) {
-		max-height: 150px;
-
+	ion-col{
+		--ion-grid-column-padding:0px;
 	}
-	overflow: overlay;
-	padding-right: 20px;
+	ion-item{
+		font-size:0.6em;
+		width: 200px;
+		padding:0px;
+		margin:0px;
+		--padding-bottom:0px;
+		--padding-top:0px;
+		--padding-start:0px;
+		--padding-end:0px;
+		--inner-padding-bottom:0px;
+		--inner-padding-top:0px;
+		--inner-padding-start:0px;
+		--inner-padding-end:0px;
+	}
 
 }
 
-.divider{
-	--background: var(--ion-color-primary-contrast);
-	font-weight: normal;
-	font-size: small;
+.projectName{
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 30px;
+	margin-top:50px;
 }
 .closeItem{
 	position: fixed;
@@ -75,4 +82,8 @@
 	right: 12px;
 	z-index:3;
 	--background: none;
+}
+
+ion-select{
+	max-width: 100%;
 }

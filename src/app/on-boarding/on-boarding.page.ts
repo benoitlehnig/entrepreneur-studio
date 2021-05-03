@@ -35,6 +35,7 @@ export class OnBoardingPage implements OnInit {
 	public currentSituationItems =[];
 	public domainItems =[];
 	public domainSelectedItems =[];
+	public maturitySelectedItems =[];
 	public personalMotivationItems =[];
 	public experienceItems =[];
 	public projectMaturityItems =[];
@@ -97,6 +98,10 @@ export class OnBoardingPage implements OnInit {
 
 	}
 	ngOnInit() {
+	}
+	ionViewWillEnter(){
+		this.step =0;
+		this.project.summary.name="";
 
 		this.dataSharingServiceService.getUidChanges().pipe(first()).subscribe(
 			uid=>
@@ -236,6 +241,21 @@ export class OnBoardingPage implements OnInit {
 		}
 		console.log(this.domainSelectedItems);
 		this.project.domains= this.domainSelectedItems;
+	}
+	maturityChecked(event, item){
+		console.log(event,item);
+		if(event.detail.checked ===true){
+			this.maturitySelectedItems.push({code: item.index,
+				full_name: item.text});
+		}
+		else{
+			const index = this.maturitySelectedItems.indexOf(item, 0);
+			if (index > -1) {
+				this.maturitySelectedItems.splice(index, 1);
+			}
+		}
+		console.log(this.maturitySelectedItems);
+		this.project.maturity= JSON.stringify(this.maturitySelectedItems);
 	}
 
 }

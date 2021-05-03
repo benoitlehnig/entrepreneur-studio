@@ -39,87 +39,123 @@
 		</ion-slide>
 		<ion-slide>
 			<div class="ion-margin-top ion-margin-bottom fullWidth">
-				<div class="ion-text-center "><img src="./assets/images/undraw_runner_start_x0uu.svg" class="welcomePicture"></div>
+				<div class="ion-text-center "><img src="./assets/images/undraw_Organizing_projects_0p9a.svg" class="welcomePicture"></div>
 				<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitleStep1' | translate}}</h2>
-				<ion-item>
-					<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectName' | translate}}</ion-label>
-					<ion-input type="text"  [(ngModel)] ="project.summary.name" ></ion-input>
+				<h3>{{'ONBOARDINGPAGE.SubTitleStep11' | translate}}</h3>
+				<ion-item class="projectName">
+					<ion-input type="text"  placeholder="{{'ONBOARDINGPAGE.ProjectNamePlaceholder' | translate}}" [(ngModel)] ="project.summary.name" ></ion-input>
 				</ion-item>
-				<ion-item-divider sticky class="divider">
+				<div class="ion-margin-top ion-margin-bottom ion-text-center">
+					<ion-button color="primary" (click)="nextStep()" [disabled]="project.summary.name ===''">{{'ONBOARDINGPAGE.StartNewProjectButton1' | translate}}</ion-button>
+				</div>
+			</div>
+		</ion-slide>
+		<ion-slide>
+			<div class="ion-margin-top ion-margin-bottom fullWidth">
+				<h2 class="ion-text-uppercase">{{'ONBOARDINGPAGE.SubTitleStep2' | translate}}</h2>
+				<h3>{{'ONBOARDINGPAGE.SubTitleStep21' | translate}} {{project.summary.name}} </h3>
+
+				<ion-item lines="none">
 					<ion-label color="primary">{{'ONBOARDINGPAGE.ProjectDomains' | translate}}</ion-label>
-				</ion-item-divider>
-				<ion-list class="listDomain">
-					
-					<ion-item *ngFor="let domainItem of domainItems">
-						<ion-label>{{domainItem.text}}</ion-label>
-						<ion-checkbox slot="end" (ionChange)="domainChecked($event, domainItem)"></ion-checkbox>
-					</ion-item>
-				</ion-list>
-				<ion-item>
-					<ion-label color="primary" position="floating">{{'ONBOARDINGPAGE.ProjectMaturity' | translate}}</ion-label>
-					<ion-select  multiple="true" [interfaceOptions]="customPopoverOptions"  [(ngModel)] ="project.maturity" >
-						<ion-select-option *ngFor="let item of projectMaturityItems" [value]="item.index">{{item.text}}</ion-select-option>
-					</ion-select>
 				</ion-item>
+				<ion-grid class="listDomain">
+					<ion-row>
+						<ion-col *ngFor="let domainItem of domainItems">
+							<ion-item lines="none">
+								<ion-label class="ion-text-wrap	">{{domainItem.text}}</ion-label>
+								<ion-checkbox slot="start" (ionChange)="domainChecked($event, domainItem)"></ion-checkbox>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				<ion-item  lines="none">
+					<ion-label color="primary">{{'ONBOARDINGPAGE.ProjectMaturity' | translate}}</ion-label>
+				</ion-item>
+				<ion-grid class="listDomain">
+					<ion-row>
+						<ion-col *ngFor="let item of projectMaturityItems">
+							<ion-item lines="none">
+								<ion-label class="ion-text-wrap	">{{item.text}}</ion-label>
+								<ion-checkbox slot="start" (ionChange)="maturityChecked($event, item)"></ion-checkbox>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				
 
 
 				<div class="ion-margin-top ion-margin-bottom ion-text-center">
-					<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.StartNewProjectButton1' | translate}}</ion-button>
+					<ion-button color="primary" (click)="nextStep()">{{'ONBOARDINGPAGE.StartNewProjectButton2' | translate}}</ion-button>
 				</div>
 			</div>
 		</ion-slide>
 		<ion-slide >
-			<div  class="ion-margin-top ion-margin-bottom fullWidth" *ngIf="(stepPage ===0 && activeIndex ===2) || stepPage ===1 && activeIndex ===1">
-				<div class="ion-text-center ">
-					<img src="./assets/images/undraw_good_team_m7uu.svg" class="welcomePicture"></div>
-					<h2 class="ion-text-uppercase" color="primary">{{'ONBOARDINGPAGE.SubTitleStep2' | translate}}</h2>
-					<ion-grid class="teamMembers">
-						<ion-row>
-							<ion-col *ngFor="let teamMember of teamMembers, let index = index" class="teamMemberCol">
-								<ion-card class="teamMember">
-									<ion-card-content *ngIf="index===0">
-										<ion-item lines="none">
-											<img slot="start" *ngIf="user.photoUrl !==null" [src]="user.photoUrl" class="avatar ion-margin-end" >
-											<ion-text >{{user.firstName}} {{user.lastName}}</ion-text>
-										</ion-item>
-										<ion-item lines="none">
-											<ion-select class="select" interface="action-sheet"  placeholder="Role" [(ngModel)] ="teamMembers[0].role" >
-												<ion-select-option *ngFor="let item of roleItems" [value]="item.index">{{item.text}}</ion-select-option>
-											</ion-select>
-										</ion-item>
-										<ion-item lines="none">
-											<ion-select class="select" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMembers[0].projectProfile"  multiple="true">
-												<ion-select-option  *ngFor="let item of projectProfilesItems" [value]="item.index">{{item.text}}</ion-select-option>
-											</ion-select>
-										</ion-item>
-										<ion-item >
-											<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
-											<ion-textarea [(ngModel)] ="teamMember.mission" class="fullWidth" ></ion-textarea>
-										</ion-item>
-									</ion-card-content>
-									<ion-card-content *ngIf="index!==0">
-										<ion-item lines="none">
-											<ion-text >Associé {{index}}</ion-text>
-											<ion-icon slot="end" name="remove-circle-outline" (click)="removeTeamMember(index)"></ion-icon>
-										</ion-item>
+			<div  class="ion-margin-top ion-margin-bottom fullWidth">
+				
+				<h2 class="ion-text-uppercase" color="primary">{{'ONBOARDINGPAGE.SubTitleStep3' | translate}}</h2>
+				<h3>{{'ONBOARDINGPAGE.SubTitleStep31' | translate}}</h3>
 
+				<ion-grid class="teamMembers">
+					<ion-row>
+						<ion-col size="4">
+							<ion-card class="teamMember">
+								<ion-card-header>
+									<ion-card-title>{{'ONBOARDINGPAGE.Me' | translate}}</ion-card-title>
+								</ion-card-header>
+								<ion-card-content >
+									<ion-item lines="none">
+										<img slot="start" *ngIf="user.photoUrl !==null" [src]="user.photoUrl" class="avatar ion-margin-end" >
+										<ion-text >{{user.firstName}} {{user.lastName}}</ion-text>
+									</ion-item>
+									<ion-item lines="none">
+										<ion-select class="select" interface="action-sheet"  placeholder="Role" [(ngModel)] ="teamMembers[0].role" >
+											<ion-select-option *ngFor="let item of roleItems" [value]="item.index">{{item.text}}</ion-select-option>
+										</ion-select>
+									</ion-item>
+									<ion-item lines="none">
+										<ion-select class="select" placeholder="{{'TEAM.TeamMember.Profile' | translate }}" [(ngModel)] ="teamMembers[0].projectProfile"  multiple="true">
+											<ion-select-option  *ngFor="let item of projectProfilesItems" [value]="item.index">{{item.text}}</ion-select-option>
+										</ion-select>
+									</ion-item>
+									<ion-item >
+										<ion-label position="floating">{{'TEAM.TeamMember.Mission' | translate }}</ion-label>
+										<ion-textarea [(ngModel)] ="teamMembers[0].mission" class="fullWidth" ></ion-textarea>
+									</ion-item>
+								</ion-card-content>
+							</ion-card>
+						</ion-col>
+						<ion-col size="8">
+							<ion-card class="teamMember">
+								<ion-card-header>
+									<ion-card-title><ion-card-title>{{'ONBOARDINGPAGE.MyTeamMembers' | translate}}</ion-card-title>
+</ion-card-title>
+								</ion-card-header>
+								<ion-card-content >
+									<ion-item *ngFor="let teamMember of teamMembers| slice:1, let index = index" lines="none">
+										<ion-label position="fixed">Associé {{index+1}}</ion-label>
 										<ion-input type="email" class="input" placeholder="email" [(ngModel)]="teamMember.email" ></ion-input>
-										
-									</ion-card-content>
-								</ion-card>
-							</ion-col>
-						</ion-row>
-					</ion-grid>
-					<div class="ion-text-left">
-						<ion-button color="primary" fill="outline" class="ion-text-left"(click)="requestAddTeamMember()">{{'ONBOARDINGPAGE.AddTeamMember' | translate}}</ion-button>
+										<ion-icon slot="start" name="person-circle-outline" ></ion-icon>
+										<ion-icon slot="end" name="remove-circle-outline" (click)="removeTeamMember(index)"></ion-icon>
+									</ion-item>
 
-					</div>
-					<div class="ion-margin-top ion-margin-bottom ion-text-center">
-						<ion-button color="primary" (click)="startNewProject()">{{'ONBOARDINGPAGE.StartNewProjectButton2' | translate}}</ion-button>
-					</div>
+									<div class="ion-text-left">
+										<ion-button color="primary" fill="outline" class="ion-text-left"(click)="requestAddTeamMember()">{{'ONBOARDINGPAGE.AddTeamMember' | translate}}</ion-button>
+
+									</div>
+
+								</ion-card-content>
+							</ion-card>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				<div class="ion-margin-top ion-margin-bottom ion-text-center">
+					<ion-button color="primary" (click)="startNewProject()">{{'ONBOARDINGPAGE.StartNewProjectButton3' | translate}}</ion-button>
 				</div>
-			</ion-slide>
-		</ion-slides>
+			</div>
 
 
-	</ion-content>
+		</ion-slide>
+	</ion-slides>
+
+
+</ion-content>

@@ -120,12 +120,12 @@
 	</ion-card>
 	<ion-card>
 		<ion-card-header>
-			<ion-card-title>Supprimer le projet</ion-card-title>
+			<ion-card-title>{{'PROJECT_SUMMARY.Remove'  | translate}}</ion-card-title>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-item lines="none">
-				<ion-label slot="start">Je veux supprimer le projet.</ion-label>
-				<ion-button slot="end">Supprimer</ion-button>
+				<ion-label slot="start">{{'PROJECT_SUMMARY.RemoveInstructions'  | translate}}</ion-label>
+				<ion-button slot="end" (click)="requestRemoveProject()">{{'PROJECT_SUMMARY.RemoveButton'  | translate}}</ion-button>
 
 			</ion-item>
 		</ion-card-content>

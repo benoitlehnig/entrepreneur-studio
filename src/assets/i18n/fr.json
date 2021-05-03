@@ -321,8 +321,10 @@
 		"UnsplashPictures" : "Images d'",
 		"UnsplashLink" : "Unsplash",
 		"ChooseLogButton" : "Choisir",
-		"SharingStatus" : "Partage"
-
+		"SharingStatus" : "Partage",
+		"Remove" :"Supprimer le projet",
+		"RemoveInstructions" :"Je veux supprimer ce projet",
+		"RemoveButton" :"Supprimer"
 	},
 	"PROJECT_SOCIALNETWORK":{
 		"Title":"Ajouter ",
@@ -362,8 +364,10 @@
 		},
 		"AddTeamMember":"Ajouter un associé",
 		"CreateProjectButton":"Démarrez votre premier projet maintenant !",
-		"SubTitleStep1":"Etape 1/2 : Votre projet",
+		"SubTitleStep1":"Créer votre projet (étape 1/3)",
+		"SubTitleStep11":"Commencons par le nom de votre projet !",
 		"ProjectName":"Nom officiel ou nom de code",
+		"ProjectNamePlaceholder":"Nom officiel ou nom de code",
 		"ProjectDomains":"Dans quel secteur d’activité",
 		"ProjectMaturity":"Maturité du projet", 
 		"ProjectMaturityItems": {
@@ -373,8 +377,14 @@
 			"4":"Déveloper ou accélerer mon activité"
 		},
 		"StartNewProjectButton1":"Aller à l'etape 2",
-		"StartNewProjectButton2":"Terminer !",
-		"SubTitleStep2":"Etape 2/2 : Votre équipe",
+		"StartNewProjectButton2":"Aller à l'etape 3 ",
+		"StartNewProjectButton3":"Terminer !",
+		"SubTitleStep2":"Créer votre projet (étape 2/3)",
+		"SubTitleStep21":"Précisez les contours de votre projet",
+		"SubTitleStep3":"Créer votre projet (étape 3/3)",
+		"SubTitleStep31":"Construisez votre équipe",
+		"Me":"Moi",
+		"MyTeamMembers":"Mes associés",
 		"ProjectTeam":"Votre équipe ",
 		"ProjectTeamItem1":"Seul",  
 		"ProjectTeamItem2":"Seul et en recherche d’associés",  
@@ -747,6 +757,7 @@
 			"Name":"Nom",
 			"Description":"Description",
 			"WebLinkUrl":"Lien vers page web",
+			"Address":"Addresse",
 			"Street_number":"Numero de rue",
 			"Street_address":"Rue",
 			"Region":"Region",

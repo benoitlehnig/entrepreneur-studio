@@ -26,6 +26,15 @@
 		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.WebLinkUrl' | translate}}</ion-label>
 		<ion-input type="text"  [(ngModel)] ="conseil.webLinkUrl" name="webLinkUrl" ></ion-input>
 	</ion-item>
+	<ion-item >
+		<ion-label position="stacked">{{'ADMIN.CONSEIL.Address' | translate}} <ion-text color="danger">*</ion-text></ion-label>
+		<ion-input [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="{{'CONSEILREFERENCE.AddressSearch' | translate}}" required></ion-input>
+		<ion-list [hidden]="autocompleteItems.length == 0" class="autocomplete">
+			<ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)" lines="none">
+				{{ item.description }}
+			</ion-item>
+		</ion-list>
+	</ion-item>
 	<ion-item>
 		<ion-label color="primary" position="floating">{{'ADMIN.CONSEIL.Street_number' | translate}}</ion-label>
 		<ion-input type="text"  [(ngModel)] ="conseil.street_number" name="street_number" ></ion-input>
